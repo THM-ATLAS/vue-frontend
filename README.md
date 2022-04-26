@@ -1,24 +1,6 @@
-# vuetify_test
+# Starten der App
+`docker-compose up [--build --force-recreate]`
+Benutzt die Flags, wenn ihr was an den node_modules geändert habt oder generell immer, wenn ihr eine Änderung nicht live sehen könnt.
+# Herunterfahren
+`docker-compose down`
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -1,14 +1,20 @@
-FROM node:16 AS BASE
+FROM node:14 AS BASE
 
 WORKDIR /frontend
 
 COPY package*.json ./
+
+#RUN mkdir -p /frontend/node_modules
+
+#RUN chown -R $user:$user /frontend/node_modules
 
 RUN npm i
 
 FROM BASE as DEV
 
 EXPOSE 8080
+
+USER $user
 
 CMD [ "npm", "run", "serve"]
 
