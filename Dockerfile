@@ -10,7 +10,7 @@ COPY package*.json ./
 
 RUN npm i
 
-FROM BASE as dev
+FROM base as dev
 
 EXPOSE 8080
 
@@ -18,7 +18,7 @@ USER $user
 
 CMD [ "npm", "run", "serve"]
 
-FROM BASE as build
+FROM base as build
 
 COPY . .
 
