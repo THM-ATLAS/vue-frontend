@@ -2,7 +2,7 @@ services:
     atlas-frontend:
         restart: unless-stopped
         build:
-            target: DEV
+            target: dev
             context: ./
         volumes:
             - ./:/frontend

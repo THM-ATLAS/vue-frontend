@@ -1,4 +1,4 @@
-FROM node:14 AS BASE
+FROM node:14 AS base
 
 WORKDIR /frontend
 
@@ -10,7 +10,7 @@ COPY package*.json ./
 
 RUN npm i
 
-FROM BASE as DEV
+FROM BASE as dev
 
 EXPOSE 8080
 
@@ -18,13 +18,13 @@ USER $user
 
 CMD [ "npm", "run", "serve"]
 
-FROM BASE as BUILD
+FROM BASE as build
 
 COPY . .
 
 RUN npm run build --prod
 
-FROM nginx:1.19 AS PRODUCTION
+FROM nginx:1.19 AS production
 
 EXPOSE 8080
 
