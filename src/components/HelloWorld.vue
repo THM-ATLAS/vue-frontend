@@ -1,4 +1,5 @@
 <template>
+
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
@@ -27,9 +28,11 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
   </div>
+
 </template>
 
 <script lang="ts">
+
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
