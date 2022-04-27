@@ -15,7 +15,7 @@
 
     <v-dialog
         v-model="dialog"
-        scrollable="true"
+        :scrollable="true"
     >
       <template v-slot:activator="{ props: dialog }">
         <v-tooltip bottom>

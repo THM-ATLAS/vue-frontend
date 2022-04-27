@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
 import Login from "@/views/LoginView.vue";
 import Exercise from "@/views/ExerciseView.vue";
 import MainPage from "@/views/MainView.vue";
@@ -14,19 +14,20 @@ import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/helloworld',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
+  // {
+  //   path: '/helloworld',
+  //   name: 'home',
+  //   component: HomeView
+  // },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  // },
+
   {path: '/', component: Login},
   // {path: '/mainpage', component: Mainpage},
   // {path: '/home', component: CourseSelector},

@@ -70,7 +70,7 @@
   <v-navigation-drawer
       v-model="drawer"
       position="right"
-      temporary="true"
+      :temporary="true"
       color="white"
       class="d-md-none"
   >
@@ -78,7 +78,7 @@
     <v-row class="drawer-text">
       <v-text-field class="textfieldDrawer"
                     label="Suchen..."
-                    hide-details="true"
+                    :hide-details="true"
                     rounded="xl"
                     clearable
       />

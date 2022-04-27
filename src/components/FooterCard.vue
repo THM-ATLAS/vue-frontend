@@ -11,7 +11,7 @@
         <v-card-text>
           <v-row
               justify="center"
-              no-gutters="true"
+              :no-gutters="true"
           >
             <v-col
                 class="lighten-1 py-4 text-center white--text"

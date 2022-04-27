@@ -18,14 +18,14 @@
         <v-text-field
             label="Nutzerkennung"
             :rules="rules"
-            hide-details="true"
+            :hide-details="true"
         />
       </div>
       <div class="ma-3">
         <v-text-field
             label="Passwort"
             :rules="rules"
-            hide-details="true"
+            :hide-details="true"
             type="password"
         />
         <v-spacer height="100"/>
