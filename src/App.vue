@@ -22,6 +22,7 @@ export default {
   }
 }
 </script>
+<style src="normalize.css"/>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
