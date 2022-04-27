@@ -1,11 +1,27 @@
 <template>
+  <v-app :theme="theme">
+    <v-btn @click="toggleTheme">Switch theme</v-btn>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
+  </v-app>
 </template>
+<script>
+import { ref } from 'vue'
 
+export default {
+  setup () {
+    const theme = ref('light')
+
+    return {
+      theme,
+      toggleTheme: () => theme.value = theme.value === 'light' ? 'dark' : 'light'
+    }
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

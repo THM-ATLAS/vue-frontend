@@ -1,4 +1,5 @@
 <template>
+
   <div class="hello">
     <h1>{{ $t("app.name") }}</h1>
     <h2>{{ $t("app.subtitle") }}</h2>
@@ -31,9 +32,11 @@
       <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
     </select>
   </div>
+
 </template>
 
 <script lang="ts">
+
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
