@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>{{ $t("app_name") }}</h2>
+    <h1>{{ $t("app.name") }}</h1>
+    <h2>{{ $t("app.subtitle") }}</h2>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
