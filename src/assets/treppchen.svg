@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 350 150" xmlns="http://www.w3.org/2000/svg">
+  <rect x="25" y="75" width="300" height="50" style="stroke: rgba(0, 0, 0, 0); fill: rgb(222, 225, 226);"/>
+  <rect x="125" y="25" width="100" height="50" style="stroke: rgba(0, 0, 0, 0); fill: rgb(222, 225, 226);"/>
+</svg>

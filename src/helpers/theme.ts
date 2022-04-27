@@ -16,8 +16,3 @@ export function setTheme(newTheme: string): void {
 export function toggleTheme(): void {
     setTheme(theme.value === 'light' ? 'dark' : 'light');
 }
-
-export default {
-    theme,
-    toggleTheme
-}

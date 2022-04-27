@@ -1,39 +1,20 @@
 <template>
-  <v-app :theme="theme">
-    <v-btn @click="toggleTheme">Switch theme</v-btn>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <v-app :theme="theme" id="app-wrapper">
+    <title>ATLAS</title>
+    <v-main>
+      <RouterView/>
+    </v-main>
   </v-app>
 </template>
 
 <script setup>
-import {toggleTheme, theme} from "@/helpers/theme";
+import {theme} from "@/helpers/theme";
 </script>
 
-<style src="normalize.css"/>
+<style src="ress"/>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+#app-wrapper {
+  min-height: 100vh;
 }
 </style>
