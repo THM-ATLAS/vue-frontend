@@ -18,52 +18,62 @@
           />
         </div>
       </div>
+      <br/>
       <!-- Theme -->
       <div>
-        <span class="text-h6">Theme</span>
+        <span class="text-h6">{{ $t('settings.theme') }}</span>
         <div>
-          <v-select
-              v-model="themes.filter(t => t.code === settings.general.theme)[0].name"
-              :items="themes"
-              label="Sprache"
-              item-text="name"
-              item-value="code"
-          />
+          <v-btn
+            @click="toggleTheme">
+            <v-icon>mdi-format-color-fill</v-icon>
+
+          </v-btn>
         </div>
       </div>
+      <br/>
       <!-- Sprache -->
       <div>
-        <span class="text-h6">Sprache</span>
+        <span class="text-h6">{{ $t('settings.language') }}</span>
         <div>
-          <v-select
+          <!--v-select
               v-model="languages.filter(l => l.code === settings.general.language)[0].name"
               :items="languages"
               label="Sprache"
               item-text="name"
               item-value="code"
+              ( old code, also broken, but can be used as inspiration for the new one )
+          /-->
+          <v-select
+              v-model="$i18n.locale"
+              :items="$i18n.availableLocales"
+              :hint="$t('languages.' + $i18n.locale)"
+              persistent-hint
+              :label="$t('settings.language')"
+              :text="$t('languages.' + item)"
           />
+          <!-- this is officially still broken, see https://next.vuetifyjs.com/en/components/selects/.
+          Once they got it fixed, we can then replace this with a select that actually displays the
+          full language in the box and options. -->
         </div>
       </div>
+      <br/>
       <!-- Einstellungen speichern -->
       <v-card-actions>
         <v-btn
             color="primary"
             @click="saveSettings"
-        >
-          Speichern
-        </v-btn>
+            v-html="$t('buttons.save')"
+        />
         <v-btn
             color="error"
             @click="resetSettings"
-        >
-          Zurücksetzen
-        </v-btn>
+            v-html="$t('buttons.reset')"
+        />
         <v-btn
             color="cancel"
             @click="closeSettings"
-        >
-          Abbrechen
-        </v-btn>
+            v-html="$t('buttons.cancel')"
+        />
       </v-card-actions>
     </v-container>
   </v-card>
@@ -87,10 +97,23 @@
 </template>
 
 <script>
+import { toggleTheme, theme} from "@/helpers/theme";
+
 export default {
   name: "SettingsCard",
+  computed: {
+    languages() {
+      return this.$i18n.availableLocales.map(locale => {
+        return {
+          code: locale,
+          name: this.$t('languages.' + locale)
+        }
+      })
+    }
+  },
   data() {
     return {
+      theme,
       settings: {
         general: {
           show_notifications: false,
@@ -99,16 +122,6 @@ export default {
           language: "de"
         }
       },
-      languages: [
-        {
-          name: "Deutsch",
-          code: "de"
-        },
-        {
-          name: "English",
-          code: "en"
-        }
-      ],
       themes: [
         {
           name: "Light",
@@ -134,7 +147,8 @@ export default {
     },
     closeSettings() {
       this.$router.back();
-    }
+    },
+    toggleTheme
   }
 }
 </script>

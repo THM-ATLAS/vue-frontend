@@ -33,7 +33,7 @@
     </div>
     <v-card-actions class="align-self-end justify-center">
       <v-btn
-          flat
+          :flat="true"
           size="large"
           rounded="0"
           variant="outlined"

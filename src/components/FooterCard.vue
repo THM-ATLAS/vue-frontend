@@ -4,31 +4,22 @@
     <v-footer
         color="secondary"
         role="contentinfo"
-        padless
         max-height="200px"
+        :padless="true"
     >
-      <v-card width="100%" rounded="0" elevation="0" color="transparent" class="justify-content-center">
-        <v-card-text>
-          <v-row
-              justify="center"
-              :no-gutters="true"
-          >
-            <v-col
-                class="lighten-1 py-4 text-center white--text"
-                cols="12"
-            >
-              {{ date }} — <strong>Atlas</strong> ein Projekt der THM
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-divider/>
+      <v-card width="100%" rounded="0" elevation="0" color="transparent" class="justify-content-center text-center">
         <v-row justify="center">
           <v-card-text>
-            <v-btn elevation="0" color="secondary" v-for="link in links" :key="link[0]" @click.prevent.stop="link[1]">
-              <a>{{ link[0] }}</a>
+            <v-btn class="mx-4" elevation="0" color="secondary" v-for="link in links" :key="link[0]"
+                   @click.prevent.stop="link[1]">
+              <a>{{ $t(`footer.${link[0]}`) }}</a>
             </v-btn>
           </v-card-text>
         </v-row>
+        <v-divider/>
+        <v-card-text class="text-white">
+          {{ date }} — <strong>{{ $t("app.name") }}</strong>, {{ $t("footer.a_project_by_thm") }}
+        </v-card-text>
       </v-card>
     </v-footer>
   </div>
@@ -67,11 +58,11 @@ export default {
     }
 
     let links = [
-      ['Home', goToMainpage],
-      ['Impressum', goToImpressum], //wir müssen uns noch eine Lösung für Bildnachweise überlegen
-      ['Hilfe', goToHelp],
-      ['Datenschutzerklärung', goToPrivacyStatement],
-      ['THM', goToThmMainpage],
+      ['home', goToMainpage],
+      ['imprint', goToImpressum], //wir müssen uns noch eine Lösung für Bildnachweise überlegen
+      ['help', goToHelp],
+      ['data_protection', goToPrivacyStatement],
+      ['thm', goToThmMainpage],
     ];
 
     return {date, links};

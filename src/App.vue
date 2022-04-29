@@ -9,6 +9,8 @@
 
 <script setup>
 import {theme} from "@/helpers/theme";
+import { RouterView } from 'vue-router';
+
 </script>
 
 <style src="ress"/>
