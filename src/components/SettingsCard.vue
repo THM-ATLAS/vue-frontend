@@ -1,39 +1,52 @@
 <template>
   <v-card elevation="0" rounded="0" role="main">
     <v-container class="pt-0 pl-0 flex">
-      <v-card-title>
-        <span class="headline">Einstellungen</span>
-      </v-card-title>
+      <v-card-title v-html="$t('settings.title')"/>
       <!-- Benachrichtigungen -->
       <div>
-        <span class="text-h6">Benachrichtigungen</span>
+        <span class="text-lg-subtitle-1" v-html="$t('settings.notifications.title')"/>
         <div>
           <v-switch
+              v-model="settings.general.important_notifications"
+              :label="$t('settings.notifications.important_notifications')"
+          />
+          <v-switch
               v-model="settings.general.show_notifications"
-              label="Benachrichtigungen per Mail versenden"
+              :label="$t('settings.notifications.show_notifications')"
+          />
+          <v-switch
+              v-model="settings.general.send_notification_mails"
+              :disabled="!(settings.general.show_notifications || settings.general.important_notifications)"
+              :label="$t('settings.notifications.by_mail')"
           />
           <v-switch
               v-model="settings.general.show_notifications_in_browser"
-              label="Benachrichtigungen im Browser anzeigen"
+              :disabled="!(settings.general.show_notifications || settings.general.important_notifications)"
+              :label="$t('settings.notifications.by_browser_notification')"
           />
         </div>
       </div>
       <br/>
       <!-- Theme -->
       <div>
-        <span class="text-h6">{{ $t('settings.theme') }}</span>
+        <span class="text-lg-subtitle-1">{{ $t('settings.theme.title') }}</span>
         <div>
           <v-btn
-            @click="toggleTheme">
-            <v-icon>mdi-format-color-fill</v-icon>
-
-          </v-btn>
+              class="mr-3"
+              @click="toggleTheme"
+              :disabled="theme === 'dark'"
+              v-html="$t('settings.theme.dark')"/>
+          <v-btn
+              class="mr-3"
+              @click="toggleTheme"
+              :disabled="theme === 'light'"
+              v-html="$t('settings.theme.light')"/>
         </div>
       </div>
       <br/>
       <!-- Sprache -->
       <div>
-        <span class="text-h6">{{ $t('settings.language') }}</span>
+        <span class="text-lg-subtitle-1">{{ $t('settings.language') }}</span>
         <div>
           <!--v-select
               v-model="languages.filter(l => l.code === settings.general.language)[0].name"
@@ -81,23 +94,23 @@
   <!-- Danger zone-->
   <v-card elevation="0" rounded="0">
     <v-card-title>
-      <span class="headline">Danger Zone</span>
+      <span class="headline" v-html="$t('settings.danger_zone.title')"/>
     </v-card-title>
     <v-card-text>
       <v-btn
           @click="deleteAccount"
           color="error"
           class="ma-2"
-          text
-      >
-        Account löschen
-      </v-btn>
+          text>
+        <v-icon class="mr-3" icon="mdi-delete-forever"/>
+        <span v-html="$t('settings.danger_zone.delete_account')"/></v-btn>
+      <div v-html="$t('settings.danger_zone.delete_account_description')"/>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { toggleTheme, theme} from "@/helpers/theme";
+import {toggleTheme, theme} from "@/helpers/theme";
 
 export default {
   name: "SettingsCard",
@@ -116,8 +129,10 @@ export default {
       theme,
       settings: {
         general: {
+          important_notifications: true,
           show_notifications: false,
           show_notifications_in_browser: false,
+          send_notification_mails: false,
           theme: "light",
           language: "de"
         }

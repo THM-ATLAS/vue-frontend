@@ -38,6 +38,7 @@
         <div class="exercise-editor__body__content">
           <div class="exercise-editor__body__content__input">
             <Editor
+                :theme="theme"
                 v-model="exercise.content"
                 language="en-US"
                 @input="store"
@@ -244,6 +245,7 @@ import Editor from "md-editor-v3";
 import MainpageCardModal from "./MainpageCardModal.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
+import {theme} from "@/helpers/theme";
 
 export default {
   name: "ExerciseEditor",
@@ -457,6 +459,7 @@ export default {
       duplicateItem,
       moveItem,
       isShiftPressed: ref(false),
+      theme
     };
   },
 };

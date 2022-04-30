@@ -1,7 +1,10 @@
 <template>
   <v-app-bar elevation="3" justify="left" height="100px" role="navigation">
     <v-app-bar-title>
-      <v-img @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="../assets/ATLAS_Logo.svg" max-height="70px"/>
+      <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
+             src="../assets/ATLAS_Logo.svg" max-height="70px"/>
+      <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="../assets/ATLAS_Logo_Dark.svg"
+             max-height="70px"/>
     </v-app-bar-title>
 
     <CourseSelector :courses="courses"/>
@@ -118,6 +121,7 @@ import NavigationDropdown from "./NavigationDropdown.vue"
 import CourseSelector from "./CourseSelector.vue"
 import {useRoute, useRouter} from 'vue-router';
 import {Ref, ref} from 'vue';
+import {theme} from "@/helpers/theme";
 
 export default {
   components: {Dropdown, NavigationDropdown, CourseSelector},
@@ -254,6 +258,7 @@ export default {
       goToUser,
       courses,
       goToSettings,
+      theme,
     }
   }
 

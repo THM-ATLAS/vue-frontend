@@ -16,12 +16,26 @@ const translationEn = {
     },
     settings: {
         title: 'Settings',
+        notifications: {
+            title: 'Notifications',
+            important_notifications: 'Receive important notifications (Submissions, Messages, ...)',
+            show_notifications: 'Receive notifications about new exercises',
+            by_mail: 'Receive notifications by mail',
+            by_browser_notification: 'Receive notifications by browser notification',
+        },
         language: 'Language',
         system: 'System',
         theme: {
             title: 'Theme',
             dark: 'Dark',
             light: 'Light',
+        },
+        danger_zone: {
+            title: 'Danger zone',
+            delete_account: 'Delete account',
+            delete_account_description: 'Irrevocably deletes your account. ' +
+                'All data related to your account will be deleted and cannot be recovered. ' +
+                'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
     buttons: {

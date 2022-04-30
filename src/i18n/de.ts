@@ -16,12 +16,26 @@ const translationDe = {
     },
     settings: {
         title: 'Einstellungen',
+        notifications: {
+            title: 'Benachrichtigungen',
+            important_notifications: 'Wichtige Benachrichtigungen erhalten (Bewertungen, Nachrichten, ...)',
+            show_notifications: 'Benachrichtigungen zu neuen Aufgaben erhalten',
+            by_mail: 'Benachrichtigungen per E-Mail erhalten',
+            by_browser_notification: 'Benachrichtigungen per Browser-Benachrichtigung erhalten',
+        },
         language: 'Sprache',
         system: 'System',
         theme: {
             title: 'Design',
             dark: 'Dunkel',
             light: 'Hell',
+        },
+        danger_zone: {
+            title: 'Gefahrenzone',
+            delete_account: 'Konto löschen',
+            delete_account_description: 'Das Konto wird unwiderruflich gelöscht. ' +
+                'Alle Daten werden gelöscht und können nicht wiederhergestellt werden. ' +
+                'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
     buttons: {

@@ -46,7 +46,7 @@
             <v-textarea v-model="error"></v-textarea>
           </v-card-text>
           <v-card-actions justify="space-between">
-            <v-btn  color="primary" @click="dialog = false; reportError(error); error = '';" :disabled="!error">
+            <v-btn color="primary" @click="dialog = false; reportError(error); error = '';" :disabled="!error">
               Senden
             </v-btn>
             <v-btn text @click="dialog = false">Abbrechen</v-btn>
@@ -115,7 +115,8 @@
       <v-img :src="exercise.images_before[0].url" :aspect-ratio="exercise.images_before[0].aspect_ratio"/>
     </v-container>
     <v-container>
-      <Editor previewOnly class="text-left" language="en-US" :modelValue="filterYAMLHeader(exercise.content)"/>
+      <Editor :theme="theme" previewOnly class="text-left" language="en-US"
+              :modelValue="filterYAMLHeader(exercise.content)"/>
     </v-container>
     <v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
       <v-carousel v-model="carousel2" :cycle="false">
@@ -152,7 +153,7 @@ import NewSubmission from "@/components/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
 import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
-// import content from "raw-loader!./assets/exercise1.md"; cannot get this to work
+import {theme} from "@/helpers/theme";
 
 const content = "# Hallo Welt\n" +
     "\n" +
@@ -285,6 +286,7 @@ export default defineComponent({
       hasSubmission,
       exercise,
       text,
+      theme,
     };
   }
 });
