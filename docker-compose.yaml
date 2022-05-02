@@ -1,6 +1,5 @@
 services:
     atlas-frontend:
-        restart: unless-stopped
         build:
             target: dev
             context: ./
@@ -8,4 +7,4 @@ services:
             - ./:/frontend
             - /frontend/node_modules
         ports:
-            -   8080:8080
+            - 8080:8080
