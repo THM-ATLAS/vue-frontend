@@ -1,15 +1,15 @@
 <template>
   <SkipToContent />
-  <Navbar/>
+  <Navbar />
   <v-container>
     <v-row justify="center" align-content="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
-        <Help id="content"/>
+      <v-col sm="10" md="10" lg="8" xl="6">
+        <Help id="content" />
       </v-col>
     </v-row>
   </v-container>
   <div class="footer">
-  <Footer/>
+    <Footer />
   </div>
 </template>
 
@@ -22,15 +22,15 @@
 }
 </style>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from "vue";
 import Navbar from "../components/NavbarBase.vue";
-import Help from "@/components/HelpCard.vue";
+import Help from "../components/HelpCard.vue";
 import Footer from "../components/FooterCard.vue";
-import SkipToContent from "@/components/SkipToContent.vue";
+import SkipToContent from "../components/SkipToContent.vue";
 
 export default defineComponent({
-  components: {SkipToContent, Navbar, Help, Footer },
+  components: { SkipToContent, Navbar, Help, Footer },
   name: "HelpView",
 });
 </script>
