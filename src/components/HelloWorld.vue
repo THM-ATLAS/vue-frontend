@@ -1,6 +1,8 @@
 <template>
+
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ $t("app.name") }}</h1>
+    <h2>{{ $t("app.subtitle") }}</h2>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -26,10 +28,15 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <select v-model="$i18n.locale">
+      <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">{{ locale }}</option>
+    </select>
   </div>
+
 </template>
 
 <script lang="ts">
+
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
@@ -58,4 +65,26 @@ li {
 a {
   color: #42b983;
 }
+
+.hello {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+
 </style>

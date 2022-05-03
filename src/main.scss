@@ -1,0 +1,23 @@
+/*.v-field__control {
+    background-color: #eeeff0;
+    border-radius: 25px !important;
+    margin: 0px;
+    border-style: none;
+}*/
+
+.v-field__outline {
+  --v-field-border-width: 0px;
+}
+
+.v-card {
+  padding: 3%;
+  background-color: rgb(var(--v-theme-surface));
+}
+
+.v-btn--variant-contained::before {
+  box-shadow: none;
+}
+
+.v-text-field {
+  font-family: 'Courier New', serif; // set font: Courier New for input fields
+}

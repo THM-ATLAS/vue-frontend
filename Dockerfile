@@ -2,7 +2,7 @@ FROM node:14 AS base
 
 WORKDIR /frontend
 
-COPY package*.json ./
+COPY package.json ./
 
 #RUN mkdir -p /frontend/node_modules
 
@@ -14,9 +14,10 @@ FROM base as dev
 
 EXPOSE 8080
 
-USER $user
+#USER $user
 
 CMD [ "npm", "run", "serve"]
+#CMD [ "ls", "/frontend/node_modules/.bin"]
 
 FROM base as build
 
