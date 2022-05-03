@@ -154,6 +154,7 @@ import {useRouter, useRoute} from "vue-router";
 import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import {theme} from "@/helpers/theme";
+import axios from 'axios'
 
 const content = "# Hallo Welt\n" +
     "\n" +
@@ -288,6 +289,17 @@ export default defineComponent({
       text,
       theme,
     };
+  },
+  mounted () {
+    axios
+        .get('http://localhost:8080/bkp/e/101/Aufgabe%20zur%20Zielscheibe?id=101&course=bkp')
+        .then(response => {
+         useRoute().params.id = response.data,
+          useRoute().params.course = response.data
+        })
+        .catch(error => {
+          console.log(error)
+        })
   }
 });
 </script>
