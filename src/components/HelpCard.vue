@@ -98,9 +98,9 @@
           ATLAS ist Open Source und wird von Studierenden entwickelt. Besuchen
           Sie uns doch auf
           <a
-            href="https://git.thm.de/br-ckenkurs-programmieren/atlas-die-lernplattform"
+            href="https://github.com/THM-ATLAS"
             class="text-decoration-none"
-            >GitLab</a
+            >GitHub</a
           >!
         </p>
       </v-card-text>
@@ -133,7 +133,7 @@ h2 {
 }
 
 .accordion-panel {
-  margin-top: 0%;
+  margin-top: 0;
   margin-bottom: 3%;
 }
 </style>
