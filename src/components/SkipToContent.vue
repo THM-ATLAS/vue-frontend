@@ -1,6 +1,5 @@
 <template>
-  <a :href="'#' + this.$props.id" class="skipLink" ref="skipLink" tabindex="0">Skip to main
-    content</a>
+    <a :href="'#' + this.$props.id" class="skipLink" ref="skipLink" tabindex="0">Skip to main content</a>
 </template>
 
 <script>
@@ -17,17 +16,22 @@ export default {
 
 <style scoped>
 .skipLink {
-  background: #e77e23;
+  color:white;
   height: 30px;
-  left: 50%;
-  padding: 8px;
+  text-decoration: none;
+  padding: 10px;
   position: absolute;
+  background: #4a5c66;
+  z-index: 1000 !important;
   transform: translateY(-100%);
   transition: transform 0.3s;
-  z-index: 1000 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.skipLink:focus, .skipLink:active, .skipLink:focus-within {
+.skipLink:focus {
   transform: translateY(0%);
+  top: 200px;
 }
 </style>
