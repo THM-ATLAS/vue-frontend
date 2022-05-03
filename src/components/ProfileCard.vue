@@ -1,72 +1,74 @@
 <template>
-  <v-card rounded="0" elevation="0">
+  <br />
+  <v-card class="profile-card" rounded="0" elevation="0">
     <v-container>
-      <v-row justify="center">
-        <v-col>
-          <v-avatar :image="profile.image" size="160"></v-avatar>
-        </v-col>
-        <v-col>
-          <div class="text-h4">
-            <v-progress-circular :model-value="profile.xp" color="primary" :width="2" :size="40">
-              {{ profile.level }}
-            </v-progress-circular>
-            {{ profile.fullName }}
-            <v-card-subtitle>{{ profile.username }}</v-card-subtitle>
-          </div>
+        <v-row class="profile-header" align="center" no-gutters>
+          <v-col cols="12" md="3">
+            <v-avatar :image="profile.image" size="160"></v-avatar
+          ></v-col>
+          <v-col cols="12" md="5">
+            <h2>{{ profile.fullName }}</h2>
+            <div class="profile-username">{{ profile.username }}</div></v-col
+          >
+          <v-col cols="12" md="3">
+            <!-- HIER SPÄTER BADGES? -->
+          </v-col>
+          <v-col cols="12" md="1">
+            <v-btn class="edit-button" icon variant="outlined">
+              <v-icon icon="mdi-brush" />
+            </v-btn>
+          </v-col>
+        </v-row>
 
-          <!--<v-progress-linear :model-value="profile.xp" rounded-bar color="primary"/> -->
-          <p>hier werden die badges abgebildet</p>
+        <v-row class="profile-stats text-center">
+          <v-col>
+            <v-card variant="outlined">
+              <div><b>Gelöste Aufgaben</b></div>
+              <div>{{ profile.stats.finished }}</div>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card variant="outlined">
+              <div><b>In ATLAS verbrachte Zeit</b></div>
+              <div>{{ profile.stats.time }}</div>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card variant="outlined">
+              <div><b>Beigetreten am</b></div>
+              <div>{{ profile.stats.joined }}</div>
+            </v-card>
+          </v-col>
+        </v-row>
+
+      <v-row>
+        <v-col cols="12" class="center-text">
+          <div class="header-tasks">Deine favorisierten Aufgaben</div></v-col
+        >
+        <v-col cols="12" md="4">
+          <v-card border="false">
+            <v-img src="../assets/product-1.jpg" height="150px" cover> </v-img>
+          </v-card>
         </v-col>
-      </v-row>
-      <v-row justify="space-between">
-        <v-col cols="12" md="5">
-          <div class="text-h5 justify-center">Statistiken</div>
-          <v-table>
-            <tbody>
-            <tr>
-              <td>
-                gelöste Aufgaben:
-              </td>
-              <td>
-                {{ profile.stats.finished }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                in ATLAS verbrachte Zeit:
-              </td>
-              <td>
-                {{ profile.stats.time }}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                durchschnittlich vergebene Bewertung:
-              </td>
-              <td>
-                {{ profile.stats.rating }}
-              </td>
-            </tr>
-            </tbody>
-          </v-table>
+        <v-col cols="12" md="4">
+          <v-card>
+            <v-img src="../assets/product-2.jpg" height="150px" cover> </v-img>
+          </v-card>
         </v-col>
-        <v-col cols="12" md="5">
-          <div class="text-h5">gemerkte Aufgaben</div>
-          <p>in Zukunft: Vorschau auf Aufgabe (evtl. Bild)</p>
-          <v-list density="compact">
-            <v-list-item v-for="task in profile.marked" v-bind:key="task">
-              {{ task }}
-            </v-list-item>
-          </v-list>
+        <v-col cols="12" md="4">
+          <v-card>
+            <v-img src="../assets/product-4.jpg" height="150px" cover> </v-img>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
   </v-card>
+  <br />
 </template>
 
 <script>
-import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { computed } from "vue";
 
 export default {
   name: "ProfileCard",
@@ -79,8 +81,8 @@ export default {
         return undefined;
       }
       return useRoute().params.id instanceof Array
-          ? useRoute().params.id[0]
-          : useRoute().params.id;
+        ? useRoute().params.id[0]
+        : useRoute().params.id;
     });
 
     const id = getID.value === undefined ? "abcd66" : getID.value; // at 1 would be a call to get own profile id
@@ -103,6 +105,7 @@ export default {
         finished: 9,
         time: "20:42",
         rating: 3.9,
+        joined: "01.01.2022",
       },
     };
 
@@ -115,4 +118,29 @@ export default {
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
 <style scoped>
+.profile-card {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.profile-header {
+  margin-bottom: 2em;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+.profile-stats {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.profile-username {
+  color: gray;
+}
+
+.header-tasks {
+  font-size: 25px;
+}
 </style>
