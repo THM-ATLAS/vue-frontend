@@ -8,9 +8,7 @@
       </v-col>
     </v-row>
   </v-container>
-  <div class="footer">
-    <Footer/>
-  </div>
+  <Footer/>
 </template>
 
 <script>
