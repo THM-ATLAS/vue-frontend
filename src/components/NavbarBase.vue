@@ -31,16 +31,16 @@
 
     <v-menu width="10em" origin="top center" transition="scale-transition">
       <template v-slot:activator="{ props }">
-        <v-btn class=" d-none d-md-flex mr-4 ml-5" icon v-bind="props" variant="outlined">
-          <v-badge
-              :content="messages"
-              color="primary"
-              offset-x="-12"
-              offset-y="-4"
-          >
+        <v-badge
+            :content="messages"
+            color="primary"
+            offset-x="18"
+            offset-y="10"
+        >
+          <v-btn class=" d-none d-md-flex mr-4 ml-5" icon v-bind="props" variant="outlined">
             <v-icon icon="mdi-account"/>
-          </v-badge>
-        </v-btn>
+          </v-btn>
+        </v-badge>
       </template>
       <Dropdown :messages='messages'/>
     </v-menu>
