@@ -1,12 +1,12 @@
 <template>
   <div class="spacer"/>
-  <div class="footer">
     <v-footer
+        class="footer"
         color="secondary"
         role="contentinfo"
         max-height="200px"
         :padless="true"
-    >
+        style="overflow: hidden;">
       <v-card width="100%" rounded="0" elevation="0" color="transparent" class="justify-content-center text-center">
         <v-row justify="center">
           <v-card-text>
@@ -22,7 +22,6 @@
         </v-card-text>
       </v-card>
     </v-footer>
-  </div>
 </template>
 
 <script setup lang='ts'>
