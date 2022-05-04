@@ -53,6 +53,7 @@ const translationDe = {
         login: 'Anmelden',
         logout: 'Abmelden',
         register: 'Registrieren',
+        new: 'Neu',
     },
     languages: {
         en: 'Englisch',
@@ -67,6 +68,17 @@ const translationDe = {
         password_confirm: 'Passwort (bestätigen)',
         saved: 'Gespeichert',
     },
+    admin:{
+        users:{
+            name: 'Name',
+            username: 'Benutzername',
+            email: 'E-mail',
+            roles: 'Rollen',
+            created_at: 'Erstellt am',
+            actions: 'Aktionen',
+        }
+    }
+
 }
 
 export default translationDe

@@ -11,6 +11,7 @@ import ExerciseEditor from "@/views/ExerciseEditorView.vue";
 import Feedback from "@/views/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
+import UserManagement from "@/views/admin/UserManagementView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Login},
@@ -37,6 +38,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/help', component: Help},
 
   {path: '/settings', component: Settings},
+  {path: '/admin/users', component: UserManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
 ]

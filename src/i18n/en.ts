@@ -53,6 +53,7 @@ const translationEn = {
         login: 'Login',
         logout: 'Logout',
         register: 'Register',
+        new: 'New',
     },
     languages: {
         en: 'English',
@@ -67,6 +68,16 @@ const translationEn = {
         password_confirm: 'Password (confirm)',
         saved: 'Saved',
     },
+    admin: {
+        users: {
+            name: 'Name',
+            username: 'Username',
+            email: 'Email',
+            roles: 'Roles',
+            created_at: 'Created at',
+            actions: 'Actions',
+        }
+    }
 }
 
 export default translationEn
