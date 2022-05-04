@@ -12,7 +12,7 @@ import ExerciseEditor from "@/views/ExerciseEditorView.vue";
 import Feedback from "@/views/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
-import CourseSearch from "@/views/CourseSearch.vue";
+import CourseSearch from "@/views/CourseSearchView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   // {
