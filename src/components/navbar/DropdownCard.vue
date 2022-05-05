@@ -2,22 +2,22 @@
   <v-card elevation="3" rounded="0">
     <v-list>
       <!-- if messages not zero, show notifications title -->
-      <v-list-item
+      <!-- // disabled until notifications exist // v-list-item
           v-if="messages > 0"
           @click="goToNotifications()">
         <v-icon class="ma-1" icon="mdi-bell"/>
         <v-list-item-subtitle>{{ messages }} ungelesene Nachrichten</v-list-item-subtitle>
-      </v-list-item>
+      </v-list-item-->
       <!-- else, show standard message button -->
-      <v-list-item
+      <!--v-list-item
           v-else
           @click="goToNotifications()">
         <v-list-item-title>Nachrichten</v-list-item-title>
-      </v-list-item>
-      <v-list-item
+      </v-list-item-->
+      <!-- // disabled until leaderboard exists // v-list-item
           @click="goToLeaderboard()">
         <v-list-item-title>Leaderboard</v-list-item-title>
-      </v-list-item>
+      </v-list-item-->
       <!-- settings -->
       <v-list-item
           @click="goToSettings()">
