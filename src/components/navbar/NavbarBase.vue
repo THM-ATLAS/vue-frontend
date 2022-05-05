@@ -3,16 +3,18 @@
     <v-app-bar elevation="3" justify="left" height="100px" role="navigation">
       <v-app-bar-title>
         <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-               src="../assets/ATLAS_Logo.svg" max-height="70px"/>
-        <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="../assets/ATLAS_Logo_Dark.svg"
+               src="@/assets/ATLAS_Logo.svg" max-height="70px"/>
+        <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
                max-height="70px"/>
       </v-app-bar-title>
       <CourseButton/>
-      <v-spacer/><v-spacer/><v-spacer/>
+      <v-spacer/>
+      <v-spacer/>
+      <v-spacer/>
 
       <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
-      <!-- <v-col>
+      <!-- // disabled until search exists // <v-col>
         -<v-text-field
              class="d-none d-md-block"
              label="Suchen"
@@ -30,26 +32,30 @@
 
       <v-menu width="10em" origin="top" transition="scale-transition">
         <template v-if="loggedIn" v-slot:activator="{ props }">
-          <v-badge :content="messages" color="primary" offset-x="18" offset-y="10">
-            <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-              {{ username }}
-              <v-icon class="ml-3" icon="mdi-account"/>
-            </v-btn>
-            <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-              Login
-              <v-icon class="ml-3" icon="mdi-account"/>
-            </v-btn>
-          </v-badge>
+          <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
+          <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+                 variant="outlined">
+            {{ username }}
+            <v-icon class="ml-3" icon="mdi-account"/>
+          </v-btn>
+          <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
+                 v-bind="props" variant="outlined">
+            Login
+            <v-icon class="ml-3" icon="mdi-account"/>
+          </v-btn>
+          <!--/v-badge-->
         </template>
         <template v-else v-slot:activator="{ props }">
-            <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-              {{ username }}
-              <v-icon class="ml-3" icon="mdi-account"/>
-            </v-btn>
-            <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-              Login
-              <v-icon class="ml-3" icon="mdi-account"/>
-            </v-btn>
+          <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+                 variant="outlined">
+            {{ username }}
+            <v-icon class="ml-3" icon="mdi-account"/>
+          </v-btn>
+          <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+                 variant="outlined">
+            Login
+            <v-icon class="ml-3" icon="mdi-account"/>
+          </v-btn>
         </template>
         <Dropdown v-if="loggedIn" :messages='messages'/>
       </v-menu>
@@ -117,60 +123,60 @@
 </template>
 
 <script setup lang="ts">
-  import Dropdown from "./DropdownCard.vue";
-  //import NavigationDropdown from "./NavigationDropdown.vue"
-  import CourseButton from "./CourseButton.vue"
-  import {useRoute, useRouter} from 'vue-router';
-  import {Ref, ref} from 'vue';
-  import {theme} from "@/helpers/theme";
+import Dropdown from "./DropdownCard.vue";
+//import NavigationDropdown from "./NavigationDropdown.vue"
+import CourseButton from "./CourseButton.vue"
+import {useRoute, useRouter} from 'vue-router';
+import {Ref, ref} from 'vue';
+import {theme} from "@/helpers/theme";
 
-  const course = useRoute().params.course;
-  const drawer: Ref<boolean> = ref(false);
-  const messages: Ref<string> = ref("3");
+const course = useRoute().params.course;
+const drawer: Ref<boolean> = ref(false);
+const messages: Ref<string> = ref("3");
 
-  const router = useRouter();
+const router = useRouter();
 
-  const username = "Marianne Musterfrau"; //must be either the logged in user's name or empty
-  let loggedIn: Ref<boolean> =  ref(!!username); //equals: username ? true : false
+const username = "Marianne Musterfrau"; //must be either the logged in user's name or empty
+let loggedIn: Ref<boolean> = ref(!!username); //equals: username ? true : false
 
-  function goToHome(): void {
-    if (typeof course === "string")
-      router.push(`/${course}`);
-    else
-      router.push(`/bkp`);
-  }
+function goToHome(): void {
+  if (typeof course === "string")
+    router.push(`/${course}`);
+  else
+    router.push(`/bkp`);
+}
 
-  function goToLogin(): void {
-    router.push("/");
-  }
+function goToLogin(): void {
+  router.push("/");
+}
 
-  /*function getMobile(): boolean {
-    return window.innerWidth < 960;
-  }*/
+/*function getMobile(): boolean {
+  return window.innerWidth < 960;
+}*/
 
-  /*function goToSubmission(): void {
-    router.push("/mpt/s/1235");
-  }*/
+/*function goToSubmission(): void {
+  router.push("/mpt/s/1235");
+}*/
 
-  function goToHelp(): void {
-    router.push("/help");
-  }
+function goToHelp(): void {
+  router.push("/help");
+}
 
-  function goToCourses(): void {
-    router.push("/courses")
-  }
+function goToCourses(): void {
+  router.push("/courses")
+}
 
-  function goToMessages(): void {
-    router.push("/notifications");
-  }
+function goToMessages(): void {
+  router.push("/notifications");
+}
 
-  function goToSettings(): void {
-    router.push("/settings");
-  }
+function goToSettings(): void {
+  router.push("/settings");
+}
 
-  function goToUser() {
-    router.push("/u/");
-  }
+function goToUser() {
+  router.push("/u/");
+}
 
 </script>
 
