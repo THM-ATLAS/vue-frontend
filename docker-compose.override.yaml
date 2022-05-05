@@ -1,0 +1,8 @@
+services:
+    atlas-frontend:
+        image: ghcr.io/thm-atlas/vue-frontend:production
+        build:
+            target: production
+            context: ./
+        working_dir: /frontend
+    

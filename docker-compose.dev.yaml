@@ -1,0 +1,10 @@
+services:
+    atlas-frontend:
+        image: ghcr.io/thm-atlas/vue-frontend:dev
+        build:
+            target: dev
+            context: ./
+        volumes:
+            - ./:/frontend
+            - /frontend/node_modules
+        

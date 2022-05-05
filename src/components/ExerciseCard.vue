@@ -180,8 +180,10 @@ export default defineComponent({
   components: {FeedbackModal, NewSubmission, Editor},
   methods: {mergeProps},
   setup() {
-    const id = useRoute().params.id;
-    const course = useRoute().params.course;
+    const route = useRoute();
+    const router = useRouter();
+    const id = route.params.id;
+    const course = route.params.course;
 
     // here you'd get the exercise from the server
     // const exercise = computed(() => {
@@ -239,10 +241,10 @@ export default defineComponent({
       ],
     };
 
-    useRouter().replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`);
+    router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`);
 
     function goBack(): void {
-      useRouter().back();
+      router.back();
     }
 
     function reportError(error: string): void {
