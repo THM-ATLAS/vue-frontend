@@ -31,8 +31,12 @@
       <v-menu width="10em" origin="top" transition="scale-transition">
         <template v-slot:activator="{ props }">
           <v-badge :content="messages" color="primary" offset-x="18" offset-y="10">
-            <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-              {{ checkLogin() }}
+            <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
+              {{ username }}
+              <v-icon class="ml-3" icon="mdi-account"/>
+            </v-btn>
+            <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
+              Login
               <v-icon class="ml-3" icon="mdi-account"/>
             </v-btn>
           </v-badge>
@@ -74,40 +78,31 @@
       class="d-md-none"
   >
     <v-spacer/>
-    <v-row class="drawer-text">
-      <v-text-field class="textfieldDrawer"
-                    label="Suchen..."
-                    :hide-details="true"
-                    rounded="xl"
-                    clearable
-      />
-    </v-row>
-    <v-list>
-      <v-list-item prepend-icon="mdi-message" @click="goToMessages">
+    <v-list nav>
+      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToCourses">
+        Zu den Kursen
+      </v-list-item>
+      <v-divider></v-divider>
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
         <span> Nachrichten </span>
       </v-list-item>
-      <v-list-item prepend-icon="mdi-account" @click="goToUser">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> Profil </span>
       </v-list-item>
-      <v-list-item prepend-icon="mdi-cog" @click="goToSettings">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
         <span> Einstellungen </span>
       </v-list-item>
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
         <span> Hilfe </span>
       </v-list-item>
-      <div v-for="button in buttons" v-bind:key="button.id">
-        <v-list-item prepend-icon="$expand" @click.prevent.stop="expand(button)">
-          <span> {{ button.title }} </span>
-        </v-list-item>
-        <v-list v-show="button.expanded">
-          <v-list-item v-for="item in button.items" v-bind:key="button.items.indexOf(item)" v-html="item"/>
-        </v-list>
-      </div>
+      <v-list-item>
+        <v-btn block variant="outlined" rounded="0">
+          <v-icon icon="mdi-logout"/>
+          <span @click='router.push("/");' v-if="loggedIn"> Logout </span>
+          <span @click="goToLogin" v-else> Login </span>
+        </v-btn>
+      </v-list-item>
     </v-list>
-    <v-btn @click="goToLogin()" variant="outlined" rounded="0">
-      <v-icon icon="mdi-logout"/>
-      <span> Logout </span>
-    </v-btn>
   </v-navigation-drawer>
 </template>
 
@@ -125,69 +120,8 @@
 
   const router = useRouter();
 
-  const username = "eznavy"; //must be either the logged in user's name or empty
-  let loggedIn: Ref<boolean> =  ref(false);
-
-  function checkLogin() {
-    if(username.length > 0) {
-      loggedIn.value = true;
-      return username;
-    }
-    else {
-      loggedIn.value = false;
-    } return "login";
-  }
-
-  const buttons = ref([
-    {
-      title: "Developer",
-      id: 1,
-      expanded: false,
-      items: [
-        "Item 1", "Item 2", "Item 3"
-      ],
-    },
-    {
-      title: "Help",
-      id: 2,
-      expanded: false,
-      items: [
-        "Item 4", "Item 5", "Item 6"
-      ],
-    },
-    {
-      title: "Andere",
-      id: 3,
-      expanded: false,
-      items: [
-        "Item 7", "Item 8", "Item 9"
-      ],
-    },
-    {
-      title: "Interessante",
-      id: 4,
-      expanded: false,
-      items: [
-        "Item 10", "Item 11", "Item 12"
-      ],
-    },
-    {
-      title: "Tabs",
-      id: 5,
-      expanded: false,
-      items: [
-        "Item 13", "Item 14", "Item 15"
-      ],
-    },
-    {
-      title: "Developer",
-      id: 6,
-      expanded: false,
-      items: [
-        "Item 16", "Item 17", "Item 18"
-      ],
-    },
-  ]);
+  const username = "Marianne Musterfrau"; //must be either the logged in user's name or empty
+  let loggedIn: Ref<boolean> =  ref(!!username); //equals: username ? true : false
 
   function goToHome(): void {
     if (typeof course === "string")
@@ -212,17 +146,16 @@
     router.push("/help");
   }
 
+  function goToCourses(): void {
+    router.push("/courses")
+  }
+
   function goToMessages(): void {
     router.push("/notifications");
   }
 
   function goToSettings(): void {
     router.push("/settings");
-  }
-
-  function expand(button: any) {
-    console.log(button.expanded);
-    button.expanded = !button.expanded;
   }
 
   function goToUser() {
@@ -247,6 +180,10 @@
   height: 0;
 }
 
+hr {
+  margin: 10px
+}
+
 .v-btn {
   margin-top: 3px;
   margin-bottom: 3px;
@@ -256,5 +193,6 @@
 #profile-button {
   min-width: 100px;
 }
+
 
 </style>
