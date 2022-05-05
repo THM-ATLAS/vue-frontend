@@ -1,8 +1,9 @@
 <template>
   <v-container role="main">
-    <v-row
-        class="justify-center mainpage-row"
-    >
+    <v-row id="course-title" class="justify-center">
+      <h2> {{ course }} </h2>
+    </v-row>
+    <v-row class="justify-center mainpage-row">
       <v-col
           v-for="exercise in exercises"
           v-bind:key="exercise.id"
@@ -21,14 +22,23 @@
 <script lang='ts'>
 import MainpageCardModal from './MainpageCardModal.vue'
 import {useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 
 export default {
   name: "MainPage",
   components: {
     MainpageCardModal
+  }, props: {
+    courses: {
+      type: Array,
+      required: true
+    }
   },
   setup(): any {
+
     const router = useRouter();
+    const route = useRoute();
+    const course = route.params.course;
 
     function goToMain(): void {
       router.push("/mainpage");
@@ -36,6 +46,7 @@ export default {
 
     return {
       goToMain,
+      course,
       exercises: [
         {
           title: 'Aufgabe 1: Zielscheibe',
@@ -148,8 +159,12 @@ export default {
 }
 
 .mainpage-row {
-  padding-block: 9em;
   padding-left: 4%;
   padding-right: 4%;
+}
+
+#course-title {
+  margin-top: 100px;
+  margin-bottom: 20px;
 }
 </style>
