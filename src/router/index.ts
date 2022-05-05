@@ -15,10 +15,9 @@ import UserManagement from "@/views/admin/UserManagementView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Login},
-  // {path: '/mainpage', component: Mainpage},
   // {path: '/home', component: CourseSelector},
 
-  {path: '/:course/', component: MainPage},
+  {path: '/c/:course/', component: MainPage},
 
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},
