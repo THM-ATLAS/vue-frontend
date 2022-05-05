@@ -1,67 +1,69 @@
 <template>
-  <v-app-bar elevation="3" justify="left" height="100px" role="navigation">
-    <v-app-bar-title>
-      <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-             src="../assets/ATLAS_Logo.svg" max-height="70px"/>
-      <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="../assets/ATLAS_Logo_Dark.svg"
-             max-height="70px"/>
-    </v-app-bar-title>
-    <CourseButton/>
-    <v-spacer/><v-spacer/><v-spacer/>
+  <v-app id="navbar">
+    <v-app-bar elevation="3" justify="left" height="100px" role="navigation">
+      <v-app-bar-title>
+        <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
+               src="../assets/ATLAS_Logo.svg" max-height="70px"/>
+        <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="../assets/ATLAS_Logo_Dark.svg"
+               max-height="70px"/>
+      </v-app-bar-title>
+      <CourseButton/>
+      <v-spacer/><v-spacer/><v-spacer/>
 
-    <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
+      <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
-    <!-- <v-col>
-      -<v-text-field
-           class="d-none d-md-block"
-           label="Suchen"
-           prepend-inner-icon="mdi-magnify"
-           variant="plain"
-           bg-color="#eeeeee"
-           role="search"
-       />
-    </v-col>-->
+      <!-- <v-col>
+        -<v-text-field
+             class="d-none d-md-block"
+             label="Suchen"
+             prepend-inner-icon="mdi-magnify"
+             variant="plain"
+             bg-color="#eeeeee"
+             role="search"
+         />
+      </v-col>-->
 
 
-    <!--dropdown menu für desktop -->
+      <!--dropdown menu für desktop -->
 
-    <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
+      <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
-    <v-menu width="10em" origin="top" transition="scale-transition">
-      <template v-slot:activator="{ props }">
-        <v-badge :content="messages" color="primary" offset-x="18" offset-y="10">
-          <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
-            {{ checkLogin() }}
-            <v-icon class="ml-3" icon="mdi-account"/>
-          </v-btn>
-        </v-badge>
-      </template>
-      <Dropdown v-if="loggedIn" :messages='messages'/>
-    </v-menu>
-
-    <!---------------------------------->
-
-    <!--<template v-if="!getMobile()" v-slot:extension>
-      <v-spacer></v-spacer>
-      <v-menu class="dropdown_menu" v-for="button in buttons" v-bind:key="button.id" width="10em">
+      <v-menu width="10em" origin="top" transition="scale-transition">
         <template v-slot:activator="{ props }">
-          <v-btn class="d-none d-md-flex" text v-bind="props" v-html="button.title"/>
+          <v-badge :content="messages" color="primary" offset-x="18" offset-y="10">
+            <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
+              {{ checkLogin() }}
+              <v-icon class="ml-3" icon="mdi-account"/>
+            </v-btn>
+          </v-badge>
         </template>
-        <NavigationDropdown :data="button"/>
+        <Dropdown v-if="loggedIn" :messages='messages'/>
       </v-menu>
-      <v-spacer/>
-      <v-spacer/>
-      <v-spacer/>
-      <v-spacer/>
-      <v-spacer/>
-    </template>-->
 
-    <!--hamburger icon nur sichtbar auf mobile -->
-    <v-app-bar-nav-icon
-        class="d-md-none"
-        @click="drawer = !drawer"
-    />
-  </v-app-bar>
+      <!---------------------------------->
+
+      <!--<template v-if="!getMobile()" v-slot:extension>
+        <v-spacer></v-spacer>
+        <v-menu class="dropdown_menu" v-for="button in buttons" v-bind:key="button.id" width="10em">
+          <template v-slot:activator="{ props }">
+            <v-btn class="d-none d-md-flex" text v-bind="props" v-html="button.title"/>
+          </template>
+          <NavigationDropdown :data="button"/>
+        </v-menu>
+        <v-spacer/>
+        <v-spacer/>
+        <v-spacer/>
+        <v-spacer/>
+        <v-spacer/>
+      </template>-->
+
+      <!--hamburger icon nur sichtbar auf mobile -->
+      <v-app-bar-nav-icon
+          class="d-md-none"
+          @click="drawer = !drawer"
+      />
+    </v-app-bar>
+  </v-app>
 
   <!--Navigation für mobile -->
   <v-navigation-drawer
@@ -110,12 +112,12 @@
 </template>
 
 <script setup lang="ts">
-import Dropdown from "./DropdownCard.vue";
-//import NavigationDropdown from "./NavigationDropdown.vue"
-import CourseButton from "./CourseButton.vue"
-import {useRoute, useRouter} from 'vue-router';
-import {Ref, ref} from 'vue';
-import {theme} from "@/helpers/theme";
+  import Dropdown from "./DropdownCard.vue";
+  //import NavigationDropdown from "./NavigationDropdown.vue"
+  import CourseButton from "./CourseButton.vue"
+  import {useRoute, useRouter} from 'vue-router';
+  import {Ref, ref} from 'vue';
+  import {theme} from "@/helpers/theme";
 
   const course = useRoute().params.course;
   const drawer: Ref<boolean> = ref(false);
@@ -239,6 +241,10 @@ import {theme} from "@/helpers/theme";
 
 .textfieldDrawer {
   margin-top: 4em;
+}
+
+#navbar {
+  height: 0;
 }
 
 .v-btn {
