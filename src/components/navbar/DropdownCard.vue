@@ -30,6 +30,10 @@
       <v-list-item @click="goToHelp()">
         <v-list-item-title>Hilfe</v-list-item-title>
       </v-list-item>
+      <!-- // disabled until admin works // v-list-item
+          @click="goToAdmin">
+        <v-list-item-title>Admin</v-list-item-title>
+      </v-list-item-->
       <v-list-item>
         <v-btn @click="goToLogin()" variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
@@ -40,46 +44,41 @@
   </v-card>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {useRouter} from 'vue-router';
-import {Ref, ref} from 'vue';
+//import {Ref, ref} from 'vue';
 
-export default {
-  name: "DropdownCard",
+//const messages: Ref<number> = ref(3);
 
-  setup() {
+const router = useRouter();
 
-    const messages: Ref<number> = ref(3);
+function goToLogin(): void {
+  router.push("/");
+}
 
-    const router = useRouter();
+//function goToNotifications(): void {
+//  router.push("/notifications");
+//}
 
-    function goToLogin(): void {
-      router.push("/");
-    }
+function goToHelp() {
+  router.push("/help");
+}
 
-    function goToNotifications(): void {
-      router.push("/notifications");
-    }
+//function goToLeaderboard() {
+//  router.push("/leaderboard");
+//}
 
-    function goToHelp() {
-      router.push("/help");
-    }
+function goToUser() {
+  router.push("/u/");
+}
 
-    function goToLeaderboard() {
-      router.push("/leaderboard");
-    }
+function goToSettings() {
+  router.push("/settings");
+}
 
-    function goToUser() {
-      router.push("/u/");
-    }
-
-    function goToSettings() {
-      router.push("/settings");
-    }
-
-    return {goToLogin, goToHelp, messages, goToNotifications, goToUser, goToLeaderboard, goToSettings};
-  }
-};
+// function goToAdmin() {
+//   router.push("/admin/users");
+// }
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

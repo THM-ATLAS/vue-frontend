@@ -23,23 +23,26 @@
             {{ role.name }}
           </v-chip>
 
-          <v-chip prepend-icon="mdi-plus" @click="dialog.show = true; dialog.target = user" class="mr-1">
+          <v-chip prepend-icon="mdi-plus" @click="editRolesDialog.show = true; editRolesDialog.target = user"
+                  class="mr-1">
             {{ $t('buttons.new') }}
           </v-chip>
         </td>
         <td>{{ moment(user.created_at).format('DD.MM.YYYY') }}</td>
         <td>
           <v-btn
-              @click="editUser(user)"
+              @click="editUserDialog.show = true; editUserDialog.target = user"
               icon="mdi-account-edit"
               small
+              elevation="0"
               color="primary"
               class="mr-2"
           />
           <v-btn
-              @click="deleteUser(user)"
+              @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
               icon="mdi-account-remove"
               small
+              elevation="0"
               color="error"
               class="mr-2"
           />
@@ -47,80 +50,165 @@
       </tr>
       </tbody>
     </v-table>
-    <!-- role dialog -->
-    <v-dialog
-        v-model="editRolesDialog.show"
-        :scrollable="true"
-        :retain-focus="false"
-    >
-      <v-card top="20%">
-        <v-card-title>
-          <span class="headline">{{ $t('admin.users.roles') }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-checkbox v-for="role in roles" v-bind:key="role.id" v-model="editRolesDialog.targetUser.roles"
-                      :value="role" :label="role.name"/>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn color="blue darken-1" @click="editRolesDialog.show = false">{{ $t('buttons.save') }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <!-- new user -->
     <div>
       <v-btn
-          @click="newUserDialog = true"
+          @click="newUserDialog.show = true"
           icon="mdi-account-plus"
           small
+          elevation="0"
           color="primary"
           class="mr-2"
       />
     </div>
-    <v-dialog
-        v-model="newUserDialog"
-        :scrollable="true"
-        :retain-focus="false"
-        width="auto"
-    >
-      <v-card top="20%">
-        <v-card-title>
-          <span class="headline">{{ $t('admin.users.new') }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="newUser.name"
-              :label="$t('admin.users.name')"
-              required
-          ></v-text-field>
-          <v-text-field
-              v-model="newUser.username"
-              :label="$t('admin.users.username')"
-              required
-          ></v-text-field>
-          <v-text-field
-              v-model="newUser.email"
-              :label="$t('admin.users.email')"
-              required
-          ></v-text-field>
-          <v-text-field
-              v-model="newUser.password"
-              :label="$t('admin.users.password')"
-              required
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn color="blue darken-1" @click="createUser">{{ $t('buttons.save') }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-card>
+  <!-- role dialog -->
+  <v-dialog
+      v-model="editRolesDialog.show"
+      :scrollable="true"
+      :retain-focus="false"
+  >
+    <v-card top="20%" min-width="25vw">
+      <v-card-title>
+        <span class="headline">{{ $t('admin.users.roles') }}</span>
+      </v-card-title>
+      <v-card-text>
+        <v-checkbox v-for="role in roles" v-bind:key="role.id" v-model="editRolesDialog.target.roles"
+                    :value="role" :label="role.name"/>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" @click="editRolesDialog.show = false">{{ $t('buttons.close') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+  <!-- new user dialog -->
+  <v-dialog
+      v-model="newUserDialog.show"
+      :scrollable="true"
+      :retain-focus="false"
+  >
+    <v-card top="20%" width="50vw">
+      <v-card-title>
+        <span class="headline">{{ $t('admin.users.new') }}</span>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="newUserForm"
+                v-model="newUserFormValid"
+        >
+          <v-text-field
+              @change="$refs.newUserForm.validate()"
+              v-model="newUserDialog.target.name"
+              :label="$t('admin.users.name')"
+              :rules="[rules.required]"
+              required
+          />
+          <v-text-field
+              @change="$refs.newUserForm.validate()"
+              v-model="newUserDialog.target.username"
+              :label="$t('admin.users.username')"
+              :rules="[rules.required, rules.username]"
+              :counter="32"
+              required
+          />
+          <v-text-field
+              @change="$refs.newUserForm.validate()"
+              v-model="newUserDialog.target.email"
+              :label="$t('admin.users.email')"
+              :rules="[rules.required, rules.email]"
+              required
+          />
+          <v-text-field
+              @change="$refs.newUserForm.validate()"
+              v-model="newUserDialog.target.password"
+              :label="$t('admin.users.password')"
+              :rules="[rules.required, rules.password]"
+              required
+              type="password"
+          />
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="newUserDialog.show = false" v-html="$t('buttons.cancel')"/>
+        <v-btn :disabled="!newUserFormValid" color="primary" @click="createUser" v-html="$t('buttons.save')"/>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+  <!-- edit user dialog -->
+  <v-dialog
+      v-model="editUserDialog.show"
+      :scrollable="true"
+      :retain-focus="false"
+  >
+    <v-card top="20%" width="50vw">
+      <v-card-title>
+        <span class="headline">{{ $t('admin.users.edit') }}</span>
+      </v-card-title>
+      <v-card-text>
+        <v-text-field
+            v-model="editUserDialog.target.name"
+            :label="$t('admin.users.name')"
+            :rules="[rules.required]"
+        />
+        <v-text-field
+            v-model="editUserDialog.target.username"
+            :label="$t('admin.users.username')"
+            :rules="[rules.required, rules.username]"
+        />
+        <v-text-field
+            v-model="editUserDialog.target.email"
+            :label="$t('admin.users.email')"
+            :rules="[rules.required, rules.email]"
+        />
+        <v-btn
+            v-if="!editUserDialog.changePassword"
+            v-model="editUserDialog.changePassword"
+            @click="editUserDialog.changePassword = true"
+            v-html="$t('admin.users.change_password')"
+        />
+        <v-text-field
+            v-else
+            v-model="editUserDialog.target.password"
+            :label="$t('admin.users.password')"
+            :rules="[rules.required, rules.password]"
+        />
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="editUserDialog.show = false; editUserDialog.changePassword = false;"
+               v-html="$t('buttons.cancel')"/>
+        <v-btn color="primary"
+               @click="overwriteUser(editUserDialog.target, editUserDialog.changePassword);
+               editUserDialog.show = false;
+               editUserDialog.changePassword = false"
+               v-html="$t('buttons.save')"/>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+  <!-- delete user dialog -->
+  <v-dialog
+      v-model="deleteUserDialog.show"
+      :scrollable="true"
+      :retain-focus="false"
+  >
+    <v-card top="20%" min-width="20vw">
+      <v-card-title>
+        <span class="headline">{{ $t('admin.users.delete') }}</span>
+      </v-card-title>
+      <v-card-text>
+        <p>{{ $t('admin.users.delete_confirm', [deleteUserDialog.target.username]) }}</p>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="deleteUserDialog.show = false" v-html="$t('buttons.cancel')"/>
+        <v-btn color="primary" @click="deleteUserDialog.show = false; deleteUser(deleteUserDialog.target)"
+               v-html="$t('buttons.delete')"/>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script setup>
 import moment from "moment";
 import {ref} from "vue";
+import {useI18n} from "vue-i18n";
 
 const roles = ref([
   {
@@ -243,19 +331,14 @@ const users = ref([
   }
 ]);
 
-function removeRole(user, role) {
-  user.roles = user.roles.filter(r => r.id !== role.id);
-}
+const i18n = useI18n();
 
-const newUserDialog = ref(false);
-const newUser = ref(getUserTemplate());
-
-function createUser() {
-  // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  users.value.push(newUser.value);
-  newUser.value = getUserTemplate();
-  newUserDialog.value = false;
-}
+const rules = {
+  required: value => !!value || i18n.t("admin.users.errors.required"),
+  username: value => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
+  email: value => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
+  password: value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
+};
 
 function getUserTemplate() {
   return {
@@ -271,8 +354,8 @@ function getUserTemplate() {
   };
 }
 
-function nextUserId() {
-  return users.value.map(u => u.id).sort().pop() + 1;
+function removeRole(user, role) {
+  user.roles = user.roles.filter(r => r.id !== role.id);
 }
 
 const editRolesDialog = ref({
@@ -280,12 +363,48 @@ const editRolesDialog = ref({
   target: null,
 });
 
-function editUser(user) {
-  console.log('edit user', user)
+const newUserDialog = ref({
+  show: false,
+  target: getUserTemplate(),
+});
+
+const newUserFormValid = ref(false);
+
+const editUserDialog = ref({
+  show: false,
+  target: null,
+});
+
+const deleteUserDialog = ref({
+  show: false,
+  target: null,
+});
+
+function createUser() {
+  // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
+  users.value.push(newUserDialog.value.target);
+  newUserDialog.value.target = getUserTemplate();
+  newUserDialog.value.show = false;
+}
+
+function nextUserId() {
+  return users.value.map(u => u.id).sort().pop() + 1;
+}
+
+function overwriteUser(user, overwritePassword = false) {
+  users.value.forEach(u => {
+    if (u.id === user.id) {
+      u.name = user.name;
+      u.username = user.username;
+      u.email = user.email;
+      if (overwritePassword)
+        u.password = user.password;
+    }
+  });
 }
 
 function deleteUser(user) {
-  console.log('delete user', user)
+  users.value = users.value.filter(u => u.id !== user.id);
 }
 
 

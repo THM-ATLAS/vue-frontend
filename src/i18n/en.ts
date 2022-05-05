@@ -71,6 +71,9 @@ const translationEn = {
     admin: {
         users: {
             new: 'New user',
+            edit: 'Edit user',
+            delete: 'Delete user',
+            delete_confirm: 'Delete user {0}?',
             name: 'Name',
             username: 'Username',
             email: 'Email',
@@ -78,6 +81,15 @@ const translationEn = {
             created_at: 'Created at',
             actions: 'Actions',
             password: 'Password',
+            change_password: 'Change password',
+            errors: {
+                required: 'This field is required.',
+                username_taken: 'This username is already taken.',
+                username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+                email_taken: 'This email address is already in use.',
+                email_invalid: 'Please enter a valid email address.',
+                password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
+            }
         }
     }
 }
