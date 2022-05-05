@@ -288,14 +288,16 @@ export default defineComponent({
       exercise,
       text,
       theme,
+      id : '',
+      course : ''
     };
   },
-  mounted () {
-    axios
-        .get('http://localhost:8080/bkp/e/101/Aufgabe%20zur%20Zielscheibe?id=101&course=bkp')
+  // GET Request
+    mounted () {
+    axios.get('http://localhost:8080/bkp')
         .then(response => {
-         useRoute().params.id = response.data,
-          useRoute().params.course = response.data
+         this.id = response.data,
+          this.course = response.data
         })
         .catch(error => {
           console.log(error)
