@@ -29,7 +29,7 @@
       <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
       <v-menu width="10em" origin="top" transition="scale-transition">
-        <template v-slot:activator="{ props }">
+        <template v-if="loggedIn" v-slot:activator="{ props }">
           <v-badge :content="messages" color="primary" offset-x="18" offset-y="10">
             <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
               {{ username }}
@@ -40,6 +40,16 @@
               <v-icon class="ml-3" icon="mdi-account"/>
             </v-btn>
           </v-badge>
+        </template>
+        <template v-else v-slot:activator="{ props }">
+            <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
+              {{ username }}
+              <v-icon class="ml-3" icon="mdi-account"/>
+            </v-btn>
+            <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props" variant="outlined">
+              Login
+              <v-icon class="ml-3" icon="mdi-account"/>
+            </v-btn>
         </template>
         <Dropdown v-if="loggedIn" :messages='messages'/>
       </v-menu>
