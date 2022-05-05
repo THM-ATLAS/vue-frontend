@@ -232,7 +232,7 @@ export default defineComponent({
           btn_title: 'Feedback lesen',
           btn_icon: 'mdi-link',
           btn_color: 'primary',
-          content: '/bkp/e/5/feedback',
+          content: '/Brueckenkurs Programmieren/e/5/feedback',
         }]
       },
       {divider: true, inset: true},
@@ -266,7 +266,7 @@ export default defineComponent({
           btn_title: 'Besuchen',
           btn_icon: 'mdi-link',
           btn_color: 'primary',
-          content: '/bkp',
+          content: '/Brueckenkurs Programmieren',
         }]
       },
       {divider: true, inset: true},
@@ -286,7 +286,7 @@ export default defineComponent({
           btn_title: 'Aufgabe Bearbeiten',
           btn_icon: 'mdi-arrow-top-right-bold-box',
           btn_color: 'primary',
-          content: '/bkp/e/5/edit',
+          content: '/Brueckenkurs Programmieren/e/5/edit',
         }]
       },
       {divider: true, inset: true},

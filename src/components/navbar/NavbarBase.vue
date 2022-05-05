@@ -143,7 +143,7 @@ function goToHome(): void {
   if (typeof course === "string")
     router.push(`/${course}`);
   else
-    router.push(`/bkp`);
+    router.push(`/c/Brueckenkurs Programmieren`);
 }
 
 function goToLogin(): void {
