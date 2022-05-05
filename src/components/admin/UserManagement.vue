@@ -23,15 +23,15 @@
             {{ role.name }}
           </v-chip>
 
-          <v-chip prepend-icon="mdi-plus" @click="dialog = true; targetUser = user" class="mr-1">
+          <v-chip prepend-icon="mdi-plus" @click="dialog[user.id] = true; targetUser = user" class="mr-1">
             {{ $t('buttons.new') }}
           </v-chip>
           <v-dialog
-              v-model="dialog"
+              v-model="dialog[user.id]"
               :scrollable="true"
+              :retain-focus="false"
           >
-            <v-card width="auto"
-                    style="top: 20%">
+            <v-card top="20%">
               <v-card-title>
                 <span class="headline">{{ $t('admin.users.roles') }}</span>
               </v-card-title>
@@ -41,7 +41,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer/>
-                <v-btn color="blue darken-1" @click="dialog = false">{{ $t('buttons.save') }}</v-btn>
+                <v-btn color="blue darken-1" @click="dialog[user.id] = false">{{ $t('buttons.save') }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -77,7 +77,7 @@ function removeRole(user, role) {
   user.roles = user.roles.filter(r => r.id !== role.id);
 }
 
-const dialog = ref(false);
+const dialog = ref([]);
 const targetUser = ref({});
 const roles = ref([
   {
@@ -91,6 +91,10 @@ const roles = ref([
   {
     id: 3,
     name: 'Teacher',
+  },
+  {
+    id: 4,
+    name: 'Tutor',
   },
 ]);
 
@@ -142,6 +146,58 @@ const users = ref([
     ],
     created_at: '2021-04-07 22:30:00',
   },
+  {
+    id: 4,
+    name: "John Doe",
+    username: 'jdoe23',
+    email: 'sdfdsfsdf@thm.de',
+    roles: [
+      {
+        id: 2,
+        name: 'User',
+      },
+    ],
+    created_at: '2022-04-07 22:30:00',
+  },
+  {
+    id: 5,
+    name: "John Doe",
+    username: 'jdoe23',
+    email: 'sdfdsfsdf@thm.de',
+    roles: [
+      {
+        id: 2,
+        name: 'User',
+      },
+    ],
+    created_at: '2022-04-07 22:30:00',
+  },
+  {
+    id: 6,
+    name: "John Doe",
+    username: 'jdoe23',
+    email: 'sdfdsfsdf@thm.de',
+    roles: [
+      {
+        id: 2,
+        name: 'User',
+      },
+    ],
+    created_at: '2022-04-07 22:30:00',
+  },
+  {
+    id: 7,
+    name: "John Doe",
+    username: 'jdoe23',
+    email: 'sdfdsfsdf@thm.de',
+    roles: [
+      {
+        id: 2,
+        name: 'User',
+      },
+    ],
+    created_at: '2022-04-07 22:30:00',
+  }
 ]);
 
 function editUser(user) {
