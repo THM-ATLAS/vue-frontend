@@ -66,6 +66,54 @@
       </tr>
       </tbody>
     </v-table>
+    <!-- new user -->
+    <div>
+      <v-btn
+          @click="newUserDialog = true"
+          icon="mdi-account-plus"
+          small
+          color="primary"
+          class="mr-2"
+      />
+    </div>
+    <v-dialog
+        v-model="newUserDialog"
+        :scrollable="true"
+        :retain-focus="false"
+        width="auto"
+    >
+      <v-card top="20%">
+        <v-card-title>
+          <span class="headline">{{ $t('admin.users.new') }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+              v-model="newUser.name"
+              :label="$t('admin.users.name')"
+              required
+          ></v-text-field>
+          <v-text-field
+              v-model="newUser.username"
+              :label="$t('admin.users.username')"
+              required
+          ></v-text-field>
+          <v-text-field
+              v-model="newUser.email"
+              :label="$t('admin.users.email')"
+              required
+          ></v-text-field>
+          <v-text-field
+              v-model="newUser.password"
+              :label="$t('admin.users.password')"
+              required
+          ></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="blue darken-1" @click="createUser">{{ $t('buttons.save') }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -75,6 +123,26 @@ import {ref} from "vue";
 
 function removeRole(user, role) {
   user.roles = user.roles.filter(r => r.id !== role.id);
+}
+
+const newUserDialog = ref(false);
+const newUser = ref({
+  name: '',
+  username: '',
+  email: '',
+  password: '',
+});
+
+function createUser() {
+  // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
+  users.value.push(newUser);
+  newUser.value = {
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+  };
+  newUserDialog.value = false;
 }
 
 const dialog = ref([]);
