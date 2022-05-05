@@ -294,7 +294,7 @@ export default defineComponent({
   },
   // GET Request
     mounted () {
-    axios.get('http://localhost:8080/bkp')
+    axios.get('http://localhost:8080/course/e/id')
         .then(response => {
          this.id = response.data,
           this.course = response.data
