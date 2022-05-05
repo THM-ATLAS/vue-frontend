@@ -70,12 +70,14 @@ const translationDe = {
     },
     admin:{
         users:{
+            new: 'Neuer Benutzer',
             name: 'Name',
             username: 'Benutzername',
             email: 'E-mail',
             roles: 'Rollen',
             created_at: 'Erstellt am',
             actions: 'Aktionen',
+            password: 'Passwort',
         }
     }
 

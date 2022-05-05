@@ -70,12 +70,14 @@ const translationEn = {
     },
     admin: {
         users: {
+            new: 'New user',
             name: 'Name',
             username: 'Username',
             email: 'Email',
             roles: 'Roles',
             created_at: 'Created at',
             actions: 'Actions',
+            password: 'Password',
         }
     }
 }

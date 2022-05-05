@@ -23,28 +23,9 @@
             {{ role.name }}
           </v-chip>
 
-          <v-chip prepend-icon="mdi-plus" @click="dialog[user.id] = true; targetUser = user" class="mr-1">
+          <v-chip prepend-icon="mdi-plus" @click="dialog.show = true; dialog.target = user" class="mr-1">
             {{ $t('buttons.new') }}
           </v-chip>
-          <v-dialog
-              v-model="dialog[user.id]"
-              :scrollable="true"
-              :retain-focus="false"
-          >
-            <v-card top="20%">
-              <v-card-title>
-                <span class="headline">{{ $t('admin.users.roles') }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-checkbox v-for="role in roles" v-bind:key="role.id" v-model="targetUser.roles"
-                            :value="role" :label="role.name"/>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer/>
-                <v-btn color="blue darken-1" @click="dialog[user.id] = false">{{ $t('buttons.save') }}</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
         </td>
         <td>{{ moment(user.created_at).format('DD.MM.YYYY') }}</td>
         <td>
@@ -66,6 +47,26 @@
       </tr>
       </tbody>
     </v-table>
+    <!-- role dialog -->
+    <v-dialog
+        v-model="editRolesDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
+    >
+      <v-card top="20%">
+        <v-card-title>
+          <span class="headline">{{ $t('admin.users.roles') }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-checkbox v-for="role in roles" v-bind:key="role.id" v-model="editRolesDialog.targetUser.roles"
+                      :value="role" :label="role.name"/>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="blue darken-1" @click="editRolesDialog.show = false">{{ $t('buttons.save') }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <!-- new user -->
     <div>
       <v-btn
@@ -121,32 +122,6 @@
 import moment from "moment";
 import {ref} from "vue";
 
-function removeRole(user, role) {
-  user.roles = user.roles.filter(r => r.id !== role.id);
-}
-
-const newUserDialog = ref(false);
-const newUser = ref({
-  name: '',
-  username: '',
-  email: '',
-  password: '',
-});
-
-function createUser() {
-  // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  users.value.push(newUser);
-  newUser.value = {
-    name: '',
-    username: '',
-    email: '',
-    password: '',
-  };
-  newUserDialog.value = false;
-}
-
-const dialog = ref([]);
-const targetUser = ref({});
 const roles = ref([
   {
     id: 1,
@@ -267,6 +242,43 @@ const users = ref([
     created_at: '2022-04-07 22:30:00',
   }
 ]);
+
+function removeRole(user, role) {
+  user.roles = user.roles.filter(r => r.id !== role.id);
+}
+
+const newUserDialog = ref(false);
+const newUser = ref(getUserTemplate());
+
+function createUser() {
+  // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
+  users.value.push(newUser.value);
+  newUser.value = getUserTemplate();
+  newUserDialog.value = false;
+}
+
+function getUserTemplate() {
+  return {
+    id: nextUserId(),
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    roles: [{
+      id: 2,
+      name: 'User',
+    }],
+  };
+}
+
+function nextUserId() {
+  return users.value.map(u => u.id).sort().pop() + 1;
+}
+
+const editRolesDialog = ref({
+  show: false,
+  target: null,
+});
 
 function editUser(user) {
   console.log('edit user', user)
