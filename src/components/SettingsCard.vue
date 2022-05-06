@@ -109,25 +109,10 @@
   </v-card>
 </template>
 
-<script>
+<script setup>
 import {toggleTheme, theme} from "@/helpers/theme";
-
-export default {
-  name: "SettingsCard",
-  computed: {
-    languages() {
-      return this.$i18n.availableLocales.map(locale => {
-        return {
-          code: locale,
-          name: this.$t('languages.' + locale)
-        }
-      })
-    }
-  },
-  data() {
-    return {
-      theme,
-      settings: {
+import { ref } from 'vue';
+let settings = ref({
         general: {
           important_notifications: true,
           show_notifications: false,
@@ -136,36 +121,7 @@ export default {
           theme: "light",
           language: "de"
         }
-      },
-      themes: [
-        {
-          name: "Light",
-          code: "light"
-        },
-        {
-          name: "Dark",
-          code: "dark"
-        }
-      ]
-    }
-  },
-  methods: {
-    deleteAccount() {
-      // this.$store.dispatch("deleteAccount")
-    },
-    saveSettings() {
-      console.log(this.settings)
-      // this.$store.dispatch("saveSettings", this.settings)
-    },
-    resetSettings() {
-      // this.$store.dispatch("resetSettings")
-    },
-    closeSettings() {
-      this.$router.back();
-    },
-    toggleTheme
-  }
-}
+      });
 </script>
 
 <style scoped>
