@@ -1,5 +1,4 @@
 <template>
-  <br />
   <v-card class="profile-card" rounded="0" elevation="0">
     <v-container>
         <v-row class="profile-header" align="center" no-gutters>
@@ -63,7 +62,6 @@
       </v-row>
     </v-container>
   </v-card>
-  <br />
 </template>
 
 <script>
