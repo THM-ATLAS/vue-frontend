@@ -1,21 +1,21 @@
 <template>
-  <br />
+  <br/>
   <v-card class="profile-card" rounded="0" elevation="0">
     <v-container>
       <v-row class="profile-header" align="center" no-gutters>
         <v-col cols="12" md="3">
-          <v-avatar :image="profile.image" size="160"></v-avatar
-        ></v-col>
+          <v-avatar :image="profile.image" size="160"/>
+        </v-col>
         <v-col cols="12" md="5">
           <h2>{{ profile.fullName }}</h2>
-          <div class="profile-username">{{ profile.username }}</div></v-col
-        >
+          <div class="profile-username">{{ profile.username }}</div>
+        </v-col>
         <v-col cols="12" md="3">
           <!-- HIER SPÄTER BADGES? -->
         </v-col>
         <v-col cols="12" md="1">
           <v-btn class="edit-button" icon variant="outlined">
-            <v-icon icon="mdi-brush" />
+            <v-icon icon="mdi-brush"/>
           </v-btn>
         </v-col>
       </v-row>
@@ -43,42 +43,43 @@
 
       <v-row>
         <v-col cols="12" class="center-text">
-          <div class="header-tasks">Deine favorisierten Aufgaben</div></v-col
-        >
+          <div class="header-tasks">Deine favorisierten Aufgaben</div>
+        </v-col>
         <v-col cols="12" md="4">
           <v-card border="false">
-            <v-img src="../assets/product-1.jpg" height="150px" cover> </v-img>
+            <v-img src="../assets/product-1.jpg" height="150px" cover/>
           </v-card>
         </v-col>
         <v-col cols="12" md="4">
           <v-card>
-            <v-img src="../assets/product-2.jpg" height="150px" cover> </v-img>
+            <v-img src="../assets/product-2.jpg" height="150px" cover/>
           </v-card>
         </v-col>
         <v-col cols="12" md="4">
           <v-card>
-            <v-img src="../assets/product-4.jpg" height="150px" cover> </v-img>
+            <v-img src="../assets/product-4.jpg" height="150px" cover/>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
   </v-card>
-  <br />
+  <br/>
 </template>
 
 <script setup>
-import { useRoute, useRouter } from "vue-router";
-import { computed } from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {computed} from "vue";
 
 const router = useRouter();
+const route = useRoute();
 
 const getID = computed(() => {
-  if (!useRoute().params.id) {
+  if (!route.params.id) {
     return undefined;
   }
-  return useRoute().params.id instanceof Array
-    ? useRoute().params.id[0]
-    : useRoute().params.id;
+  return route.params.id instanceof Array
+      ? route.params.id[0]
+      : route.params.id;
 });
 
 const id = getID.value === undefined ? "abcd66" : getID.value; // at 1 would be a call to get own profile id
