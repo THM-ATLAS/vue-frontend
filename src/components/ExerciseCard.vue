@@ -154,7 +154,8 @@ import {useRouter, useRoute} from "vue-router";
 import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import {theme} from "@/helpers/theme";
-import axios from 'axios'
+import axios from 'axios';
+
 
 const content = "# Hallo Welt\n" +
     "\n" +
@@ -292,13 +293,14 @@ export default defineComponent({
       course : ''
     };
   },
-
-
   // GET Request
     mounted () {
-    axios.get('http://brueckenkurs-programmieren.thm.de/api/tasks/1')
+    axios.get('http://brueckenkurs-programmieren.thm.de/api/tasks/${id}', {
+      params: {
+        id: useRoute().params.id
+      }
+    })
         .then(response => {
-          this.course = response.data,
          this.id = response.data
           console.log(response.data)
         })
