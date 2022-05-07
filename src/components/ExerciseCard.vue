@@ -294,10 +294,11 @@ export default defineComponent({
   },
   // GET Request
     mounted () {
-    axios.get('http://localhost:8080/?course=bkp&id=101')
+    axios.get('http://brueckenkurs-programmieren.thm.de/api/tasks/1')
         .then(response => {
-         this.id = response.data,
-          this.course = response.data
+          this.course = response.data,
+         this.id = response.data
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error)
