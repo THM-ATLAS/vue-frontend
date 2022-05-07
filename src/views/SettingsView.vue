@@ -3,7 +3,7 @@
   <Navbar/>
   <v-container>
     <v-row justify="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
+      <v-col sm="10" md="10" lg="8" xl="6">
         <Settings id="content"/>
       </v-col>
     </v-row>
