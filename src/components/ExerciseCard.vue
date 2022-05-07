@@ -292,6 +292,8 @@ export default defineComponent({
       course : ''
     };
   },
+
+
   // GET Request
     mounted () {
     axios.get('http://brueckenkurs-programmieren.thm.de/api/tasks/1')
