@@ -30,10 +30,10 @@
       <v-list-item @click="goToHelp()">
         <v-list-item-title>Hilfe</v-list-item-title>
       </v-list-item>
-      <!-- // disabled until admin works // v-list-item
+       <v-list-item
           @click="goToAdmin">
         <v-list-item-title>Admin</v-list-item-title>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item>
         <v-btn @click="goToLogin()" variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
@@ -76,9 +76,9 @@ function goToSettings() {
   router.push("/settings");
 }
 
-// function goToAdmin() {
-//   router.push("/admin/users");
-// }
+function goToAdmin() {
+  router.push("/admin/users");
+}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
