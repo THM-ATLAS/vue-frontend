@@ -16,9 +16,10 @@ const translationEn = {
     },
     settings: {
         title: 'Settings',
+        subtitle: 'Personalization & Settings',
         notifications: {
             title: 'Notifications',
-            important_notifications: 'Receive important notifications (Submissions, Messages, ...)',
+            important_notifications: 'Important notifications',
             show_notifications: 'Receive notifications about new exercises',
             by_mail: 'Receive notifications by mail',
             by_browser_notification: 'Receive notifications by browser notification',
@@ -30,8 +31,9 @@ const translationEn = {
             dark: 'Dark',
             light: 'Light',
         },
+        save_settings: 'Save settings',
         danger_zone: {
-            title: 'Danger zone',
+            title: 'Account deletion',
             delete_account: 'Delete account',
             delete_account_description: 'Irrevocably deletes your account. ' +
                 'All data related to your account will be deleted and cannot be recovered. ' +
