@@ -136,16 +136,16 @@ let settings = ref({
 function deleteAccount() {
   // this.$store.dispatch("deleteAccount");
 }
-// function saveSettings() {
-//   console.log(this.settings);
-//   // this.$store.dispatch("saveSettings", this.settings);
-// }
-// function resetSettings() {
-//   // this.$store.dispatch("resetSettings");
-// }
-// function closeSettings() {
-//   // this.$router.back();
-// }
+function saveSettings() {
+  console.log(this.settings);
+  // this.$store.dispatch("saveSettings", this.settings);
+}
+function resetSettings() {
+  // this.$store.dispatch("resetSettings");
+}
+function closeSettings() {
+  // this.$router.back();
+}
 </script>
 
 <style scoped>
