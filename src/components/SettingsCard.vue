@@ -6,7 +6,7 @@
         <v-card-header-text class="text-left fontszTi">
           {{ $t("settings.title") }}
         </v-card-header-text>
-        <v-card-subtitle> Personalisierung & Einstellung </v-card-subtitle>
+        <v-card-subtitle> {{ $t('settings.subtitle') }} </v-card-subtitle>
       </v-card-header>
       <v-container>
         <v-card-text class="text-left fontszEx grow">
@@ -43,19 +43,19 @@
               <v-switch
                 class="notif-switch"
                 v-model="settings.general.important_notifications"
-                label="Wichtige Benachrichtigungen"
+                :label="$t('settings.notifications.important_notifications')"
               ></v-switch>
               <v-switch
                 class="notif-switch"
                 v-model="settings.general.show_notifications"
-                label="Benachrichtigungen zu neuen Aufgaben"
+                :label="$t('settings.notifications.show_notifications')"
               ></v-switch>
             </v-col>
             <v-col cols="12" md="6">
               <v-switch
                 class="notif-switch"
                 v-model="settings.general.show_notifications_in_browser"
-                label="Per Browser-Benachrichtigung benachrichtigen"
+                :label="$t('settings.notifications.by_browser_notification')"
                 :disabled="
                   !(
                     settings.general.show_notifications ||
@@ -65,7 +65,7 @@
               <v-switch
                 class="notif-switch"
                 v-model="settings.general.show_notification_mails"
-                label="Per E-Mail benachrichtigen"
+                :label="$t('settings.notifications.by_mail')"
                 :disabled="
                   !(
                     settings.general.show_notifications ||
@@ -74,7 +74,7 @@
               ></v-switch>
             </v-col>
             <v-col class="save-settings" cols="12" md="12">
-              <h2>Einstellungen speichern</h2>
+              <h2>{{ $t("settings.save_settings") }}</h2>
               <v-card-actions class="card-actions">
                 <v-btn
                   color="primary"
@@ -103,7 +103,7 @@
         <v-card-text class="text-left fontszEx grow">
           <v-row>
             <v-col cols="12">
-              <h2>Kontolöschung</h2>
+              <h2>{{ $t("settings.danger_zone.title") }}</h2>
               <v-btn class="mr-3" color="error" @click="deleteAccount" text
                 ><v-icon class="mr-3" icon="mdi-delete-forever" /><span
                   v-html="$t('settings.danger_zone.delete_account')"
