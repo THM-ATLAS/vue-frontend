@@ -36,7 +36,7 @@
                 :text="$t('languages.' + item)"
               />
             </v-col>
-            <v-col cols="12" md="12">
+            <!--v-col cols="12" md="12">
               <h2>{{ $t("settings.notifications.title") }}</h2>
             </v-col>
             <v-col cols="12" md="6">
@@ -72,8 +72,8 @@
                     settings.general.important_notifications
                   )"
               ></v-switch>
-            </v-col>
-            <v-col class="save-settings" cols="12" md="12">
+            </v-col-->
+            <!--v-col class="save-settings" cols="12" md="12">
               <h2>{{ $t("settings.save_settings") }}</h2>
               <v-card-actions class="card-actions">
                 <v-btn
@@ -92,13 +92,13 @@
                   v-html="$t('buttons.cancel')"
                 />
               </v-card-actions>
-            </v-col>
+            </v-col-->
           </v-row>
         </v-card-text>
       </v-container>
     </v-card>
     <br />
-    <v-card elevation="0" rounded="0">
+    <!--v-card elevation="0" rounded="0">
       <v-container>
         <v-card-text class="text-left fontszEx grow">
           <v-row>
@@ -115,12 +115,13 @@
           </v-row>
         </v-card-text>
       </v-container>
-    </v-card>
+    </v-card-->
   </v-container>
 </template>
 
 <script setup>
 import { toggleTheme, theme } from "@/helpers/theme";
+/*
 import { ref } from "vue";
 
 let settings = ref({
@@ -146,6 +147,7 @@ function resetSettings() {
 function closeSettings() {
   // this.$router.back();
 }
+*/
 </script>
 
 <style scoped>
