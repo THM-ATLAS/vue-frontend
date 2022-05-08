@@ -3,7 +3,7 @@
     <v-row align-content="center">
       <v-col id="content">
         <v-text-field
-            class="d-none d-md-block"
+
             label="Suche nach Kursen"
             prepend-inner-icon="mdi-magnify"
             variant="plain"
@@ -13,7 +13,7 @@
       </v-col>
     </v-row>
     <v-row v-for="course in fillerCourses" :key="course.resultId">
-      <CourseSearchResult :course="course"/>
+      <CourseSearchResult :course="course" class="searchResult"/>
     </v-row>
   </v-card>
 </template>
@@ -31,7 +31,7 @@ const fillerCourses = [
   {
     resultId: 2,
     courseName: "Brückenkurs Mathematik",
-    courseDescription: "Mathematische Grundlagen die in allen technischen Studiengängen wichtig sind.",
+    courseDescription: "Mathematische Grundlagen, die in allen technischen Studiengängen wichtig sind. Themen, welche behandelt werden: Gleichungen, Brüche, Wurzeln, Potenzen, Logarithmen, Trigonometrie und Vektoren.",
     courseThumbnail: require("../assets/product-4.jpg")
   },
   {
