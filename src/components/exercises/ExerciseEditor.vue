@@ -38,14 +38,10 @@
         </div>
         <div class="exercise-editor__body__content">
           <div class="exercise-editor__body__content__input">
-            <Editor
-                :theme="theme"
+            <MarkdownModal
+                :editor="true"
                 v-model="exercise.content"
-                language="en-US"
-                @input="store"
-                :toolbars="toolbars"
-                :showCodeRowNumber="true"
-            />
+                @input="store"/>
           </div>
         </div>
         <v-card-actions justify="space-between">
@@ -240,24 +236,10 @@
 
 <script setup>
 import {ref /*, onMounted, onUnmounted */} from "vue";
-import Editor from "md-editor-v3";
 // import MainpageCardModal from "../MainpageCardModal.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
-import {theme} from "@/helpers/theme";
-
-// https://imzbf.github.io/md-editor-v3/docs/index#%F0%9F%A7%B1%20toolbars
-const toolbars = [
-  'bold', 'underline', 'italic', 'strikeThrough',
-  '-',
-  'unorderedList', 'orderedList', 'quote',
-  '-',
-  'link', 'table', 'codeRow', 'code',
-  '-',
-  'katex', 'sub', 'sup', 'mermaid',
-  '=',
-  'revoke', 'next', 'pageFullscreen',
-]
+import MarkdownModal from "@/components/helpers/MarkdownModal";
 
 /*
 function keyDownListener(e) {

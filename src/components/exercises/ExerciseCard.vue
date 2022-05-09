@@ -121,13 +121,7 @@
     </v-container-->
 
     <v-container class="py-1">
-      <Editor
-          style="background: none"
-          previewOnly
-          class="text-left"
-          language="en-US"
-          :modelValue="exercise.content"
-          :showCodeRowNumber="true"/>
+      <MarkdownModal v-model="exercise.content"/>
     </v-container>
 
     <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
@@ -164,8 +158,8 @@
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 // import NewSubmission from "@/components/exercises/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
-import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
+import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 
 const content = "**Hallo Welt**\n" +
     "\n" +
