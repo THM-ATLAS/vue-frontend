@@ -93,8 +93,14 @@ const translationDe = {
                 password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
             }
         }
+    },
+    exercise: {
+        back: 'Zurück',
+        edit: 'Bearbeiten',
+        description: 'Beschreibung (optional)',
+        title: 'Titel',
+        id: 'ID',
     }
-
 }
 
 export default translationDe

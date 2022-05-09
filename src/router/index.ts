@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from "@/views/LoginView.vue";
-import Exercise from "@/views/ExerciseView.vue";
+import Exercise from "@/views/exercises/ExerciseView.vue";
 import MainPage from "@/views/MainView.vue";
 import Profile from "@/views/ProfileView.vue";
-import Submission from "@/views/SubmissionView.vue";
+import Submission from "@/views/exercises/SubmissionView.vue";
 import Notifications from "@/views/NotificationsView.vue";
 import Help from "@/views/HelpView.vue";
 import Leaderboard from "@/views/LeaderboardView.vue";
-import ExerciseEditor from "@/views/ExerciseEditorView.vue";
+import ExerciseEditor from "@/views/exercises/ExerciseEditorView.vue";
 import Feedback from "@/views/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Login},
   // {path: '/home', component: CourseSelector},
 
-  {path: '/c/:course/', component: MainPage},
+  {path: '/:course/', component: MainPage},
 
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},

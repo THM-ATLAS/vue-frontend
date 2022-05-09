@@ -93,6 +93,13 @@ const translationEn = {
                 password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
             }
         }
+    },
+    exercise: {
+        back: 'Back',
+        edit: 'Edit',
+        description: 'Description (optional)',
+        title: 'Title',
+        id: 'ID',
     }
 }
 
