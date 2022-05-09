@@ -98,9 +98,9 @@
       </v-tooltip>
 
     </v-container>
-    <div v-if="this.$route.params.id">
+    <!-- <div v-if="this.$route.params.id">
       requested exercise {{ this.$route.params.id }} from course {{ this.$route.params.course }}
-    </div>
+    </div> -->
     <v-card-header>
       <v-card-header-text class="text-left text-h4" v-html="exercise.title"/>
     </v-card-header>
@@ -154,7 +154,7 @@ import {useRouter, useRoute} from "vue-router";
 import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import {theme} from "@/helpers/theme";
-import axios from 'axios';
+import axios from '@/services/API';
 
 
 const content = "# Hallo Welt\n" +
@@ -295,7 +295,7 @@ export default defineComponent({
   },
   // GET Request
     mounted () {
-    axios.get('http://brueckenkurs-programmieren.thm.de/api/tasks/${id}', {
+    axios.get('/tasks/${id}', {
       params: {
         id: useRoute().params.id
       }
