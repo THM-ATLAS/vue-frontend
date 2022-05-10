@@ -14,19 +14,29 @@
     </v-row>
   </v-container>
 
+<v-container>
+  <v-row justify="center">
+  <div style="display: inline-block"
+      v-for="exercise in exercises"
+      v-bind:key="exercise.id"
 
-  <div v-for="exercise in exercises" :key="exercise.exerciseID" class="exercisePanel">
-    <h1>{{exercise.title}}</h1>
-    <v-img :src=exercise.image style="height: 16rem; width: 22rem"></v-img>
-    <p>{{exercise.description}}</p>
+  >
+    <MainpageCardModal class="exercisePanel"
+        :exercise="exercise"
+        :course="this.$route.params.course"
+    />
+
   </div>
-
+  </v-row>
+</v-container>
 </v-container>
 </template>
 
 <script>
+import MainpageCardModal from "@/components/MainpageCardModal";
 export default {
   name: "CourseMainPage",
+  components: {MainpageCardModal},
   props: {
     course: {
       resultId: Number,
@@ -43,15 +53,8 @@ export default {
 <style scoped>
 
 .exercisePanel{
-  height: 25rem;
-  width: 25rem;
-  padding: 0.3rem;
-  display: inline-block;
-  border-style: solid;
-  border-color: #80ba24;
-  margin: 0.7rem
+  width:28rem;
+  height:30rem;
+  padding: 1rem;
 }
-/*h1{
-  color: var(--v-primary-base)
-}*/
 </style>
