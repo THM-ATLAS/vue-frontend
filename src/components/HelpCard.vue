@@ -121,11 +121,6 @@ h2 {
   margin-bottom: 3%;
 }
 
-.help-card {
-  margin-top: 3em;
-  margin-bottom: 3em;
-}
-
 .text-body-1 {
   margin-bottom: 3%;
 }
