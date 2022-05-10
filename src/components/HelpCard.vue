@@ -110,10 +110,7 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  name: "HelpCard",
-};
+<script setup>
 </script>
 
 <style scoped>

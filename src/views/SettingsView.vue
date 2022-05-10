@@ -22,15 +22,9 @@
 }
 </style>
 
-<script lang='ts'>
-import {defineComponent} from "vue";
-import Navbar from "../components/navbar/NavbarBase.vue";
-import Settings from "../components/SettingsCard.vue";
-import Footer from "@/components/FooterCard.vue";
-import SkipToContent from "@/components/SkipToContent.vue";
-
-export default defineComponent({
-  components: {SkipToContent, Navbar, Footer, Settings},
-  name: "SettingsView",
-});
+<script lang='ts' setup>
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Settings from "@/components/SettingsCard.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 </script>

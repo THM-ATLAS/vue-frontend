@@ -5,6 +5,7 @@ const translationDe = {
         subtitle: 'Die interdisziplinäre Lernplattform',
         copyright: 'Copyright © 2021-2022',
         version: 'Version',
+        skip_to_content: 'Zum Inhalt springen',
     },
     footer: {
         home: 'Startseite',

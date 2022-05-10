@@ -11,10 +11,10 @@
 </template>
 
 
-<script setup>
-  import HomeContent from "@/components/HomeContent.vue";
-  import Footer from "@/components/FooterCard.vue";
-  import NavbarBase from "@/components/navbar/NavbarBase";
+<script setup lang="ts">
+import HomeContent from "@/components/HomeContent.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import NavbarBase from "@/components/navigation/navbar/NavbarBase.vue";
 
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <a :href="'#' + this.$props.id" class="skipLink" ref="skipLink" tabindex="0">Skip to main content</a>
+    <a :href="'#' + this.$props.id" class="skipLink" ref="skipLink" tabindex="0" v-html="$t('app.skip_to_content')"/>
 </template>
 
 <script>
@@ -32,6 +32,6 @@ export default {
 
 .skipLink:focus {
   transform: translateY(0%);
-  top: 200px;
+  top: 100px;
 }
 </style>

@@ -23,6 +23,7 @@
               elevation="0"
               color="secondary"
               class="mr-2"
+              rounded="0"
           />
           <v-btn
               @click="editTaskDialog.show = true; editTaskDialog.target = task"
@@ -31,6 +32,8 @@
               elevation="0"
               color="primary"
               class="mr-2"
+              rounded="0"
+              variant="outlined"
           />
           <v-btn
               @click="deleteTaskDialog.show = true; deleteTaskDialog.target = task"
@@ -39,6 +42,8 @@
               elevation="0"
               color="error"
               class="mr-2"
+              rounded="0"
+              variant="outlined"
           />
         </td>
       </tr>
@@ -54,6 +59,8 @@
           elevation="0"
           color="primary"
           class="mr-2"
+          rounded="0"
+          variant="outlined"
       />
     </div>
   </v-card>

@@ -9,13 +9,7 @@
   <Footer/>
 </template>
 
-<script lang='ts'>
-import {defineComponent} from "vue";
-import LoginModal from "../components/LoginModal.vue";
-import Footer from "@/components/FooterCard.vue";
-
-export default defineComponent({
-  components: {Footer, LoginModal},
-  name: "LoginView",
-});
+<script lang='ts' setup>
+import LoginModal from "@/components/LoginModal.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
 </script>

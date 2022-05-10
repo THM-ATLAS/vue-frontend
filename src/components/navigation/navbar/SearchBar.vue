@@ -10,7 +10,9 @@
 </template>
 
 <script setup>
-import router from "@/router";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 function goToCoursePage() {
   router.push("/courses");

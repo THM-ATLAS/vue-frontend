@@ -5,6 +5,7 @@ const translationEn = {
         subtitle: 'Exercises and more',
         copyright: 'Copyright © 2021-2022',
         version: 'Version',
+        skip_to_content: 'Skip to main content',
     },
     footer: {
         home: 'Home',
