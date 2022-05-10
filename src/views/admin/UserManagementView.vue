@@ -14,6 +14,6 @@
 </style>
 
 <script setup lang='ts'>
-import SkipToContent from "@/components/SkipToContent.vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import UserManagement from "@/components/admin/UserManagement.vue";
 </script>

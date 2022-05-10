@@ -37,6 +37,8 @@
               elevation="0"
               color="primary"
               class="mr-2"
+              rounded="0"
+              variant="outlined"
           />
           <v-btn
               @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
@@ -45,6 +47,8 @@
               elevation="0"
               color="error"
               class="mr-2"
+              rounded="0"
+              variant="outlined"
           />
         </td>
       </tr>
@@ -59,6 +63,8 @@
           elevation="0"
           color="primary"
           class="mr-2"
+          rounded="0"
+          variant="outlined"
       />
     </div>
   </v-card>
@@ -175,7 +181,8 @@
       <v-card-actions>
         <v-btn @click="editUserDialog.show = false; editUserDialog.changePassword = false;"
                v-html="$t('buttons.cancel')"/>
-        <v-btn color="primary"
+        <v-btn
+            color="primary"
                @click="overwriteUser(editUserDialog.target, editUserDialog.changePassword);
                editUserDialog.show = false;
                editUserDialog.changePassword = false"
