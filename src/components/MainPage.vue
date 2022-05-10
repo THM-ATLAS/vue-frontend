@@ -12,7 +12,7 @@
       >
         <MainpageCardModal
             :exercise="exercise"
-            :course="this.$route.params.course"
+            :course="course"
         />
       </v-col>
     </v-row>
