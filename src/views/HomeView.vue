@@ -20,6 +20,6 @@ import NavbarBase from "@/components/navigation/navbar/NavbarBase.vue";
 
 <style scoped>
 .v-row {
-  padding-block: 10em;
+  padding: 10em 0 5em 0;
 }
 </style>
