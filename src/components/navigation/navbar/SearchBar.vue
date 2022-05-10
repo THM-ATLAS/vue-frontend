@@ -1,12 +1,15 @@
 <template>
-  <v-text-field @keyup.enter="goToCoursePage"
+  <!--v-text-field @keyup.enter="goToCoursePage"
       class="d-md-block"
       label="z.B. Compilerbau"
       prepend-inner-icon="mdi-magnify"
       role="search"
       hide-details="auto"
       dense
-  />
+  /-->
+  <v-btn @click="goToCoursePage" width="100%">
+    Zu den Kursen
+  </v-btn>
 </template>
 
 <script setup>
