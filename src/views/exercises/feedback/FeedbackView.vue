@@ -13,10 +13,10 @@
 
 <script>
 import {defineComponent} from "vue";
-import Navbar from "../components/navbar/NavbarBase.vue";
-import Feedback from "../components/FeedbackList.vue";
-import Footer from "../components/FooterCard.vue"
-import SkipToContent from "@/components/SkipToContent";
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Feedback from "@/components/exercises/feedback/FeedbackList.vue";
+import Footer from "@/components/navigation/FooterCard.vue"
+import SkipToContent from "@/components/helpers/SkipToContent";
 
 export default defineComponent({
   components: {SkipToContent, Navbar, Feedback, Footer},
