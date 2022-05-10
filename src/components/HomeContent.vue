@@ -24,9 +24,16 @@
   </v-card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {theme} from "@/helpers/theme";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/SearchBar.vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
+
+function goToHome(): void {
+  router.push(`/`);
+}
 </script>
 
 <style scoped>
