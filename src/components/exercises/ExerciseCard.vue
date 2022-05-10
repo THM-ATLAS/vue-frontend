@@ -154,46 +154,32 @@
 </style>
 
 <script setup lang='ts'>
-// import {mergeProps, ref} from "vue";
-//import {computed} from "vue";
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 // import NewSubmission from "@/components/exercises/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import TaskService from "@/services/TaskService";
+import {onBeforeMount, ref} from "vue";
 
-const route = useRoute();
-const router = useRouter();
-const id = route.params.id;
-const course = route.params.course;
+  const route = useRoute();
+  const router = useRouter();
+  const id = route.params.id;
+  const course = route.params.course;
+  const exercise = ref();
 
-// here you'd get the exercise from the server
+  onBeforeMount(async () => {
+    exercise.value = await TaskService.getTask(id).then(r => {
+      console.log(r.data)
+      router.replace(`/${course}/e/${id}/${encodeURIComponent(r.data.title)}`);
+    });
 
-let exercise
-getExercise()
-async function getExercise() {
-  await TaskService.getTask(id).then(function (response) {
-    console.log("Response:" + response)
-    exercise = {
-      id: response.data.exercise_id,
-      content: response.data.content,
-      taskPublic: response.data.taskPublic,
-      title: response.data.public
-    }
   })
-      .catch(function (error) {
-        console.log(error)
-        return error.code
-      })
-}
-console.log(exercise)
 
-router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`);
 
-function goBack(): void {
-  router.back();
-}
+  function goBack() {
+    router.back()
+  }
 
 /*
 function reportError(error: string): void {

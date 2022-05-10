@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default {
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "SkipToContent",
   props: {
     id: {
@@ -11,7 +13,7 @@ export default {
       default: "content"
     }
   },
-}
+})
 </script>
 
 <style scoped>
