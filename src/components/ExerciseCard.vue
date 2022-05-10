@@ -265,45 +265,5 @@ let dialog = ref(false);
 let dialog2 = ref(false);
 
 let hasSubmission = true;
-    let hasSubmission = true;
 
-
-    const text = ref(exercise.content);
-
-    return {
-      goBack,
-      reportError,
-      filterYAMLHeader,
-      getSubmitButton,
-      dialog,
-      error,
-      dialog2,
-      feedback,
-      props: null,
-      saved,
-      showSubmission,
-      hasSubmission,
-      exercise,
-      text,
-      theme,
-      id : '',
-      course : ''
-    };
-  },
-  // GET Request
-    mounted () {
-    axios.get('/tasks/${id}', {
-      params: {
-        id: useRoute().params.id
-      }
-    })
-        .then(response => {
-         this.id = response.data
-          console.log(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-  }
-});
 </script>
