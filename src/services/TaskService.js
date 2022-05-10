@@ -1,25 +1,34 @@
+
 import API from "@/services/API";
-import {User, Task} from "@/helpers/types"
+//import {User, Task} from "@/helpers/types"
+
+// @ts-ignore
 
 export default {
     //TODO: Return / check response codes
 
-    loadTasks(user:User) : Task[]{
-        return API.get(`tasks/user/${user.id}`)
-    },
+ /*   loadTasks(user) {
+        API.get(`tasks/user/${user.id}`)
+            .then(function (response) {
 
-    getTask(id:number) : Task{
+            })
+            .catch(function (error) {
+
+            })
+    },*/
+
+    getTask(id)  {
         return API.get(`tasks/${id}`)
     },
 
-    delTask(taskId:number, user:User) : number{
+    delTask(taskId) {
         return API.delete(`tasks/${taskId}`)
     },
 
-    editTask(task:Task, user:User) : number{
+    editTask(task, user) {
         return API.put(`tasks/${user.id}`,{
                 task : {
-                    id : task.id,
+                    exercise_id : task.id,
                     title : task.title,
                     content : task.content,
                     taskPublic : task.taskPublic
@@ -28,7 +37,7 @@ export default {
         )
     },
 
-    addTask(task:Task, user:User) : number{
+    addTask(task, user) {
         return API.post(`tasks/${user.id}`,{
                 task : {
                     id : task.id,

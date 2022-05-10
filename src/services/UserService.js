@@ -1,3 +1,4 @@
+/*
 import API from "@/services/API";
 import {User} from "@/helpers/types"
 
@@ -15,12 +16,12 @@ export default {
     editUser(user:User) : number{
         return API.put(`users/`,{
                 user : {
-                    id : user.id,
+                    user_id : user.id,
                     firstName : user.firstName,
                     lastName : user.lastName,
                     email : user.email,
                     password : user.password,
-                    role : user.role
+                    roles : user.roles
                 }
             }
         )
@@ -29,14 +30,15 @@ export default {
     addUser(user:User) : number{
         return API.post(`users/`,{
                 user : {
-                    id : user.id,
+                    user_id : user.id,
                     firstName : user.firstName,
                     lastName : user.lastName,
                     email : user.email,
                     password : user.password,
-                    role : user.role
+                    roles : user.roles,
+                    settings : user.settings
                 }
             }
         )
     }
-}
+}*/

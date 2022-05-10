@@ -155,31 +155,13 @@
 
 <script setup lang='ts'>
 // import {mergeProps, ref} from "vue";
+//import {computed} from "vue";
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 // import NewSubmission from "@/components/exercises/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-
-const content = "**Hallo Welt**\n" +
-    "\n" +
-    "Dies ist eine Markdown-Testdatei.\n" +
-    "\n" +
-    "$i^2 + 2 * \\omega(A, G, D)$\n" +
-    "\n" +
-    "* *test*\n" +
-    "* **Test**\n" +
-    "* _Test_\n" +
-    "* __test__\n" +
-    "* `test`\n" +
-    "\n" +
-    "```javascript\n" +
-    "console.log('Hallo Welt');\n" +
-    "\n" +
-    "function test() {\n" +
-    "  console.log('Hallo Welt');\n" +
-    "}\n" +
-    "```";
+import TaskService from "@/services/TaskService";
 
 const route = useRoute();
 const router = useRouter();
@@ -187,62 +169,27 @@ const id = route.params.id;
 const course = route.params.course;
 
 // here you'd get the exercise from the server
-// const exercise = computed(() => {
-//   return content.exercises.find(exercise => exercise.id === id);
-// });
 
-const exercise = {
-  id: id,
-  title: "Aufgabe zur Zielscheibe",
-  images_before: [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
-    },
-    {
-      id: 2,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1,
-    },
-    {
-      id: 3,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 3,
-    },
-    {
-      id: 4,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
-    },
-    {
-      id: 5,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
+let exercise
+getExercise()
+async function getExercise() {
+  await TaskService.getTask(id).then(function (response) {
+    console.log("Response:" + response)
+    exercise = {
+      id: response.data.exercise_id,
+      content: response.data.content,
+      taskPublic: response.data.taskPublic,
+      title: response.data.public
     }
-  ],
-  content: content,
-  content2: "## What is Lorem Ipsum?\n" +
-      "\n" +
-      "**Lorem Ipsum** is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n" +
-      "\n" +
-      "## Why do we use it?\n" +
-      "\n" +
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n" +
-      "\n" +
-      "## Where does it come from?\n" +
-      "\n" +
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of",
-  images_after: [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 3,
-    },
-  ],
-};
+  })
+      .catch(function (error) {
+        console.log(error)
+        return error.code
+      })
+}
+console.log(exercise)
 
-router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`);
+router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`);
 
 function goBack(): void {
   router.back();

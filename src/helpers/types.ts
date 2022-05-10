@@ -3,8 +3,9 @@ export type User = {
     firstName : string,
     lastName : string,
     email : string,
-    password : string
-    role : string
+    password : string,
+    settings : any,
+    roles : string[]
 }
 
 export type Task = {
