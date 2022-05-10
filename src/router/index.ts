@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/admin/tasks', component: TaskManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
-  { path: '/courseSearch', component: CourseSearch },
+  { path: '/courses', component: CourseSearch },
 ]
 
 const router = createRouter({

@@ -14,11 +14,11 @@
         <div class="text-h5">Starte mit der Suche nach Kursen oder logge dich oben rechts ein!</div>
       </v-row>
       <v-row class="justify-center homepage-row">
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-col>
-          <SearchBar></SearchBar>
+          <SearchBar/>
         </v-col>
-        <v-spacer></v-spacer>
+        <v-spacer/>
       </v-row>
     </v-container>
   </v-card>

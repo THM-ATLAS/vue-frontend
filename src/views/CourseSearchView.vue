@@ -12,10 +12,10 @@
 </template>
 
 <script setup>
-import Navbar from "../components/NavbarBase.vue";
-import CourseSearch from "../components/CourseSearch.vue";
-import Footer from "../components/FooterCard.vue"
-import SkipToContent from "@/components/SkipToContent";
+import Navbar from '@/components/navigation/navbar/NavbarBase.vue'
+import CourseSearch from "@/components/CourseSearch.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 </script>
 
 <style scoped>
