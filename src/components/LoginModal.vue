@@ -49,20 +49,14 @@
 
 </style>
 
-<script lang='ts'>
-import {defineComponent} from "vue";
+<script setup lang='ts'>
 import {useRouter} from "vue-router";
 
-export default defineComponent({
-  name: "LoginModal",
-  setup() {
-    const router = useRouter();
+const router = useRouter();
 
-    function goToMainpage(): void {
-      router.push("/bkp"); // change to '/' when landing page is ready
-    }
+function goToMainpage(): void {
+  router.push("/");
+}
 
-    return {goToMainpage}
-  }
-});
+
 </script>

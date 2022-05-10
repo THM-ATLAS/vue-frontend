@@ -13,9 +13,13 @@ import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import Home from "@/views/HomeView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '/', component: Login},
+  {path: '/', component: Home},
+
+  {path: '/login', component: Login},
+
   // {path: '/home', component: CourseSelector},
 
   {path: '/:course/', component: MainPage},

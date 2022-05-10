@@ -90,7 +90,6 @@
       v-model="drawer"
       position="right"
       :temporary="true"
-      color="white"
       class="d-md-none"
   >
     <v-spacer/>
@@ -114,8 +113,8 @@
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
-          <span @click='router.push("/");' v-if="loggedIn"> Logout </span>
-          <span @click="goToLogin" v-else> Login </span>
+          <span v-if="loggedIn" @click='router.push("/");'> Logout </span>
+          <span v-else @click="goToLogin"> Login </span>
         </v-btn>
       </v-list-item>
     </v-list>
@@ -124,30 +123,25 @@
 
 <script setup lang="ts">
 import Dropdown from "./DropdownCard.vue";
-//import NavigationDropdown from "./NavigationDropdown.vue"
 import CourseButton from "./CourseButton.vue"
-import {useRoute, useRouter} from 'vue-router';
+import {useRouter} from 'vue-router';
 import {Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 
-const course = useRoute().params.course;
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
 
 const router = useRouter();
 
-const username = "Marianne Musterfrau"; //must be either the logged in user's name or empty
+const username = "Marianne Mustermann"; //must be either the logged in user's name or empty
 let loggedIn: Ref<boolean> = ref(!!username); //equals: username ? true : false
 
 function goToHome(): void {
-  if (typeof course === "string")
-    router.push(`/${course}`);
-  else
-    router.push(`/bkp`);
+    router.push(`/`);
 }
 
 function goToLogin(): void {
-  router.push("/");
+  router.push("/login");
 }
 
 /*function getMobile(): boolean {

@@ -31,7 +31,7 @@
   let date = new Date().getFullYear();
 
   function goToMainpage(): void {
-    router.push("/mainpage");
+    router.push("/");
   }
 
   function goToImpressum(): void {
