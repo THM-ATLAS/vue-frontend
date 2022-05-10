@@ -1,30 +1,25 @@
 <template>
-  <v-btn @click="toggleTheme">Switch theme</v-btn>
-  <nav>
-    <router-link to="/helloworld">Home</router-link>
-    |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <div class="home">
-    <v-img alt="Vue logo" width="100px" style="display: block;
-  margin-left: auto;
-  margin-right: auto" src="../assets/logo.png"></v-img>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <NavbarBase></NavbarBase>
+  <v-container>
+    <v-row justify="center" align-content="center">
+      <v-col>
+        <HomeContent/>
+      </v-col>
+    </v-row>
+  </v-container>
+  <Footer/>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import {toggleTheme} from "@/helpers/theme";
 
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld,
-  },
-  methods: {
-    toggleTheme,
-  },
-}
+<script setup lang="ts">
+import HomeContent from "@/components/HomeContent.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import NavbarBase from "@/components/navigation/navbar/NavbarBase.vue";
+
 </script>
+
+<style scoped>
+.v-row {
+  padding-block: 10em;
+}
+</style>

@@ -46,7 +46,7 @@ export const darkTheme: ThemeDefinition = {
         surface: '#282828',
         primary: '#80ba24',
         'primary-darken-1': '#6c9a22',
-        secondary: '#4a5c66',
+        secondary: '#282828',
         'secondary-darken-1': '#364046',
         error: '#B00020',
         info: '#2196F3',

@@ -114,226 +114,220 @@
   </v-card>
 </template>
 
-<script>
+<script setup>
+/*
+function del(index) {
+  this.items.splice(index, 1);
+}
+*/
+function visitExtLink(url) {
+  window.open(url, "_blank");
+}
 
-import {defineComponent} from "vue";
+function visitIntLink(url) {
+  this.$router.push(url);
+}
 
-export default defineComponent({
-  name: "NotificationList",
-  methods: {
-    del(index) {
-      this.items.splice(index, 1);
-    },
-    visitExtLink(url) {
-      window.open(url, "_blank");
-    },
-    visitIntLink(url) {
-      this.$router.push(url);
-    },
+const items = [
+  {
+    header: 'Ungelesen',
+    icon: 'mdi-email'
   },
-  data: () => ({
-    items: [
-      {
-        header: 'Ungelesen',
-        icon: 'mdi-email'
-      },
-      {
-        icon: 'mdi-note-check',
-        type: 'Rückmeldung erhalten',
-        title: 'Zielscheibe ',
-        subtitle: `Deine Abgabe vom 21.12.2021 wurde akzeptiert.`,
-        interaction: [{
-          type: 'popup',
-          btn_title: 'Feedback lesen',
-          btn_icon: 'mdi-email',
-          btn_color: 'primary',
-          content: 'Super gemacht! Geht übrigens auch mit einer Klasse.',
-        }, {
-          type: 'link',
-          btn_title: 'Zur Abgabe',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: '/oop/s/1234',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-trophy-award',
-        type: 'Level-Up',
-        title: 'Level 10 erreicht',
-        subtitle: 'Du hast Level 10 erreicht. Weiter so!',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Zum Profil',
-          btn_icon: 'mdi-account',
-          btn_color: 'primary',
-          content: '/u/',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-note-remove',
-        type: 'Rückmeldung erhalten',
-        title: 'Würfeln',
-        subtitle: `Deine Abgabe vom 17.12.2021 wurde abgelehnt.`,
-        interaction: [{
-          type: 'popup',
-          btn_title: 'Feedback lesen',
-          btn_icon: 'mdi-email',
-          btn_color: 'primary',
-          content: 'Der Code lässt sich nicht ausführen.',
-        }, {
-          type: 'link',
-          btn_title: 'Zur Abgabe',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: 'bkp/s/1234',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-note-search',
-        type: 'Neue Abgabe erhalten',
-        title: 'Würfeln',
-        subtitle: 'Nutzer:in pkrs44 hat eine Abgabe eingereicht.',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Zur Abgabe',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: 'mpt/s/1234',
-        }]
-      },
-      {
-        header: 'Ältere Nachrichten',
-        icon: 'mdi-email-open'
-      },
-      {
-        icon: 'mdi-check',
-        type: 'Abgabe bewertet',
-        title: 'Zielscheibe',
-        subtitle: 'Abgabe von pkrs44 wurde bewertet.',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Zur Abgabe',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: 'mpt/s/1234',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-message-badge',
-        type: 'Feedback erhalten',
-        title: 'Würfeln',
-        subtitle: `Die Aufgabe Würfeln hat ein neues Feedback erhalten.`,
-        interaction: [{
-          type: 'link',
-          btn_title: 'Feedback lesen',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: '/bkp/e/5/feedback',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-email',
-        type: 'Private Nachricht',
-        title: 'Neue Nachricht vom ATLAS-Team',
-        subtitle: 'Update 0.12 - Notifications & Mehr.',
-        interaction: [{
-          type: 'popup',
-          btn_title: 'Lesen',
-          btn_icon: 'mdi-email',
-          btn_color: 'primary',
-          content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,' +
-              'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' +
-              'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris' +
-              'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in' +
-              'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla' +
-              'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in' +
-              'culpa qui officia deserunt mollit anim id est laborum.',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-newspaper-plus',
-        type: 'Neue Aufgaben',
-        title: '2 neue Aufgaben in Brückenkurs Programmieren',
-        subtitle: 'Es wurden neue Aufgaben in einem Modul eingefügt, dem Du folgst.',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Besuchen',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: '/bkp',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-file-cog',
-        type: 'Korrektur erhalten',
-        title: 'Würfeln',
-        subtitle: 'Die Aufgabe Würfeln hat einen Korrekturvorschlag erhalten.',
-        interaction: [{
-          type: 'popup',
-          btn_title: 'Lesen',
-          btn_icon: 'mdi-email',
-          btn_color: 'primary',
-          content: 'Hier ist ein Typo: Wüfeln.',
-        }, {
-          type: 'link',
-          btn_title: 'Aufgabe Bearbeiten',
-          btn_icon: 'mdi-arrow-top-right-bold-box',
-          btn_color: 'primary',
-          content: '/bkp/e/5/edit',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-check',
-        type: 'Korrektur bearbeitet',
-        title: 'Zielscheibe',
-        subtitle: 'Die Korrektur für Würfeln wurde bearbeitet.',
-        interaction: [{
-          type: 'popup',
-          btn_title: 'Lesen',
-          btn_icon: 'mdi-email',
-          btn_color: 'primary',
-          content: 'Keine Ahnung lol',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-trophy-award',
-        type: 'Neues Abzeichen',
-        title: '100 erledigte Aufgaben!',
-        subtitle: 'Du hast für das Erledigen von 100 Aufgaben ein Abzeichen erhalten.',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Zum Profil',
-          btn_icon: 'mdi-account',
-          btn_color: 'primary',
-          content: '/u/',
-        }]
-      },
-      {divider: true, inset: true},
-      {
-        icon: 'mdi-email',
-        type: 'Private Nachricht',
-        title: 'Willkommen zu ATLAS!',
-        subtitle: 'Lerne die ersten Schritte.',
-        interaction: [{
-          type: 'link',
-          btn_title: 'Zur Hilfeseite',
-          btn_icon: 'mdi-link',
-          btn_color: 'primary',
-          content: '/help',
-        }]
-      },
-    ],
-  }),
-});
+  {
+    icon: 'mdi-note-check',
+    type: 'Rückmeldung erhalten',
+    title: 'Zielscheibe ',
+    subtitle: `Deine Abgabe vom 21.12.2021 wurde akzeptiert.`,
+    interaction: [{
+      type: 'popup',
+      btn_title: 'Feedback lesen',
+      btn_icon: 'mdi-email',
+      btn_color: 'primary',
+      content: 'Super gemacht! Geht übrigens auch mit einer Klasse.',
+    }, {
+      type: 'link',
+      btn_title: 'Zur Abgabe',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: '/oop/s/1234',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-trophy-award',
+    type: 'Level-Up',
+    title: 'Level 10 erreicht',
+    subtitle: 'Du hast Level 10 erreicht. Weiter so!',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Zum Profil',
+      btn_icon: 'mdi-account',
+      btn_color: 'primary',
+      content: '/u/',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-note-remove',
+    type: 'Rückmeldung erhalten',
+    title: 'Würfeln',
+    subtitle: `Deine Abgabe vom 17.12.2021 wurde abgelehnt.`,
+    interaction: [{
+      type: 'popup',
+      btn_title: 'Feedback lesen',
+      btn_icon: 'mdi-email',
+      btn_color: 'primary',
+      content: 'Der Code lässt sich nicht ausführen.',
+    }, {
+      type: 'link',
+      btn_title: 'Zur Abgabe',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: 'bkp/s/1234',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-note-search',
+    type: 'Neue Abgabe erhalten',
+    title: 'Würfeln',
+    subtitle: 'Nutzer:in pkrs44 hat eine Abgabe eingereicht.',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Zur Abgabe',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: 'mpt/s/1234',
+    }]
+  },
+  {
+    header: 'Ältere Nachrichten',
+    icon: 'mdi-email-open'
+  },
+  {
+    icon: 'mdi-check',
+    type: 'Abgabe bewertet',
+    title: 'Zielscheibe',
+    subtitle: 'Abgabe von pkrs44 wurde bewertet.',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Zur Abgabe',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: 'mpt/s/1234',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-message-badge',
+    type: 'Feedback erhalten',
+    title: 'Würfeln',
+    subtitle: `Die Aufgabe Würfeln hat ein neues Feedback erhalten.`,
+    interaction: [{
+      type: 'link',
+      btn_title: 'Feedback lesen',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: '/Brueckenkurs Programmieren/e/5/feedback',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-email',
+    type: 'Private Nachricht',
+    title: 'Neue Nachricht vom ATLAS-Team',
+    subtitle: 'Update 0.12 - Notifications & Mehr.',
+    interaction: [{
+      type: 'popup',
+      btn_title: 'Lesen',
+      btn_icon: 'mdi-email',
+      btn_color: 'primary',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,' +
+          'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' +
+          'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris' +
+          'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in' +
+          'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla' +
+          'pariatur. Excepteur sint occaecat cupidatat non proident, sunt in' +
+          'culpa qui officia deserunt mollit anim id est laborum.',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-newspaper-plus',
+    type: 'Neue Aufgaben',
+    title: '2 neue Aufgaben in Brückenkurs Programmieren',
+    subtitle: 'Es wurden neue Aufgaben in einem Modul eingefügt, dem Du folgst.',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Besuchen',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: '/Brueckenkurs Programmieren',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-file-cog',
+    type: 'Korrektur erhalten',
+    title: 'Würfeln',
+    subtitle: 'Die Aufgabe Würfeln hat einen Korrekturvorschlag erhalten.',
+    interaction: [{
+      type: 'popup',
+      btn_title: 'Lesen',
+      btn_icon: 'mdi-email',
+      btn_color: 'primary',
+      content: 'Hier ist ein Typo: Wüfeln.',
+    }, {
+      type: 'link',
+      btn_title: 'Aufgabe Bearbeiten',
+      btn_icon: 'mdi-arrow-top-right-bold-box',
+      btn_color: 'primary',
+      content: '/Brueckenkurs Programmieren/e/5/edit',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-check',
+    type: 'Korrektur bearbeitet',
+    title: 'Zielscheibe',
+    subtitle: 'Die Korrektur für Würfeln wurde bearbeitet.',
+    interaction: [{
+      type: 'popup',
+      btn_title: 'Lesen',
+      btn_icon: 'mdi-email',
+      btn_color: 'primary',
+      content: 'Keine Ahnung lol',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-trophy-award',
+    type: 'Neues Abzeichen',
+    title: '100 erledigte Aufgaben!',
+    subtitle: 'Du hast für das Erledigen von 100 Aufgaben ein Abzeichen erhalten.',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Zum Profil',
+      btn_icon: 'mdi-account',
+      btn_color: 'primary',
+      content: '/u/',
+    }]
+  },
+  {divider: true, inset: true},
+  {
+    icon: 'mdi-email',
+    type: 'Private Nachricht',
+    title: 'Willkommen zu ATLAS!',
+    subtitle: 'Lerne die ersten Schritte.',
+    interaction: [{
+      type: 'link',
+      btn_title: 'Zur Hilfeseite',
+      btn_icon: 'mdi-link',
+      btn_color: 'primary',
+      content: '/help',
+    }]
+  }
+]
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

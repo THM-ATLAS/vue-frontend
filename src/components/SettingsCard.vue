@@ -1,173 +1,170 @@
 <template>
-  <v-card elevation="0" rounded="0" role="main">
-    <v-container class="pt-0 pl-0 flex">
-      <v-card-title v-html="$t('settings.title')"/>
-      <!-- Benachrichtigungen -->
-      <div>
-        <span class="text-lg-subtitle-1" v-html="$t('settings.notifications.title')"/>
-        <div>
-          <v-switch
-              v-model="settings.general.important_notifications"
-              :label="$t('settings.notifications.important_notifications')"
-          />
-          <v-switch
-              v-model="settings.general.show_notifications"
-              :label="$t('settings.notifications.show_notifications')"
-          />
-          <v-switch
-              v-model="settings.general.send_notification_mails"
-              :disabled="!(settings.general.show_notifications || settings.general.important_notifications)"
-              :label="$t('settings.notifications.by_mail')"
-          />
-          <v-switch
-              v-model="settings.general.show_notifications_in_browser"
-              :disabled="!(settings.general.show_notifications || settings.general.important_notifications)"
-              :label="$t('settings.notifications.by_browser_notification')"
-          />
-        </div>
-      </div>
-      <br/>
-      <!-- Theme -->
-      <div>
-        <span class="text-lg-subtitle-1">{{ $t('settings.theme.title') }}</span>
-        <div>
-          <v-btn
-              class="mr-3"
-              @click="toggleTheme"
-              :disabled="theme === 'dark'"
-              v-html="$t('settings.theme.dark')"/>
-          <v-btn
-              class="mr-3"
-              @click="toggleTheme"
-              :disabled="theme === 'light'"
-              v-html="$t('settings.theme.light')"/>
-        </div>
-      </div>
-      <br/>
-      <!-- Sprache -->
-      <div>
-        <span class="text-lg-subtitle-1">{{ $t('settings.language') }}</span>
-        <div>
-          <!--v-select
-              v-model="languages.filter(l => l.code === settings.general.language)[0].name"
-              :items="languages"
-              label="Sprache"
-              item-text="name"
-              item-value="code"
-              ( old code, also broken, but can be used as inspiration for the new one )
-          /-->
-          <v-select
-              v-model="$i18n.locale"
-              :items="$i18n.availableLocales"
-              :hint="$t('languages.' + $i18n.locale)"
-              persistent-hint
-              :label="$t('settings.language')"
-              :text="$t('languages.' + item)"
-          />
-          <!-- this is officially still broken, see https://next.vuetifyjs.com/en/components/selects/.
-          Once they got it fixed, we can then replace this with a select that actually displays the
-          full language in the box and options. -->
-        </div>
-      </div>
-      <br/>
-      <!-- Einstellungen speichern -->
-      <v-card-actions>
-        <v-btn
-            color="primary"
-            @click="saveSettings"
-            v-html="$t('buttons.save')"
-        />
-        <v-btn
-            color="error"
-            @click="resetSettings"
-            v-html="$t('buttons.reset')"
-        />
-        <v-btn
-            color="cancel"
-            @click="closeSettings"
-            v-html="$t('buttons.cancel')"
-        />
-      </v-card-actions>
-    </v-container>
-  </v-card>
-  <br/>
-  <!-- Danger zone-->
-  <v-card elevation="0" rounded="0">
-    <v-card-title>
-      <span class="headline" v-html="$t('settings.danger_zone.title')"/>
-    </v-card-title>
-    <v-card-text>
-      <v-btn
-          @click="deleteAccount"
-          color="error"
-          class="ma-2"
-          text>
-        <v-icon class="mr-3" icon="mdi-delete-forever"/>
-        <span v-html="$t('settings.danger_zone.delete_account')"/></v-btn>
-      <div v-html="$t('settings.danger_zone.delete_account_description')"/>
-    </v-card-text>
-  </v-card>
+  <v-container>
+    <v-card class="help-card" elevation="0" rounded="0">
+      <v-card-header>
+        <v-icon icon="mdi-globe-model" left="true" />
+        <v-card-header-text class="text-left fontszTi">
+          {{ $t("settings.title") }}
+        </v-card-header-text>
+        <v-card-subtitle> {{ $t('settings.subtitle') }} </v-card-subtitle>
+      </v-card-header>
+      <v-container>
+        <v-card-text class="text-left fontszEx grow">
+          <v-row>
+            <v-col cols="12" md="6">
+              <h2>{{ $t("settings.theme.title") }}</h2>
+              <v-btn
+                class="mr-3"
+                @click="toggleTheme"
+                :disabled="theme === 'dark'"
+                v-html="$t('settings.theme.dark')"
+              />
+              <v-btn
+                class="mr-3"
+                @click="toggleTheme"
+                :disabled="theme === 'light'"
+                v-html="$t('settings.theme.light')"
+              />
+            </v-col>
+            <v-col cols="12" md="6">
+              <h2>{{ $t("settings.language") }}</h2>
+              <v-select
+                v-model="$i18n.locale"
+                :items="$i18n.availableLocales"
+                persistent-hint
+                :label="$t('settings.language')"
+                :text="$t('languages.' + item)"
+              />
+            </v-col>
+            <!--v-col cols="12" md="12">
+              <h2>{{ $t("settings.notifications.title") }}</h2>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-switch
+                class="notif-switch"
+                v-model="settings.general.important_notifications"
+                :label="$t('settings.notifications.important_notifications')"
+              ></v-switch>
+              <v-switch
+                class="notif-switch"
+                v-model="settings.general.show_notifications"
+                :label="$t('settings.notifications.show_notifications')"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-switch
+                class="notif-switch"
+                v-model="settings.general.show_notifications_in_browser"
+                :label="$t('settings.notifications.by_browser_notification')"
+                :disabled="
+                  !(
+                    settings.general.show_notifications ||
+                    settings.general.important_notifications
+                  )"
+              ></v-switch>
+              <v-switch
+                class="notif-switch"
+                v-model="settings.general.show_notification_mails"
+                :label="$t('settings.notifications.by_mail')"
+                :disabled="
+                  !(
+                    settings.general.show_notifications ||
+                    settings.general.important_notifications
+                  )"
+              ></v-switch>
+            </v-col-->
+            <!--v-col class="save-settings" cols="12" md="12">
+              <h2>{{ $t("settings.save_settings") }}</h2>
+              <v-card-actions class="card-actions">
+                <v-btn
+                  color="primary"
+                  @click="saveSettings"
+                  v-html="$t('buttons.save')"
+                />
+                <v-btn
+                  color="error"
+                  @click="resetSettings"
+                  v-html="$t('buttons.reset')"
+                />
+                <v-btn
+                  color="cancel"
+                  @click="closeSettings"
+                  v-html="$t('buttons.cancel')"
+                />
+              </v-card-actions>
+            </v-col-->
+          </v-row>
+        </v-card-text>
+      </v-container>
+    </v-card>
+    <br />
+    <!--v-card elevation="0" rounded="0">
+      <v-container>
+        <v-card-text class="text-left fontszEx grow">
+          <v-row>
+            <v-col cols="12">
+              <h2>{{ $t("settings.danger_zone.title") }}</h2>
+              <v-btn class="mr-3" color="error" @click="deleteAccount" text
+                ><v-icon class="mr-3" icon="mdi-delete-forever" /><span
+                  v-html="$t('settings.danger_zone.delete_account')"
+              /></v-btn>
+            </v-col>
+            <v-col>
+              {{ $t("settings.danger_zone.delete_account_description") }}
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-container>
+    </v-card-->
+  </v-container>
 </template>
 
-<script>
-import {toggleTheme, theme} from "@/helpers/theme";
+<script setup>
+import { toggleTheme, theme } from "@/helpers/theme";
+/*
+import { ref } from "vue";
 
-export default {
-  name: "SettingsCard",
-  computed: {
-    languages() {
-      return this.$i18n.availableLocales.map(locale => {
-        return {
-          code: locale,
-          name: this.$t('languages.' + locale)
-        }
-      })
-    }
+let settings = ref({
+  general: {
+    important_notifications: true,
+    show_notifications: false,
+    show_notifications_in_browser: false,
+    send_notification_mails: false,
+    theme: "light",
+    language: "de",
   },
-  data() {
-    return {
-      theme,
-      settings: {
-        general: {
-          important_notifications: true,
-          show_notifications: false,
-          show_notifications_in_browser: false,
-          send_notification_mails: false,
-          theme: "light",
-          language: "de"
-        }
-      },
-      themes: [
-        {
-          name: "Light",
-          code: "light"
-        },
-        {
-          name: "Dark",
-          code: "dark"
-        }
-      ]
-    }
-  },
-  methods: {
-    deleteAccount() {
-      // this.$store.dispatch("deleteAccount")
-    },
-    saveSettings() {
-      console.log(this.settings)
-      // this.$store.dispatch("saveSettings", this.settings)
-    },
-    resetSettings() {
-      // this.$store.dispatch("resetSettings")
-    },
-    closeSettings() {
-      this.$router.back();
-    },
-    toggleTheme
-  }
+});
+function deleteAccount() {
+  // this.$store.dispatch("deleteAccount");
 }
+function saveSettings() {
+  console.log(this.settings);
+  // this.$store.dispatch("saveSettings", this.settings);
+}
+function resetSettings() {
+  // this.$store.dispatch("resetSettings");
+}
+function closeSettings() {
+  // this.$router.back();
+}
+*/
 </script>
 
 <style scoped>
+h2 {
+  margin-bottom: 3%;
+}
 
+.notif-switch {
+  margin-bottom: -2em;
+}
+
+.save-settings {
+  margin-top: 4em;
+}
+
+.card-actions {
+  margin-top: -1em;
+  margin-left: -1em;
+}
 </style>

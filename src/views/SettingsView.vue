@@ -3,7 +3,7 @@
   <Navbar/>
   <v-container>
     <v-row justify="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
+      <v-col sm="10" md="10" lg="8" xl="6">
         <Settings id="content"/>
       </v-col>
     </v-row>
@@ -22,15 +22,9 @@
 }
 </style>
 
-<script lang='ts'>
-import {defineComponent} from "vue";
-import Navbar from "../components/NavbarBase.vue";
-import Settings from "../components/SettingsCard.vue";
-import Footer from "@/components/FooterCard.vue";
-import SkipToContent from "@/components/SkipToContent.vue";
-
-export default defineComponent({
-  components: {SkipToContent, Navbar, Footer, Settings},
-  name: "SettingsView",
-});
+<script lang='ts' setup>
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Settings from "@/components/SettingsCard.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 </script>

@@ -5,6 +5,7 @@ const translationEn = {
         subtitle: 'Exercises and more',
         copyright: 'Copyright © 2021-2022',
         version: 'Version',
+        skip_to_content: 'Skip to main content',
     },
     footer: {
         home: 'Home',
@@ -16,9 +17,10 @@ const translationEn = {
     },
     settings: {
         title: 'Settings',
+        subtitle: 'Personalization & Settings',
         notifications: {
             title: 'Notifications',
-            important_notifications: 'Receive important notifications (Submissions, Messages, ...)',
+            important_notifications: 'Important notifications',
             show_notifications: 'Receive notifications about new exercises',
             by_mail: 'Receive notifications by mail',
             by_browser_notification: 'Receive notifications by browser notification',
@@ -30,8 +32,9 @@ const translationEn = {
             dark: 'Dark',
             light: 'Light',
         },
+        save_settings: 'Save settings',
         danger_zone: {
-            title: 'Danger zone',
+            title: 'Account deletion',
             delete_account: 'Delete account',
             delete_account_description: 'Irrevocably deletes your account. ' +
                 'All data related to your account will be deleted and cannot be recovered. ' +
@@ -53,6 +56,7 @@ const translationEn = {
         login: 'Login',
         logout: 'Logout',
         register: 'Register',
+        new: 'New',
     },
     languages: {
         en: 'English',
@@ -67,6 +71,52 @@ const translationEn = {
         password_confirm: 'Password (confirm)',
         saved: 'Saved',
     },
+    admin: {
+        users: {
+            new: 'New user',
+            edit: 'Edit user',
+            delete: 'Delete user',
+            delete_confirm: 'Delete user {0}?',
+            name: 'Name',
+            username: 'Username',
+            email: 'Email',
+            roles: 'Roles',
+            created_at: 'Created at',
+            actions: 'Actions',
+            password: 'Password',
+            change_password: 'Change password',
+            errors: {
+                required: 'This field is required.',
+                username_taken: 'This username is already taken.',
+                username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+                email_taken: 'This email address is already in use.',
+                email_invalid: 'Please enter a valid email address.',
+                password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
+            }
+        },
+        tasks: {
+            new: 'New task',
+            edit: 'Edit task',
+            delete: 'Delete task',
+            delete_confirm: 'Delete task {0}?',
+            title: 'Title',
+            course: 'Course',
+            description: 'Description',
+            no_description: 'No description provided',
+            created_at: 'Created at',
+            actions: 'Actions',
+            errors: {
+                required: 'This field is required.',
+            }
+        }
+    },
+    exercise: {
+        back: 'Back',
+        edit: 'Edit',
+        description: 'Description (optional)',
+        title: 'Title',
+        id: 'ID',
+    }
 }
 
 export default translationEn

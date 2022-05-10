@@ -16,7 +16,7 @@
           </v-btn>
         </v-card-text>
       </v-row>
-      <v-divider/>
+      <v-divider id="h-line"/>
       <v-card-text class="text-white">
         {{ date }} — <strong>{{ $t("app.name") }}</strong>, {{ $t("footer.a_project_by_thm") }}
       </v-card-text>
@@ -24,49 +24,39 @@
   </v-footer>
 </template>
 
-<script lang='ts'>
+<script setup lang='ts'>
 import {useRouter} from "vue-router";
 
+const router = useRouter();
+let date = new Date().getFullYear();
 
-export default {
-  name: "FooterCard",
+function goToMainpage(): void {
+  router.push("/");
+}
 
-  setup(): any {
-    const router = useRouter();
-    let date = new Date().getFullYear();
+function goToImpressum(): void {
+  location.replace('https://www.thm.de/site/impressum.html')
+}
 
+function goToHelp(): void {
+  router.push("/help");
+}
 
-    function goToMainpage(): void {
-      router.push("/mainpage");
-    }
+function goToThmMainpage(): void {
+  location.replace('https://www.thm.de/site/')
+}
 
-    function goToImpressum(): void {
-      location.replace('https://www.thm.de/site/impressum.html')
-    }
+function goToPrivacyStatement(): void {
+  location.replace('https://www.thm.de/site/datenschutz.html')
+}
 
-    function goToHelp(): void {
-      router.push("/help");
-    }
-
-    function goToThmMainpage(): void {
-      location.replace('https://www.thm.de/site/')
-    }
-
-    function goToPrivacyStatement(): void {
-      location.replace('https://www.thm.de/site/datenschutz.html')
-    }
-
-    let links = [
-      ['home', goToMainpage],
-      ['imprint', goToImpressum], //wir müssen uns noch eine Lösung für Bildnachweise überlegen
-      ['help', goToHelp],
-      ['data_protection', goToPrivacyStatement],
-      ['thm', goToThmMainpage],
-    ];
-
-    return {date, links};
-  }
-};
+let links = [
+  ['home', goToMainpage],
+  ['imprint', goToImpressum], //wir müssen uns noch eine Lösung für Bildnachweise überlegen
+  ['help', goToHelp],
+  ['data_protection', goToPrivacyStatement],
+  ['thm', goToThmMainpage],
+];
 </script>
 
 <style>
@@ -80,5 +70,9 @@ export default {
 
 .spacer {
   height: 200px;
+}
+
+#h-line {
+  border-top: 1px solid #b7b7b7;
 }
 </style>

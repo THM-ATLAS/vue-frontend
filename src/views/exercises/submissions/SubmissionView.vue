@@ -22,10 +22,10 @@
 
 <script lang='ts'>
 import {defineComponent} from "vue";
-import Navbar from "../components/NavbarBase.vue";
-import Submission from "../components/SubmissionCard.vue";
-import Footer from "../components/FooterCard.vue"
-import SkipToContent from "@/components/SkipToContent.vue";
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Submission from "@/components/exercises/submissions/SubmissionCard.vue";
+import Footer from "@/components/navigation/FooterCard.vue"
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 
 export default defineComponent({
   components: {SkipToContent, Navbar, Submission, Footer},

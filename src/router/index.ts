@@ -1,36 +1,26 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 import Login from "@/views/LoginView.vue";
-import Exercise from "@/views/ExerciseView.vue";
+import Exercise from "@/views/exercises/ExerciseView.vue";
 import MainPage from "@/views/MainView.vue";
 import Profile from "@/views/ProfileView.vue";
-import Submission from "@/views/SubmissionView.vue";
+import Submission from "@/views/exercises/submissions/SubmissionView.vue";
 import Notifications from "@/views/NotificationsView.vue";
 import Help from "@/views/HelpView.vue";
 import Leaderboard from "@/views/LeaderboardView.vue";
-import ExerciseEditor from "@/views/ExerciseEditorView.vue";
-import Feedback from "@/views/FeedbackView.vue";
+import ExerciseEditor from "@/views/exercises/ExerciseEditorView.vue";
+import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
+import UserManagement from "@/views/admin/UserManagementView.vue";
+import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import Home from "@/views/HomeView.vue";
 import CourseSearch from "@/views/CourseSearchView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/helloworld',
-  //   name: 'home',
-  //   component: HomeView
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // },
+  {path: '/', component: Home},
 
-  {path: '/', component: Login},
-  // {path: '/mainpage', component: Mainpage},
+  {path: '/login', component: Login},
+
   // {path: '/home', component: CourseSelector},
 
   {path: '/:course/', component: MainPage},
@@ -53,6 +43,9 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/help', component: Help},
 
   {path: '/settings', component: Settings},
+
+  {path: '/admin/users', component: UserManagement},
+  {path: '/admin/tasks', component: TaskManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
   { path: '/courseSearch', component: CourseSearch },
