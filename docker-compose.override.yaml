@@ -1,6 +1,6 @@
 services:
     atlas-frontend:
-        image: ghcr.io/thm-atlas/vue-frontend:production
+        image: ghcr.io/thm-atlas/vue-frontend:main
         build:
             target: production
             context: ./
