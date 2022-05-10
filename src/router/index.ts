@@ -14,6 +14,7 @@ import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
 import Home from "@/views/HomeView.vue";
+import CourseSearch from "@/views/CourseSearchView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
@@ -47,6 +48,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/admin/tasks', component: TaskManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
+  { path: '/courses', component: CourseSearch },
 ]
 
 const router = createRouter({
