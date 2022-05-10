@@ -12,6 +12,7 @@ import Feedback from "@/views/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
+import CourseMainPage from "@/views/CourseMainPageView.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Login},
@@ -40,6 +41,8 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/admin/users', component: UserManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
+  //todo: remove test route for CourseMainPage
+  {path: '/course', component: CourseMainPage},
 ]
 
 const router = createRouter({
