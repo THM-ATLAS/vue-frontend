@@ -1,25 +1,27 @@
 <template>
-  <v-container id="main" role="main">
-    <v-row class="justify-center homepage-row">
-      <h1>Willkommen zu</h1>
-    </v-row>
-    <v-row class="homepage-row">
+  <v-card class="mx-auto justify-center" elevation="0" rounded="0">
+    <v-container>
+      <v-row class="justify-center">
+        <div class="text-h3">Willkommen zu</div>
+      </v-row>
+      <v-row class="homepage-row">
         <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
                src="@/assets/ATLAS_Logo.svg" height="150px"/>
         <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
                height="150px"/>
-    </v-row>
-    <v-row class="justify-center homepage-row">
-      <h3>Starte mit der Suche nach Kursen oder logge dich oben rechts ein!</h3>
-    </v-row>
-    <v-row class="justify-center homepage-row">
-      <v-spacer></v-spacer>
-      <v-col>
-        <SearchBar></SearchBar>
-      </v-col>
-      <v-spacer></v-spacer>
-    </v-row>
-  </v-container>
+      </v-row>
+      <v-row class="justify-center homepage-row">
+        <div class="text-h5">Starte mit der Suche nach Kursen oder logge dich oben rechts ein!</div>
+      </v-row>
+      <v-row class="justify-center homepage-row">
+        <v-spacer></v-spacer>
+        <v-col>
+          <SearchBar></SearchBar>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script setup>
@@ -30,15 +32,8 @@ import SearchBar from "@/components/SearchBar";
 <style scoped>
 
 .homepage-row {
-  padding: 3% 0 3% 0;
+  padding: 7% 0 0 0;
 }
 
-#main {
-  margin-top: 13%;
-}
-
-h1, h3 {
-  color: #4a5c66;
-}
 
 </style>

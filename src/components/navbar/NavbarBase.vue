@@ -90,7 +90,6 @@
       v-model="drawer"
       position="right"
       :temporary="true"
-      color="white"
       class="d-md-none"
   >
     <v-spacer/>

@@ -3,7 +3,7 @@
   <v-container>
     <v-row justify="center" align-content="center">
       <v-col>
-        <StartContent/>
+        <HomeContent/>
       </v-col>
     </v-row>
   </v-container>
@@ -12,12 +12,14 @@
 
 
 <script setup>
-  import StartContent from "@/components/HomeContent.vue";
+  import HomeContent from "@/components/HomeContent.vue";
   import Footer from "@/components/FooterCard.vue";
   import NavbarBase from "@/components/navbar/NavbarBase";
 
 </script>
 
 <style scoped>
-
+.v-row {
+  padding-block: 10em;
+}
 </style>

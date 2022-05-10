@@ -3,9 +3,9 @@
       class="d-md-block"
       label="z.B. Compilerbau"
       prepend-inner-icon="mdi-magnify"
-      variant="plain"
-      bg-color="#eeeeee"
       role="search"
+      hide-details="auto"
+      dense
   />
 </template>
 
