@@ -8,14 +8,12 @@
       </v-col>
     </v-row>
   </v-container>
-  <div class="footer">
-    <Footer/>
-  </div>
+  <Footer/>
 </template>
 
 <script>
 import Profile from "../components/ProfileCard"
-import Navbar from "../components/NavbarBase.vue";
+import Navbar from "../components/navbar/NavbarBase.vue";
 import Footer from "../components/FooterCard.vue"
 import SkipToContent from "@/components/SkipToContent";
 

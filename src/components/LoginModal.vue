@@ -59,7 +59,7 @@ export default defineComponent({
     const router = useRouter();
 
     function goToMainpage(): void {
-      router.push("/bkp");
+      router.push("/c/Brueckenkurs Programmieren"); // change to '/' when landing page is ready
     }
 
     return {goToMainpage}

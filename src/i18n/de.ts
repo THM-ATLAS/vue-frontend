@@ -16,12 +16,13 @@ const translationDe = {
     },
     settings: {
         title: 'Einstellungen',
+        subtitle: 'Personalisierung & Einstellungen',
         notifications: {
             title: 'Benachrichtigungen',
-            important_notifications: 'Wichtige Benachrichtigungen erhalten (Bewertungen, Nachrichten, ...)',
-            show_notifications: 'Benachrichtigungen zu neuen Aufgaben erhalten',
-            by_mail: 'Benachrichtigungen per E-Mail erhalten',
-            by_browser_notification: 'Benachrichtigungen per Browser-Benachrichtigung erhalten',
+            important_notifications: 'Wichtige Benachrichtigungen',
+            show_notifications: 'Benachrichtigungen zu neuen Aufgaben',
+            by_mail: 'Per E-Mail benachrichtigen',
+            by_browser_notification: 'Per Browser-Benachrichtigung benachrichtigen',
         },
         language: 'Sprache',
         system: 'System',
@@ -30,8 +31,9 @@ const translationDe = {
             dark: 'Dunkel',
             light: 'Hell',
         },
+        save_settings: 'Einstellungen speichern',
         danger_zone: {
-            title: 'Gefahrenzone',
+            title: 'Kontolöschung',
             delete_account: 'Konto löschen',
             delete_account_description: 'Das Konto wird unwiderruflich gelöscht. ' +
                 'Alle Daten werden gelöscht und können nicht wiederhergestellt werden. ' +
@@ -53,6 +55,7 @@ const translationDe = {
         login: 'Anmelden',
         logout: 'Abmelden',
         register: 'Registrieren',
+        new: 'Neu',
     },
     languages: {
         en: 'Englisch',
@@ -67,6 +70,31 @@ const translationDe = {
         password_confirm: 'Passwort (bestätigen)',
         saved: 'Gespeichert',
     },
+    admin: {
+        users: {
+            new: 'Neuer Benutzer',
+            edit: 'Benutzer bearbeiten',
+            delete: 'Benutzer löschen',
+            delete_confirm: 'Benutzer {0} wirklich löschen?',
+            name: 'Name',
+            username: 'Benutzername',
+            email: 'E-mail',
+            roles: 'Rollen',
+            created_at: 'Erstellt am',
+            actions: 'Aktionen',
+            password: 'Passwort',
+            change_password: 'Passwort ändern',
+            errors: {
+                required: 'Dieses Feld ist erforderlich.',
+                username_taken: 'Benutzername bereits vergeben.',
+                username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+                email_taken: 'E-Mail wird bereits verwendet.',
+                email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
+                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
+            }
+        }
+    }
+
 }
 
 export default translationDe

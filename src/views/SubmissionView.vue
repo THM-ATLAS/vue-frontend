@@ -22,7 +22,7 @@
 
 <script lang='ts'>
 import {defineComponent} from "vue";
-import Navbar from "../components/NavbarBase.vue";
+import Navbar from "../components/navbar/NavbarBase.vue";
 import Submission from "../components/SubmissionCard.vue";
 import Footer from "../components/FooterCard.vue"
 import SkipToContent from "@/components/SkipToContent.vue";
