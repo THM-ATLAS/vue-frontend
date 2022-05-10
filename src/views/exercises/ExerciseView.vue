@@ -24,8 +24,8 @@
 
 <script lang='ts'>
 import {defineComponent} from "vue";
-import Navbar from "../components/navbar/NavbarBase.vue";
-import Exercise from "../components/ExerciseCard.vue";
+import Navbar from "@/components/navbar/NavbarBase.vue";
+import Exercise from "@/components/exercises/ExerciseCard.vue";
 import Footer from "@/components/FooterCard.vue";
 import SkipToContent from "@/components/SkipToContent.vue";
 

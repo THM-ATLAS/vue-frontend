@@ -52,11 +52,11 @@
 <script setup lang='ts'>
 import {useRouter} from "vue-router";
 
-  const router = useRouter();
+const router = useRouter();
 
-  function goToMainpage(): void {
-    router.push("/");
-  }
+function goToMainpage(): void {
+  router.push("/");
+}
 
 
 </script>

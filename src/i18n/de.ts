@@ -92,9 +92,30 @@ const translationDe = {
                 email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
                 password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
             }
+        },
+        tasks: {
+            new: 'Neue Aufgabe',
+            edit: 'Aufgabe bearbeiten',
+            delete: 'Aufgabe löschen',
+            delete_confirm: 'Aufgabe "{0}" wirklich löschen?',
+            title: 'Titel',
+            course: 'Kurs',
+            description: 'Beschreibung',
+            no_description: 'Keine Beschreibung',
+            created_at: 'Erstellt am',
+            actions: 'Aktionen',
+            errors: {
+                required: 'Dieses Feld ist erforderlich.',
+            }
         }
+    },
+    exercise: {
+        back: 'Zurück',
+        edit: 'Bearbeiten',
+        description: 'Beschreibung (optional)',
+        title: 'Titel',
+        id: 'ID',
     }
-
 }
 
 export default translationDe
