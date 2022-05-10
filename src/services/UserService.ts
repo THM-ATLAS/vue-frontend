@@ -1,31 +1,42 @@
 import API from "@/services/API";
-import {User, Task} from "@/helpers/types.ts"
+import {User} from "@/helpers/types"
 
 export default {
 
-    loadTasks(user:User) : Task{
-        return API.get(`tasks/user/${user.id}`)
+    //TODO: Return / check response codes
+    getUser(id : number) : User{
+        return API.get(`users/${id}`)
     },
 
-    getTask(id:number) : Task{
-        return API.get(`tasks/${id}`)
+    delUser(user:User) : number{
+        return API.delete(`users/${user.id}`)
     },
 
-    delTask(taskId:number, user:User) : number{
-        return API.delete(`tasks/taskId=${taskId}&userId=${user.id}`)
+    editUser(user:User) : number{
+        return API.put(`users/`,{
+                user : {
+                    id : user.id,
+                    firstName : user.firstName,
+                    lastName : user.lastName,
+                    email : user.email,
+                    password : user.password,
+                    role : user.role
+                }
+            }
+        )
     },
 
-    editTask(task:Task, user:User) : number{
-        return API.put(`tasks/userId=${user.id}`,{
-            //TODO: This probably won't work so easily
-            task : `${task}`
-        })
-    },
-
-    addTask(task:Task, user:User) : number{
-        API.post(`tasks/userId=${user.id}`,{
-            //TODO: This probably won't work so easily
-            task : `${task}`
-        }).finally(return response.statusCode)
+    addUser(user:User) : number{
+        return API.post(`users/`,{
+                user : {
+                    id : user.id,
+                    firstName : user.firstName,
+                    lastName : user.lastName,
+                    email : user.email,
+                    password : user.password,
+                    role : user.role
+                }
+            }
+        )
     }
 }
