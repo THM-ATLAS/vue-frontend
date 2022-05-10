@@ -31,8 +31,5 @@
   </v-card>
 </template>
 
-<script>
-export default {
-  name: "PageNotFound",
-}
+<script setup>
 </script>

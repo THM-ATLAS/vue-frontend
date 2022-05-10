@@ -4,7 +4,7 @@
   <v-container>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <ExerciseEditor id="content"/>
+        <Exercise id="content"/>
       </v-col>
     </v-row>
   </v-container>
@@ -24,13 +24,13 @@
 
 <script lang='ts'>
 import {defineComponent} from "vue";
-import Navbar from "../components/navbar/NavbarBase.vue";
-import ExerciseEditor from "../components/ExerciseEditor.vue";
-import Footer from "@/components/FooterCard.vue";
-import SkipToContent from "@/components/SkipToContent.vue";
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Exercise from "@/components/exercises/ExerciseCard.vue";
+import Footer from "@/components/navigation/FooterCard.vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 
 export default defineComponent({
-  components: {SkipToContent, Navbar, Footer, ExerciseEditor},
-  name: "ExerciseEditorView",
+  components: {SkipToContent, Navbar, Exercise, Footer},
+  name: "ExerciseView",
 });
 </script>

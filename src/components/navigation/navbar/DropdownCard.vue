@@ -23,10 +23,10 @@
           @click="goToSettings()">
         <v-list-item-title>Einstellungen</v-list-item-title>
       </v-list-item>
-      <v-list-item
+      <!--v-list-item
           @click="goToUser">
         <v-list-item-title>Profil</v-list-item-title>
-      </v-list-item>
+      </v-list-item-->
       <v-list-item @click="goToHelp()">
         <v-list-item-title>Hilfe</v-list-item-title>
       </v-list-item>
@@ -53,7 +53,7 @@ import {useRouter} from 'vue-router';
 const router = useRouter();
 
 function goToLogin(): void {
-  router.push("/");
+  router.push("/login");
 }
 
 //function goToNotifications(): void {
@@ -63,15 +63,15 @@ function goToLogin(): void {
 function goToHelp() {
   router.push("/help");
 }
-
-//function goToLeaderboard() {
-//  router.push("/leaderboard");
-//}
+/*
+function goToLeaderboard() {
+  router.push("/leaderboard");
+}
 
 function goToUser() {
   router.push("/u/");
 }
-
+*/
 function goToSettings() {
   router.push("/settings");
 }
