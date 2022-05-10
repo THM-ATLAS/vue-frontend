@@ -92,6 +92,21 @@ const translationEn = {
                 email_invalid: 'Please enter a valid email address.',
                 password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
             }
+        },
+        tasks: {
+            new: 'New task',
+            edit: 'Edit task',
+            delete: 'Delete task',
+            delete_confirm: 'Delete task {0}?',
+            title: 'Title',
+            course: 'Course',
+            description: 'Description',
+            no_description: 'No description provided',
+            created_at: 'Created at',
+            actions: 'Actions',
+            errors: {
+                required: 'This field is required.',
+            }
         }
     },
     exercise: {

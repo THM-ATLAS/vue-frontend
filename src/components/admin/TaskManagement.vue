@@ -44,6 +44,7 @@
       </tr>
       </tbody>
     </v-table>
+
     <!-- new task -->
     <div>
       <v-btn
@@ -56,6 +57,7 @@
       />
     </div>
   </v-card>
+
   <!-- view task dialog -->
   <v-dialog
       v-model="viewTaskDialog.show"
@@ -287,7 +289,3 @@ function deleteTask(task) {
 
 
 </script>
-
-<style scoped>
-
-</style>

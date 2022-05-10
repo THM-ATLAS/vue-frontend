@@ -21,10 +21,13 @@
 
 <script setup>
 import Editor from 'md-editor-v3';
-import {defineProps, defineEmits, toRef} from "vue";
+import {toRef} from "vue";
 import {theme} from "@/helpers/theme";
 
+// these are compiler macros that don't need to be imported
+// eslint-disable-next-line no-undef
 const props = defineProps(['modelValue', 'editor', 'storePath']);
+// eslint-disable-next-line no-undef
 defineEmits(['update:modelValue']);
 
 const contentRef = toRef(props, 'modelValue');
