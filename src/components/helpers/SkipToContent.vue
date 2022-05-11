@@ -5,7 +5,10 @@
 <script setup>
 // eslint-disable-next-line no-undef
 defineProps({
-  id: String,
+  id: {
+    type: String,
+    default: 'content'
+  }
 });
 </script>
 
