@@ -7,11 +7,11 @@ name: Docker
 
 on:
   push:
-    branches: [ main, workflow ]
-    tags: [production, workflow]
+    branches: [ main, development ]
+    tags: [production, dev]
   pull_request:
-    branches: [ main ]
-    tags: [production]
+    branches: [ main, development ]
+    tags: [production, development]
 
 env:
   # Use docker.io for Docker Hub if empty
