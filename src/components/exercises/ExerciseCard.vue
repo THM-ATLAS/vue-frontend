@@ -2,7 +2,6 @@
   <v-card elevation="0" rounded="0" role="main">
     <v-container class="pt-0 pl-0">
       <v-btn
-          v-bind="props"
           @click="goBack"
           icon="mdi-menu-left"
           class="ma-2"
@@ -101,8 +100,8 @@
 
     </v-container>
 
-    <div v-if="this.$route.params.id">
-      requested exercise {{ this.$route.params.id }} from course {{ this.$route.params.course }}
+    <div>
+      requested exercise {{ id }} from course {{ course }}
     </div>
 
     <v-card-header>
