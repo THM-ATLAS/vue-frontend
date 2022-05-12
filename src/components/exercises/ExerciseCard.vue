@@ -105,9 +105,8 @@
       requested exercise {{ this.$route.params.id }} from course {{ this.$route.params.course }}
     </div>
 
-    <v-card-header>
-      <v-card-header-text class="text-left text-h4" v-html="exercise.title"/>
-    </v-card-header>
+    <v-card-title class="text-left text-h4" ref="cardTitle">{{ cardTitle }}
+    </v-card-title>
 
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
@@ -121,7 +120,7 @@
     </v-container-->
 
     <v-container class="py-1">
-      <MarkdownModal v-model="exercise.content"/>
+      <MarkdownModal ref="cardContent"/>
     </v-container>
 
     <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
@@ -166,16 +165,29 @@ import {onBeforeMount, ref} from "vue";
   const router = useRouter();
   const id = route.params.id;
   const course = route.params.course;
-  const exercise = ref();
+  let exerciseData : any;
+  const cardTitle = ref()
+  const cardContent = ref()
+  const exercise = ref({
+    id: -1,
+    title: 'Loading title',
+    content: 'Loading content',
+    taskPublic: false
+  });
 
-  onBeforeMount(async () => {
-    exercise.value = await TaskService.getTask(id).then(r => {
-      console.log(r.data)
-      router.replace(`/${course}/e/${id}/${encodeURIComponent(r.data.title)}`);
-    });
+  onBeforeMount(async() => {
+    exerciseData = (await TaskService.getTask(id)).data
+    console.log(exerciseData)
+    exercise.value.id = exerciseData.exercise_id
+    exercise.value.title = exerciseData.title
+    exercise.value.content = exerciseData.content
+    exercise.value.taskPublic = exerciseData.taskPublic
 
+    cardTitle.value = exercise.value.title
+    cardContent.value = exercise.value.content
+
+    router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)
   })
-
 
   function goBack() {
     router.back()
