@@ -241,6 +241,9 @@ import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal";
 
+const route = useRoute();
+const router = useRouter();
+
 /*
 function keyDownListener(e) {
   if (e.keyCode === 16) {
@@ -266,9 +269,8 @@ onUnmounted(() => {
 })
 */
 
-const router = useRouter();
-const course = useRoute().params.course;
-const id = useRoute().params.id;
+const course = route.params.course;
+const id = route.params.id;
 const localStoragePath = id === undefined ? course + ".newExercise" : course + ".e." + id;
 
 /*
