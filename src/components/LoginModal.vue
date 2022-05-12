@@ -7,7 +7,7 @@
         </v-card-avatar>
         <v-card-title class="justify-center">{{ $t('login_page.login') }}</v-card-title>
 
-        <v-card-subtitle class="text-center">
+        <v-card-subtitle class="justify-center">
           {{ $t('login_page.instructions') }}
         </v-card-subtitle>
       </v-card-header-text>
