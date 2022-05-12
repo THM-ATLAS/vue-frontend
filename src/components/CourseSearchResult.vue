@@ -20,7 +20,9 @@
 </template>
 
 <script>
-export default {
+import {defineComponent} from "vue";
+
+export default defineComponent({
   name: "CourseSearchResult",
   props: {
     course: {
@@ -30,7 +32,7 @@ export default {
       courseThumbnail: Image,
     },
   },
-}
+})
 </script>
 
 <style scoped>
