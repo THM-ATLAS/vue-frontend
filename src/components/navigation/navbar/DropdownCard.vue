@@ -21,14 +21,14 @@
       <!-- settings -->
       <v-list-item
           @click="goToSettings()">
-        <v-list-item-title>Einstellungen</v-list-item-title>
+        <v-list-item-title>{{ $t('header.dropdown.settings') }}</v-list-item-title>
       </v-list-item>
       <!--v-list-item
           @click="goToUser">
         <v-list-item-title>Profil</v-list-item-title>
       </v-list-item-->
       <v-list-item @click="goToHelp()">
-        <v-list-item-title>Hilfe</v-list-item-title>
+        <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
       <!-- // disabled until admin works // v-list-item
           @click="goToAdmin">

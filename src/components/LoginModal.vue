@@ -5,25 +5,24 @@
         <v-card-avatar>
           <v-avatar icon="mdi-globe-model" height="68" width="68"/>
         </v-card-avatar>
-        <v-card-title class="justify-center">Anmelden</v-card-title>
+        <v-card-title class="justify-center">{{ $t('login_page.login') }}</v-card-title>
 
-        <v-card-subtitle class="text-sm-center">
-          Verwende die Nutzerdaten, die du auch für andere Online-Dienste der
-          THM verwendest.
+        <v-card-subtitle class="text-center">
+          {{ $t('login_page.instructions') }}
         </v-card-subtitle>
       </v-card-header-text>
     </v-card-header>
     <div class="textfields">
       <div class="ma-3">
         <v-text-field
-            label="Nutzerkennung"
+            :label="$t('login_page.user_id')"
             :rules="rules"
             :hide-details="true"
         />
       </div>
       <div class="ma-3">
         <v-text-field
-            label="Passwort"
+            :label="$t('login_page.password')"
             :rules="rules"
             :hide-details="true"
             type="password"
@@ -38,7 +37,7 @@
           rounded="0"
           variant="outlined"
           @click="goToMainpage">
-        Login mit LDAP
+        {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
   </v-card>
