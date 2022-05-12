@@ -1,22 +1,23 @@
 import API from "@/services/API";
-import {User, Module} from "@/helpers/types"
+//import {User, Module} from "@/helpers/types"
 
 export default {
     //TODO: Return / check response codes
 
-    loadModules(user:User) : Module[]{
-        return API.get(`modules/${user.id}`)
+    loadModules(/*user*/)  {
+        return API.get(`modules/`)
+        //return API.get(`modules/${user.id}`)
     },
 
-    getModule(id:number) : Module{
+    getModule(id) {
         return API.get(`modules/${id}`)
     },
 
-    delModule(module:Module) : number{
+    delModule(module){
         return API.delete(`modules/${module.id}`)
     },
 
-    editModule(module:Module) : number{
+    editModule(module) {
         return API.put(`modules/`,{
                 module : {
                     id : module.id,
@@ -26,13 +27,12 @@ export default {
         )
     },
 
-    addModule(module:Module) : number{
+    addModule(module) {
         return API.post(`modules/`,{
             module : {
                 id : module.id,
                 name : module.name
             }
-            }
-        )
+        })
     }
 }

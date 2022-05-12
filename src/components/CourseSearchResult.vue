@@ -9,8 +9,8 @@
         <v-col>
           <v-container class="courseInfo">
             <v-col>
-              <v-row class="courseName">{{ course.courseName }}</v-row>
-              <v-row class="courseDescription">{{ course.courseDescription }}</v-row>
+              <v-row class="courseName">{{ course.moduleName }}</v-row>
+              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{course.moduleName}} </pre>stehen.</v-row>
             </v-col>
           </v-container>
         </v-col>
@@ -26,10 +26,10 @@ export default defineComponent({
   name: "CourseSearchResult",
   props: {
     course: {
-      resultId: Number,
-      courseName: String,
-      courseDescription: String,
-      courseThumbnail: Image,
+      id: Number,
+      moduleName: String
+      // courseDescription: String,
+      // courseThumbnail: Image,
     },
   },
 })
