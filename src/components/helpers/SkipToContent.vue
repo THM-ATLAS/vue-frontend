@@ -1,19 +1,15 @@
 <template>
-    <a :href="'#' + this.$props.id" class="skipLink" ref="skipLink" tabindex="0" v-html="$t('app.skip_to_content')"/>
+    <a :href="'#' + id" class="skipLink" ref="skipLink" tabindex="0" v-html="$t('app.skip_to_content')"/>
 </template>
 
-<script>
-import {defineComponent} from "vue";
-
-export default defineComponent({
-  name: "SkipToContent",
-  props: {
-    id: {
-      type: String,
-      default: "content"
-    }
-  },
-})
+<script setup>
+// eslint-disable-next-line no-undef
+defineProps({
+  id: {
+    type: String,
+    default: 'content'
+  }
+});
 </script>
 
 <style scoped>
