@@ -81,7 +81,7 @@
               icon="mdi-file-document-edit"
               class="ma-2"
               variant="outlined"
-              @click='this.$router.push("edit");'/>
+              @click='goToEditor'/>
         </template>
         <span v-html="$t('exercise.edit')"/>
       </v-tooltip>
@@ -247,6 +247,9 @@ function goBack(): void {
   router.back();
 }
 
+function goToEditor(): void {
+  router.push('edit');
+}
 /*
 function reportError(error: string): void {
   console.log(error);
