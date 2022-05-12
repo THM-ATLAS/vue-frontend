@@ -104,8 +104,7 @@
       requested exercise {{ id }} from course {{ course }}
     </div>
 
-    <v-card-title class="text-left text-h4" ref="cardTitle">{{ cardTitle }}
-    </v-card-title>
+    <v-card-title class="text-left text-h4" v-html="cardTitle"/>
 
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
@@ -119,7 +118,7 @@
     </v-container-->
 
     <v-container class="py-1">
-      <MarkdownModal ref="cardContent"/>
+      <MarkdownModal :model-value="cardContent"/>
     </v-container>
 
     <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
@@ -160,37 +159,38 @@ import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import TaskService from "@/services/TaskService";
 import {onBeforeMount, ref} from "vue";
 
-  const route = useRoute();
-  const router = useRouter();
-  const id = route.params.id;
-  const course = route.params.course;
-  let exerciseData : any;
-  const cardTitle = ref()
-  const cardContent = ref()
-  const exercise = ref({
-    id: -1,
-    title: 'Loading title',
-    content: 'Loading content',
-    taskPublic: false
-  });
+const route = useRoute();
+const router = useRouter();
+const id = route.params.id;
+const course = route.params.course;
+let exerciseData: any;
+const cardTitle = ref()
+const cardContent = ref()
 
-  onBeforeMount(async() => {
-    exerciseData = (await TaskService.getTask(id)).data
-    console.log(exerciseData)
-    exercise.value.id = exerciseData.exercise_id
-    exercise.value.title = exerciseData.title
-    exercise.value.content = exerciseData.content
-    exercise.value.taskPublic = exerciseData.taskPublic
+const exercise = ref({
+  id: -1,
+  title: 'Loading title',
+  content: 'Loading content',
+  taskPublic: false
+});
 
-    cardTitle.value = exercise.value.title
-    cardContent.value = exercise.value.content
+onBeforeMount(async () => {
+  exerciseData = (await TaskService.getTask(id)).data
+  console.log(exerciseData)
+  exercise.value.id = exerciseData.exercise_id
+  exercise.value.title = exerciseData.title
+  exercise.value.content = exerciseData.content
+  exercise.value.taskPublic = exerciseData.taskPublic
 
-    router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)
-  })
+  cardTitle.value = exercise.value.title
+  cardContent.value = exercise.value.content
 
-  function goBack() {
-    router.back()
-  }
+  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)
+})
+
+function goBack() {
+  router.back()
+}
 
 /*
 function reportError(error: string): void {
