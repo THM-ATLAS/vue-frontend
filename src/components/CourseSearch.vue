@@ -11,7 +11,7 @@
       </v-col>
     </v-row-->
     <v-row v-for="course in courses" :key="course.id">
-      <CourseSearchResult :course="course" class="searchResult"/>
+      <CourseSearchResult :id="course.id" :moduleName="course.moduleName" class="searchResult"/>
     </v-row>
   </v-card>
 </template>
@@ -29,7 +29,7 @@ onBeforeMount(async () => {
   apiCourses = (await ModuleService.loadModules()).data
      apiCourses.forEach(result => {
        let newEntry = {
-         id: result.id,
+         id: result.module_id,
          moduleName : result.name
        }
        courses.push(newEntry)

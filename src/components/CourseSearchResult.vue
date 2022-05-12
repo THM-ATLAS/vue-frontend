@@ -1,5 +1,5 @@
 <template>
-  <a @click="this.$router.push('/' + course.id)">
+  <a @click="this.$router.push(`/${this.$props.id}`)">
     <v-container fill-height>
       <v-row align="center"
              justify="start">
@@ -9,8 +9,8 @@
         <v-col>
           <v-container class="courseInfo">
             <v-col>
-              <v-row class="courseName">{{ course.moduleName }}</v-row>
-              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{course.moduleName}} </pre>stehen.</v-row>
+              <v-row class="courseName">{{ this.$props.moduleName }}</v-row>
+              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{this.$props.moduleName}} </pre>stehen.</v-row>
             </v-col>
           </v-container>
         </v-col>
@@ -19,20 +19,23 @@
   </a>
 </template>
 
-<script>
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {defineProps} from "vue";
 
-export default defineComponent({
-  name: "CourseSearchResult",
-  props: {
-    course: {
-      id: Number,
-      moduleName: String
-      // courseDescription: String,
-      // courseThumbnail: Image,
+// @ts-ignore
+const props = defineProps({
+    id: {
+      required: true,
+      type: String,
     },
-  },
-})
+    moduleName: {
+      required: true,
+      type: String
+    }
+    // courseDescription: String,
+    // courseThumbnail: Image,
+  })
+console.log(props)
 </script>
 
 <style scoped>

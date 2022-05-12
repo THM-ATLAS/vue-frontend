@@ -1,7 +1,7 @@
 <template>
   <v-container role="main">
     <v-row id="course-title" class="justify-center">
-      <h2 id="course"> {{ course }} </h2>
+      <h2 id="course"> {{ course.moduleName }} </h2>
     </v-row>
     <v-row class="justify-center mainpage-row">
       <v-col
@@ -21,11 +21,12 @@
 
 <script setup lang='ts'>
 import MainpageCardModal from '@/components/MainpageCardModal.vue'
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {onBeforeMount, reactive} from "vue";
+import TaskService from "@/services/TaskService"
+import ModuleService from "@/services/ModuleService"
 
-const route = useRoute();
-const course = route.params.course;
-const exercises = [
+/*const exercises = [
   {
     title: 'Aufgabe 1: Zielscheibe',
     image: require("../assets/product-1.jpg"),
@@ -123,7 +124,33 @@ const exercises = [
     id: 13,
     like: false,
   }
-]
+]*/
+const router = useRouter();
+const route = useRoute();
+console.log(route.params.id)
+const course = reactive({
+  id: -1,
+  moduleName: 'Loading'
+});
+const exercises = reactive ([])
+
+onBeforeMount(async () => {
+  for (let i = 2; i < 10; i++) {
+    let apiExercise = (await TaskService.getTask(i)).data
+    let newEntry = {
+      id: apiExercise.exercise_id,
+      title: apiExercise.title,
+      content: apiExercise.content,
+      taskPublic: apiExercise.taskPublic
+    }
+    exercises.push(newEntry)
+  }
+  console.log(route.params.id)
+  let apiCourse = (await ModuleService.getModule(route.params.course)).data
+  course.id = apiCourse.module_id
+  course.moduleName = apiCourse.name
+  await router.replace(`/${encodeURIComponent(course.moduleName)}`)
+})
 
 </script>
 
