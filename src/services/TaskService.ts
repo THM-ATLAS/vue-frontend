@@ -10,22 +10,21 @@ class TaskService{
  /*   loadTasks(user) {
         API.get(`tasks/user/${user.id}`)
             .then(function (response) {
-
             })
             .catch(function (error) {
-
             })
-    },*/
+    }*/
 
-    getTask(id)  {
+
+    getTask(id : any) : Promise<any> {
         return API.get(`tasks/${id}`);
     }
 
-    delTask(taskId) {
+    delTask(taskId : any) : Promise<any>{
         return API.delete(`tasks/${taskId}`);
     }
 
-    editTask(task, user) {
+    editTask(task : any, user : any) : Promise<any>{
         return API.put(`tasks/${user.id}`,{
                 task : {
                     exercise_id : task.id,
@@ -37,7 +36,7 @@ class TaskService{
         );
     }
 
-    addTask(task, user) {
+    addTask(task : any, user : any) : Promise<any> {
         return API.post(`tasks/${user.id}`,{
                 task : {
                     id : task.id,

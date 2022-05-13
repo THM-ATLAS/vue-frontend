@@ -1,19 +1,19 @@
-/*
+
 import API from "@/services/API";
 import {User} from "@/helpers/types"
 
-export default {
+class UserService {
 
     //TODO: Return / check response codes
-    getUser(id : number) : User{
-        return API.get(`users/${id}`)
-    },
+    getUser(id : number) : Promise<any>{
+        return API.get(`users/${id}`);
+    }
 
-    delUser(user:User) : number{
-        return API.delete(`users/${user.id}`)
-    },
+    delUser(user:User) : Promise<any>{
+        return API.delete(`users/${user.id}`);
+    }
 
-    editUser(user:User) : number{
+    editUser(user:User) : Promise<any>{
         return API.put(`users/`,{
                 user : {
                     user_id : user.id,
@@ -24,10 +24,10 @@ export default {
                     roles : user.roles
                 }
             }
-        )
-    },
+        );
+    }
 
-    addUser(user:User) : number{
+    addUser(user:User) : Promise<any>{
         return API.post(`users/`,{
                 user : {
                     user_id : user.id,
@@ -39,6 +39,6 @@ export default {
                     settings : user.settings
                 }
             }
-        )
+        );
     }
-}*/
+}
