@@ -4,28 +4,27 @@ import API from "@/services/API";
 
 // @ts-ignore
 
-export default {
+class TaskService{
     //TODO: Return / check response codes
 
  /*   loadTasks(user) {
         API.get(`tasks/user/${user.id}`)
             .then(function (response) {
-
             })
             .catch(function (error) {
-
             })
-    },*/
+    }*/
 
-    getTask(id)  {
-        return API.get(`tasks/${id}`)
-    },
 
-    delTask(taskId) {
-        return API.delete(`tasks/${taskId}`)
-    },
+    getTask(id : any) : Promise<any> {
+        return API.get(`tasks/${id}`);
+    }
 
-    editTask(task, user) {
+    delTask(taskId : any) : Promise<any>{
+        return API.delete(`tasks/${taskId}`);
+    }
+
+    editTask(task : any, user : any) : Promise<any>{
         return API.put(`tasks/${user.id}`,{
                 task : {
                     exercise_id : task.id,
@@ -34,10 +33,10 @@ export default {
                     taskPublic : task.taskPublic
                 }
             }
-        )
-    },
+        );
+    }
 
-    addTask(task, user) {
+    addTask(task : any, user : any) : Promise<any> {
         return API.post(`tasks/${user.id}`,{
                 task : {
                     id : task.id,
@@ -46,6 +45,8 @@ export default {
                     taskPublic : task.taskPublic
                 }
             }
-        )
+        );
     }
 }
+
+export default new TaskService();
