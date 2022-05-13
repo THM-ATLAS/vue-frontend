@@ -1,7 +1,6 @@
 <template>
-  <!-- todo: dynamically change colors based on current vuetify themes, fix layout errors-->
-<v-container style="margin-top: 10%; background-color: #FFFFFF">
-  <v-container style="background-color:#80ba24">
+<v-container style="margin-top: 10%; background-color: rgb(var(--v-theme-surface));">
+  <v-container style="background-color:rgb(var(--v-theme-primary));">
     <v-row align:start align-content:start >
       <v-col >
         <v-img :src=course.courseThumbnail style="height: 16rem; width: 22rem"></v-img>

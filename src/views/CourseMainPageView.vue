@@ -3,7 +3,7 @@
   <Navbar/>
   <v-container>
     <v-row justify="center" align-content="center">
-      <v-col>
+      <v-col sm="10" md="10" lg="10" xl="10">
         <CourseMainPage :course=sampleCourse :exercises=sampleExercises />
       </v-col>
     </v-row>

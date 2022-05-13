@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Login},
   // {path: '/home', component: CourseSelector},
 
-  {path: '/c/:course/', component: MainPage},
+  {path: '/c/:course/', component: CourseMainPage},
 
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},
@@ -41,8 +41,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/admin/users', component: UserManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
-  //todo: remove test route for CourseMainPage
-  {path: '/course', component: CourseMainPage},
+
 ]
 
 const router = createRouter({
