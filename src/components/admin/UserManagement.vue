@@ -12,7 +12,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="user in users" v-bind:key="user.id">
+      <tr v-for="user in users" v-bind:key="user.user_id">
         <td>{{ user.name }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
@@ -183,10 +183,10 @@
                v-html="$t('buttons.cancel')"/>
         <v-btn
             color="primary"
-               @click="overwriteUser(editUserDialog.target, editUserDialog.changePassword);
+            @click="overwriteUser(editUserDialog.target, editUserDialog.changePassword);
                editUserDialog.show = false;
                editUserDialog.changePassword = false"
-               v-html="$t('buttons.save')"/>
+            v-html="$t('buttons.save')"/>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -214,8 +214,9 @@
 
 <script setup>
 import moment from "moment";
-import {ref} from "vue";
+import {onBeforeMount, ref} from "vue";
 import {useI18n} from "vue-i18n";
+import UserService from "@/services/UserService";
 
 const roles = ref([
   {
@@ -236,7 +237,19 @@ const roles = ref([
   },
 ]);
 
-const users = ref([
+const users = ref([]);
+
+onBeforeMount(async () => {
+  for (const i of [...Array(100).keys()]) {
+    const user = await UserService.getUser(i);
+    if (user) {
+      console.log(user);
+      userList.value.push(user);
+    }
+  }
+})
+
+const userList = ref([
   {
     id: 1,
     name: "John Doe",
@@ -349,7 +362,7 @@ const rules = {
 
 function getUserTemplate() {
   return {
-    id: nextUserId(),
+    user_id: nextUserId(),
     name: '',
     username: '',
     email: '',
@@ -395,12 +408,12 @@ function createUser() {
 }
 
 function nextUserId() {
-  return users.value.map(u => u.id).sort().pop() + 1;
+  return users.value.map(u => u.user_id).sort().pop() + 1;
 }
 
 function overwriteUser(user, overwritePassword = false) {
   users.value.forEach(u => {
-    if (u.id === user.id) {
+    if (u.user_id === user.user_id) {
       u.name = user.name;
       u.username = user.username;
       u.email = user.email;
@@ -411,7 +424,7 @@ function overwriteUser(user, overwritePassword = false) {
 }
 
 function deleteUser(user) {
-  users.value = users.value.filter(u => u.id !== user.id);
+  users.value = users.value.filter(u => u.user_id !== user.user_id);
 }
 
 
