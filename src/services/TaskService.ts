@@ -4,7 +4,7 @@ import API from "@/services/API";
 
 // @ts-ignore
 
-export default {
+class TaskService{
     //TODO: Return / check response codes
 
  /*   loadTasks(user) {
@@ -18,12 +18,12 @@ export default {
     },*/
 
     getTask(id)  {
-        return API.get(`tasks/${id}`)
-    },
+        return API.get(`tasks/${id}`);
+    }
 
     delTask(taskId) {
-        return API.delete(`tasks/${taskId}`)
-    },
+        return API.delete(`tasks/${taskId}`);
+    }
 
     editTask(task, user) {
         return API.put(`tasks/${user.id}`,{
@@ -34,8 +34,8 @@ export default {
                     taskPublic : task.taskPublic
                 }
             }
-        )
-    },
+        );
+    }
 
     addTask(task, user) {
         return API.post(`tasks/${user.id}`,{
@@ -46,6 +46,8 @@ export default {
                     taskPublic : task.taskPublic
                 }
             }
-        )
+        );
     }
 }
+
+export default new TaskService();
