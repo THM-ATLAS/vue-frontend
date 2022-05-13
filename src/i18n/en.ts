@@ -5,6 +5,7 @@ const translationEn = {
         subtitle: 'Exercises and more',
         copyright: 'Copyright © 2021-2022',
         version: 'Version',
+        skip_to_content: 'Skip to main content',
     },
     footer: {
         home: 'Home',
@@ -92,7 +93,29 @@ const translationEn = {
                 email_invalid: 'Please enter a valid email address.',
                 password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
             }
+        },
+        tasks: {
+            new: 'New task',
+            edit: 'Edit task',
+            delete: 'Delete task',
+            delete_confirm: 'Delete task {0}?',
+            title: 'Title',
+            course: 'Course',
+            description: 'Description',
+            no_description: 'No description provided',
+            created_at: 'Created at',
+            actions: 'Actions',
+            errors: {
+                required: 'This field is required.',
+            }
         }
+    },
+    exercise: {
+        back: 'Back',
+        edit: 'Edit',
+        description: 'Description (optional)',
+        title: 'Title',
+        id: 'ID',
     }
 }
 

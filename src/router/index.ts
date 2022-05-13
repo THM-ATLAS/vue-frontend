@@ -13,12 +13,18 @@ import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
 import CourseMainPage from "@/views/CourseMainPageView.vue"
+import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import Home from "@/views/HomeView.vue";
+import CourseSearch from "@/views/CourseSearchView.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '/', component: Login},
+  {path: '/', component: Home},
+
+  {path: '/login', component: Login},
+
   // {path: '/home', component: CourseSelector},
 
-  {path: '/c/:course/', component: CourseMainPage},
+  {path: '/:course/', component: CourseMainPage},
 
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},
@@ -38,10 +44,12 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/help', component: Help},
 
   {path: '/settings', component: Settings},
+
   {path: '/admin/users', component: UserManagement},
+  {path: '/admin/tasks', component: TaskManagement},
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
-
+  { path: '/courses', component: CourseSearch },
 ]
 
 const router = createRouter({

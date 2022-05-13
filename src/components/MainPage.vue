@@ -12,7 +12,7 @@
       >
         <MainpageCardModal
             :exercise="exercise"
-            :course="this.$route.params.course"
+            :course="course"
         />
       </v-col>
     </v-row>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import MainpageCardModal from './MainpageCardModal.vue'
+import MainpageCardModal from '@/components/MainpageCardModal.vue'
 import {useRoute} from "vue-router";
 
 const route = useRoute();

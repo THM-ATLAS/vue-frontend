@@ -4,7 +4,7 @@
   <v-container>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <UserManagement id="content"/>
+        <TaskManagement id="content"/>
       </v-col>
     </v-row>
   </v-container>
@@ -15,5 +15,5 @@
 
 <script setup lang='ts'>
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
-import UserManagement from "@/components/admin/UserManagement.vue";
+import TaskManagement from "@/components/admin/TaskManagement.vue";
 </script>

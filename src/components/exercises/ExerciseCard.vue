@@ -2,12 +2,12 @@
   <v-card elevation="0" rounded="0" role="main">
     <v-container class="pt-0 pl-0">
       <v-btn
-          v-bind="props"
           @click="goBack"
           icon="mdi-menu-left"
           class="ma-2"
           variant="outlined"/>
-      <v-btn
+
+      <!--v-btn
           rounded="xl"
           @click="saved = !saved"
           class="ma-2 pa-6"
@@ -20,9 +20,9 @@
           <v-icon>mdi-check</v-icon>
           Gespeichert
         </div>
-      </v-btn>
+      </v-btn-->
 
-      <v-dialog
+      <!--v-dialog
           v-model="dialog"
           persistent
       >
@@ -52,9 +52,9 @@
             <v-btn text @click="dialog = false">Abbrechen</v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog>
+      </v-dialog-->
 
-      <v-dialog
+      <!--v-dialog
           v-model="dialog2"
           persistent
       >
@@ -72,7 +72,8 @@
           </v-tooltip>
         </template>
         <FeedbackModal @close="dialog2 = false" close-variable/>
-      </v-dialog>
+      </v-dialog-->
+
       <v-tooltip bottom>
         <template v-slot:activator="{ props: tooltip3 }">
           <v-btn
@@ -82,10 +83,10 @@
               variant="outlined"
               @click='this.$router.push("edit");'/>
         </template>
-        <span>Bearbeiten</span>
+        <span v-html="$t('exercise.edit')"/>
       </v-tooltip>
 
-      <v-tooltip bottom>
+      <!--v-tooltip bottom>
         <template v-slot:activator="{ props: tooltip4 }">
           <v-btn
               v-bind="tooltip4"
@@ -95,16 +96,19 @@
               @click='this.$router.push("feedback");'/>
         </template>
         <span>Feedback ansehen</span>
-      </v-tooltip>
+      </v-tooltip-->
 
     </v-container>
-    <div v-if="this.$route.params.id">
-      requested exercise {{ this.$route.params.id }} from course {{ this.$route.params.course }}
+
+    <div>
+      requested exercise {{ id }} from course {{ course }}
     </div>
+
     <v-card-header>
       <v-card-header-text class="text-left text-h4" v-html="exercise.title"/>
     </v-card-header>
-    <v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
+
+    <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
         <v-carousel-item v-for="image in exercise.images_before" :key="image.id">
           <v-img :src="image.url" :aspect-ratio="image.aspect_ratio"/>
@@ -113,12 +117,13 @@
     </v-container>
     <v-container v-else-if="exercise.images_before && exercise.images_before.length === 1" class="text-left">
       <v-img :src="exercise.images_before[0].url" :aspect-ratio="exercise.images_before[0].aspect_ratio"/>
+    </v-container-->
+
+    <v-container class="py-1">
+      <MarkdownModal v-model="exercise.content"/>
     </v-container>
-    <v-container>
-      <Editor style="background: none" previewOnly class="text-left" language="en-US"
-              :modelValue="filterYAMLHeader(exercise.content)"/>
-    </v-container>
-    <v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
+
+    <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
       <v-carousel v-model="carousel2" :cycle="false">
         <v-carousel-item v-for="image in exercise.images_after" :key="image.id">
           <v-img :src="image.url" :aspect-ratio="image.aspect_ratio"/>
@@ -127,34 +132,35 @@
     </v-container>
     <v-container v-else-if="exercise.images_after && exercise.images_after.length === 1" class="text-left">
       <v-img :src="exercise.images_after[0].url" :aspect-ratio="exercise.images_after[0].aspect_ratio"/>
-    </v-container>
-    <v-btn
+    </v-container-->
+
+    <!--v-btn
         v-if="!showSubmission && hasSubmission"
         @click="showSubmission = true"
         class="ma-2"
         rounded="0" variant="outlined">
       {{ getSubmitButton() }}
-    </v-btn>
+    </v-btn-->
 
   </v-card>
-  <br/>
+  <!--br/>
   <div>
     <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :course="this.$route.params.course"/>
-  </div>
+  </div-->
 </template>
 
 <style scoped>
 </style>
 
 <script setup lang='ts'>
-import {mergeProps, ref} from "vue";
-import FeedbackModal from "@/components/FeedbackModal.vue";
-import NewSubmission from "@/components/NewSubmission.vue";
+// import {mergeProps, ref} from "vue";
+// import FeedbackModal from "@/components/FeedbackModal.vue";
+// import NewSubmission from "@/components/exercises/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
-import Editor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
+import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 
-const content = "# Hallo Welt\n" +
+const content = "**Hallo Welt**\n" +
     "\n" +
     "Dies ist eine Markdown-Testdatei.\n" +
     "\n" +
@@ -241,6 +247,7 @@ function goBack(): void {
   router.back();
 }
 
+/*
 function reportError(error: string): void {
   console.log(error);
 }
@@ -262,4 +269,5 @@ let dialog = ref(false);
 let dialog2 = ref(false);
 
 let hasSubmission = true;
+*/
 </script>

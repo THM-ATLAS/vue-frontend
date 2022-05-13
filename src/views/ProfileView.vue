@@ -11,16 +11,11 @@
   <Footer/>
 </template>
 
-<script>
-import Profile from "../components/ProfileCard"
-import Navbar from "../components/navbar/NavbarBase.vue";
-import Footer from "../components/FooterCard.vue"
-import SkipToContent from "@/components/SkipToContent";
-
-export default {
-  name: "ProfileView",
-  components: {SkipToContent, Profile, Navbar, Footer}
-}
+<script setup>
+import Profile from "@/components/ProfileCard"
+import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
+import Footer from "@/components/navigation/FooterCard.vue"
+import SkipToContent from "@/components/helpers/SkipToContent";
 </script>
 
 <style scoped>
