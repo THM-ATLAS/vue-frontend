@@ -13,9 +13,9 @@
 
 
 <script setup>
-import SkipToContent from "@/components/SkipToContent";
-import Footer from "@/components/FooterCard";
-import Navbar from "@/components/navbar/NavbarBase";
+import SkipToContent from "@/components/helpers/SkipToContent";
+import Footer from "@/components/navigation/FooterCard";
+import Navbar from "@/components/navigation/navbar/NavbarBase";
 import CourseMainPage from "@/components/CourseMainPage";
 
 const sampleCourse = {
