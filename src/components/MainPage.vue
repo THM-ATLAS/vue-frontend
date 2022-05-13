@@ -36,7 +36,10 @@ const course = reactive({
 const exercises = reactive ([])
 
 onBeforeMount(async () => {
-  for (let i = 2; i < 10; i++) {
+  //Currently, whenever a taskID does not exist in the database we get a problem
+  //and their ids have more holes than swiss cheese
+  const array = [2,3,5,6]
+  for (const i of array) {
     let apiExercise = (await TaskService.getTask(i)).data
     let newEntry = {
       id: apiExercise.exercise_id,
@@ -46,7 +49,6 @@ onBeforeMount(async () => {
     }
     exercises.push(newEntry)
   }
-  console.log("MainPage props: " + route.params.id)
   let apiCourse = (await ModuleService.getModule(route.params.course)).data
   course.id = apiCourse.module_id
   course.moduleName = apiCourse.name
