@@ -26,7 +26,7 @@ import {defineProps} from "vue";
 const props = defineProps({
     id: {
       required: true,
-      type: String,
+      type: Number,
     },
     moduleName: {
       required: true,
@@ -35,7 +35,7 @@ const props = defineProps({
     // courseDescription: String,
     // courseThumbnail: Image,
   })
-console.log(props)
+console.log("Props in CourseSearchResult: " + props.id)
 </script>
 
 <style scoped>
