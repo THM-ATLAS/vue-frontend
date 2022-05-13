@@ -5,7 +5,7 @@ class ModuleService {
     //TODO: Return / check response codes
 
     loadModules(user: User): Promise<any> {
-        return API.get(`modules/${user.id}`);
+        return API.get(`modules/${user.user_id}`);
     }
 
     getModule(id: number): Promise<any> {

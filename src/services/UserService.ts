@@ -9,7 +9,7 @@ class UserService {
     }
 
     delUser(user:User) : Promise<any>{
-        return API.delete(`users/${user.id}`);
+        return API.delete(`users/${user.user_id}`);
     }
 
     editUser(user:User) : Promise<any>{

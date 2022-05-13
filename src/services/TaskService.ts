@@ -26,7 +26,7 @@ class TaskService{
     }
 
     editTask(task : Task, user : User) : Promise<any>{
-        return API.put(`tasks/${user.id}`,{
+        return API.put(`tasks/${user.user_id}`,{
                 task : {
                     exercise_id : task.id,
                     title : task.title,
@@ -38,7 +38,7 @@ class TaskService{
     }
 
     addTask(task : Task, user : User) : Promise<any> {
-        return API.post(`tasks/${user.id}`,{
+        return API.post(`tasks/${user.user_id}`,{
                 task : {
                     id : task.id,
                     title : task.title,

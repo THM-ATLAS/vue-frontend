@@ -239,16 +239,16 @@ const roles = ref([
 
 const users = ref([]);
 
+// TODO: replace with UserService.getUsers() once it's implemented
 onBeforeMount(async () => {
-  for (const i of [...Array(100).keys()]) {
-    const user = await UserService.getUser(i);
-    if (user) {
-      console.log(user);
-      userList.value.push(user);
-    }
-  }
+  [...Array(100).keys()].forEach((i) => {
+    UserService.getUser(i).then(u => {
+      if (u) users.value.push(u);
+    });
+  });
 })
 
+/*
 const userList = ref([
   {
     id: 1,
@@ -350,6 +350,7 @@ const userList = ref([
     created_at: '2022-04-07 22:30:00',
   }
 ]);
+*/
 
 const i18n = useI18n();
 
