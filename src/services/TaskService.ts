@@ -1,6 +1,7 @@
 
 import API from "@/services/API";
-//import {User, Task} from "@/helpers/types"
+
+import {User, Task} from "@/helpers/types";
 
 // @ts-ignore
 
@@ -16,15 +17,15 @@ class TaskService{
     }*/
 
 
-    getTask(id : any) : Promise<any> {
+    getTask(id : number) : Promise<any> {
         return API.get(`tasks/${id}`);
     }
 
-    delTask(taskId : any) : Promise<any>{
+    delTask(taskId : number) : Promise<any>{
         return API.delete(`tasks/${taskId}`);
     }
 
-    editTask(task : any, user : any) : Promise<any>{
+    editTask(task : Task, user : User) : Promise<any>{
         return API.put(`tasks/${user.id}`,{
                 task : {
                     exercise_id : task.id,
@@ -36,7 +37,7 @@ class TaskService{
         );
     }
 
-    addTask(task : any, user : any) : Promise<any> {
+    addTask(task : Task, user : User) : Promise<any> {
         return API.post(`tasks/${user.id}`,{
                 task : {
                     id : task.id,
