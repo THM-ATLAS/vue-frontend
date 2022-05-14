@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer permanent>
-    <v-card>
+    <v-card flat class="admin-nav-title">
       <v-card-text class="text-center">
         <h2>Admin Panel</h2>
         <b>Username_Placeholder</b>
@@ -14,13 +14,13 @@
         @click="goToUser"
       ></v-list-item>
       <v-list-item
-        prepend-icon="mdi-account"
+        prepend-icon="mdi-pencil-ruler"
         title="Task Management"
         value="account"
         @click="goToTask"
       ></v-list-item>
       <v-list-item
-        prepend-icon="mdi-account"
+        prepend-icon="mdi-file-tree"
         title="Course Management"
         value="users"
         @click="goToCourse"
@@ -48,4 +48,9 @@ function goToCourse(): void {
 }
 </script>
 
-<style></style>
+<style scoped>
+.admin-nav-title {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+</style>
