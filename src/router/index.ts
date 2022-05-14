@@ -44,8 +44,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/help', component: Help},
 
   {path: '/settings', component: Settings},
-
-  {path: '/admin', component: TestAdmin},
+  
   {path: '/admin/users', component: UserManagement},
   {path: '/admin/tasks', component: TaskManagement},
 
