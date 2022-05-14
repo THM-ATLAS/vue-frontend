@@ -16,20 +16,6 @@ const translationEn = {
             profile: 'Profile'
         }
     },
-    landing_page: {
-        welcome: 'Welcome to',
-        instructions: 'Start to search for courses or login!',
-        search: 'e.g. Compilerbau'
-    },
-    login_page: {
-        login: 'Login',
-        instructions: 'Use your THM user credentials.',
-        user_id: 'username',
-        password: 'password'
-    },
-    main_page: {
-        exercise: 'Exercise'
-    },
     footer: {
         home: 'Home',
         imprint: 'Imprint',
@@ -37,6 +23,20 @@ const translationEn = {
         data_protection: 'Data protection',
         thm: 'THM',
         a_project_by_thm: 'a project by THM',
+    },
+    login_page: {
+        login: 'Login',
+        instructions: 'Use your THM user credentials.',
+        user_id: 'username',
+        password: 'password'
+    },
+    landing_page: {
+        welcome: 'Welcome to',
+        instructions: 'Start to search for courses or login!',
+        search: 'e.g. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Exercise'
     },
     settings: {
         title: 'Settings',
