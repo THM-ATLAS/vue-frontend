@@ -3,14 +3,67 @@
     <title>ATLAS</title>
     <v-main>
       <RouterView/>
+      <v-snackbar
+          v-model="snackbar.show"
+          :color="snackbar.color"
+          :timeout="10_000"
+          @click="snackbar.show = false">
+        {{ snackbar.text }}
+        <template v-slot:actions>
+          <v-btn text @click="snackbar.show = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </template>
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
 
 <script setup>
 import {theme} from "@/helpers/theme";
-import { RouterView } from 'vue-router';
+import {RouterView} from 'vue-router';
+import API from "@/services/API";
+import {useI18n} from "vue-i18n";
+import {ref} from "vue";
 
+const i18n = useI18n();
+
+const snackbar = ref({
+      show: false,
+      text: "",
+      color: "",
+    }
+);
+
+function setSnackbar(text, color = "info") {
+  snackbar.value.text = text;
+  snackbar.value.color = color;
+  snackbar.value.show = true;
+}
+
+API.interceptors.response.use(
+    response => response,
+    error => {
+      // console.log(error)
+      setSnackbar(i18n.t("error.not_found"), "error");
+      switch (error.response.status) {
+        case 401:
+          setSnackbar(i18n.t("error.unauthorized"), "error");
+          break;
+        case 403:
+          setSnackbar(i18n.t("error.forbidden"), "error");
+          break;
+        case 404:
+          setSnackbar(i18n.t("error.not_found"), "error");
+          break;
+        case 500:
+          setSnackbar(i18n.t("error.internal_server_error"), "error");
+          break;
+        default:
+          setSnackbar(i18n.t("error.unknown"), "error");
+          break;
+      }
+    });
 </script>
 
 <style src="ress"/>
