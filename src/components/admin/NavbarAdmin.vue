@@ -2,27 +2,24 @@
   <v-navigation-drawer permanent>
     <v-card flat class="admin-nav-title">
       <v-card-text class="text-center">
-        <h2>Admin Panel</h2>
-        <b>Username_Placeholder</b>
+        <h2>{{ $t("admin.navbar.title") }}</h2>
+        <!-- <b>Username_Placeholder</b> -->
       </v-card-text>
     </v-card>
     <v-list density="compact" nav>
       <v-list-item
         prepend-icon="mdi-account"
-        title="User Management"
-        value="home"
+        :title="$t('admin.navbar.manage_user')"
         @click="goToUser"
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-pencil-ruler"
-        title="Task Management"
-        value="account"
+        :title="$t('admin.navbar.manage_task')"
         @click="goToTask"
       ></v-list-item>
       <v-list-item
         prepend-icon="mdi-file-tree"
-        title="Course Management"
-        value="users"
+        :title="$t('admin.navbar.manage_course')"
         @click="goToCourse"
         disabled
       ></v-list-item>

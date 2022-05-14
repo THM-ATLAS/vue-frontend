@@ -132,6 +132,12 @@ const translationEn = {
             errors: {
                 required: 'This field is required.',
             }
+        },
+        navbar: {
+            title: 'Admin Panel',
+            manage_user: 'Manage users',
+            manage_task: 'Manage tasks',
+            manage_course: 'Manage courses',
         }
     },
     exercise: {

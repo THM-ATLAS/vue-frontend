@@ -132,6 +132,12 @@ const translationDe = {
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
+        },
+        navbar: {
+            title: 'Administration',
+            manage_user: 'Benutzer verwalten',
+            manage_task: 'Aufgaben verwalten',
+            manage_course: 'Kurse verwalten',
         }
     },
     exercise: {
