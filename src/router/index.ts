@@ -15,6 +15,7 @@ import UserManagement from "@/views/admin/UserManagementView.vue";
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import CourseSearch from "@/views/CourseSearchView.vue";
+import TestAdmin from "@/views/admin/TestAdminView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
@@ -44,6 +45,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/settings', component: Settings},
 
+  {path: '/admin', component: TestAdmin},
   {path: '/admin/users', component: UserManagement},
   {path: '/admin/tasks', component: TaskManagement},
 
