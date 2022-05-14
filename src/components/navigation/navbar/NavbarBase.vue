@@ -95,20 +95,20 @@
     <v-spacer/>
     <v-list nav>
       <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToCourses">
-        Zu den Kursen
+        {{ $t('header.courses') }}
       </v-list-item>
       <v-divider></v-divider>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
-        <span> Nachrichten </span>
-      </v-list-item>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
-        <span> Profil </span>
-      </v-list-item>
+      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
+        <span> {{ $t('header.dropdown.messages') }} </span>
+      </v-list-item-->
+      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
+        <span> {{ $t('header.dropdown.profile') }} </span>
+      </v-list-item-->
       <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
-        <span> Einstellungen </span>
+        <span> {{ $t('header.dropdown.settings') }} </span>
       </v-list-item>
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
-        <span> Hilfe </span>
+        <span> {{ $t('header.dropdown.help') }} </span>
       </v-list-item>
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
@@ -160,17 +160,17 @@ function goToCourses(): void {
   router.push("/courses")
 }
 
-function goToMessages(): void {
+/*function goToMessages(): void {
   router.push("/notifications");
-}
+}*/
 
 function goToSettings(): void {
   router.push("/settings");
 }
 
-function goToUser() {
+/*function goToUser() {
   router.push("/u/");
-}
+}*/
 
 </script>
 

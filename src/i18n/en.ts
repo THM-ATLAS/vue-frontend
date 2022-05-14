@@ -7,6 +7,15 @@ const translationEn = {
         version: 'Version',
         skip_to_content: 'Skip to main content',
     },
+    header: {
+        courses: 'Courses',
+        dropdown: {
+            settings: 'Settings',
+            help: 'Help',
+            messages: 'Messages',
+            profile: 'Profile'
+        }
+    },
     footer: {
         home: 'Home',
         imprint: 'Imprint',
@@ -14,6 +23,20 @@ const translationEn = {
         data_protection: 'Data protection',
         thm: 'THM',
         a_project_by_thm: 'a project by THM',
+    },
+    login_page: {
+        login: 'Login',
+        instructions: 'Use your THM user credentials.',
+        user_id: 'username',
+        password: 'password'
+    },
+    landing_page: {
+        welcome: 'Welcome to',
+        instructions: 'Start to search for courses or login!',
+        search: 'e.g. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Exercise'
     },
     settings: {
         title: 'Settings',
@@ -54,6 +77,7 @@ const translationEn = {
         remove: 'Remove',
         edit: 'Edit',
         login: 'Login',
+        login_with_ldap: 'Login with LDAP',
         logout: 'Logout',
         register: 'Register',
         new: 'New',

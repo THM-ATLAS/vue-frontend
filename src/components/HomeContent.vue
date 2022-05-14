@@ -2,7 +2,7 @@
   <v-card class="mx-auto justify-center" elevation="0" rounded="0">
     <v-container>
       <v-row class="justify-center">
-        <div class="text-h3">Willkommen zu</div>
+        <div class="text-h3">{{ $t('landing_page.welcome') }}</div>
       </v-row>
       <v-row class="homepage-row">
         <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
@@ -11,7 +11,7 @@
                height="150px"/>
       </v-row>
       <v-row class="justify-center homepage-row">
-        <div class="text-h5">Starte mit der Suche nach Kursen oder logge dich oben rechts ein!</div>
+        <div class="text-h5">{{ $t('landing_page.instructions') }}</div>
       </v-row>
       <v-row class="justify-center homepage-row">
         <v-spacer/>

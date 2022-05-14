@@ -22,12 +22,15 @@
 <script setup lang='ts'>
 import MainpageCardModal from '@/components/MainpageCardModal.vue'
 import {useRoute} from "vue-router";
+import {useI18n} from "vue-i18n";
+
+const exercise = useI18n().t('main_page.exercise');
 
 const route = useRoute();
 const course = route.params.course;
 const exercises = [
   {
-    title: 'Aufgabe 1: Zielscheibe',
+    title: exercise+' 1: Zielscheibe',
     image: require("../assets/product-1.jpg"),
     content: 'Kreis 1, **Kreis2**, Kreis3, Kreis4, Kreis5, Kreis6, Kreis7, Kreise kreisekreisekreiskreikrrrr...',
     rating: 2.9,
@@ -35,7 +38,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 2: Konfetti',
+    title: exercise+' 2: Konfetti',
     image: require("../assets/product-2.jpg"),
     content: 'Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. ',
     rating: 4.1,
@@ -43,7 +46,7 @@ const exercises = [
     like: true,
   },
   {
-    title: 'Aufgabe 3: Minesweeper',
+    title: exercise+' 3: Minesweeper',
     image: require("../assets/product-4.jpg"),
     content: 'Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder?',
     description: 'Ich bin eine Beschreibung!',
@@ -52,7 +55,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 4: Game of Life',
+    title: exercise+' 4: Game of Life',
     image: require("../assets/product-5.jpg"),
     content: 'Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. ',
     rating: 4.8,
@@ -60,7 +63,7 @@ const exercises = [
     like: true,
   },
   {
-    title: 'Aufgabe 5: Lorem ipsum',
+    title: exercise+' 5: Lorem ipsum',
     image: require("../assets/product-6.jpg"),
     content: '#Lorem ipsum dolor sit amet!\n Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     rating: 1.1,
@@ -68,7 +71,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 6: Eine sehr lange Aufgabe mit tollem Titel',
+    title: exercise+' 6: Eine sehr lange Aufgabe mit tollem Titel',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
@@ -76,7 +79,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 7: Minesweeper',
+    title: exercise+' 7: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
@@ -84,7 +87,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 8: Minesweeper',
+    title: exercise+' 8: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: '# Header only, dont render',
     rating: 2.0,
@@ -92,7 +95,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 9: Minesweeper',
+    title: exercise+' 9: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
@@ -100,7 +103,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 10: Minesweeper',
+    title: exercise+' 10: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
@@ -108,7 +111,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 11: Minesweeper',
+    title: exercise+' 11: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
@@ -116,7 +119,7 @@ const exercises = [
     like: false,
   },
   {
-    title: 'Aufgabe 12: Minesweeper',
+    title: exercise+' 12: Minesweeper',
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
