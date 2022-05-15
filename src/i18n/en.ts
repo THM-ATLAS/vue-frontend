@@ -149,6 +149,13 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Unauthorized.',
+        forbidden: 'Forbidden access.',
+        not_found: 'Could not find the requested resource.',
+        internal_server_error: 'Internal server error.',
+        unknown: 'An unknown error occurred.',
     }
 }
 

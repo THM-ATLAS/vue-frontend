@@ -100,11 +100,11 @@
 
     </v-container>
 
-    <div>
+    <!--div>
       requested exercise {{ id }} from course {{ course }}
-    </div>
+    </div-->
 
-    <v-card-title class="text-left text-h4" v-html="cardTitle"/>
+    <v-card-title class="text-left text-h4" v-html="exercise.title"/>
 
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
@@ -118,7 +118,7 @@
     </v-container-->
 
     <v-container class="py-1">
-      <MarkdownModal :model-value="cardContent"/>
+      <MarkdownModal :model-value="exercise.content"/>
     </v-container>
 
     <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
@@ -157,15 +157,13 @@ import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import TaskService from "@/services/TaskService";
-import {onBeforeMount, ref} from "vue";
+import {ref} from "vue";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
 const course = route.params.course;
 let exerciseData: any;
-const cardTitle = ref()
-const cardContent = ref()
 
 const exercise = ref({
   id: -1,
@@ -174,18 +172,17 @@ const exercise = ref({
   taskPublic: false
 });
 
-onBeforeMount(async () => {
-  exerciseData = (await TaskService.getTask(id)).data
-  console.log(exerciseData)
+TaskService.getTask(id).then(response => {
+  exerciseData = response.data;
+
   exercise.value.id = exerciseData.exercise_id
   exercise.value.title = exerciseData.title
   exercise.value.content = exerciseData.content
   exercise.value.taskPublic = exerciseData.taskPublic
 
-  cardTitle.value = exercise.value.title
-  cardContent.value = exercise.value.content
 
-  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)
+}).then(() => router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)).catch(() => {
+  // nothing to do here, user will see error message
 })
 
 function goBack() {
@@ -195,6 +192,7 @@ function goBack() {
 function goToEditor(): void {
   router.push('edit');
 }
+
 /*
 function reportError(error: string): void {
   console.log(error);

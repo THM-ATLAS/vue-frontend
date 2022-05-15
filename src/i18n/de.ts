@@ -149,6 +149,13 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Keine Berechtigung.',
+        forbidden: 'Zugriff verweigert.',
+        not_found: 'Element konnte nicht gefunden werden.',
+        internal_server_error: 'Interner Serverfehler.',
+        unknown: 'Unbekannter Fehler.',
     }
 }
 
