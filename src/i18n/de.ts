@@ -138,6 +138,7 @@ const translationDe = {
             manage_user: 'Benutzer verwalten',
             manage_task: 'Aufgaben verwalten',
             manage_course: 'Kurse verwalten',
+            back: 'Zurück zur Homepage'
         }
     },
     exercise: {

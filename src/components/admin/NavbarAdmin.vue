@@ -23,6 +23,11 @@
         @click="goToCourse"
         disabled
       ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-arrow-left"
+        :title="$t('admin.navbar.back')"
+        @click="goToHome"
+      ></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -42,6 +47,10 @@ function goToTask(): void {
 
 function goToCourse(): void {
   router.push("/admin/courses");
+}
+
+function goToHome(): void {
+  router.push('/');
 }
 </script>
 

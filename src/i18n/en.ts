@@ -138,6 +138,7 @@ const translationEn = {
             manage_user: 'Manage users',
             manage_task: 'Manage tasks',
             manage_course: 'Manage courses',
+            back: 'Back to homepage'
         }
     },
     exercise: {
