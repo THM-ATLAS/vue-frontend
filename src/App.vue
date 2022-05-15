@@ -1,15 +1,13 @@
 <template>
   <v-app :theme="theme" id="app-wrapper">
     <title>ATLAS</title>
-    <v-main>
-      <RouterView/>
-    </v-main>
+    <RouterView/>
   </v-app>
 </template>
 
 <script setup>
 import {theme} from "@/helpers/theme";
-import { RouterView } from 'vue-router';
+import {RouterView} from 'vue-router';
 
 </script>
 

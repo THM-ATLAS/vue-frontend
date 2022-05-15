@@ -3,7 +3,11 @@
   <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <TaskManagement id="content"/>
+        <v-card>
+          <v-card-text>
+            <div v-html="$t('admin.choose_page')"/>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-main>
@@ -13,6 +17,5 @@
 </style>
 
 <script setup lang='ts'>
-import TaskManagement from "@/components/admin/TaskManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
 </script>

@@ -1,4 +1,5 @@
 <template>
+  <SkipToContent/>
   <v-app-bar>
     <v-app-bar-nav-icon class="d-md-none" variant="text" @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>
@@ -6,36 +7,39 @@
     </v-toolbar-title>
   </v-app-bar>
   <v-navigation-drawer
-  v-model="drawer">
+      v-model="drawer">
     <v-list density="compact" nav>
       <v-list-item
-        prepend-icon="mdi-account"
-        :title="$t('admin.navbar.manage_user')"
-        @click="goToUser"
-      ></v-list-item>
+          prepend-icon="mdi-account"
+          :title="$t('admin.navbar.manage_user')"
+          @click="goToUser"
+      />
       <v-list-item
-        prepend-icon="mdi-pencil-ruler"
-        :title="$t('admin.navbar.manage_task')"
-        @click="goToTask"
-      ></v-list-item>
+          prepend-icon="mdi-pencil-ruler"
+          :title="$t('admin.navbar.manage_task')"
+          @click="goToTask"
+      />
       <v-list-item
-        prepend-icon="mdi-file-tree"
-        :title="$t('admin.navbar.manage_course')"
-        @click="goToCourse"
-        disabled
-      ></v-list-item>
+          prepend-icon="mdi-file-tree"
+          :title="$t('admin.navbar.manage_course')"
+          @click="goToCourse"
+          disabled
+      />
+    </v-list>
+    <v-list density="compact" nav>
       <v-list-item
-        prepend-icon="mdi-arrow-left"
-        :title="$t('admin.navbar.back')"
-        @click="goToHome"
-      ></v-list-item>
+          prepend-icon="mdi-arrow-left"
+          :title="$t('admin.navbar.back')"
+          @click="goToHome"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import { ref } from "vue";
+import {useRouter} from "vue-router";
+import {ref} from "vue";
+import SkipToContent from "@/components/helpers/SkipToContent.vue";
 
 let drawer = ref(true);
 

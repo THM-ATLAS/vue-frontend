@@ -13,7 +13,8 @@ const translationDe = {
             settings: 'Einstellungen',
             help: 'Hilfe',
             messages: 'Nachrichten',
-            profile: 'Profil'
+            profile: 'Profil',
+            admin: 'Admin',
         }
     },
     footer: {
@@ -96,6 +97,7 @@ const translationDe = {
         saved: 'Gespeichert',
     },
     admin: {
+        choose_page: 'Wähle eine Seite aus, indem du einen Link in der Adminleiste klickst.',
         users: {
             new: 'Neuer Benutzer',
             edit: 'Benutzer bearbeiten',

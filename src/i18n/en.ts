@@ -13,7 +13,8 @@ const translationEn = {
             settings: 'Settings',
             help: 'Help',
             messages: 'Messages',
-            profile: 'Profile'
+            profile: 'Profile',
+            admin: 'Admin',
         }
     },
     footer: {
@@ -96,6 +97,7 @@ const translationEn = {
         saved: 'Saved',
     },
     admin: {
+        choose_page: 'Choose a page by clicking on the left menu',
         users: {
             new: 'New user',
             edit: 'Edit user',

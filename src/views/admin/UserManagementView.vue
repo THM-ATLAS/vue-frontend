@@ -1,21 +1,18 @@
 <template>
-  <!-- Admin Panel Header/Menu -->
-  <SkipToContent/>
   <NavbarAdmin/>
-  <v-container>
+  <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
         <UserManagement id="content"/>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
 </template>
 
 <style scoped>
 </style>
 
 <script setup lang='ts'>
-import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import UserManagement from "@/components/admin/UserManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
 </script>
