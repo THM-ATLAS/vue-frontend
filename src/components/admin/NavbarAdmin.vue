@@ -1,7 +1,7 @@
 <template>
   <SkipToContent/>
   <v-app-bar>
-    <v-app-bar-nav-icon class="d-md-none" variant="text" @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon class="d-lg-none" variant="text" @click="drawer = !drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>
       {{ $t('admin.navbar.title') }}
     </v-toolbar-title>

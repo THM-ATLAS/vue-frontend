@@ -1,6 +1,6 @@
 <template>
   <NavbarAdmin/>
-  <v-main>
+  <v-main class="main">
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
         <UserManagement id="content"/>
