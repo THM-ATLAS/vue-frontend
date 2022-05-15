@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import MainpageCardModal from '@/components/MainpageCardModal.vue'
+import MainpageCardModal from '@/components/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
 import {useI18n} from "vue-i18n";
 
