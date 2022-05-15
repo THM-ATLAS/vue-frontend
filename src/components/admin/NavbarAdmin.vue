@@ -1,11 +1,12 @@
 <template>
-  <v-navigation-drawer permanent>
-    <v-card flat class="admin-nav-title">
-      <v-card-text class="text-center">
-        <h2>{{ $t("admin.navbar.title") }}</h2>
-        <!-- <b>Username_Placeholder</b> -->
-      </v-card-text>
-    </v-card>
+  <v-app-bar>
+    <v-app-bar-nav-icon class="d-md-none" variant="text" @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-toolbar-title>
+      {{ $t('admin.navbar.title') }}
+    </v-toolbar-title>
+  </v-app-bar>
+  <v-navigation-drawer
+  v-model="drawer">
     <v-list density="compact" nav>
       <v-list-item
         prepend-icon="mdi-account"
@@ -34,6 +35,9 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import { ref } from "vue";
+
+let drawer = ref(true);
 
 const router = useRouter();
 
