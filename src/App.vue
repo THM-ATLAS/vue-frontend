@@ -1,8 +1,8 @@
 <template>
   <v-app :theme="theme" id="app-wrapper">
     <title>ATLAS</title>
+    <RouterView/>
     <v-main>
-      <RouterView/>
       <v-snackbar
           v-model="snackbar.show"
           :color="snackbar.color"
