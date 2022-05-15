@@ -14,6 +14,9 @@
 </template>
 
 <style scoped>
+.main {
+  margin-top: 2em;
+}
 </style>
 
 <script setup lang='ts'>
