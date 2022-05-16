@@ -235,11 +235,12 @@
 </template>
 
 <script setup>
-import {ref /*, onMounted, onUnmounted */} from "vue";
+import {onBeforeMount, reactive, /*ref , onMounted, onUnmounted */} from "vue";
 // import MainpageCardModal from "../MainpageCardModal.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal";
+import TaskService from "@/services/TaskService";
 
 const route = useRoute();
 const router = useRouter();
@@ -291,7 +292,7 @@ const fileExtensions = [
   "text/plain",
 ]
 */
-let exercise = ref({
+const exercise = reactive({
   id: id === undefined ? "" : id,
   title: "",
   description: "",
@@ -304,86 +305,20 @@ const store = () => {
   localStorage.setItem(localStoragePath, JSON.stringify(exercise.value));
 };
 
-if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
-  exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
-} else if (id === undefined) { // create new exercise
-  exercise = ref({
-    id: 10101, // TODO: get from API
-    title: "New Exercise",
-    description: "",
-    content: "Edit here...",
-    // hasSubmission: false,
-    // items: [],
-  });
-} else { // get exercise from API
-  exercise = ref({  // TODO: get from API
-    id: id,
-    title: "Existing exercise title (id: " + id + ")",
-    description: "Something was here previously",
-    content: "Blah blah blah\n\n**Hi**\n\n[Link](https://www.google.com)",
-    /*
-    hasSubmission: true,
-    items: [
-      {
-        id: 1, // item id
-        type: "code", // code, multiple-choice, single-line, multi-line, file
-        title: "Sum of n numbers",
-        body: "Write a program to find the sum of first n natural numbers", // describes the context of the item
-        content: "", // code content
-        language: "processing", // optional, only used for code items
-      },
-      {
-        id: 2, // item id
-        type: "multiple-choice", // code, multiple-choice, single-line, multi-line, file
-        title: "Wähle die richtige Antwort", // describes the context of the item
-        options: [
-          {
-            id: 1, // option id
-            text: "A", // option content
-          },
-          {
-            id: 2, // option id
-            text: "B", // option content
-          },
-          {
-            id: 3, // option id
-            text: "C", // option content
-          },
-          {
-            id: 4,
-            text: "Ich bin ein längerer Text. Ich darf nicht bereits ausgewählt sein",
-          },
-        ],
-      },
-      {
-        id: 3, // item id
-        type: "single-line", // code, multiple-choice, single-line, multi-line, file
-        title: "Gib eine Zahl ein", // describes the context of the item
-        content: "", // code content
-        correct: "42", // indicates the correct answer
-        max_length: 32, // indicates the maximum length of the text
-      },
-      {
-        id: 4, // item id
-        type: "multi-line", // code, multiple-choice, single-line, multi-line, file
-        title: "Gedichtsanalyse", // describes the context of the item
-        body: "Analysiere das Gedicht.", // describes the context of the item
-        content: "", // code content
-        max_length: 256, // indicates the maximum length of the text
-      },
-      {
-        id: 5, // item id
-        type: "file", // code, multiple-choice, single-line, multi-line, file
-        title: "Lade eine Datei hoch", // describes the context
-        allowed_extensions: ["application/pdf", "image/png"], // specifies the allowed file extensions
-        multiple: true, // allow multiple files
-      }
-    ]
-    */
-  });
-}
+onBeforeMount(async () => {
+  if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
+    exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
+  } else { // get exercise from API
+    await TaskService.getTask(id).then(response => {
+      exercise.id = response.data.exercise_id
+      exercise.title = response.data.title
+      exercise.content = response.data.content
+      exercise.taskPublic = response.data.taskPublic
+    })
+  }
 
-store();
+  store();
+})
 
 const save = () => {
   console.log(exercise);
@@ -392,7 +327,12 @@ const save = () => {
   router.back();
 };
 
-const del = () => {
+const del = async () => {
+  await TaskService.delTask(id).then(response => {
+    console.log(response.data)
+  }). catch(error => {
+    console.log(error.message)
+  })
   localStorage.removeItem(localStoragePath);
   router.back();
 };
