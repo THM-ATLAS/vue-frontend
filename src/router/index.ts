@@ -26,7 +26,6 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/:pathMatch(.*)*', redirect: '/404' },
 
   {path: '/:course/', component: CourseMainPage},
-
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},
   {path: '/:course/e/:id/edit', component: ExerciseEditor}, // edit mode

@@ -1,13 +1,13 @@
 <template>
-<v-container style="margin-top: 10%; background-color: rgb(var(--v-theme-surface));">
-  <v-container style="background-color:rgb(var(--v-theme-primary));">
+<v-card style="margin-top: 10%;">
+  <v-container style="background-color:rgb(var(--v-theme-green));">
     <v-row align:start align-content:start >
       <v-col >
         <v-img :src=course.courseThumbnail style="height: 16rem; width: 22rem"></v-img>
       </v-col>
     <v-col>
-      <h1 style="color: whitesmoke">{{course.courseName}}</h1>
-      <p style="color: whitesmoke">{{course.courseDescription}}</p>
+      <h1>{{course.courseName}}</h1>
+      <p>{{course.courseDescription}}</p>
     </v-col>
 
     </v-row>
@@ -28,7 +28,7 @@
   </div>
   </v-row>
 </v-container>
-</v-container>
+</v-card>
 </template>
 
 <script>
