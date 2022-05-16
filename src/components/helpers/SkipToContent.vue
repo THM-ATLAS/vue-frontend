@@ -2,6 +2,7 @@
     <a :href="'#' + id" class="skipLink" ref="skipLink" tabindex="0" v-html="$t('app.skip_to_content')"/>
 </template>
 
+
 <script setup>
 // eslint-disable-next-line no-undef
 defineProps({
@@ -10,6 +11,7 @@ defineProps({
     default: 'content'
   }
 });
+
 </script>
 
 <style scoped>

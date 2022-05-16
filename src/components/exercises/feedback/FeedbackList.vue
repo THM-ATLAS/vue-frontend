@@ -40,8 +40,9 @@
 
 <script lang="ts">
 import moment from "moment";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent( {
   name: "FeedbackList",
   methods: {
     formatDate(date: string): string {
@@ -94,7 +95,7 @@ export default {
       ]
     };
   }
-}
+})
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

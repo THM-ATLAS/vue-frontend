@@ -161,7 +161,7 @@ import CodeEditor from 'simple-code-editor/CodeEditor.vue';
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 
-export default {
+export default defineComponent({
   name: "NewSubmission",
   components: {
     CodeEditor,
@@ -321,7 +321,7 @@ export default {
     checkbox: false,
     title: '',
   })
-}
+})
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

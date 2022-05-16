@@ -31,7 +31,7 @@ const exercises = [
     image: require("../assets/product-1.jpg"),
     content: 'Kreis 1, **Kreis2**, Kreis3, Kreis4, Kreis5, Kreis6, Kreis7, Kreise kreisekreisekreiskreikrrrr...',
     rating: 2.9,
-    id: 101,
+    id: 1,
     like: false,
   },
   {
@@ -39,7 +39,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. ',
     rating: 4.1,
-    id: 203,
+    id: 2,
     like: true,
   },
   {
@@ -48,7 +48,7 @@ const exercises = [
     content: 'Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder?',
     description: 'Ich bin eine Beschreibung!',
     rating: 3.7,
-    id: 507,
+    id: 3,
     like: false,
   },
   {
@@ -56,7 +56,7 @@ const exercises = [
     image: require("../assets/product-5.jpg"),
     content: 'Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. ',
     rating: 4.8,
-    id: 104,
+    id: 4,
     like: true,
   },
   {
@@ -64,7 +64,7 @@ const exercises = [
     image: require("../assets/product-6.jpg"),
     content: '#Lorem ipsum dolor sit amet!\n Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     rating: 1.1,
-    id: 105,
+    id: 5,
     like: false,
   },
   {
@@ -72,7 +72,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 106,
+    id: 6,
     like: false,
   },
   {
@@ -80,7 +80,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 107,
+    id: 7,
     like: false,
   },
   {
@@ -88,7 +88,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: '# Header only, dont render',
     rating: 2.0,
-    id: 108,
+    id: 9,
     like: false,
   },
   {
@@ -96,7 +96,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 109,
+    id: 10,
     like: false,
   },
   {
@@ -104,7 +104,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 110,
+    id: 11,
     like: false,
   },
   {
@@ -112,7 +112,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 111,
+    id: 12,
     like: false,
   },
   {
@@ -120,7 +120,7 @@ const exercises = [
     image: require("../assets/product-2.jpg"),
     content: 'Minesweeper, kennste oder?',
     rating: 3.7,
-    id: 112,
+    id: 13,
     like: false,
   }
 ]
