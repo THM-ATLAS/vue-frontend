@@ -3,31 +3,23 @@
     <v-card-header>
       <v-icon icon="mdi-globe-model" left="true"/>
       <v-card-header-text class="text-left fontszTi">
-        Willkommen zu ATLAS!
+        {{$t('help_page.title')}}
       </v-card-header-text>
-      <v-card-subtitle>Informationen & Hilfe</v-card-subtitle>
+      <v-card-subtitle>{{$t('help_page.subtitle')}}</v-card-subtitle>
     </v-card-header>
     <v-container>
       <v-card-text class="text-left fontszEx grow">
         <div class="text-justify">
           <!-- über Atlas - die Lernplattform für die THM -->
-          <h2>Was ist ATLAS?</h2>
+          <h2>{{$t('help_page.what_is_atlas.title')}}</h2>
           <div>
             <p class="text-body-1">
-              ATLAS ist eine Lernplattform, auf welcher Studierende zu Modulen
-              begleitende Aufgaben finden und bearbeiten können.
-            </p>
-            <p class="text-body-1">
-              Dabei soll die Plattform eine einfache und schnelle Lösung für die
-              Aufgabenstellungen der THM ermöglichen. So können Studierende
-              Lösungen zu Aufgaben je nach Aufgabenart entweder direkt und
-              automatisiert überprüfen lassen, oder durch eine Abgabe von
-              einer/einem Dozent:in Rückmeldung erhalten.
+              {{$t('help_page.what_is_atlas.description')}}
             </p>
           </div>
           <br/>
           <!-- Funktionsweise -->
-          <h2>Wie funktioniert ATLAS?</h2>
+          <h2>{{$t('help_page.how_atlas_works.title')}}</h2>
           <div class="text-subheader"></div>
         </div>
         <br/>
@@ -38,33 +30,13 @@
                   expand-icon="mdi-plus"
                   collapse-icon="mdi-minus"
               >
-                <b>ATLAS für Lehrende</b>
+                <b>{{$t('help_page.how_atlas_works.description.atlas_for_lecturers.title')}}</b>
               </v-expansion-panel-title>
               <v-expansion-panel-text>
                 <p class="text-body-1">
-                  Um Aufgaben auf ATLAS bereitzustellen, müssen Lehrende bzw.
-                  Verantwortliche einen Moduleintrag beantragen. Nach dessen
-                  Einrichtung können Aufgaben zu diesem Modul eingefügt werden.
-                  <br/>
-                  Dies kann sowohl händisch im Live-Editor erfolgen, als auch
-                  durch das Hochladen von <code>.tex</code>-, <code>.odt</code>,
-                  oder <code>.txt</code>-Dateien, welche dann automatisch
-                  umgewandelt werden. <br/>
-                  Ggf. bedarf es einer Überprüfung, ob die Aufgabe wie gewünscht
-                  dargestellt wird. Zudem müssen Bilder, falls gewünscht,
-                  manuell hochgeladen werden.<br/>
-                  Für das Modul selbst sowie einzelne Aufgaben werden Links
-                  erzeugt, welche dann z.B. via Moodle mit den Studierenden
-                  geteilt werden können. Für ein Modul können mehrere
-                  Verantwortliche eingetragen werden, welche Aufgaben anpassen
-                  und Abgaben bewerten können. Optional können für Rückmeldungen
-                  und Abgaben Benachrichtigungen verschickt werden.
-                  <br/>
-                  <br/>
+                  {{$t('help_page.how_atlas_works.description.atlas_for_lecturers.description')}}
                   <v-alert icon="mdi-lightbulb">
-                    Falls Sie bei der Einrichtung eines Moduls oder dessen
-                    Aufgaben Hilfe benötigen, steht Ihnen das ATLAS-Team gerne
-                    zur Verfügung.
+                    {{$t('help_page.how_atlas_works.description.atlas_for_lecturers.help')}}
                   </v-alert>
                 </p>
               </v-expansion-panel-text>
@@ -74,31 +46,20 @@
                   expand-icon="mdi-plus"
                   collapse-icon="mdi-minus"
               >
-                <b>ATLAS für Studierende</b>
+                <b>{{$t('help_page.how_atlas_works.description.atlas_for_students.title')}}</b>
               </v-expansion-panel-title>
               <v-expansion-panel-text>
                 <p class="text-body-1">
-                  Nach erfolgreicher Anmeldung via LDAP mit dem THM-Nutzerkonto
-                  können Studierende auf ATLAS zugreifen. Dabei müssen sie das
-                  eigene Modul auswählen (bzw. über den durch Lehrende geteilten
-                  Link die Seite besuchen), und sich einschreiben. Dann können
-                  Aufgaben eingesehen und bearbeitet werden.
-                  <br/>
-                  Lösungen erledigter Aufgaben können je nach Aufgabentyp
-                  entweder direkt ausgewertet werden, oder mithilfe einer Abgabe
-                  von einer/einem Dozent:in Rückmeldung erhalten. Erledigte
-                  Aufgaben werden mit markiert, und der/dem Studierenden werden
-                  Punkte zugeschrieben.
+                  {{$t('help_page.how_atlas_works.description.atlas_for_students.description')}}
                 </p>
               </v-expansion-panel-text>
             </v-expansion-panel>
           </v-expansion-panels>
         </div>
         <br/>
-        <h2>Bei ATLAS mitwirken</h2>
+        <h2>{{$t('help_page.contribute_to_atlas.title')}}</h2>
         <p class="text-body-1">
-          ATLAS ist Open Source und wird von Studierenden entwickelt. Besuchen
-          Sie uns doch auf
+          {{$t('help_page.contribute_to_atlas.description')}}
           <a href="https://github.com/THM-ATLAS"
              class="text-decoration-none">
             GitHub

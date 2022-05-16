@@ -39,6 +39,32 @@ const translationEn = {
     main_page: {
         exercise: 'Exercise'
     },
+    help_page: {
+        title: 'Welcome to ATLAS!',
+        subtitle: 'Information & Help',
+        what_is_atlas: {
+            title: 'What is ATLAS?',
+            description: 'ATLAS is an online learning platform, where students can find and work on exercises related to their modules at THM. This platform offers automatic, as well as direct evaluation of the submitted solutions by lecturers.'
+        },
+        how_atlas_works: {
+            title: 'How does ATLAS work?',
+            description: {
+                atlas_for_lecturers: {
+                    title: 'ATLAS for lecturers',
+                    description: 'More information will follow shortly...',
+                    help: 'If you require assistance with setting up a course or its exercises, the ATLAS-team will gladly assist you.'
+                },
+                atlas_for_students: {
+                    title: 'ATLAS for students',
+                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login and the association with a group with submission rights is required in order to be able to upload a solution. Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                }
+            }
+        },
+        contribute_to_atlas: {
+            title: 'Contribute to ATLAS',
+            description: 'ATLAS is an open source software developed by students. Visit us on '
+        }
+    },
     settings: {
         title: 'Settings',
         subtitle: 'Personalization & Settings',
