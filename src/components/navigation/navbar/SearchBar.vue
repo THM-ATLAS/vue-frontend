@@ -1,14 +1,14 @@
 <template>
   <!--v-text-field @keyup.enter="goToCoursePage"
       class="d-md-block"
-      label="z.B. Compilerbau"
+      :label="$t('landing_page.search')"
       prepend-inner-icon="mdi-magnify"
       role="search"
       hide-details="auto"
       dense
   /-->
   <v-btn @click="goToCoursePage" width="100%">
-    Zu den Kursen
+   {{ $t('header.courses') }}
   </v-btn>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
-  <NavbarBase></NavbarBase>
-  <v-container>
+  <NavbarBase/>
+  <v-main>
     <v-row justify="center" align-content="center">
       <v-col>
-        <HomeContent/>
+        <HomeContent id="content"/>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
   <Footer/>
 </template>
 
