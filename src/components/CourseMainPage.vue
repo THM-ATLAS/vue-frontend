@@ -16,13 +16,13 @@
 <v-container>
   <v-row justify="center">
   <div style="display: inline-block"
-      v-for="exercise in exercises"
+      v-for="exercise in props.exercises"
       v-bind:key="exercise.id"
 
   >
     <MainpageCardModal class="exercisePanel"
         :exercise="exercise"
-        :course="this.$route.params.course"
+        :course="props.course"
     />
 
   </div>
@@ -31,21 +31,15 @@
 </v-card>
 </template>
 
-<script>
+<script setup>
 import MainpageCardModal from "@/components/MainpageCardModal";
-export default {
-  name: "CourseMainPage",
-  components: {MainpageCardModal},
-  props: {
-    course: {
-      resultId: Number,
-      courseName: String,
-      courseDescription: String,
-      courseThumbnail: Image,
-    },
-    exercises: Array,
-  }
-}
+import {defineProps} from "vue";
+
+const props = defineProps({
+  course: Object,
+  exercises: Object,
+});
+
 
 </script>
 
