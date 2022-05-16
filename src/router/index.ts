@@ -15,13 +15,14 @@ import UserManagement from "@/views/admin/UserManagementView.vue";
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import CourseSearch from "@/views/CourseSearchView.vue";
+import Admin from "@/views/admin/AdminView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
 
   {path: '/login', component: Login},
-
-  // {path: '/home', component: CourseSelector},
+  { path: '/404', name: 'NotFound', component: PageNotFound },
+  { path: '/:pathMatch(.*)*', redirect: '/404' },
 
   {path: '/:course/', component: MainPage},
 
@@ -44,10 +45,9 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/settings', component: Settings},
 
+  {path: '/admin/', component: Admin},
   {path: '/admin/users', component: UserManagement},
   {path: '/admin/tasks', component: TaskManagement},
-
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
   { path: '/courses', component: CourseSearch },
 ]
 

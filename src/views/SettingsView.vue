@@ -1,13 +1,12 @@
 <template>
-  <SkipToContent/>
   <Navbar/>
-  <v-container>
+  <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="8" xl="6">
         <Settings id="content"/>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
   <Footer/>
 </template>
 
@@ -26,5 +25,4 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Settings from "@/components/SettingsCard.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
-import SkipToContent from "@/components/helpers/SkipToContent.vue";
 </script>

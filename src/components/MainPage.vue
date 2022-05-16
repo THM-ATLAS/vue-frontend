@@ -20,13 +20,15 @@
 </template>
 
 <script setup lang='ts'>
-import MainpageCardModal from '@/components/MainpageCardModal.vue'
+import MainpageCardModal from '@/components/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
 import {onBeforeMount, reactive} from "vue";
 import TaskService from "@/services/TaskService"
 import ModuleService from "@/services/ModuleService"
+import {useI18n} from "vue-i18n";
 
-//const router = useRouter();
+const exercise = useI18n().t('main_page.exercise');
+
 const route = useRoute();
 
 const course = reactive({

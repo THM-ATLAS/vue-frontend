@@ -3,7 +3,11 @@
   <v-main class="main">
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <UserManagement id="content"/>
+        <v-card>
+          <v-card-text>
+            <div v-html="$t('admin.choose_page')"/>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-main>
@@ -16,6 +20,5 @@
 </style>
 
 <script setup lang='ts'>
-import UserManagement from "@/components/admin/UserManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
 </script>
