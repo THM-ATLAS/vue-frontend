@@ -1,6 +1,6 @@
 <template>
   <SkipToContent />
-  <v-app-bar elevation="3" justify="left" height="100px" role="navigation">
+  <v-app-bar id="header" elevation="3" justify="left" height="100px" role="navigation">
     <v-app-bar-title>
       <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
              src="@/assets/ATLAS_Logo.svg" max-height="70px"/>
@@ -198,6 +198,10 @@ hr {
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left: 5px;
+}
+
+#header {
+  z-index: 1 !important;
 }
 
 #profile-button {
