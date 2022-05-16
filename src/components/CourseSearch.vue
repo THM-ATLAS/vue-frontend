@@ -13,7 +13,10 @@
     <v-row v-for="course in fillerCourses" :key="course.resultId">
       <CourseSearchResult :course="course" class="searchResult"/>
     </v-row>
+    
+    <v-pagination class="page-navigator"></v-pagination>
   </v-card>
+  
 </template>
 
 <script setup>
@@ -46,5 +49,7 @@ const fillerCourses = [
 </script>
 
 <style scoped>
-
+.page-navigator {
+  margin-top: 2em;
+}
 </style>
