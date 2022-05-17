@@ -8,10 +8,10 @@
             <v-card-title
             class="course-result-title"
             @click="router.push(`/${id}`)">
-              {{ moduleName }}
+              {{ props.moduleName }}
             </v-card-title>
             <!-- <v-card-text>
-              {{ moduleDescription }}
+              {{ props.moduleDescription }}
             </v-card-text> -->
           </v-card>
         </v-col>
@@ -44,8 +44,7 @@ function setColorResult() {
   return theme.value === "light" ? "green" : "grey-darken-2";
 }
 
-console.log("Props in CourseSearchResult: " + props.id)
-console.log(theme)
+//console.log("Props in CourseSearchResult: " + props.id)
 </script>
 
 <style scoped>
