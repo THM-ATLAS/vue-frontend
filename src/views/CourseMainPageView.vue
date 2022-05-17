@@ -1,5 +1,4 @@
 <template>
-  <SkipToContent/>
   <Navbar/>
   <v-container>
     <v-row justify="center" align-content="center">
@@ -13,7 +12,6 @@
 
 
 <script setup>
-import SkipToContent from "@/components/helpers/SkipToContent";
 import Footer from "@/components/navigation/FooterCard";
 import Navbar from "@/components/navigation/navbar/NavbarBase";
 import CourseMainPageContainer from "@/components/CourseMainPageContainer";

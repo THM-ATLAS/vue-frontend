@@ -15,7 +15,9 @@ class ExerciseService{
             .catch(function (error) {
             })
     }*/
-
+    getExercisesForModule(moduleId : number) : Promise<any> {
+        return API.get(`exercises/module/${moduleId}`);
+    }
 
     getExercise(id : number) : Promise<any> {
         return API.get(`exercises/${id}`);
@@ -25,8 +27,8 @@ class ExerciseService{
         return API.delete(`exercises/${taskId}`);
     }
 
-    editExercise(task : Task, user : User) : Promise<any>{
-        return API.put(`exercises/${user.id}`,{
+    editExercise(task : Task) : Promise<any>{
+        return API.put(`exercises/${task.id}`,{
                 task : {
                     exercise_id : task.id,
                     title : task.title,
@@ -37,8 +39,8 @@ class ExerciseService{
         );
     }
 
-    addTask(task : Task, user : User) : Promise<any> {
-        return API.post(`exercises/${user.id}`,{
+    addTask(task : Task) : Promise<any> {
+        return API.post(`exercises/${task.id}`,{
                 task : {
                     id : task.id,
                     title : task.title,
