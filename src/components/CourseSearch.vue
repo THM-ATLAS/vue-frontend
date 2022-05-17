@@ -28,7 +28,6 @@ let apiCourses;
 onBeforeMount(async () => {
   apiCourses = (await ModuleService.loadModules()).data
      apiCourses.forEach(result => {
-       console.log(result)
        let newEntry = {
          id: result.module_id,
          moduleName : result.name

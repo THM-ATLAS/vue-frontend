@@ -14,7 +14,7 @@
     >
       <v-card-header>
         <v-card-header-text>
-          <v-card-title class="justify-center" v-html="exercise.title"/>
+          <v-card-title class="justify-center" v-html="props.exercise.title"/>
         </v-card-header-text>
       </v-card-header>
       <!--v-img
@@ -70,7 +70,7 @@ const router = useRouter();
 // let likex: Ref<boolean> = ref(props.exercise?.like);
 
 function goToExercise(): void {
-  if (props.noRedirect !== true) router.push("/" + props.module?.name  + "/e/" + props.exercise?.id);
+  if (!props.noRedirect) router.push("/" + props.module?.name  + "/e/" + props.exercise?.exercise_id);
 }
 
 /*
