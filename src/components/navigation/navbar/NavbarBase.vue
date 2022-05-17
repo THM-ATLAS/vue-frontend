@@ -207,8 +207,4 @@ hr {
   min-width: 100px;
 }
 
-v-app-bar-title {
-  text-overflow: clip;
-}
-
 </style>
