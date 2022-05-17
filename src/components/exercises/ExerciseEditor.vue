@@ -7,7 +7,7 @@
             <v-col
                 sm="12" md="2" lg="2">
               <v-text-field
-                  v-model="exercise.id"
+                  v-model="exercise.exercise_id"
                   :label="$t('exercise.id')"
                   required
                   @input="store"
@@ -235,7 +235,7 @@
 </template>
 
 <script setup>
-import {onBeforeMount, reactive, /*ref , onMounted, onUnmounted */} from "vue";
+import {onBeforeMount, ref /*, onMounted, onUnmounted */} from "vue";
 // import MainpageCardModal from "../MainpageCardModal.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
@@ -270,9 +270,9 @@ onUnmounted(() => {
 })
 */
 
-const course = route.params.course;
+const module = route.params.module;
 const id = route.params.id;
-const localStoragePath = id === undefined ? course + ".newExercise" : course + ".e." + id;
+const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
 
 /*
 const submissionTypes = [
@@ -292,14 +292,7 @@ const fileExtensions = [
   "text/plain",
 ]
 */
-const exercise = reactive({
-  id: id === undefined ? "" : id,
-  title: "",
-  description: "",
-  content: "",
-  // hasSubmission: false,
-  // items: [],
-});
+const exercise = ref({});
 
 const store = () => {
   localStorage.setItem(localStoragePath, JSON.stringify(exercise.value));
@@ -310,10 +303,7 @@ onBeforeMount(async () => {
     exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
   } else { // get exercise from API
     await TaskService.getExercise(id).then(response => {
-      exercise.id = response.data.exercise_id
-      exercise.title = response.data.title
-      exercise.content = response.data.content
-      exercise.taskPublic = response.data.taskPublic
+      exercise.value = response.data
     })
   }
 
@@ -323,6 +313,7 @@ onBeforeMount(async () => {
 const save = () => {
   console.log(exercise);
   // store stuff
+  //ExerciseService.editExercise
   localStorage.removeItem(localStoragePath);
   router.back();
 };

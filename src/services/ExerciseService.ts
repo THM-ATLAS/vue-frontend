@@ -1,7 +1,7 @@
 
 import API from "@/services/API";
 
-import {User, Task} from "@/helpers/types";
+import {User, Exercise} from "@/helpers/types";
 
 // @ts-ignore
 
@@ -19,36 +19,20 @@ class ExerciseService{
         return API.get(`exercises/module/${moduleId}`);
     }
 
-    getExercise(id : number) : Promise<any> {
-        return API.get(`exercises/${id}`);
+    getExercise(exerciseId : number) : Promise<any> {
+        return API.get(`exercises/${exerciseId}`);
     }
 
-    delExercise(taskId : number) : Promise<any>{
-        return API.delete(`exercises/${taskId}`);
+    delExercise(exerciseId : number) : Promise<any>{
+        return API.delete(`exercises/${exerciseId}`);
     }
 
-    editExercise(task : Task) : Promise<any>{
-        return API.put(`exercises/${task.id}`,{
-                task : {
-                    exercise_id : task.id,
-                    title : task.title,
-                    content : task.content,
-                    taskPublic : task.taskPublic
-                }
-            }
-        );
+    editExercise(exercise : Exercise) : Promise<any>{
+        return API.put(`exercises/${exercise.exercise_id}`, exercise);
     }
 
-    addTask(task : Task) : Promise<any> {
-        return API.post(`exercises/${task.id}`,{
-                task : {
-                    id : task.id,
-                    title : task.title,
-                    content : task.content,
-                    taskPublic : task.taskPublic
-                }
-            }
-        );
+    addExercise(exercise : Exercise) : Promise<any> {
+        return API.post(`exercises/`, exercise);
     }
 }
 
