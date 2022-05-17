@@ -56,7 +56,7 @@ const translationEn = {
                 },
                 atlas_for_students: {
                     title: 'ATLAS for students',
-                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP.\n However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
                 }
             }
         },
