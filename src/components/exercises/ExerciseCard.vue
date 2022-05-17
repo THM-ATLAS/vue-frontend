@@ -152,8 +152,8 @@
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-import TaskService from "@/services/ExerciseService";
 import {onBeforeMount, reactive} from "vue";
+import ExerciseService from "@/services/ExerciseService";
 
 const route = useRoute();
 const router = useRouter();
@@ -169,12 +169,11 @@ const exercise = reactive({
 });
 
 onBeforeMount(async () => {
-  exerciseData = (await TaskService.getExercise(id)).data
-  console.log(exerciseData)
+  exerciseData = (await ExerciseService.getExercise(id)).data
   exercise.id = exerciseData.exercise_id
   exercise.title = exerciseData.title
   exercise.content = exerciseData.content
-  exercise.taskPublic = exerciseData.taskPublic
+  exercise.taskPublic = exerciseData.exercisePublic
 
   await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
 })
