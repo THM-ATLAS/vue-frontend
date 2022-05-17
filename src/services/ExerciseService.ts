@@ -28,15 +28,7 @@ class ExerciseService{
     }
 
     editExercise(task : Task, user : User) : Promise<any>{
-        return API.put(`exercises/${user.id}`,{
-                task : {
-                    exercise_id : task.id,
-                    title : task.title,
-                    content : task.content,
-                    taskPublic : task.taskPublic
-                }
-            }
-        );
+        return API.put(`exercises/${user.id}`, task);
     }
 
     addTask(task : Task, user : User) : Promise<any> {
