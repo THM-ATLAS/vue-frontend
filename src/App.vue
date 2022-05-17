@@ -2,20 +2,18 @@
   <v-app :theme="theme" id="app-wrapper">
     <title>ATLAS</title>
     <RouterView/>
-    <v-main>
-      <v-snackbar
-          v-model="snackbar.show"
-          :color="snackbar.color"
-          :timeout="10_000"
-          @click="snackbar.show = false">
-        {{ snackbar.text }}
-        <template v-slot:actions>
-          <v-btn text @click="snackbar.show = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </template>
-      </v-snackbar>
-    </v-main>
+    <v-snackbar
+        v-model="snackbar.show"
+        :color="snackbar.color"
+        :timeout="10_000"
+        @click="snackbar.show = false">
+      {{ snackbar.text }}
+      <template v-slot:actions>
+        <v-btn text @click="snackbar.show = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-app>
 </template>
 
