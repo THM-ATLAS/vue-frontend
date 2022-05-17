@@ -99,9 +99,9 @@
       </v-tooltip-->
 
     </v-container>
-
-    <v-card-title class="text-left text-h4"> {{exercise.title}} </v-card-title>
-
+    <v-container>
+    <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{exercise.title}} </v-card-title>
+    </v-container>
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
         <v-carousel-item v-for="image in exercise.images_before" :key="image.id">
