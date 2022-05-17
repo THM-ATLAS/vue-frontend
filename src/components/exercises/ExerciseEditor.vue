@@ -313,8 +313,8 @@ onBeforeMount(async () => {
 const save = () => {
   console.log(exercise);
   // store stuff
+  ExerciseService.editExercise
   localStorage.removeItem(localStoragePath);
-
   router.back();
 };
 
