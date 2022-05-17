@@ -44,20 +44,20 @@ const translationDe = {
         subtitle: 'Informationen & Hilfe',
         what_is_atlas: {
             title: 'Was ist ATLAS?',
-            description: 'ATLAS ist eine Lernplattform, auf welcher Studierende zu Modulen begleitende Aufgaben finden und bearbeiten können. Dabei soll die Plattform eine einfache und schnelle Lösung für die Aufgabenstellungen der THM ermöglichen. So können Studierende Lösungen zu Aufgaben je nach Aufgabenart entweder direkt und automatisiert überprüfen lassen, oder durch eine Abgabe von einer/einem Dozent:in Rückmeldung erhalten.'
+            description: 'ATLAS ist eine Lernplattform, auf welcher Studierende zu Modulen begleitende Aufgaben finden und bearbeiten können.\n\n Dabei soll die Plattform eine einfache und schnelle Lösung für die Aufgabenstellungen der THM ermöglichen. So können Studierende Lösungen zu Aufgaben je nach Aufgabenart entweder direkt und automatisiert überprüfen lassen, oder durch eine Abgabe von einer/einem Dozent:in Rückmeldung erhalten.'
         },
         how_atlas_works: {
             title: 'Wie funktioniert ATLAS?',
             description: {
                 atlas_for_lecturers: {
                     title: 'ATLAS für Lehrende',
-                    description: 'Informationen folgen in Kürze...',
+                    description: 'Um Aufgaben auf ATLAS bereitzustellen, müssen Lehrende einen Moduleintrag beantragen. Nach dessen Einrichtung können Aufgaben mithilfe des Markdown-Editor erstellt werden.',
                     help: 'Falls Sie bei der Einrichtung eines Moduls oder dessen Aufgaben Hilfe benötigen, steht Ihnen das ATLAS-Team gerne zur Verfügung.'
                 },
                 atlas_for_students: {
                     title: 'ATLAS für Studierende',
-                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Kurse und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt. Nur durch eine Anmeldung und entsprechende Zugehörigkeit zu einer Gruppe können Lösungen hochgeladen werden.\n' +
-                        '\n' +
+                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Kurse und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
+                        '\n\n' +
                         'Je nach Aufgabentyp werden die Lösungen bearbeiteter Aufgaben direkt nach dem Upload automatisch ausgewertet. Für alle anderen Aufgaben erhalten Studierende Rückmeldung von einem/einer Dozent:in.'
                 }
             }

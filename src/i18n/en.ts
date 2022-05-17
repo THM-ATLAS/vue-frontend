@@ -51,12 +51,12 @@ const translationEn = {
             description: {
                 atlas_for_lecturers: {
                     title: 'ATLAS for lecturers',
-                    description: 'More information will follow shortly...',
+                    description: 'Teachers must apply for a module entry to provide exercises on ATLAS. Once the entry is made, exercises can be created using the markdown-editor.',
                     help: 'If you require assistance with setting up a course or its exercises, the ATLAS-team will gladly assist you.'
                 },
                 atlas_for_students: {
                     title: 'ATLAS for students',
-                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login and the association with a group with submission rights is required in order to be able to upload a solution. Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP.\n However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
                 }
             }
         },

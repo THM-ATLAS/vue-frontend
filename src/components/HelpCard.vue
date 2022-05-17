@@ -35,6 +35,7 @@
               <v-expansion-panel-text>
                 <p class="text-body-1">
                   {{$t('help_page.how_atlas_works.description.atlas_for_lecturers.description')}}
+                  <br><br>
                   <v-alert icon="mdi-lightbulb">
                     {{$t('help_page.how_atlas_works.description.atlas_for_lecturers.help')}}
                   </v-alert>
@@ -75,6 +76,9 @@
 </script>
 
 <style scoped>
+* {
+  white-space: pre-line;
+}
 h2 {
   margin-bottom: 3%;
 }
