@@ -1,7 +1,8 @@
 <template>
+  <div id="skipLinkContainer">
     <a :href="'#' + id" class="skipLink" ref="skipLink" tabindex="0" v-html="$t('app.skip_to_content')"/>
+  </div>
 </template>
-
 
 <script setup>
 // eslint-disable-next-line no-undef
@@ -11,7 +12,6 @@ defineProps({
     default: 'content'
   }
 });
-
 </script>
 
 <style scoped>
@@ -20,7 +20,6 @@ defineProps({
   height: 30px;
   text-decoration: none;
   padding: 10px;
-  position: absolute;
   background: #4a5c66;
   z-index: 1000 !important;
   transform: translateY(-100%);
@@ -33,5 +32,11 @@ defineProps({
 .skipLink:focus {
   transform: translateY(0%);
   top: 100px;
+}
+
+#skipLinkContainer {
+  z-index: 1000 !important;
+  width: 200px;
+  margin: 0 auto;
 }
 </style>

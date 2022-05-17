@@ -9,8 +9,8 @@
   <!-- <v-col>
           <v-container class="courseInfo">
             <v-col>
-              <v-row class="courseName">{{ course.courseName }}</v-row>
-              <v-row class="courseDescription">{{ course.courseDescription }}</v-row>
+              <v-row class="courseName">{{ moduleName }}</v-row>
+              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{moduleName}} </pre>stehen.</v-row>
             </v-col>
           </v-container>
         </v-col>
@@ -38,22 +38,26 @@
   </v-container>
 </template>
 
-<script setup>
-import { defineProps } from "vue";
-import { theme } from "@/helpers/theme";
+<script setup lang="ts">
+import {defineProps} from "vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
+
+// @ts-ignore
 const props = defineProps({
-  course: {
-      resultId: Number,
-      courseName: String,
-      courseDescription: String,
-      courseThumbnail: Image,
+    id: {
+      required: true,
+      type: Number,
+    },
+    moduleName: {
+      required: true,
+      type: String
     }
-});
-
-function setColorResult() {
-  return theme.value === "light" ? "green" : "grey-darken-3";
-}
+    // courseDescription: String,
+    // courseThumbnail: Image,
+  })
+console.log("Props in CourseSearchResult: " + props.id)
 </script>
 
 <style scoped>

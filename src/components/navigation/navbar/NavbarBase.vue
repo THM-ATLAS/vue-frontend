@@ -1,17 +1,16 @@
 <template>
   <SkipToContent />
-  <v-app-bar id="header" elevation="3" justify="left" height="100px" role="navigation">
-    <v-app-bar-title>
+  <v-app-bar id="header" elevation="3"  height="100px" role="navigation">
+    <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
       <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-             src="@/assets/ATLAS_Logo.svg" max-height="70px"/>
+             src="@/assets/ATLAS_Logo.svg" height="70px"/>
       <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
-             max-height="70px"/>
+             height="70px"/>
     </v-app-bar-title>
     <CourseButton/>
     <v-spacer/>
     <v-spacer/>
     <v-spacer/>
-
     <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
     <!-- // disabled until search exists // <v-col>
@@ -207,6 +206,5 @@ hr {
 #profile-button {
   min-width: 100px;
 }
-
 
 </style>
