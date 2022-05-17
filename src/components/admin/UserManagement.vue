@@ -8,7 +8,6 @@
           <th>{{ $t('admin.users.username') }}</th>
           <th>{{ $t('admin.users.email') }}</th>
           <th>{{ $t('admin.users.roles') }}</th>
-          <th>{{ $t('admin.users.created_at') }}</th>
           <th>{{ $t('admin.users.actions') }}</th>
         </tr>
         </thead>
@@ -20,7 +19,7 @@
           <td>
             <v-chip v-for="role in user.roles" :closable="true"
                     @click:close="removeRole(user, role)" class="mr-1"
-                    v-bind:key="role.id">
+                    v-bind:key="role.role_id">
               {{ role.name }}
             </v-chip>
 
@@ -29,7 +28,6 @@
               {{ $t('buttons.new') }}
             </v-chip>
           </td>
-          <td>{{ moment(user.created_at).format('DD.MM.YYYY') }}</td>
           <td>
             <v-btn
                 @click="editUserDialog.show = true; editUserDialog.target = user"
@@ -80,8 +78,8 @@
           <span class="headline">{{ $t('admin.users.roles') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-checkbox v-for="role in roles" v-bind:key="role.id" v-model="editRolesDialog.target.roles"
-                      :value="role" :label="role.name"/>
+          <v-checkbox v-for="role in roles" v-bind:key="role.role_id" v-model="editRolesDialog.target.roles"
+                      :value="role" :label="role.name" @change="editUser(editRolesDialog.target)"/>
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="editRolesDialog.show = false">{{ $t('buttons.close') }}</v-btn>
@@ -124,14 +122,14 @@
                 :rules="[rules.required, rules.email]"
                 required
             />
-            <v-text-field
+            <!--v-text-field
                 @change="$refs.newUserForm.validate()"
                 v-model="newUserDialog.target.password"
                 :label="$t('admin.users.password')"
                 :rules="[rules.required, rules.password]"
                 required
                 type="password"
-            />
+            /-->
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -166,7 +164,7 @@
               :label="$t('admin.users.email')"
               :rules="[rules.required, rules.email]"
           />
-          <v-btn
+          <!--v-btn
               v-if="!editUserDialog.changePassword"
               v-model="editUserDialog.changePassword"
               @click="editUserDialog.changePassword = true"
@@ -177,16 +175,15 @@
               v-model="editUserDialog.target.password"
               :label="$t('admin.users.password')"
               :rules="[rules.required, rules.password]"
-          />
+          /-->
         </v-card-text>
         <v-card-actions>
-          <v-btn @click="editUserDialog.show = false; editUserDialog.changePassword = false;"
+          <v-btn @click="editUserDialog.show = false;"
                  v-html="$t('buttons.cancel')"/>
           <v-btn
               color="primary"
-              @click="overwriteUser(editUserDialog.target, editUserDialog.changePassword);
-               editUserDialog.show = false;
-               editUserDialog.changePassword = false"
+              @click="editUser(editUserDialog.target);
+               editUserDialog.show = false;"
               v-html="$t('buttons.save')"/>
         </v-card-actions>
       </v-card>
@@ -214,214 +211,86 @@
   </div>
 </template>
 
-<script setup>
-import moment from "moment";
-import {onBeforeMount, ref} from "vue";
+<script setup lang="ts">
+import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
+import {User, UserRole} from "@/helpers/types";
 
-const roles = ref([
-  {
-    id: 1,
-    name: 'Admin',
-  },
-  {
-    id: 2,
-    name: 'User',
-  },
-  {
-    id: 3,
-    name: 'Teacher',
-  },
-  {
-    id: 4,
-    name: 'Tutor',
-  },
-]);
+const roles: Ref<UserRole[]> = ref([]);
 
-const users = ref([]);
+const users: Ref<User[]> = ref([]);
 
-// TODO: replace with UserService.getUsers() once it's implemented
+async function loadUsers(): Promise<void> {
+  users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
+}
+
 onBeforeMount(async () => {
-  [...Array(100).keys()].forEach((i) => {
-    UserService.getUser(i).then(u => {
-      if (u) users.value.push(u);
-    });
-  });
+  await loadUsers();
+  roles.value = (await UserService.getRoles()).data;
 })
 
-/*
-const userList = ref([
-  {
-    id: 1,
-    name: "John Doe",
-    username: 'abcd11',
-    email: 'abcd11@thm.de',
-    roles: [
-      {
-        id: 1,
-        name: 'Admin',
-      },
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2020-01-01 00:00:00',
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    username: 'abcd22',
-    email: 'abcd22@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2020-03-07 13:30:00',
-  },
-  {
-    id: 3,
-    name: "Joe Doe",
-    username: 'abcd33',
-    email: 'fgfdgd@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-      {
-        id: 3,
-        name: 'Teacher',
-      },
-    ],
-    created_at: '2021-04-07 22:30:00',
-  },
-  {
-    id: 4,
-    name: "John Doe",
-    username: 'jdoe23',
-    email: 'sdfdsfsdf@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2022-04-07 22:30:00',
-  },
-  {
-    id: 5,
-    name: "John Doe",
-    username: 'jdoe23',
-    email: 'sdfdsfsdf@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2022-04-07 22:30:00',
-  },
-  {
-    id: 6,
-    name: "John Doe",
-    username: 'jdoe23',
-    email: 'sdfdsfsdf@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2022-04-07 22:30:00',
-  },
-  {
-    id: 7,
-    name: "John Doe",
-    username: 'jdoe23',
-    email: 'sdfdsfsdf@thm.de',
-    roles: [
-      {
-        id: 2,
-        name: 'User',
-      },
-    ],
-    created_at: '2022-04-07 22:30:00',
-  }
-]);
-*/
+console.log(users.value);
 
 const i18n = useI18n();
 
 const rules = {
-  required: value => !!value || i18n.t("admin.users.errors.required"),
-  username: value => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
-  email: value => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
-  password: value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
+  required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
+  username: (value: string) => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
+  email: (value: string) => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
+  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
 
-function getUserTemplate() {
+function getUserTemplate(): User {
   return {
-    user_id: nextUserId(),
+    user_id: 0,
     name: '',
     username: '',
     email: '',
-    password: '',
     roles: [{
-      id: 2,
+      role_id: 2,
       name: 'User',
     }],
   };
 }
 
-function removeRole(user, role) {
-  user.roles = user.roles.filter(r => r.id !== role.id);
+function removeRole(user: User, role: UserRole) {
+  user.roles = user.roles.filter(r => r.role_id !== role.role_id);
+  editUser(user);
 }
 
-const editRolesDialog = ref({
+const editRolesDialog: Ref<{show: boolean, target: User | null}> = ref({
   show: false,
   target: null,
 });
 
-const newUserDialog = ref({
+const newUserDialog: Ref<{show: boolean, target: User | null}> = ref({
   show: false,
   target: getUserTemplate(),
 });
 
 const newUserFormValid = ref(false);
 
-const editUserDialog = ref({
+const editUserDialog: Ref<{show: boolean, target: User | null}> = ref({
   show: false,
   target: null,
 });
 
-const deleteUserDialog = ref({
+const deleteUserDialog: Ref<{show: boolean, target: User | null}> = ref({
   show: false,
   target: null,
 });
 
-function createUser() {
+async function createUser() {
   // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  users.value.push(newUserDialog.value.target);
+  await UserService.addUser(newUserDialog.value.target);
+  await loadUsers();
   newUserDialog.value.target = getUserTemplate();
   newUserDialog.value.show = false;
 }
 
-function nextUserId() {
-  return users.value.map(u => u.user_id).sort().pop() + 1;
-}
-
-function overwriteUser(user, overwritePassword = false) {
-  UserService.editUser(user).then(() => {
-    users.value = users.value.filter(u => u.user_id !== user.user_id);
-    users.value.push(UserService.getUser(user.user_id));
-  })
-  if (overwritePassword) {
-    console.log("edit password")
-  }
+function editUser(user: User) {
+  UserService.editUser(user).then(() => loadUsers());
   // UserService.editPassword(user);
   /*
   users.value.forEach(u => {
@@ -436,10 +305,9 @@ function overwriteUser(user, overwritePassword = false) {
   */
 }
 
-function deleteUser(user) {
-  // users.value = users.value.filter(u => u.user_id !== user.user_id);
-  UserService.delUser(user).then(() =>
-      users.value = users.value.filter(u => u.user_id !== user.user_id)
+function deleteUser(user: User) {
+  UserService.delUser(user).then(async () =>
+      loadUsers()
   );
 }
 
