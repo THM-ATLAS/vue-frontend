@@ -8,7 +8,7 @@
         v-bind:style="{backgroundColor: exercise.color }"
         elevation="0"
         max-width="450"
-        :color="setColorCardModal()"
+        color="highlight"
         @keyup.enter.prevent.stop="goToExercise"
         @click.prevent.stop="goToExercise"
     >
@@ -53,7 +53,6 @@
 </template>
 
 <script lang='ts' setup>
-import { theme } from "@/helpers/theme";
 //import VueStarRating from "vue-star-rating";
 import {useRouter} from "vue-router";
 // import {ref, Ref} from "vue";
@@ -101,11 +100,6 @@ function getBody() {
   } else {
     return sanitise(props.exercise.content);
   }
-}
-
-function setColorCardModal() {
-  if (theme.value === "light") return "green"
-  else return "grey-darken-3"
 }
 
 </script>
