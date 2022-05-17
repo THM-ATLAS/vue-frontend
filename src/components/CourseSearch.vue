@@ -10,38 +10,31 @@
         />
       </v-col>
     </v-row-->
-    <v-row v-for="course in fillerCourses" :key="course.resultId">
-      <CourseSearchResult :course="course" class="searchResult"/>
+    <v-row v-for="course in courses" :key="course.id">
+      <CourseSearchResult :id="course.id" :moduleName="course.moduleName" class="searchResult"/>
     </v-row>
   </v-card>
 </template>
 
 <script setup>
 import CourseSearchResult from "@/components/CourseSearchResult";
+import ModuleService from "@/services/ModuleService";
+import {reactive, onBeforeMount} from "vue";
 
-const fillerCourses = [
-  {
-    resultId: 1,
-    courseName: "Brückenkurs Programmieren",
-    courseDescription: "Objektorientiertes Programmieren lernen.",
-    courseThumbnail: require("../assets/product-2.jpg"),
-    id: 'bkp',
-  },
-  {
-    resultId: 2,
-    courseName: "Brückenkurs Mathematik",
-    courseDescription: "Mathematische Grundlagen, die in allen technischen Studiengängen wichtig sind. Themen, welche behandelt werden: Gleichungen, Brüche, Wurzeln, Potenzen, Logarithmen, Trigonometrie und Vektoren.",
-    courseThumbnail: require("../assets/product-4.jpg"),
-    id: 'bkm',
-  },
-  {
-    resultId: 3,
-    courseName: "Mikroprozessortechnik",
-    courseDescription: "Lerne in diesem Kurs mit Mikroprozessoren zu arbeiten.",
-    courseThumbnail: require("../assets/product-1.jpg"),
-    id: 'mpt',
-  },
-]
+const courses = reactive ([])
+
+let apiCourses;
+
+onBeforeMount(async () => {
+  apiCourses = (await ModuleService.loadModules()).data
+     apiCourses.forEach(result => {
+       let newEntry = {
+         id: result.module_id,
+         moduleName : result.name
+       }
+       courses.push(newEntry)
+     })
+})
 
 </script>
 

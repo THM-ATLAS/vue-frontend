@@ -1,12 +1,12 @@
 <template>
   <v-container role="main">
     <v-row id="course-title" class="justify-center">
-      <h2 id="course"> {{ course }} </h2>
+      <h2 id="course"> {{ course.moduleName }} </h2>
     </v-row>
     <v-row class="justify-center mainpage-row">
       <v-col
           v-for="exercise in exercises"
-          v-bind:key="exercise.id"
+          v-bind:key="exercise.exercise_id"
           class="mainpage-col"
           sm="6" md="4" lg="4"
       >
@@ -20,110 +20,32 @@
 </template>
 
 <script setup lang='ts'>
-import MainpageCardModal from '@/components/MainpageCardModal.vue'
+import MainpageCardModal from '@/components/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
+import {onBeforeMount, reactive} from "vue";
+import ExerciseService from "@/services/ExerciseService"
+import ModuleService from "@/services/ModuleService"
 
 const route = useRoute();
-const course = route.params.course;
-const exercises = [
-  {
-    title: 'Aufgabe 1: Zielscheibe',
-    image: require("../assets/product-1.jpg"),
-    content: 'Kreis 1, **Kreis2**, Kreis3, Kreis4, Kreis5, Kreis6, Kreis7, Kreise kreisekreisekreiskreikrrrr...',
-    rating: 2.9,
-    id: 101,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 2: Konfetti',
-    image: require("../assets/product-2.jpg"),
-    content: 'Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. Blatt Papier in den Locher jagen und ab gehts. ',
-    rating: 4.1,
-    id: 203,
-    like: true,
-  },
-  {
-    title: 'Aufgabe 3: Minesweeper',
-    image: require("../assets/product-4.jpg"),
-    content: 'Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder? Minesweeper, kennste oder?',
-    description: 'Ich bin eine Beschreibung!',
-    rating: 3.7,
-    id: 507,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 4: Game of Life',
-    image: require("../assets/product-5.jpg"),
-    content: 'Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. Frag Conway. ',
-    rating: 4.8,
-    id: 104,
-    like: true,
-  },
-  {
-    title: 'Aufgabe 5: Lorem ipsum',
-    image: require("../assets/product-6.jpg"),
-    content: '#Lorem ipsum dolor sit amet!\n Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    rating: 1.1,
-    id: 105,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 6: Eine sehr lange Aufgabe mit tollem Titel',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 106,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 7: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 107,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 8: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: '# Header only, dont render',
-    rating: 2.0,
-    id: 108,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 9: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 109,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 10: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 110,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 11: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 111,
-    like: false,
-  },
-  {
-    title: 'Aufgabe 12: Minesweeper',
-    image: require("../assets/product-2.jpg"),
-    content: 'Minesweeper, kennste oder?',
-    rating: 3.7,
-    id: 112,
-    like: false,
-  }
-]
+const course = reactive({
+  id: -1,
+  moduleName: 'Loading'
+});
+
+const exercises = reactive ([])
+
+onBeforeMount(async () => {
+
+  let apiCourse = (await ModuleService.getModule(route.params.course)).data
+  course.id = apiCourse.course.module_id
+  course.moduleName = apiCourse.course.name
+  let apiExercise = (await ExerciseService.getExercisesForModule(course.id)).data
+  apiExercise.forEach((entry : any) => {
+    exercises.push(entry)
+  })
+
+  //await router.replace(`/${encodeURIComponent(course.moduleName)}`)
+})
 
 </script>
 

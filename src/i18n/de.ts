@@ -7,6 +7,16 @@ const translationDe = {
         version: 'Version',
         skip_to_content: 'Zum Inhalt springen',
     },
+    header: {
+        courses: 'Zu den Kursen',
+        dropdown: {
+            settings: 'Einstellungen',
+            help: 'Hilfe',
+            messages: 'Nachrichten',
+            profile: 'Profil',
+            admin: 'Admin',
+        }
+    },
     footer: {
         home: 'Startseite',
         imprint: 'Impressum',
@@ -14,6 +24,48 @@ const translationDe = {
         data_protection: 'Datenschutzerklärung',
         thm: 'THM',
         a_project_by_thm: 'ein Projekt der THM',
+    },
+    login_page: {
+        login: 'Anmelden',
+        instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
+        user_id: 'Nutzerkennung',
+        password: 'Passwort'
+    },
+    landing_page: {
+        welcome: 'Willkommen zu',
+        instructions: 'Starte mit der Suche nach Kursen oder logge dich oben rechts ein!',
+        search: 'z.B. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Aufgabe'
+    },
+    help_page: {
+        title: 'Willkommen zu ATLAS!',
+        subtitle: 'Informationen & Hilfe',
+        what_is_atlas: {
+            title: 'Was ist ATLAS?',
+            description: 'ATLAS ist eine Lernplattform, auf welcher Studierende zu Modulen begleitende Aufgaben finden und bearbeiten können.\n\n Dabei soll die Plattform eine einfache und schnelle Lösung für die Aufgabenstellungen der THM ermöglichen. So können Studierende Lösungen zu Aufgaben je nach Aufgabenart entweder direkt und automatisiert überprüfen lassen, oder durch eine Abgabe von einer/einem Dozent:in Rückmeldung erhalten.'
+        },
+        how_atlas_works: {
+            title: 'Wie funktioniert ATLAS?',
+            description: {
+                atlas_for_lecturers: {
+                    title: 'ATLAS für Lehrende',
+                    description: 'Um Aufgaben auf ATLAS bereitzustellen, müssen Lehrende einen Moduleintrag beantragen. Nach dessen Einrichtung können Aufgaben mithilfe des Markdown-Editor erstellt werden.',
+                    help: 'Falls Sie bei der Einrichtung eines Moduls oder dessen Aufgaben Hilfe benötigen, steht Ihnen das ATLAS-Team gerne zur Verfügung.'
+                },
+                atlas_for_students: {
+                    title: 'ATLAS für Studierende',
+                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Kurse und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
+                        '\n\n' +
+                        'Je nach Aufgabentyp werden die Lösungen bearbeiteter Aufgaben direkt nach dem Upload automatisch ausgewertet. Für alle anderen Aufgaben erhalten Studierende Rückmeldung von einem/einer Dozent:in.'
+                }
+            }
+        },
+        contribute_to_atlas: {
+            title: 'Bei ATLAS mitwirken',
+            description: 'ATLAS ist Open Source und wird von Studierenden entwickelt. Besuchen Sie uns doch auf '
+        }
     },
     settings: {
         title: 'Einstellungen',
@@ -54,6 +106,7 @@ const translationDe = {
         remove: 'Entfernen',
         edit: 'Bearbeiten',
         login: 'Anmelden',
+        login_with_ldap: 'Login mit LDAP',
         logout: 'Abmelden',
         register: 'Registrieren',
         new: 'Neu',
@@ -72,6 +125,7 @@ const translationDe = {
         saved: 'Gespeichert',
     },
     admin: {
+        choose_page: 'Wähle eine Seite aus, indem du einen Link in der Adminleiste klickst.',
         users: {
             new: 'Neuer Benutzer',
             edit: 'Benutzer bearbeiten',
@@ -108,6 +162,13 @@ const translationDe = {
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
+        },
+        navbar: {
+            title: 'Administration',
+            manage_user: 'Benutzer verwalten',
+            manage_task: 'Aufgaben verwalten',
+            manage_course: 'Kurse verwalten',
+            back: 'Zurück zur Homepage'
         }
     },
     exercise: {
@@ -116,6 +177,13 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Keine Berechtigung.',
+        forbidden: 'Zugriff verweigert.',
+        not_found: 'Element konnte nicht gefunden werden.',
+        internal_server_error: 'Interner Serverfehler.',
+        unknown: 'Unbekannter Fehler.',
     }
 }
 

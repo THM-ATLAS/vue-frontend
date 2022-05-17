@@ -81,7 +81,7 @@
               icon="mdi-file-document-edit"
               class="ma-2"
               variant="outlined"
-              @click='this.$router.push("edit");'/>
+              @click='goToEditor'/>
         </template>
         <span v-html="$t('exercise.edit')"/>
       </v-tooltip>
@@ -99,15 +99,9 @@
       </v-tooltip-->
 
     </v-container>
-
-    <div>
-      requested exercise {{ id }} from course {{ course }}
-    </div>
-
-    <v-card-header>
-      <v-card-header-text class="text-left text-h4" v-html="exercise.title"/>
-    </v-card-header>
-
+    <v-container>
+    <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{exercise.title}} </v-card-title>
+    </v-container>
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
         <v-carousel-item v-for="image in exercise.images_before" :key="image.id">
@@ -120,7 +114,7 @@
     </v-container-->
 
     <v-container class="py-1">
-      <MarkdownModal v-model="exercise.content"/>
+      <MarkdownModal :model-value="exercise.content"/>
     </v-container>
 
     <!--v-container v-if="exercise.images_after && exercise.images_after.length > 1" class="text-left">
@@ -153,100 +147,44 @@
 </style>
 
 <script setup lang='ts'>
-// import {mergeProps, ref} from "vue";
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 // import NewSubmission from "@/components/exercises/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-
-const content = "**Hallo Welt**\n" +
-    "\n" +
-    "Dies ist eine Markdown-Testdatei.\n" +
-    "\n" +
-    "$i^2 + 2 * \\omega(A, G, D)$\n" +
-    "\n" +
-    "* *test*\n" +
-    "* **Test**\n" +
-    "* _Test_\n" +
-    "* __test__\n" +
-    "* `test`\n" +
-    "\n" +
-    "```javascript\n" +
-    "console.log('Hallo Welt');\n" +
-    "\n" +
-    "function test() {\n" +
-    "  console.log('Hallo Welt');\n" +
-    "}\n" +
-    "```";
+import {onBeforeMount, reactive} from "vue";
+import ExerciseService from "@/services/ExerciseService";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
 const course = route.params.course;
+let exerciseData: any;
 
-// here you'd get the exercise from the server
-// const exercise = computed(() => {
-//   return content.exercises.find(exercise => exercise.id === id);
-// });
+const exercise = reactive({
+  id: -1,
+  title: 'Loading title',
+  content: 'Loading content',
+  taskPublic: false
+});
 
-const exercise = {
-  id: id,
-  title: "Aufgabe zur Zielscheibe",
-  images_before: [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
-    },
-    {
-      id: 2,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1,
-    },
-    {
-      id: 3,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 3,
-    },
-    {
-      id: 4,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
-    },
-    {
-      id: 5,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 1.5,
-    }
-  ],
-  content: content,
-  content2: "## What is Lorem Ipsum?\n" +
-      "\n" +
-      "**Lorem Ipsum** is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n" +
-      "\n" +
-      "## Why do we use it?\n" +
-      "\n" +
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n" +
-      "\n" +
-      "## Where does it come from?\n" +
-      "\n" +
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of",
-  images_after: [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      aspect_ratio: 3,
-    },
-  ],
-};
+onBeforeMount(async () => {
+  exerciseData = (await ExerciseService.getExercise(id)).data
+  exercise.id = exerciseData.exercise_id
+  exercise.title = exerciseData.title
+  exercise.content = exerciseData.content
+  exercise.taskPublic = exerciseData.exercisePublic
 
-router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`);
+  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
+})
 
-function goBack(): void {
-  router.back();
+function goBack() {
+  router.back()
 }
 
+function goToEditor(): void {
+  router.push('edit');
+}
 /*
 function reportError(error: string): void {
   console.log(error);

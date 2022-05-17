@@ -7,6 +7,16 @@ const translationEn = {
         version: 'Version',
         skip_to_content: 'Skip to main content',
     },
+    header: {
+        courses: 'Courses',
+        dropdown: {
+            settings: 'Settings',
+            help: 'Help',
+            messages: 'Messages',
+            profile: 'Profile',
+            admin: 'Admin',
+        }
+    },
     footer: {
         home: 'Home',
         imprint: 'Imprint',
@@ -14,6 +24,46 @@ const translationEn = {
         data_protection: 'Data protection',
         thm: 'THM',
         a_project_by_thm: 'a project by THM',
+    },
+    login_page: {
+        login: 'Login',
+        instructions: 'Use your THM user credentials.',
+        user_id: 'username',
+        password: 'password'
+    },
+    landing_page: {
+        welcome: 'Welcome to',
+        instructions: 'Start to search for courses or login!',
+        search: 'e.g. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Exercise'
+    },
+    help_page: {
+        title: 'Welcome to ATLAS!',
+        subtitle: 'Information & Help',
+        what_is_atlas: {
+            title: 'What is ATLAS?',
+            description: 'ATLAS is an online learning platform, where students can find and work on exercises related to their modules at THM. This platform offers automatic, as well as direct evaluation of the submitted solutions by lecturers.'
+        },
+        how_atlas_works: {
+            title: 'How does ATLAS work?',
+            description: {
+                atlas_for_lecturers: {
+                    title: 'ATLAS for lecturers',
+                    description: 'Teachers must apply for a module entry to provide exercises on ATLAS. Once the entry is made, exercises can be created using the markdown-editor.',
+                    help: 'If you require assistance with setting up a course or its exercises, the ATLAS-team will gladly assist you.'
+                },
+                atlas_for_students: {
+                    title: 'ATLAS for students',
+                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                }
+            }
+        },
+        contribute_to_atlas: {
+            title: 'Contribute to ATLAS',
+            description: 'ATLAS is an open source software developed by students. Visit us on '
+        }
     },
     settings: {
         title: 'Settings',
@@ -54,6 +104,7 @@ const translationEn = {
         remove: 'Remove',
         edit: 'Edit',
         login: 'Login',
+        login_with_ldap: 'Login with LDAP',
         logout: 'Logout',
         register: 'Register',
         new: 'New',
@@ -72,6 +123,7 @@ const translationEn = {
         saved: 'Saved',
     },
     admin: {
+        choose_page: 'Choose a page by clicking on the left menu',
         users: {
             new: 'New user',
             edit: 'Edit user',
@@ -108,6 +160,13 @@ const translationEn = {
             errors: {
                 required: 'This field is required.',
             }
+        },
+        navbar: {
+            title: 'Admin Panel',
+            manage_user: 'Manage users',
+            manage_task: 'Manage tasks',
+            manage_course: 'Manage courses',
+            back: 'Back to homepage'
         }
     },
     exercise: {
@@ -116,6 +175,13 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Unauthorized.',
+        forbidden: 'Forbidden access.',
+        not_found: 'Could not find the requested resource.',
+        internal_server_error: 'Internal server error.',
+        unknown: 'An unknown error occurred.',
     }
 }
 

@@ -42,7 +42,7 @@
 
 <script>
 
-export default {
+export default defineComponent({
   name: "FeedbackModal",
   methods: {
     setRating(chosen) {
@@ -73,7 +73,7 @@ export default {
     error: null,
     testColor: "#6fcaa8",
   }),
-};
+})
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
