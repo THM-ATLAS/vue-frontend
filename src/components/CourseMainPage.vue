@@ -2,12 +2,12 @@
 <v-card style="margin-top: 10%;">
   <v-container style="background-color:rgb(var(--v-theme-green));">
     <v-row align:start align-content:start >
-      <v-col >
+      <!-- <v-col >
         <v-img :src=course.courseThumbnail style="height: 16rem; width: 22rem"></v-img>
-      </v-col>
+      </v-col> -->
     <v-col>
-      <h1>{{course.courseName}}</h1>
-      <p>{{course.courseDescription}}</p>
+      <h1>{{module.name}}</h1>
+      <!--<p>{{course.courseDescription}}</p> -->
     </v-col>
 
     </v-row>
@@ -22,7 +22,7 @@
   >
     <MainpageCardModal class="exercisePanel"
         :exercise="exercise"
-        :course="props.course"
+        :module="props.module"
     />
 
   </div>
@@ -36,7 +36,7 @@ import MainpageCardModal from "@/components/MainpageCardModal";
 import {defineProps} from "vue";
 
 const props = defineProps({
-  course: Object,
+  module: Object,
   exercises: Object,
 });
 
