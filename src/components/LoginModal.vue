@@ -2,11 +2,8 @@
   <v-card id="card" elevation="0" rounded="0" bottom color="green" role="contentinfo">
     <v-card-header>
       <v-card-header-text>
-        <v-card-avatar>
-          <v-avatar icon="mdi-globe-model" height="68" width="68"/>
-        </v-card-avatar>
+        <v-icon icon="mdi-globe-model"/>
         <v-card-title class="justify-center">{{ $t('login_page.login') }}</v-card-title>
-
         <v-card-subtitle class="justify-center">
           {{ $t('login_page.instructions') }}
         </v-card-subtitle>
