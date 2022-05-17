@@ -4,7 +4,7 @@
 
 <script setup>
 import CourseMainPage from "@/components/CourseMainPage";
-import TaskService from "@/services/TaskService";
+import TaskService from "@/services/ExerciseService";
 import {onBeforeMount, reactive} from "vue";
 import {useRoute} from "vue-router";
 import ModuleService from "@/services/ModuleService";
@@ -22,7 +22,7 @@ onBeforeMount(async () => {
   //and their ids have more holes than swiss cheese
   const array = [2,3,5,6]
   for (const i of array) {
-    let apiExercise = (await TaskService.getTask(i)).data
+    let apiExercise = (await TaskService.getExercise(i)).data
     let newEntry = {
       id: apiExercise.exercise_id,
       title: apiExercise.title,

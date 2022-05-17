@@ -240,7 +240,7 @@ import {onBeforeMount, reactive, /*ref , onMounted, onUnmounted */} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal";
-import TaskService from "@/services/TaskService";
+import TaskService from "@/services/ExerciseService";
 
 const route = useRoute();
 const router = useRouter();
@@ -309,7 +309,7 @@ onBeforeMount(async () => {
   if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
     exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
   } else { // get exercise from API
-    await TaskService.getTask(id).then(response => {
+    await TaskService.getExercise(id).then(response => {
       exercise.id = response.data.exercise_id
       exercise.title = response.data.title
       exercise.content = response.data.content
@@ -328,7 +328,7 @@ const save = () => {
 };
 
 const del = async () => {
-  await TaskService.delTask(id).then(response => {
+  await TaskService.delExercise(id).then(response => {
     console.log(response.data)
   }). catch(error => {
     console.log(error.message)
