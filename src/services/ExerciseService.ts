@@ -5,7 +5,7 @@ import {User, Task} from "@/helpers/types";
 
 // @ts-ignore
 
-class TaskService{
+class ExerciseService{
     //TODO: Return / check response codes
 
  /*   loadTasks(user) {
@@ -17,16 +17,16 @@ class TaskService{
     }*/
 
 
-    getTask(id : number) : Promise<any> {
-        return API.get(`tasks/${id}`);
+    getExercise(id : number) : Promise<any> {
+        return API.get(`exercises/${id}`);
     }
 
-    delTask(taskId : number) : Promise<any>{
-        return API.delete(`tasks/${taskId}`);
+    delExercise(taskId : number) : Promise<any>{
+        return API.delete(`exercises/${taskId}`);
     }
 
-    editTask(task : Task, user : User) : Promise<any>{
-        return API.put(`tasks/${user.user_id}`,{
+    editExercise(task : Task, user : User) : Promise<any>{
+        return API.put(`exercises/${user.id}`,{
                 task : {
                     exercise_id : task.id,
                     title : task.title,
@@ -38,7 +38,7 @@ class TaskService{
     }
 
     addTask(task : Task, user : User) : Promise<any> {
-        return API.post(`tasks/${user.user_id}`,{
+        return API.post(`exercises/${user.id}`,{
                 task : {
                     id : task.id,
                     title : task.title,
@@ -50,4 +50,4 @@ class TaskService{
     }
 }
 
-export default new TaskService();
+export default new ExerciseService();

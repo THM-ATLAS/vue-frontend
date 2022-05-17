@@ -7,6 +7,16 @@ const translationDe = {
         version: 'Version',
         skip_to_content: 'Zum Inhalt springen',
     },
+    header: {
+        courses: 'Zu den Kursen',
+        dropdown: {
+            settings: 'Einstellungen',
+            help: 'Hilfe',
+            messages: 'Nachrichten',
+            profile: 'Profil',
+            admin: 'Admin',
+        }
+    },
     footer: {
         home: 'Startseite',
         imprint: 'Impressum',
@@ -14,6 +24,20 @@ const translationDe = {
         data_protection: 'Datenschutzerklärung',
         thm: 'THM',
         a_project_by_thm: 'ein Projekt der THM',
+    },
+    login_page: {
+        login: 'Anmelden',
+        instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
+        user_id: 'Nutzerkennung',
+        password: 'Passwort'
+    },
+    landing_page: {
+        welcome: 'Willkommen zu',
+        instructions: 'Starte mit der Suche nach Kursen oder logge dich oben rechts ein!',
+        search: 'z.B. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Aufgabe'
     },
     settings: {
         title: 'Einstellungen',
@@ -54,6 +78,7 @@ const translationDe = {
         remove: 'Entfernen',
         edit: 'Bearbeiten',
         login: 'Anmelden',
+        login_with_ldap: 'Login mit LDAP',
         logout: 'Abmelden',
         register: 'Registrieren',
         new: 'Neu',
@@ -72,6 +97,7 @@ const translationDe = {
         saved: 'Gespeichert',
     },
     admin: {
+        choose_page: 'Wähle eine Seite aus, indem du einen Link in der Adminleiste klickst.',
         users: {
             new: 'Neuer Benutzer',
             edit: 'Benutzer bearbeiten',
@@ -108,6 +134,13 @@ const translationDe = {
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
+        },
+        navbar: {
+            title: 'Administration',
+            manage_user: 'Benutzer verwalten',
+            manage_task: 'Aufgaben verwalten',
+            manage_course: 'Kurse verwalten',
+            back: 'Zurück zur Homepage'
         }
     },
     exercise: {
@@ -116,6 +149,13 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Keine Berechtigung.',
+        forbidden: 'Zugriff verweigert.',
+        not_found: 'Element konnte nicht gefunden werden.',
+        internal_server_error: 'Interner Serverfehler.',
+        unknown: 'Unbekannter Fehler.',
     }
 }
 

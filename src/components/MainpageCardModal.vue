@@ -8,7 +8,7 @@
         v-bind:style="{backgroundColor: exercise.color }"
         elevation="0"
         max-width="450"
-        color="green"
+        :color="setColorCardModal()"
         @keyup.enter.prevent.stop="goToExercise"
         @click.prevent.stop="goToExercise"
     >
@@ -53,13 +53,14 @@
 </template>
 
 <script lang='ts' setup>
+import { theme } from "@/helpers/theme";
 //import VueStarRating from "vue-star-rating";
 import {useRouter} from "vue-router";
 // import {ref, Ref} from "vue";
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
-  course: String,
+  course: Object,
   exercise: Object,
   noRedirect: Boolean,
 });
@@ -69,7 +70,7 @@ const router = useRouter();
 // let likex: Ref<boolean> = ref(props.exercise?.like);
 
 function goToExercise(): void {
-  if (props.noRedirect !== true) router.push("/" + props.course + "/e/" + props.exercise?.id);
+  if (props.noRedirect !== true) router.push("/" + props.course?.courseName + "/e/" + props.exercise?.id);
 }
 
 /*
@@ -100,6 +101,11 @@ function getBody() {
   } else {
     return sanitise(props.exercise.content);
   }
+}
+
+function setColorCardModal() {
+  if (theme.value === "light") return "green"
+  else return "grey-darken-3"
 }
 
 </script>

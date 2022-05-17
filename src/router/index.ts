@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from "@/views/LoginView.vue";
 import Exercise from "@/views/exercises/ExerciseView.vue";
-import MainPage from "@/views/MainView.vue";
+
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
 import Notifications from "@/views/NotificationsView.vue";
@@ -12,19 +12,20 @@ import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
+import CourseMainPage from "@/views/CourseMainPageView.vue"
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import CourseSearch from "@/views/CourseSearchView.vue";
+import Admin from "@/views/admin/AdminView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
 
   {path: '/login', component: Login},
+  { path: '/404', name: 'NotFound', component: PageNotFound },
+  { path: '/:pathMatch(.*)*', redirect: '/404' },
 
-  // {path: '/home', component: CourseSelector},
-
-  {path: '/:course/', component: MainPage},
-
+  {path: '/:course/', component: CourseMainPage},
   {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:course/e/:id', component: Exercise},
   {path: '/:course/e/:id/edit', component: ExerciseEditor}, // edit mode
@@ -44,10 +45,9 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/settings', component: Settings},
 
+  {path: '/admin/', component: Admin},
   {path: '/admin/users', component: UserManagement},
   {path: '/admin/tasks', component: TaskManagement},
-
-  { path: '/:pathMatch(.*)*', name: 'NotFound', component: PageNotFound },
   { path: '/courses', component: CourseSearch },
 ]
 

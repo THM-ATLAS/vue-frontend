@@ -1,11 +1,11 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row class="text-center align-self-center justify-center pa-2">
       <v-col sm="6" md="6" lg="4" xl="3">
         <LoginModal/>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
   <Footer/>
 </template>
 

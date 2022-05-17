@@ -4,8 +4,12 @@ import {User, Module} from "@/helpers/types";
 class ModuleService {
     //TODO: Return / check response codes
 
-    loadModules(user: User): Promise<any> {
-        return API.get(`modules/${user.user_id}`);
+    /*loadModules(user: User): Promise<any> {
+        return API.get(`modules/${user.id}`);
+    }*/
+
+    loadModules(): Promise<any> {
+        return API.get(`modules/`);
     }
 
     getModule(id: number): Promise<any> {

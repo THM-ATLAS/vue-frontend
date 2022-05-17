@@ -7,6 +7,16 @@ const translationEn = {
         version: 'Version',
         skip_to_content: 'Skip to main content',
     },
+    header: {
+        courses: 'Courses',
+        dropdown: {
+            settings: 'Settings',
+            help: 'Help',
+            messages: 'Messages',
+            profile: 'Profile',
+            admin: 'Admin',
+        }
+    },
     footer: {
         home: 'Home',
         imprint: 'Imprint',
@@ -14,6 +24,20 @@ const translationEn = {
         data_protection: 'Data protection',
         thm: 'THM',
         a_project_by_thm: 'a project by THM',
+    },
+    login_page: {
+        login: 'Login',
+        instructions: 'Use your THM user credentials.',
+        user_id: 'username',
+        password: 'password'
+    },
+    landing_page: {
+        welcome: 'Welcome to',
+        instructions: 'Start to search for courses or login!',
+        search: 'e.g. Compilerbau'
+    },
+    main_page: {
+        exercise: 'Exercise'
     },
     settings: {
         title: 'Settings',
@@ -54,6 +78,7 @@ const translationEn = {
         remove: 'Remove',
         edit: 'Edit',
         login: 'Login',
+        login_with_ldap: 'Login with LDAP',
         logout: 'Logout',
         register: 'Register',
         new: 'New',
@@ -72,6 +97,7 @@ const translationEn = {
         saved: 'Saved',
     },
     admin: {
+        choose_page: 'Choose a page by clicking on the left menu',
         users: {
             new: 'New user',
             edit: 'Edit user',
@@ -108,6 +134,13 @@ const translationEn = {
             errors: {
                 required: 'This field is required.',
             }
+        },
+        navbar: {
+            title: 'Admin Panel',
+            manage_user: 'Manage users',
+            manage_task: 'Manage tasks',
+            manage_course: 'Manage courses',
+            back: 'Back to homepage'
         }
     },
     exercise: {
@@ -116,6 +149,13 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+    },
+    error: {
+        unauthorized: 'Unauthorized.',
+        forbidden: 'Forbidden access.',
+        not_found: 'Could not find the requested resource.',
+        internal_server_error: 'Internal server error.',
+        unknown: 'An unknown error occurred.',
     }
 }
 
