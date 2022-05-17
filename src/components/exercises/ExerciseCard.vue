@@ -100,11 +100,7 @@
 
     </v-container>
 
-    <!--div>
-      requested exercise {{ id }} from course {{ course }}
-    </div-->
-
-    <v-card-title class="text-left text-h4" v-html="exercise.title"/>
+    <v-card-title class="text-left text-h4"> {{exercise.title}} </v-card-title>
 
     <!--v-container v-if="exercise.images_before && exercise.images_before.length > 0" class="text-left">
       <v-carousel v-model="carousel1" :cycle="false">
@@ -156,8 +152,8 @@
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-import TaskService from "@/services/TaskService";
-import {ref} from "vue";
+import TaskService from "@/services/ExerciseService";
+import {onBeforeMount, reactive} from "vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -165,24 +161,22 @@ const id = route.params.id;
 const course = route.params.course;
 let exerciseData: any;
 
-const exercise = ref({
+const exercise = reactive({
   id: -1,
   title: 'Loading title',
   content: 'Loading content',
   taskPublic: false
 });
 
-TaskService.getTask(id).then(response => {
-  exerciseData = response.data;
+onBeforeMount(async () => {
+  exerciseData = (await TaskService.getExercise(id)).data
+  console.log(exerciseData)
+  exercise.id = exerciseData.exercise_id
+  exercise.title = exerciseData.title
+  exercise.content = exerciseData.content
+  exercise.taskPublic = exerciseData.taskPublic
 
-  exercise.value.id = exerciseData.exercise_id
-  exercise.value.title = exerciseData.title
-  exercise.value.content = exerciseData.content
-  exercise.value.taskPublic = exerciseData.taskPublic
-
-
-}).then(() => router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.value.title)}`)).catch(() => {
-  // nothing to do here, user will see error message
+  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
 })
 
 function goBack() {
@@ -192,7 +186,6 @@ function goBack() {
 function goToEditor(): void {
   router.push('edit');
 }
-
 /*
 function reportError(error: string): void {
   console.log(error);
