@@ -13,10 +13,10 @@
     <v-row v-for="course in courses" :key="course.id">
       <CourseSearchResult :id="course.id" :moduleName="course.moduleName" class="searchResult"/>
     </v-row>
-    
-    <v-pagination class="page-navigator"></v-pagination>
   </v-card>
-  
+    <v-pagination
+    length="3"
+    ></v-pagination>
 </template>
 
 <script setup>
@@ -43,7 +43,5 @@ onBeforeMount(async () => {
 </script>
 
 <style scoped>
-.page-navigator {
-  margin-top: 2em;
-}
+
 </style>
