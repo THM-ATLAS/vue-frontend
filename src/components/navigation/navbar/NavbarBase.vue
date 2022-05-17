@@ -2,10 +2,12 @@
   <SkipToContent />
   <v-app-bar id="header" elevation="3"  height="100px" role="navigation">
     <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
-      <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-             src="@/assets/ATLAS_Logo.svg" height="70px"/>
-      <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
-             height="70px"/>
+      <a @click="goToHome()">
+        <v-img v-if="theme === 'light'" @keyup.enter.prevent.stop="goToHome"
+               src="@/assets/ATLAS_Logo.svg" height="70px"/>
+        <v-img v-else @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
+               height="70px"/>
+      </a>
     </v-app-bar-title>
     <CourseButton/>
     <v-spacer/>
