@@ -1,29 +1,27 @@
 <template>
-  <v-main>
-    <div class="spacer"/>
-    <v-footer
-        class="footer"
-        color="secondary"
-        role="contentinfo"
-        max-height="200px"
-        :padless="true"
-        style="overflow: hidden;">
-      <v-card width="100%" rounded="0" elevation="0" color="transparent" class="justify-content-center text-center">
-        <v-row justify="center">
-          <v-card-text>
-            <v-btn class="mx-4" elevation="0" color="secondary" v-for="link in links" :key="link[0]"
-                   @click.prevent.stop="link[1]">
-              <a>{{ $t(`footer.${link[0]}`) }}</a>
-            </v-btn>
-          </v-card-text>
-        </v-row>
-        <v-divider id="h-line"/>
-        <v-card-text class="text-white">
-          {{ date }} — <strong>{{ $t("app.name") }}</strong>, {{ $t("footer.a_project_by_thm") }}
+  <div class="spacer"/>
+  <v-footer
+      class="footer"
+      color="secondary"
+      role="contentinfo"
+      max-height="200px"
+      :padless="true"
+      style="overflow: hidden;">
+    <v-card width="100%" rounded="0" elevation="0" color="transparent" class="justify-content-center text-center">
+      <v-row justify="center">
+        <v-card-text>
+          <v-btn class="mx-4" elevation="0" color="secondary" v-for="link in links" :key="link[0]"
+                 @click.prevent.stop="link[1]">
+            <a>{{ $t(`footer.${link[0]}`) }}</a>
+          </v-btn>
         </v-card-text>
-      </v-card>
-    </v-footer>
-  </v-main>
+      </v-row>
+      <v-divider id="h-line"/>
+      <v-card-text class="text-white">
+        {{ date }} — <strong>{{ $t("app.name") }}</strong>, {{ $t("footer.a_project_by_thm") }}
+      </v-card-text>
+    </v-card>
+  </v-footer>
 </template>
 
 <script setup lang='ts'>
