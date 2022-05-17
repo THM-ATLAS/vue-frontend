@@ -6,7 +6,7 @@
     <v-row class="justify-center mainpage-row">
       <v-col
           v-for="exercise in exercises"
-          v-bind:key="exercise.id"
+          v-bind:key="exercise.exercise_id"
           class="mainpage-col"
           sm="6" md="4" lg="4"
       >
@@ -23,37 +23,27 @@
 import MainpageCardModal from '@/components/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
 import {onBeforeMount, reactive} from "vue";
-import TaskService from "@/services/ExerciseService"
+import ExerciseService from "@/services/ExerciseService"
 import ModuleService from "@/services/ModuleService"
-import {useI18n} from "vue-i18n";
-
-const exercise = useI18n().t('main_page.exercise');
 
 const route = useRoute();
-
 const course = reactive({
   id: -1,
   moduleName: 'Loading'
 });
+
 const exercises = reactive ([])
 
 onBeforeMount(async () => {
-  //Currently, whenever a taskID does not exist in the database we get a problem
-  //and their ids have more holes than swiss cheese
-  const array = [2,3,5,6]
-  for (const i of array) {
-    let apiExercise = (await TaskService.getExercise(i)).data
-    let newEntry = {
-      id: apiExercise.exercise_id,
-      title: apiExercise.title,
-      content: apiExercise.content,
-      taskPublic: apiExercise.taskPublic
-    }
-    exercises.push(newEntry)
-  }
+
   let apiCourse = (await ModuleService.getModule(route.params.course)).data
-  course.id = apiCourse.module_id
-  course.moduleName = apiCourse.name
+  course.id = apiCourse.course.module_id
+  course.moduleName = apiCourse.course.name
+  let apiExercise = (await ExerciseService.getExercisesForModule(course.id)).data
+  apiExercise.forEach((entry : any) => {
+    exercises.push(entry)
+  })
+
   //await router.replace(`/${encodeURIComponent(course.moduleName)}`)
 })
 

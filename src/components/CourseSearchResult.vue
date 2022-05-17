@@ -9,8 +9,8 @@
         <v-col>
           <v-container class="courseInfo">
             <v-col>
-              <v-row class="courseName">{{ moduleName }}</v-row>
-              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{moduleName}} </pre>stehen.</v-row>
+              <v-row class="courseName">{{ props.moduleName }}</v-row>
+              <!-- <v-row class="courseDescription">{{ course.courseDescription }}  Hier müsste eine Beschreibung für das Modul <pre> {{moduleName}} </pre>stehen.</v-row> -->
             </v-col>
           </v-container>
         </v-col>
@@ -38,7 +38,6 @@ const props = defineProps({
     // courseDescription: String,
     // courseThumbnail: Image,
   })
-console.log("Props in CourseSearchResult: " + props.id)
 </script>
 
 <style scoped>

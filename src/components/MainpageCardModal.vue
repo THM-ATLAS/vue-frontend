@@ -14,7 +14,7 @@
     >
       <v-card-header>
         <v-card-header-text>
-          <v-card-title class="justify-center" v-html="exercise.title"/>
+          <v-card-title class="justify-center" v-html="props.exercise.title"/>
         </v-card-header-text>
       </v-card-header>
       <!--v-img
@@ -60,7 +60,7 @@ import {useRouter} from "vue-router";
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
-  course: Object,
+  module: Object,
   exercise: Object,
   noRedirect: Boolean,
 });
@@ -70,7 +70,7 @@ const router = useRouter();
 // let likex: Ref<boolean> = ref(props.exercise?.like);
 
 function goToExercise(): void {
-  if (props.noRedirect !== true) router.push("/" + props.course?.courseName + "/e/" + props.exercise?.id);
+  if (!props.noRedirect) router.push("/" + props.module?.name  + "/e/" + props.exercise?.exercise_id);
 }
 
 /*
