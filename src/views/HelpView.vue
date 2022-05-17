@@ -20,4 +20,6 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Help from "@/components/HelpCard.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
+import {useI18n} from "vue-i18n";
+document.title = useI18n().t('titles.help_view');
 </script>

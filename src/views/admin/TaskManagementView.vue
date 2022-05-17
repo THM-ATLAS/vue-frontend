@@ -18,4 +18,6 @@
 <script setup lang='ts'>
 import TaskManagement from "@/components/admin/TaskManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
+import {useI18n} from "vue-i18n";
+document.title = useI18n().t('titles.exercisemanagement_view');
 </script>

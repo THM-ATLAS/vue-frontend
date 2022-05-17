@@ -15,7 +15,9 @@
 import HomeContent from "@/components/HomeContent.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import NavbarBase from "@/components/navigation/navbar/NavbarBase.vue";
+import {useI18n} from "vue-i18n";
 
+document.title = useI18n().t('titles.home_view');
 </script>
 
 <style scoped>

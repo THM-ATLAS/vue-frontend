@@ -18,4 +18,6 @@
 <script setup lang='ts'>
 import UserManagement from "@/components/admin/UserManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
+import {useI18n} from "vue-i18n";
+document.title = useI18n().t('titles.usermanagement_view');
 </script>
