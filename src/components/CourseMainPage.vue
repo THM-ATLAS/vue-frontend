@@ -33,12 +33,16 @@
 
 <script setup>
 import MainpageCardModal from "@/components/MainpageCardModal";
-import {defineProps} from "vue";
+import {defineProps, watch} from "vue";
 
 const props = defineProps({
   module: Object,
   exercises: Object,
 });
+
+watch(() => {
+  document.title = props.module.name;
+})
 
 
 </script>

@@ -154,9 +154,11 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, reactive} from "vue";
 import ExerciseService from "@/services/ExerciseService";
+import {useI18n} from "vue-i18n";
 
 const route = useRoute();
 const router = useRouter();
+const i18n = useI18n();
 const id = route.params.id;
 const course = route.params.course;
 let exerciseData: any;
@@ -176,6 +178,8 @@ onBeforeMount(async () => {
   exercise.taskPublic = exerciseData.exercisePublic
 
   await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
+
+  document.title = i18n.t('titles.exercise_view') + ' - ' + exercise.title
 })
 
 function goBack() {

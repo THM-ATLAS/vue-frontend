@@ -123,7 +123,8 @@ const translationDe = {
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',
         exercise_view: 'Aufgabe',
-        exerciseeditor_view: 'Bearbeiten'
+        exerciseeditor_view: 'Bearbeiten',
+        module_main_page: 'Modul',
     },
     languages: {
         en: 'Englisch',

@@ -103,7 +103,8 @@ const translationEn = {
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',
         exercise_view: 'Exercise',
-        exerciseeditor_view: 'Edit'
+        exerciseeditor_view: 'Edit',
+        module_main_page: 'Module',
     },
     buttons: {
         save: 'Save',
