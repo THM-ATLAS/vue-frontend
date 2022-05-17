@@ -7,7 +7,7 @@
       <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
              height="70px"/>
     </v-app-bar-title>
-    <CourseButton/>
+    <ModuleButton/>
     <v-spacer/>
     <v-spacer/>
     <v-spacer/>
@@ -92,8 +92,8 @@
   >
     <v-spacer/>
     <v-list nav>
-      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToCourses">
-        {{ $t('header.courses') }}
+      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
+        {{ $t('header.modules') }}
       </v-list-item>
       <v-divider></v-divider>
       <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
@@ -121,7 +121,7 @@
 
 <script setup lang="ts">
 import Dropdown from "./DropdownCard.vue";
-import CourseButton from "./CourseButton.vue"
+import ModuleButton from "./ModuleButton.vue"
 import {useRouter} from 'vue-router';
 import {Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
@@ -155,8 +155,8 @@ function goToHelp(): void {
   router.push("/help");
 }
 
-function goToCourses(): void {
-  router.push("/courses")
+function goToModules(): void {
+  router.push("/modules")
 }
 
 /*function goToMessages(): void {

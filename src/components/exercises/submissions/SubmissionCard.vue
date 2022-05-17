@@ -7,8 +7,8 @@
         class="ma-2"
         variant="outlined"/>
     <v-btn
-        v-if="submission.task_id"
-        @click="this.$router.push(`/exercise/${submission.task_id}`)"
+        v-if="submission.exercise_id"
+        @click="this.$router.push(`/exercise/${submission.exercise_id}`)"
         icon="mdi-newspaper"
         class="ma-2"
         variant="outlined"/>
@@ -100,8 +100,8 @@
     </v-dialog>
     <v-card-header>
       <v-card-header-text class="text-h4 text-left fontszTi">
-        Abgabe für <a @click="visitIntLink(submission.task_link)" class="font-weight-bold"
-                      v-html="submission.task_title"/> vom {{ submission.date }}
+        Abgabe für <a @click="visitIntLink(submission.exercise_link)" class="font-weight-bold"
+                      v-html="submission.exercise_title"/> vom {{ submission.date }}
       </v-card-header-text>
     </v-card-header>
     <!-- submission status -->
@@ -368,8 +368,8 @@ export default defineComponent({
     ],
     submission: {
       id: 10393,
-      task_title: "Zielscheibe",
-      task_id: "103",
+      exercise_title: "Zielscheibe",
+      exercise_id: "103",
       date: "21.12.21",
       status: "partially_reviewed", // pending, accepted, rejected, graded, awarded, partially_reviewed, auto_accepted, auto_rejected
       // feedback: "Hast du ganz ganz toll gemacht", // optional, especially recommended for rejected & awarded
@@ -389,7 +389,7 @@ export default defineComponent({
           id: 2,
           type: "multi-line",
           title: "Das Skript des Filmes 'Bee Movie' (Englisch)",
-          content: "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Oan't say yellow black. They're both happy. It's yellow; and black.\n\nBut now we know. We're no longer in the business of making honey. We're in the business of doing more, with less bee-work.\n\nAnyway, this is your job. It's important, too, as bees work, pollinating us, teaching us about life and death. And as a responsible bee, you have to make sure that, too, is done right.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work.",
+          content: "According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of module, flies anyway because bees don't care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Oan't say yellow black. They're both happy. It's yellow; and black.\n\nBut now we know. We're no longer in the business of making honey. We're in the business of doing more, with less bee-work.\n\nAnyway, this is your job. It's important, too, as bees work, pollinating us, teaching us about life and death. And as a responsible bee, you have to make sure that, too, is done right.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work. Make sure you set the table.\n\nGo to the other side.\n\nYou may have heard that it's a dangerous job. But I'm not going to argue with you. I'm not going to quit your job. I'm going to make it look like I've got a few more lines of work to do.\n\nBut I promise, we'll get right back to work.",
           auto_review: { // indicates if this item was automatically reviewed
             result: "accepted", // accepted, rejected, unknown; only used if auto_review is true
           }

@@ -240,7 +240,7 @@ import {onBeforeMount, reactive, /*ref , onMounted, onUnmounted */} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal";
-import TaskService from "@/services/ExerciseService";
+import ExerciseService from "@/services/ExerciseService";
 
 const route = useRoute();
 const router = useRouter();
@@ -270,9 +270,9 @@ onUnmounted(() => {
 })
 */
 
-const course = route.params.course;
+const module = route.params.module;
 const id = route.params.id;
-const localStoragePath = id === undefined ? course + ".newExercise" : course + ".e." + id;
+const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
 
 /*
 const submissionTypes = [
@@ -309,11 +309,11 @@ onBeforeMount(async () => {
   if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
     exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
   } else { // get exercise from API
-    await TaskService.getExercise(id).then(response => {
+    await ExerciseService.getExercise(id).then(response => {
       exercise.id = response.data.exercise_id
       exercise.title = response.data.title
       exercise.content = response.data.content
-      exercise.taskPublic = response.data.taskPublic
+      exercise.exercisePublic = response.data.exercisePublic
     })
   }
 
@@ -328,7 +328,7 @@ const save = () => {
 };
 
 const del = async () => {
-  await TaskService.delExercise(id).then(response => {
+  await ExerciseService.delExercise(id).then(response => {
     console.log(response.data)
   }). catch(error => {
     console.log(error.message)

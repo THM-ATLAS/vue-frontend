@@ -1,7 +1,7 @@
 <template>
   <v-container role="main">
-    <v-row id="course-title" class="justify-center">
-      <h2 id="course"> {{ course.moduleName }} </h2>
+    <v-row id="module-title" class="justify-center">
+      <h2 id="module"> {{ module.moduleName }} </h2>
     </v-row>
     <v-row class="justify-center mainpage-row">
       <v-col
@@ -12,7 +12,7 @@
       >
         <MainpageCardModal
             :exercise="exercise"
-            :course="course"
+            :module="module"
         />
       </v-col>
     </v-row>
@@ -23,7 +23,7 @@
 import MainpageCardModal from '@/components/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
 import {onBeforeMount, reactive} from "vue";
-import TaskService from "@/services/ExerciseService"
+import ExerciseService from "@/services/ExerciseService"
 import ModuleService from "@/services/ModuleService"
 import {useI18n} from "vue-i18n";
 
@@ -31,30 +31,30 @@ const exercise = useI18n().t('main_page.exercise');
 
 const route = useRoute();
 
-const course = reactive({
+const module = reactive({
   id: -1,
   moduleName: 'Loading'
 });
 const exercises = reactive ([])
 
 onBeforeMount(async () => {
-  //Currently, whenever a taskID does not exist in the database we get a problem
+  //Currently, whenever a exerciseID does not exist in the database we get a problem
   //and their ids have more holes than swiss cheese
   const array = [2,3,5,6]
   for (const i of array) {
-    let apiExercise = (await TaskService.getExercise(i)).data
+    let apiExercise = (await ExerciseService.getExercise(i)).data
     let newEntry = {
       id: apiExercise.exercise_id,
       title: apiExercise.title,
       content: apiExercise.content,
-      taskPublic: apiExercise.taskPublic
+      exercisePublic: apiExercise.exercisePublic
     }
     exercises.push(newEntry)
   }
-  let apiCourse = (await ModuleService.getModule(route.params.course)).data
-  course.id = apiCourse.module_id
-  course.moduleName = apiCourse.name
-  //await router.replace(`/${encodeURIComponent(course.moduleName)}`)
+  let apiModule = (await ModuleService.getModule(route.params.module)).data
+  module.id = apiModule.module_id
+  module.moduleName = apiModule.name
+  //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 })
 
 </script>
@@ -71,12 +71,12 @@ onBeforeMount(async () => {
   padding-right: 4%;
 }
 
-#course-title {
+#module-title {
   margin-top: 100px;
   margin-bottom: 20px;
 }
 
-#course {
+#module {
   border-bottom: 2px solid black;
 }
 </style>

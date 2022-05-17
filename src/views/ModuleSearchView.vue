@@ -3,7 +3,7 @@
   <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <CourseSearch id="content"/>
+        <ModuleSearch id="content"/>
       </v-col>
     </v-row>
   </v-main>
@@ -12,7 +12,7 @@
 
 <script setup>
 import Navbar from '@/components/navigation/navbar/NavbarBase.vue'
-import CourseSearch from "@/components/CourseSearch.vue";
+import ModuleSearch from "@/components/ModuleSearch.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 </script>
 

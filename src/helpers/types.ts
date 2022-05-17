@@ -8,11 +8,11 @@ export type User = {
     roles : string[]
 }
 
-export type Task = {
+export type Exercise = {
     id : number,
     title : string,
     content : string,
-    taskPublic : boolean
+    exercisePublic : boolean
 }
 
 export type Module = {

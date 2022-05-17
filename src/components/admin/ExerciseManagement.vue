@@ -3,21 +3,21 @@
     <v-table>
       <thead>
       <tr>
-        <th>{{ $t('admin.tasks.title') }}</th>
-        <th>{{ $t('admin.tasks.course') }}</th>
-        <th>{{ $t('admin.tasks.description') }}</th>
-        <th>{{ $t('admin.tasks.actions') }}</th>
+        <th>{{ $t('admin.exercises.title') }}</th>
+        <th>{{ $t('admin.exercises.module') }}</th>
+        <th>{{ $t('admin.exercises.description') }}</th>
+        <th>{{ $t('admin.exercises.actions') }}</th>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="task in tasks" v-bind:key="task.id">
-        <td>{{ task.title }}</td>
-        <td>{{ task.course }}</td>
-        <td v-if="task.description">{{ task.description }}</td>
-        <td v-else style="opacity: 70%">{{ $t('admin.tasks.no_description') }}</td>
+      <tr v-for="exercise in exercises" v-bind:key="exercise.id">
+        <td>{{ exercise.title }}</td>
+        <td>{{ exercise.module }}</td>
+        <td v-if="exercise.description">{{ exercise.description }}</td>
+        <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
         <td>
           <v-btn
-              @click="viewTaskDialog.show = true; viewTaskDialog.target = task"
+              @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
               icon="mdi-file-eye"
               small
               elevation="0"
@@ -26,7 +26,7 @@
               rounded="0"
           />
           <v-btn
-              @click="editTaskDialog.show = true; editTaskDialog.target = task"
+              @click="editExerciseDialog.show = true; editExerciseDialog.target = exercise"
               icon="mdi-file-document-edit"
               small
               elevation="0"
@@ -36,7 +36,7 @@
               variant="outlined"
           />
           <v-btn
-              @click="deleteTaskDialog.show = true; deleteTaskDialog.target = task"
+              @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
               icon="mdi-file-remove"
               small
               elevation="0"
@@ -50,10 +50,10 @@
       </tbody>
     </v-table>
 
-    <!-- new task -->
+    <!-- new exercise -->
     <div>
       <v-btn
-          @click="newTaskDialog.show = true"
+          @click="newExerciseDialog.show = true"
           icon="mdi-file-plus"
           small
           elevation="0"
@@ -65,15 +65,15 @@
     </div>
   </v-card>
 
-  <!-- view task dialog -->
+  <!-- view exercise dialog -->
   <v-dialog
-      v-model="viewTaskDialog.show"
+      v-model="viewExerciseDialog.show"
       :scrollable="true"
       :retain-focus="false"
   >
     <v-card top="20%" width="50vw">
       <v-card-title>
-        {{ viewTaskDialog.target.title }}
+        {{ viewExerciseDialog.target.title }}
       </v-card-title>
       <v-card-text>
         <v-container>
@@ -117,8 +117,8 @@
           />
           <v-text-field
               @change="$refs.newTaskForm.validate()"
-              v-model="newTaskDialog.target.course"
-              :label="$t('admin.tasks.course')"
+              v-model="newTaskDialog.target.module"
+              :label="$t('admin.tasks.module')"
               :rules="[rules.required]"
               required
           />
@@ -165,8 +165,8 @@
           />
           <v-text-field
               @change="$refs.editTaskForm.validate()"
-              v-model="editTaskDialog.target.course"
-              :label="$t('admin.tasks.course')"
+              v-model="editTaskDialog.target.module"
+              :label="$t('admin.tasks.module')"
               :rules="[rules.required]"
               required
           />
@@ -213,14 +213,14 @@ import MarkdownModal from "@/components/helpers/MarkdownModal";
 const tasks = ref([
   {
     id: 1,
-    course: 'bkp',
+    module: 'bkp',
     title: "Task 1",
     description: "This is a task",
     content: "Hello World\n$1 + 1 = 2$",
   },
   {
     id: 2,
-    course: 'bkp',
+    module: 'bkp',
     title: "Task 2",
     description: "This is another task",
     content: "Hello World\n**bold text**",
@@ -239,7 +239,7 @@ const rules = {
 function getTaskTemplate() {
   return {
     id: nextTaskId(),
-    course: '',
+    module: '',
     title: '',
     description: '',
     content: '',
@@ -282,7 +282,7 @@ function nextTaskId() {
 function editTask(task) {
   tasks.value.forEach(t => {
     if (t.id === task.id) {
-      t.course = task.course;
+      t.module = task.module;
       t.title = task.title;
       t.description = task.description;
       t.content = task.content;

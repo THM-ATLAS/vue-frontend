@@ -139,7 +139,7 @@
   </v-card>
   <!--br/>
   <div>
-    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :course="this.$route.params.course"/>
+    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :module="this.$route.params.module"/>
   </div-->
 </template>
 
@@ -152,31 +152,31 @@
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-import TaskService from "@/services/ExerciseService";
+import ExerciseService from "@/services/ExerciseService";
 import {onBeforeMount, reactive} from "vue";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
-const course = route.params.course;
+const module = route.params.module;
 let exerciseData: any;
 
 const exercise = reactive({
   id: -1,
   title: 'Loading title',
   content: 'Loading content',
-  taskPublic: false
+  exercisePublic: false
 });
 
 onBeforeMount(async () => {
-  exerciseData = (await TaskService.getExercise(id)).data
+  exerciseData = (await ExerciseService.getExercise(id)).data
   console.log(exerciseData)
   exercise.id = exerciseData.exercise_id
   exercise.title = exerciseData.title
   exercise.content = exerciseData.content
-  exercise.taskPublic = exerciseData.taskPublic
+  exercise.exercisePublic = exerciseData.exercisePublic
 
-  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
+  await router.replace(`/${module}/e/${id}/${encodeURIComponent(exercise.title)}`)
 })
 
 function goBack() {
@@ -198,7 +198,7 @@ function filterYAMLHeader(text: string): string {
 }
 
 function getSubmitButton(): string {
-  return localStorage.getItem(`${course}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
+  return localStorage.getItem(`${module}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
 }
 
 let showSubmission = ref(false);

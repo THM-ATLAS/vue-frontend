@@ -16,13 +16,13 @@
       />
       <v-list-item
           prepend-icon="mdi-pencil-ruler"
-          :title="$t('admin.navbar.manage_task')"
-          @click="goToTask"
+          :title="$t('admin.navbar.manage_exercise')"
+          @click="goToExercise"
       />
       <v-list-item
           prepend-icon="mdi-file-tree"
-          :title="$t('admin.navbar.manage_course')"
-          @click="goToCourse"
+          :title="$t('admin.navbar.manage_module')"
+          @click="goToModule"
           disabled
       />
     </v-list>
@@ -49,12 +49,12 @@ function goToUser(): void {
   router.push("/admin/users");
 }
 
-function goToTask(): void {
-  router.push("/admin/tasks");
+function goToExercise(): void {
+  router.push("/admin/exercises");
 }
 
-function goToCourse(): void {
-  router.push("/admin/courses");
+function goToModule(): void {
+  router.push("/admin/modules");
 }
 
 function goToHome(): void {

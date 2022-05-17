@@ -4,13 +4,13 @@
       <v-row align="center"
              justify="start">
         <!--v-col>
-          <v-img :src=course.courseThumbnail max-height="150" width="200" class="courseImage"></v-img>
+          <v-img :src=module.moduleThumbnail max-height="150" width="200" class="moduleImage"></v-img>
         </v-col-->
         <v-col>
-          <v-container class="courseInfo">
+          <v-container class="moduleInfo">
             <v-col>
-              <v-row class="courseName">{{ moduleName }}</v-row>
-              <v-row class="courseDescription"><!--{{ course.courseDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{moduleName}} </pre>stehen.</v-row>
+              <v-row class="moduleName">{{ moduleName }}</v-row>
+              <v-row class="moduleDescription"><!--{{ module.moduleDescription }} --> Hier müsste eine Beschreibung für das Modul <pre> {{moduleName}} </pre>stehen.</v-row>
             </v-col>
           </v-container>
         </v-col>
@@ -35,29 +35,29 @@ const props = defineProps({
       required: true,
       type: String
     }
-    // courseDescription: String,
-    // courseThumbnail: Image,
+    // moduleDescription: String,
+    // moduleThumbnail: Image,
   })
-console.log("Props in CourseSearchResult: " + props.id)
+console.log("Props in ModuleSearchResult: " + props.id)
 </script>
 
 <style scoped>
-.courseName {
+.moduleName {
   font-size: 2rem;
   text-decoration: underline;
   padding-left: 1rem;
 }
 
-.courseDescription {
+.moduleDescription {
   padding: 1rem;
 }
 
-.courseImage {
+.moduleImage {
   margin-left: auto;
   margin-right: auto;
 }
 
-.courseInfo {
+.moduleInfo {
   margin-left: auto;
   margin-right: auto;
 }
