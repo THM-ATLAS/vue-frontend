@@ -1,6 +1,6 @@
-<template>
-  <v-container role="main">
-    <v-row id="course-title" class="justify-center">
+<template >
+  <v-container role="main" >
+    <v-row id="course-title" class="justify-center" >
       <h2 id="course"> {{ course.moduleName }} </h2>
     </v-row>
     <v-row class="justify-center mainpage-row">

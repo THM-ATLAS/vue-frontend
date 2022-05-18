@@ -22,6 +22,9 @@ class ExerciseService{
     getExercise(exerciseId : number) : Promise<any> {
         return API.get(`exercises/${exerciseId}`);
     }
+    getExercises(): Promise<any> {
+        return API.get(`e"xercises/`);
+    }
 
     delExercise(exerciseId : number) : Promise<any>{
         return API.delete(`exercises/${exerciseId}`);

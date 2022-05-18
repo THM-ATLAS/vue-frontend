@@ -21,6 +21,6 @@ export type Exercise = {
 }
 
 export type Module = {
-    id : number,
+    module_id : number,
     name : string
 }

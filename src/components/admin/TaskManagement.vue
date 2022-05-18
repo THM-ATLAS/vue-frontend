@@ -205,35 +205,44 @@
   </v-dialog>
 </template>
 
-<script setup>
-import {ref} from "vue";
+<script setup lang="ts">
+import {Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
-import MarkdownModal from "@/components/helpers/MarkdownModal";
+// import MarkdownModal from "@/components/helpers/MarkdownModal";
+import ExerciseService from "@/services/ExerciseService";
+// import UserService from "@/services/UserService";
+import {Exercise} from "@/helpers/types";
 
-const tasks = ref([
-  {
-    id: 1,
-    course: 'bkp',
-    title: "Task 1",
-    description: "This is a task",
-    content: "Hello World\n$1 + 1 = 2$",
-  },
-  {
-    id: 2,
-    course: 'bkp',
-    title: "Task 2",
-    description: "This is another task",
-    content: "Hello World\n**bold text**",
-  },
-]);
 
+//   {
+//     id: 1,
+//     course: 'bkp',
+//     title: "Task 1",
+//     description: "This is a task",
+//     content: "Hello World\n$1 + 1 = 2$",
+//   },
+//   {
+//     id: 2,
+//     course: 'bkp',
+//     title: "Task 2",
+//     description: "This is another task",
+//     content: "Hello World\n**bold text**",
+//   },
+// ]);
+const exercises: Ref<Exercise[]> = ref([]);
+
+async function loadTasks(): Promise<void> {
+  exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
+}
+
+console.log(exercises.value);
 const i18n = useI18n();
 
 const rules = {
-  required: value => !!value || i18n.t("admin.users.errors.required"),
-  username: value => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
-  email: value => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
-  password: value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
+  required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
+  username: (value: string) => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
+  email: (value: string) => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
+  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
 
 function getTaskTemplate() {
@@ -269,29 +278,36 @@ const deleteTaskDialog = ref({
   target: null,
 });
 
-function createTask() {
-  tasks.value.push(newTaskDialog.value.target);
+async function createTask() {
+  // tasks.value.push(newTaskDialog.value.target);
+  await ExerciseService.addExercise(newTaskDialog.value.target);
+  await loadTasks();
   newTaskDialog.value.target = getTaskTemplate();
   newTaskDialog.value.show = false;
 }
 
 function nextTaskId() {
-  return tasks.value.map(u => u.id).sort().pop() + 1;
+  // Dont know if we need it
+  return exercises.value.map(u => u.).sort().pop() + 1;
 }
 
-function editTask(task) {
-  tasks.value.forEach(t => {
-    if (t.id === task.id) {
-      t.course = task.course;
-      t.title = task.title;
-      t.description = task.description;
-      t.content = task.content;
-    }
-  });
+function editTask(exercise : Exercise) {
+  ExerciseService.editExercise(exercise).then(() => loadTasks());
+  // tasks.value.forEach(t => {
+  //   if (t.id === task.id) {
+  //     t.course = task.course;
+  //     t.title = task.title;
+  //     t.description = task.description;
+  //     t.content = task.content;
+  //   }
+  // });
 }
 
-function deleteTask(task) {
-  tasks.value = tasks.value.filter(u => u.id !== task.id);
+function deleteTask(exercise: Exercise) {
+  // tasks.value = tasks.value.filter(u => u.id !== task.id);
+  ExerciseService.delExercise(exercise.exercise_id).then(async () =>
+      loadTasks()
+  );
 }
 
 
