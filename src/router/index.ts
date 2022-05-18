@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/admin/', component: Admin},
   {path: '/admin/users', component: UserManagement},
-  {path: '/admin/tasks', component: TaskManagement},
+  {path: '/admin/exercises', component: TaskManagement},
   { path: '/courses', component: CourseSearch },
 ]
 
