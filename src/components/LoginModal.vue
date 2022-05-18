@@ -1,5 +1,5 @@
 <template>
-  <v-card id="card" elevation="0" rounded="0" bottom color="green" role="contentinfo">
+  <v-card id="card" elevation="0" rounded="0" bottom color="highlight" role="contentinfo">
     <v-card-header>
       <v-card-header-text>
         <v-icon icon="mdi-globe-model"/>
