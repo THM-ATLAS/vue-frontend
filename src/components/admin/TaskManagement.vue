@@ -310,6 +310,7 @@ function editExercise(exercise : Exercise) {
 
 function deleteExercise(exercise: Exercise) {
   // tasks.value = tasks.value.filter(u => u.id !== task.id);
+
   ExerciseService.delExercise(exercise.exercise_id).then(async () =>
       loadExercises()
   );
