@@ -110,6 +110,9 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
         <span> {{ $t('header.dropdown.help') }} </span>
       </v-list-item>
+      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+        <span>{{ $t('header.dropdown.admin') }}</span>
+      </v-list-item>
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
@@ -143,6 +146,10 @@ function goToHome(): void {
 
 function goToLogin(): void {
   router.push("/login");
+}
+
+function goToAdmin() {
+  router.push("/admin/");
 }
 
 /*function getMobile(): boolean {
