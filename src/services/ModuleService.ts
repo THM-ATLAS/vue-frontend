@@ -8,7 +8,7 @@ class ModuleService {
         return API.get(`modules/${user.id}`);
     }*/
 
-    loadModules(): Promise<any> {
+    getModules(): Promise<any> {
         return API.get(`modules/`);
     }
 
