@@ -1,3 +1,5 @@
+import ModuleService from "@/services/ModuleService"
+
 const translationDe = {
     app: {
         name: 'ATLAS',
@@ -177,6 +179,16 @@ const translationDe = {
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
+        },
+        modules: {
+            title: 'Modul',
+            description: 'Beschreibung',
+            no_description: 'Keine Beschreibung',
+            actions: 'Aktionen',
+            new: 'Modul erstellen',
+            edit: 'Modul bearbeiten',
+            delete: 'Modul löschen',
+            delete_confirm: 'Modul "{0}" wirklich löschen?',
         },
         navbar: {
             title: 'Administration',

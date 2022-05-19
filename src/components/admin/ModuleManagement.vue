@@ -4,16 +4,16 @@
       <v-table>
         <thead>
           <tr>
-            <th>Modul</th>
-            <th>Beschreibung</th>
-            <th>Aktionen</th>
+            <th>{{ $t('admin.modules.title') }}</th>
+            <th>{{ $t('admin.modules.description') }}</th>
+            <th>{{ $t('admin.modules.actions') }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="module in modules" v-bind:key="module.id">
             <td>{{ module.name }}</td>
             <td v-if="module.description">{{ module.description }}</td>
-            <td v-else style="opacity: 70%">Keine Beschreibung</td>
+            <td v-else style="opacity: 70%">{{ $t('admin.modules.no_description') }}</td>
             <td>
               <v-btn
                 @click="
@@ -69,13 +69,13 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">Modul bearbeiten</span>
+          <span class="headline">{{ $t('admin.modules.edit') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field v-model="editModuleDialog.target.name" label="Name" />
+          <v-text-field v-model="editModuleDialog.target.name" :label="$t('admin.modules.title')" />
           <v-textarea
             v-model="editModuleDialog.target.description"
-            label="Beschreibung"
+            :label="$t('admin.modules.description')"
           />
         </v-card-text>
         <v-card-actions>
@@ -100,12 +100,11 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">Modul löschen</span>
+          <span class="headline">{{ $t('admin.modules.delete') }}</span>
         </v-card-title>
         <v-card-text>
           <p>
-            Das Modul '<b>{{ editModuleDialog.target.name }}</b
-            >' wirklich löschen?
+            {{ $t('admin.modules.delete_confirm', [deleteModuleDialog.target.title]) }} <!-- not working? -->
           </p>
         </v-card-text>
         <v-card-actions>
@@ -130,11 +129,11 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">Neues Modul erstellen</span>
+          <span class="headline">{{ $t('admin.modules.new') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field label="Name" />
-          <v-textarea label="Beschreibung" />
+          <v-text-field :label="$t('admin.modules.title')" />
+          <v-textarea :label="$t('admin.modules.description')" />
         </v-card-text>
         <v-card-actions>
           <v-btn

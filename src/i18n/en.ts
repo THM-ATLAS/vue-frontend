@@ -176,6 +176,16 @@ const translationEn = {
                 required: 'This field is required.',
             }
         },
+        modules: {
+            title: 'Module',
+            description: 'Description',
+            no_description: 'No description provided',
+            actions: 'Actions',
+            new: 'New module',
+            edit: 'Edit module',
+            delete: 'Delete module',
+            delete_confirm: 'Delete module "{0}"?',
+        },
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
