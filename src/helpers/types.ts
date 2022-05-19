@@ -11,11 +11,13 @@ export type UserRole = {
     name : string
 }
 
-export type Task = {
-    id : number,
+export type Exercise = {
+    exercise_id : number,
+    module: Module,
     title : string,
     content : string,
-    taskPublic : boolean
+    description: string,
+    exercisePublic : boolean
 }
 
 export type Module = {

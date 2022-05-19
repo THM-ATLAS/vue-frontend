@@ -2,7 +2,7 @@
   <Navbar/>
   <v-main>
     <v-row justify="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
+      <v-col sm="10" md="10" lg="8" xl="6">
         <CourseSearch id="content"/>
       </v-col>
     </v-row>
@@ -14,6 +14,8 @@
 import Navbar from '@/components/navigation/navbar/NavbarBase.vue'
 import CourseSearch from "@/components/CourseSearch.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
+import {useI18n} from "vue-i18n";
+document.title = useI18n().t('titles.modulesearch_view');
 </script>
 
 <style scoped>

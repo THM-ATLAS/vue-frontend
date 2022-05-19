@@ -19,24 +19,21 @@
         <v-list-item-title>Leaderboard</v-list-item-title>
       </v-list-item-->
       <!-- settings -->
-      <v-list-item
-          @click="goToSettings()">
+      <v-list-item prepend-icon="mdi-cog" @click="goToSettings()">
         <v-list-item-title>{{ $t('header.dropdown.settings') }}</v-list-item-title>
       </v-list-item>
       <!--v-list-item
           @click="goToUser">
         <v-list-item-title>Profil</v-list-item-title>
       </v-list-item-->
-      <v-list-item @click="goToHelp()">
+      <v-list-item prepend-icon="mdi-help" @click="goToHelp()">
         <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
-      <v-list-item
-          @click="goToAdmin">
+      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
         <v-list-item-title>{{ $t('header.dropdown.admin') }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-btn @click="goToLogin()" variant="outlined" rounded="0">
-          <v-icon icon="mdi-logout"/>
+        <v-btn prepend-icon="mdi-logout" @click="goToLogin()" variant="outlined" rounded="0">
           <span>Logout</span>
         </v-btn>
       </v-list-item>
