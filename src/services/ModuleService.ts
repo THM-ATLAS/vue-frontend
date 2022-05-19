@@ -25,7 +25,8 @@ class ModuleService {
         return API.put(`modules/`, {
                 module: {
                     id: module.id,
-                    name: module.name
+                    name: module.name,
+                    description: module.description
                 }
             }
         );
@@ -35,7 +36,8 @@ class ModuleService {
         return API.post(`modules/`, {
                 module: {
                     id: module.id,
-                    name: module.name
+                    name: module.name,
+                    description: module.description
                 }
             }
         );
