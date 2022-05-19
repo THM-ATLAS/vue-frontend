@@ -116,7 +116,7 @@
             <!-- not working? -->
             {{
               $t("admin.modules.delete_confirm", [
-                deleteModuleDialog.target.title,
+                deleteModuleDialog.target.name,
               ])
             }}
             <!-- not working? -->
