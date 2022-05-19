@@ -180,8 +180,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-btn @click="test()" />
   </div>
 </template>
 
@@ -214,7 +212,8 @@ function editModule(module: Module) {
 }
 
 async function deleteModule(module: Module) {
-  ModuleService.delModule(module.id).then(async () => loadModules());
+    console.log(module);
+  ModuleService.delModule(module).then(async () => loadModules());
 }
 
 const newModuleDialog = ref({
@@ -242,9 +241,5 @@ function getModuleTemplate() {
 
 function nextModuleId() {
   return modules.value.map((u) => u.module_id).pop() + 1;
-}
-
-function test(): void {
-  console.log(modules.value.map((u) => u.module_id).pop() + 1);
 }
 </script>

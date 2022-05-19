@@ -17,7 +17,7 @@ class ModuleService {
     }
 
     delModule(module: Module): Promise<any> {
-        return API.delete(`modules/${module.id}`);
+        return API.delete(`modules/${module.module_id}`);
     }
 
     editModule(module: Module): Promise<any> {
