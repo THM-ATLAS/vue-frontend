@@ -1,19 +1,22 @@
 <template>
   <div>
     <v-card elevation="0" rounded="0" role="main">
+      <!-- main table -->
       <v-table>
         <thead>
           <tr>
-            <th>{{ $t('admin.modules.title') }}</th>
-            <th>{{ $t('admin.modules.description') }}</th>
-            <th>{{ $t('admin.modules.actions') }}</th>
+            <th>{{ $t("admin.modules.title") }}</th>
+            <th>{{ $t("admin.modules.description") }}</th>
+            <th>{{ $t("admin.modules.actions") }}</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="module in modules" v-bind:key="module.id">
             <td>{{ module.name }}</td>
             <td v-if="module.description">{{ module.description }}</td>
-            <td v-else style="opacity: 70%">{{ $t('admin.modules.no_description') }}</td>
+            <td v-else style="opacity: 70%">
+              {{ $t("admin.modules.no_description") }}
+            </td>
             <td>
               <v-btn
                 @click="
@@ -46,7 +49,7 @@
         </tbody>
       </v-table>
 
-      <!-- new module -->
+      <!-- new module button -->
       <div>
         <v-btn
           @click="newModuleDialog.show = true"
@@ -69,10 +72,13 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.modules.edit') }}</span>
+          <span class="headline">{{ $t("admin.modules.edit") }}</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field v-model="editModuleDialog.target.name" :label="$t('admin.modules.title')" />
+          <v-text-field
+            v-model="editModuleDialog.target.name"
+            :label="$t('admin.modules.title')"
+          />
           <v-textarea
             v-model="editModuleDialog.target.description"
             :label="$t('admin.modules.description')"
@@ -100,11 +106,15 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.modules.delete') }}</span>
+          <span class="headline">{{ $t("admin.modules.delete") }}</span>
         </v-card-title>
         <v-card-text>
           <p>
-            {{ $t('admin.modules.delete_confirm', [deleteModuleDialog.target.title]) }} <!-- not working? -->
+            <!-- not working? --> {{
+              $t("admin.modules.delete_confirm", [
+                deleteModuleDialog.target.title, 
+              ])
+            }} <!-- not working? -->
           </p>
         </v-card-text>
         <v-card-actions>
@@ -129,7 +139,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.modules.new') }}</span>
+          <span class="headline">{{ $t("admin.modules.new") }}</span>
         </v-card-title>
         <v-card-text>
           <v-text-field :label="$t('admin.modules.title')" />
@@ -148,21 +158,17 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-btn @click="test()"> test </v-btn>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref} from "vue";
-import {Module} from "@/helpers/types";
+import { onBeforeMount, Ref, ref } from "vue";
+import { Module } from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
-//import {useI18n} from "vue-i18n";
-//import MarkdownModal from "@/components/helpers/MarkdownModal";
-
 
 
 const modules: Ref<Module[]> = ref([]);
+
 
 async function loadModules(): Promise<void> {
   modules.value = (await ModuleService.loadModules()).data.sort(
@@ -174,13 +180,6 @@ onBeforeMount(async () => {
   await loadModules();
 });
 
-function editModule(module: Module) {
-  ModuleService.editModule(module).then(() => loadModules());
-}
-
-async function deleteModule(module: Module) {
-  ModuleService.delModule(module).then(async () => loadModules());
-}
 
 async function createModule() {
   await ModuleService.addModule(newModuleDialog.value.target);
@@ -189,19 +188,19 @@ async function createModule() {
   newModuleDialog.value.show = false;
 }
 
-function test(): any {
-  console.log(modules);
+function editModule(module: Module) {
+  ModuleService.editModule(module).then(() => loadModules());
 }
 
-//const i18n = useI18n();
-
-function getModuleTemplate() {
-  return {
-    id: nextModuleId(),
-    title: "",
-    description: "",
-  };
+async function deleteModule(module: Module) {
+  ModuleService.delModule(module).then(async () => loadModules());
 }
+
+
+const newModuleDialog = ref({
+  show: false,
+  target: getModuleTemplate(),
+});
 
 const editModuleDialog = ref({
   show: false,
@@ -213,10 +212,14 @@ const deleteModuleDialog = ref({
   target: null,
 });
 
-const newModuleDialog = ref({
-  show: false,
-  target: getModuleTemplate(),
-});
+
+function getModuleTemplate() {
+  return {
+    id: nextModuleId(),
+    title: "",
+    description: "",
+  };
+}
 
 function nextModuleId() {
   return (
