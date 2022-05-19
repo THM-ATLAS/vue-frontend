@@ -240,7 +240,7 @@ onBeforeMount(async () => {
   await loadExercises();
   exercises.value = (await ExerciseService.getExercises()).data;
 })
-console.log(exercises.value);
+// console.log(exercises.value);
 const i18n = useI18n();
 
 const rules = {
@@ -250,35 +250,40 @@ const rules = {
   password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
 
-function getExerciseTemplate() {
-  return {
-    id: nextExerciseId(),
-    course: '',
+function getExerciseTemplate() : Exercise {
+  return{
+    exercise_id: 0,
+    module: {
+      module_id: 0,
+      name: '',
+      description: ''
+    },
     title: '',
-    description: '',
     content: '',
+    description: '',
+    exercisePublic: true
   };
 }
 
-const editExerciseDialog = ref({
+const editExerciseDialog: Ref<{show: boolean, target: Exercise | null}> = ref({
   show: false,
   target: null,
 });
 
-const newExerciseDialog = ref({
+const newExerciseDialog: Ref<{show: boolean, target: Exercise}> = ref({
   show: false,
   target: getExerciseTemplate(),
 });
 
-const viewExerciseDialog = ref({
+const viewExerciseDialog: Ref<{show: boolean, target: Exercise | null}> = ref({
   show: false,
   target: getExerciseTemplate(),
 });
 
 const newExerciseFormValid = ref(false);
-const editExerciseFormValid = ref(false);
+const editExerciseFormValid= ref(false);
 
-const deleteExerciseDialog = ref({
+const deleteExerciseDialog: Ref<{show: boolean, target: Exercise | null}> = ref({
   show: false,
   target: null,
 });
@@ -291,10 +296,10 @@ async function createExercise() {
   newExerciseDialog.value.show = false;
 }
 
-function nextExerciseId() {
-  // Dont know if we need it
-  // return exercises.value.map(u => u.exercise_id).sort().pop() + 1;
-}
+// function nextExerciseId() {
+//   // Dont know if we need it
+//   // return exercises.value.map(u => u.exercise_id).sort().pop() + 1;
+// }
 
 function editExercise(exercise : Exercise) {
   ExerciseService.editExercise(exercise).then(() => loadExercises());
@@ -310,7 +315,6 @@ function editExercise(exercise : Exercise) {
 
 function deleteExercise(exercise: Exercise) {
   // tasks.value = tasks.value.filter(u => u.id !== task.id);
-
   ExerciseService.delExercise(exercise.exercise_id).then(async () =>
       loadExercises()
   );
