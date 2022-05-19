@@ -1,7 +1,7 @@
 <template>
   <NavbarAdmin/>
   <v-main class="main">
-    <v-row justify="center">
+    <v-row class="main-row" justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
         <UserManagement id="content"/>
       </v-col>
@@ -12,6 +12,10 @@
 <style scoped>
 .main {
   margin-top: 2em;
+}
+
+.main-row {
+  margin-bottom: 2em;
 }
 </style>
 
