@@ -91,7 +91,10 @@
           />
           <v-btn
             color="primary"
-            @click="editModule(editModuleDialog.target)"
+            @click="
+              editModuleDialog.show = false;
+              editModule(editModuleDialog.target);
+            "
             v-html="$t('buttons.save')"
           />
         </v-card-actions>
@@ -110,11 +113,13 @@
         </v-card-title>
         <v-card-text>
           <p>
-            <!-- not working? --> {{
+            <!-- not working? -->
+            {{
               $t("admin.modules.delete_confirm", [
-                deleteModuleDialog.target.title, 
+                deleteModuleDialog.target.title,
               ])
-            }} <!-- not working? -->
+            }}
+            <!-- not working? -->
           </p>
         </v-card-text>
         <v-card-actions>
@@ -124,7 +129,10 @@
           />
           <v-btn
             color="primary"
-            @click="deleteModule(deleteModuleDialog.target)"
+            @click="
+              deleteModuleDialog.show = false;
+              deleteModule(deleteModuleDialog.target);
+            "
             v-html="$t('buttons.save')"
           />
         </v-card-actions>
@@ -142,8 +150,19 @@
           <span class="headline">{{ $t("admin.modules.new") }}</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field :label="$t('admin.modules.title')" />
-          <v-textarea :label="$t('admin.modules.description')" />
+          <v-form ref="newModuleForm">
+            <v-text-field
+                @change="$refs.newModuleForm.validate()"
+              :label="$t('admin.modules.title')"
+              v-model="newModuleDialog.target.name"
+              required
+            />
+            <v-textarea
+              :label="$t('admin.modules.description')"
+              v-model="newModuleDialog.target.description"
+              required
+            />
+          </v-form>
         </v-card-text>
         <v-card-actions>
           <v-btn
@@ -152,12 +171,17 @@
           />
           <v-btn
             color="primary"
-            @click="createModule()"
+            @click="
+              newModuleDialog.show = false;
+              createModule();
+            "
             v-html="$t('buttons.save')"
           />
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-btn @click="test()" />
   </div>
 </template>
 
@@ -166,9 +190,7 @@ import { onBeforeMount, Ref, ref } from "vue";
 import { Module } from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 
-
 const modules: Ref<Module[]> = ref([]);
-
 
 async function loadModules(): Promise<void> {
   modules.value = (await ModuleService.loadModules()).data.sort(
@@ -179,7 +201,6 @@ async function loadModules(): Promise<void> {
 onBeforeMount(async () => {
   await loadModules();
 });
-
 
 async function createModule() {
   await ModuleService.addModule(newModuleDialog.value.target);
@@ -193,9 +214,8 @@ function editModule(module: Module) {
 }
 
 async function deleteModule(module: Module) {
-  ModuleService.delModule(module).then(async () => loadModules());
+  ModuleService.delModule(module.id).then(async () => loadModules());
 }
-
 
 const newModuleDialog = ref({
   show: false,
@@ -212,21 +232,19 @@ const deleteModuleDialog = ref({
   target: null,
 });
 
-
 function getModuleTemplate() {
   return {
     id: nextModuleId(),
-    title: "",
+    name: "",
     description: "",
   };
 }
 
 function nextModuleId() {
-  return (
-    modules.value
-      .map((u) => u.id)
-      .sort()
-      .pop() + 1
-  );
+  return modules.value.map((u) => u.module_id).pop() + 1;
+}
+
+function test(): void {
+  console.log(modules.value.map((u) => u.module_id).pop() + 1);
 }
 </script>

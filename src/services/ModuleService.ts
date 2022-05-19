@@ -20,27 +20,12 @@ class ModuleService {
         return API.delete(`modules/${module.id}`);
     }
 
-
     editModule(module: Module): Promise<any> {
-        return API.put(`modules/`, {
-                module: {
-                    id: module.id,
-                    name: module.name,
-                    description: module.description
-                }
-            }
-        );
+        return API.put(`modules/`, module);
     }
 
     addModule(module: Module): Promise<any> {
-        return API.post(`modules/`, {
-                module: {
-                    id: module.id,
-                    name: module.name,
-                    description: module.description
-                }
-            }
-        );
+        return API.post(`modules/`, module);
     }
 }
 
