@@ -13,9 +13,9 @@
         <tbody>
           <tr v-for="module in modules" v-bind:key="module.id">
             <td>{{ module.name }}</td>
-            <td v-if="module.description">{{ module.description }}</td>
-            <td v-else style="opacity: 70%">
-              {{ $t("admin.modules.no_description") }}
+            <td class="td-desc" v-if="module.description"><p class="desc">{{ module.description }}</p></td>
+            <td class="td-desc" v-else style="opacity: 70%">
+              <p class="desc">{{ $t("admin.modules.no_description") }}</p>
             </td>
             <td>
               <v-btn
@@ -246,3 +246,10 @@ function nextModuleId() {
   );
 }
 </script>
+
+<style scoped>
+.desc {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+</style>
