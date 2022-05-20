@@ -28,7 +28,7 @@ class ExerciseService{
     }
 
     editExercise(exercise : Exercise) : Promise<any>{
-        return API.put(`exercises/${exercise.exercise_id}`, exercise);
+        return API.put(`exercises/`, exercise);
     }
 
     addExercise(exercise : Exercise) : Promise<any> {
