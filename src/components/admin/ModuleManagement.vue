@@ -113,13 +113,11 @@
         </v-card-title>
         <v-card-text>
           <p>
-            <!-- not working? -->
             {{
               $t("admin.modules.delete_confirm", [
                 deleteModuleDialog.target.name,
               ])
             }}
-            <!-- not working? -->
           </p>
         </v-card-text>
         <v-card-actions>
@@ -128,12 +126,12 @@
             v-html="$t('buttons.cancel')"
           />
           <v-btn
-            color="primary"
+            color="error"
             @click="
               deleteModuleDialog.show = false;
               deleteModule(deleteModuleDialog.target);
             "
-            v-html="$t('buttons.save')"
+            v-html="$t('buttons.delete')"
           />
         </v-card-actions>
       </v-card>
