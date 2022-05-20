@@ -99,6 +99,7 @@ const translationEn = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Exercises',
         usermanagement_view: 'Users',
+        modulemanagement_view: 'Modules',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',

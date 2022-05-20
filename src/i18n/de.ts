@@ -1,5 +1,3 @@
-import ModuleService from "@/services/ModuleService"
-
 const translationDe = {
     app: {
         name: 'ATLAS',
@@ -121,6 +119,7 @@ const translationDe = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Aufgaben',
         usermanagement_view: 'Benutzer',
+        modulemanagement_view: 'Module',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',

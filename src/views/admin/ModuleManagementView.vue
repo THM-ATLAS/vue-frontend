@@ -23,5 +23,5 @@
 import ModuleManagement from "@/components/admin/ModuleManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
 import {useI18n} from "vue-i18n";
-document.title = useI18n().t('titles.exercisemanagement_view');
+document.title = useI18n().t('titles.modulemanagement_view');
 </script>
