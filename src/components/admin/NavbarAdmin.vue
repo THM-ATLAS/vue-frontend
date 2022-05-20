@@ -21,7 +21,7 @@
       />
       <v-list-item
           prepend-icon="mdi-file-tree"
-          :title="$t('admin.navbar.manage_course')"
+          :title="$t('admin.navbar.manage_module')"
           @click="goToModule"
       />
     </v-list>

@@ -191,7 +191,7 @@ const translationEn = {
             title: 'Admin Panel',
             manage_user: 'Manage users',
             manage_task: 'Manage tasks',
-            manage_course: 'Manage courses',
+            manage_module: 'Manage modules',
             back: 'Back to homepage'
         }
     },

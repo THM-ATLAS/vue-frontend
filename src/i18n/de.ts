@@ -193,7 +193,7 @@ const translationDe = {
             title: 'Administration',
             manage_user: 'Benutzer verwalten',
             manage_task: 'Aufgaben verwalten',
-            manage_course: 'Kurse verwalten',
+            manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
         }
     },
