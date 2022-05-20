@@ -152,7 +152,7 @@
         <v-card-text>
           <v-form ref="newModuleForm">
             <v-text-field
-                @change="$refs.newModuleForm.validate()"
+              @change="$refs.newModuleForm.validate()"
               :label="$t('admin.modules.title')"
               v-model="newModuleDialog.target.name"
               required
@@ -180,6 +180,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-btn @click="test()" />
   </div>
 </template>
 
@@ -212,7 +213,7 @@ function editModule(module: Module) {
 }
 
 async function deleteModule(module: Module) {
-    console.log(module);
+  console.log(module);
   ModuleService.delModule(module).then(async () => loadModules());
 }
 
@@ -240,6 +241,16 @@ function getModuleTemplate() {
 }
 
 function nextModuleId() {
-  return modules.value.map((u) => u.module_id).pop() + 1;
+  return (
+    modules.value
+      .map((u) => u.module_id)
+      .sort((a, b) => a - b)
+      .pop() + 1
+  );
+}
+
+function test(): void {
+  console.log(modules.value);
+  console.log(nextModuleId());
 }
 </script>
