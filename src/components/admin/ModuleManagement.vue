@@ -180,7 +180,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-btn @click="test()" />
   </div>
 </template>
 
@@ -247,10 +246,5 @@ function nextModuleId() {
       .sort((a, b) => a - b)
       .pop() + 1
   );
-}
-
-function test(): void {
-  console.log(modules.value);
-  console.log(nextModuleId());
 }
 </script>
