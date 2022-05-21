@@ -1,16 +1,18 @@
 <template>
   <v-card style="margin-top: 10%;">
     <v-card color="highlight">
-      <v-row align:start align-content:start>
-        <!-- <v-col >
-          <v-img :src=course.courseThumbnail style="height: 16rem; width: 22rem"></v-img>
-        </v-col> -->
-        <v-col>
-          <h1>{{ module.name }}</h1>
-          <!--<p>{{course.courseDescription}}</p> -->
-        </v-col>
-
-      </v-row>
+      <div class="mx-2 my-2">
+        <div class="pt-0 pl-0">
+          <v-btn
+              @click="goBack"
+              icon="mdi-menu-left"
+              class="ma-2"
+              variant="outlined"/>
+        </div>
+        <div>
+          <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{ props.module.name }}</v-card-title>
+        </div>
+      </div>
     </v-card>
 
     <v-container>
@@ -33,7 +35,9 @@
 <script setup>
 import MainpageCardModal from "@/components/MainpageCardModal";
 import {defineProps, watch} from "vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const props = defineProps({
   module: Object,
   exercises: Object,
@@ -42,7 +46,9 @@ const props = defineProps({
 watch(() => {
   document.title = props.module.name;
 })
-
+function goBack() {
+  router.back()
+}
 
 </script>
 

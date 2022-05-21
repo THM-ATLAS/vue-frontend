@@ -119,6 +119,7 @@ const translationDe = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Aufgaben',
         usermanagement_view: 'Benutzer',
+        modulemanagement_view: 'Module',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',
@@ -178,11 +179,21 @@ const translationDe = {
                 required: 'Dieses Feld ist erforderlich.',
             }
         },
+        modules: {
+            title: 'Modul',
+            description: 'Beschreibung',
+            no_description: 'Keine Beschreibung',
+            actions: 'Aktionen',
+            new: 'Modul erstellen',
+            edit: 'Modul bearbeiten',
+            delete: 'Modul löschen',
+            delete_confirm: 'Modul "{0}" wirklich löschen?',
+        },
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer verwalten',
             manage_task: 'Aufgaben verwalten',
-            manage_course: 'Kurse verwalten',
+            manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
         }
     },
@@ -192,6 +203,8 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+        confirmLeave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
+        confirmDelete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
