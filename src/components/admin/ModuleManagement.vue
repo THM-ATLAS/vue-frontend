@@ -4,21 +4,23 @@
       <!-- main table -->
       <v-table>
         <thead>
-          <tr>
-            <th>{{ $t("admin.modules.title") }}</th>
-            <th>{{ $t("admin.modules.description") }}</th>
-            <th>{{ $t("admin.modules.actions") }}</th>
-          </tr>
+        <tr>
+          <th>{{ $t("admin.modules.title") }}</th>
+          <th>{{ $t("admin.modules.description") }}</th>
+          <th>{{ $t("admin.modules.actions") }}</th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="module in modules" v-bind:key="module.id">
-            <td>{{ module.name }}</td>
-            <td class="td-desc" v-if="module.description"><p class="desc">{{ module.description }}</p></td>
-            <td class="td-desc" v-else style="opacity: 70%">
-              <p class="desc">{{ $t("admin.modules.no_description") }}</p>
-            </td>
-            <td>
-              <v-btn
+        <tr v-for="module in modules" v-bind:key="module.id">
+          <td>{{ module.name }}</td>
+          <td class="td-desc" v-if="module.description && display.width.value < 500"><p class="desc">
+            {{ module.description.substring(0, 48) }}...</p></td>
+          <td class="td-desc" v-else-if="module.description"><p class="desc">{{ module.description }}</p></td>
+          <td class="td-desc" v-else style="opacity: 70%">
+            <p class="desc">{{ $t("admin.modules.no_description") }}</p>
+          </td>
+          <td>
+            <v-btn
                 @click="
                   editModuleDialog.show = true;
                   editModuleDialog.target = module;
@@ -30,8 +32,8 @@
                 class="mr-2"
                 rounded="0"
                 variant="outlined"
-              />
-              <v-btn
+            />
+            <v-btn
                 @click="
                   deleteModuleDialog.show = true;
                   deleteModuleDialog.target = module;
@@ -43,32 +45,32 @@
                 class="mr-2"
                 rounded="0"
                 variant="outlined"
-              />
-            </td>
-          </tr>
+            />
+          </td>
+        </tr>
         </tbody>
       </v-table>
 
       <!-- new module button -->
       <div>
         <v-btn
-          @click="newModuleDialog.show = true"
-          icon="mdi-file-plus"
-          small
-          elevation="0"
-          color="primary"
-          class="mr-2"
-          rounded="0"
-          variant="outlined"
+            @click="newModuleDialog.show = true"
+            icon="mdi-file-plus"
+            small
+            elevation="0"
+            color="primary"
+            class="mr-2"
+            rounded="0"
+            variant="outlined"
         />
       </div>
     </v-card>
 
     <!-- edit module dialog -->
     <v-dialog
-      v-model="editModuleDialog.show"
-      :scrollable="true"
-      :retain-focus="false"
+        v-model="editModuleDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
@@ -76,26 +78,26 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
-            v-model="editModuleDialog.target.name"
-            :label="$t('admin.modules.title')"
+              v-model="editModuleDialog.target.name"
+              :label="$t('admin.modules.title')"
           />
           <v-textarea
-            v-model="editModuleDialog.target.description"
-            :label="$t('admin.modules.description')"
+              v-model="editModuleDialog.target.description"
+              :label="$t('admin.modules.description')"
           />
         </v-card-text>
         <v-card-actions>
           <v-btn
-            @click="editModuleDialog.show = false"
-            v-html="$t('buttons.cancel')"
+              @click="editModuleDialog.show = false"
+              v-html="$t('buttons.cancel')"
           />
           <v-btn
-            color="primary"
-            @click="
+              color="primary"
+              @click="
               editModuleDialog.show = false;
               editModule(editModuleDialog.target);
             "
-            v-html="$t('buttons.save')"
+              v-html="$t('buttons.save')"
           />
         </v-card-actions>
       </v-card>
@@ -103,9 +105,9 @@
 
     <!-- delete module dialog -->
     <v-dialog
-      v-model="deleteModuleDialog.show"
-      :scrollable="true"
-      :retain-focus="false"
+        v-model="deleteModuleDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
@@ -122,16 +124,16 @@
         </v-card-text>
         <v-card-actions>
           <v-btn
-            @click="deleteModuleDialog.show = false"
-            v-html="$t('buttons.cancel')"
+              @click="deleteModuleDialog.show = false"
+              v-html="$t('buttons.cancel')"
           />
           <v-btn
-            color="error"
-            @click="
+              color="error"
+              @click="
               deleteModuleDialog.show = false;
               deleteModule(deleteModuleDialog.target);
             "
-            v-html="$t('buttons.delete')"
+              v-html="$t('buttons.delete')"
           />
         </v-card-actions>
       </v-card>
@@ -139,9 +141,9 @@
 
     <!-- new module dialog -->
     <v-dialog
-      v-model="newModuleDialog.show"
-      :scrollable="true"
-      :retain-focus="false"
+        v-model="newModuleDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
@@ -150,30 +152,30 @@
         <v-card-text>
           <v-form ref="newModuleForm">
             <v-text-field
-              @change="$refs.newModuleForm.validate()"
-              :label="$t('admin.modules.title')"
-              v-model="newModuleDialog.target.name"
-              required
+                @change="$refs.newModuleForm.validate()"
+                :label="$t('admin.modules.title')"
+                v-model="newModuleDialog.target.name"
+                required
             />
             <v-textarea
-              :label="$t('admin.modules.description')"
-              v-model="newModuleDialog.target.description"
-              required
+                :label="$t('admin.modules.description')"
+                v-model="newModuleDialog.target.description"
+                required
             />
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-btn
-            @click="newModuleDialog.show = false"
-            v-html="$t('buttons.cancel')"
+              @click="newModuleDialog.show = false"
+              v-html="$t('buttons.cancel')"
           />
           <v-btn
-            color="primary"
-            @click="
+              color="primary"
+              @click="
               newModuleDialog.show = false;
               createModule();
             "
-            v-html="$t('buttons.save')"
+              v-html="$t('buttons.save')"
           />
         </v-card-actions>
       </v-card>
@@ -182,15 +184,17 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, Ref, ref } from "vue";
-import { Module } from "@/helpers/types";
+import {onBeforeMount, Ref, ref} from "vue";
+import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
+import {useDisplay} from "vuetify";
 
+const display = useDisplay();
 const modules: Ref<Module[]> = ref([]);
 
 async function loadModules(): Promise<void> {
   modules.value = (await ModuleService.loadModules()).data.sort(
-    (a: Module, b: Module) => a.module_id - b.module_id
+      (a: Module, b: Module) => a.module_id - b.module_id
   );
 }
 
@@ -239,10 +243,10 @@ function getModuleTemplate() {
 
 function nextModuleId() {
   return (
-    modules.value
-      .map((u) => u.module_id)
-      .sort((a, b) => a - b)
-      .pop() + 1
+      modules.value
+          .map((u) => u.module_id)
+          .sort((a, b) => a - b)
+          .pop() + 1
   );
 }
 </script>
