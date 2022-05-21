@@ -77,13 +77,13 @@
           {{ viewExerciseDialog.target.title }}
         </v-card-title>
         <v-card-text>
-          <v-container>
-            <span v-if="viewExerciseDialog.target.description">{{ viewExerciseDialog.target.description }}</span>
-          </v-container>
+          <span v-if="viewExerciseDialog.target.description" v-html="viewExerciseDialog.target.description"/>
+        </v-card-text>
+        <v-container class="my">
           <MarkdownModal
               :model-value="viewExerciseDialog.target.content"
           />
-        </v-card-text>
+        </v-container>
       </v-card>
     </v-dialog>
 

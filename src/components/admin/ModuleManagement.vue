@@ -233,21 +233,12 @@ const deleteModuleDialog = ref({
   target: null,
 });
 
-function getModuleTemplate() {
+function getModuleTemplate(): Module {
   return {
-    id: nextModuleId(),
+    module_id: 0,
     name: "",
     description: "",
   };
-}
-
-function nextModuleId() {
-  return (
-      modules.value
-          .map((u) => u.module_id)
-          .sort((a, b) => a - b)
-          .pop() + 1
-  );
 }
 </script>
 
