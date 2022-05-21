@@ -168,7 +168,7 @@ const translationEn = {
             delete: 'Delete task',
             delete_confirm: 'Delete task {0}?',
             title: 'Title',
-            course: 'Course',
+            module: 'Module',
             description: 'Description',
             no_description: 'No description provided',
             created_at: 'Created at',

@@ -13,7 +13,7 @@ export type UserRole = {
 
 export type Exercise = {
     exercise_id : number,
-    module: Module,
+    course: Module,
     title : string,
     content : string,
     description: string,

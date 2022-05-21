@@ -49,7 +49,7 @@ function goToUser(): void {
 }
 
 function goToTask(): void {
-  router.push("/admin/tasks");
+  router.push("/admin/exercises");
 }
 
 function goToModule(): void {

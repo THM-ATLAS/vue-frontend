@@ -15,23 +15,26 @@ class ExerciseService{
             .catch(function (error) {
             })
     }*/
-    getExercisesForModule(moduleId : number) : Promise<any> {
+    getExercisesForModule(moduleId: number) : Promise<any> {
         return API.get(`exercises/module/${moduleId}`);
     }
 
-    getExercise(exerciseId : number) : Promise<any> {
+    getExercise(exerciseId: number) : Promise<any> {
         return API.get(`exercises/${exerciseId}`);
     }
+    getExercises(): Promise<any> {
+        return API.get(`exercises/`);
+    }
 
-    delExercise(exerciseId : number) : Promise<any>{
+    delExercise(exerciseId: number): Promise<any> {
         return API.delete(`exercises/${exerciseId}`);
     }
 
-    editExercise(exercise : Exercise) : Promise<any>{
+    editExercise(exercise: Exercise): Promise<any> {
         return API.put(`exercises/`, exercise);
     }
 
-    addExercise(exercise : Exercise) : Promise<any> {
+    addExercise(exercise: Exercise): Promise<any> {
         return API.post(`exercises/`, exercise);
     }
 }

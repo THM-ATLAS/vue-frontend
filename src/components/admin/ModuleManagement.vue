@@ -193,7 +193,7 @@ const display = useDisplay();
 const modules: Ref<Module[]> = ref([]);
 
 async function loadModules(): Promise<void> {
-  modules.value = (await ModuleService.loadModules()).data.sort(
+  modules.value = (await ModuleService.getModules()).data.sort(
       (a: Module, b: Module) => a.module_id - b.module_id
   );
 }
@@ -233,21 +233,12 @@ const deleteModuleDialog = ref({
   target: null,
 });
 
-function getModuleTemplate() {
+function getModuleTemplate(): Module {
   return {
-    id: nextModuleId(),
+    module_id: 0,
     name: "",
     description: "",
   };
-}
-
-function nextModuleId() {
-  return (
-      modules.value
-          .map((u) => u.module_id)
-          .sort((a, b) => a - b)
-          .pop() + 1
-  );
 }
 </script>
 

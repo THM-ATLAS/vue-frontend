@@ -170,7 +170,7 @@ const translationDe = {
             delete: 'Aufgabe löschen',
             delete_confirm: 'Aufgabe "{0}" wirklich löschen?',
             title: 'Titel',
-            course: 'Kurs',
+            module: 'Modul',
             description: 'Beschreibung',
             no_description: 'Keine Beschreibung',
             created_at: 'Erstellt am',
