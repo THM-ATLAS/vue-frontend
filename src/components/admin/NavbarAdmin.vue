@@ -53,7 +53,7 @@ function goToTask(): void {
 }
 
 function goToModule(): void {
-  router.push("/admin/courses");
+  router.push("/admin/modules");
 }
 
 function goToHome(): void {
