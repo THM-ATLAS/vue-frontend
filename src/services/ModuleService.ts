@@ -17,28 +17,15 @@ class ModuleService {
     }
 
     delModule(module: Module): Promise<any> {
-        return API.delete(`modules/${module.id}`);
+        return API.delete(`modules/${module.module_id}`);
     }
 
-
     editModule(module: Module): Promise<any> {
-        return API.put(`modules/`, {
-                module: {
-                    id: module.id,
-                    name: module.name
-                }
-            }
-        );
+        return API.put(`modules/`, module);
     }
 
     addModule(module: Module): Promise<any> {
-        return API.post(`modules/`, {
-                module: {
-                    id: module.id,
-                    name: module.name
-                }
-            }
-        );
+        return API.post(`modules/`, module);
     }
 }
 

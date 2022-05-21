@@ -99,6 +99,7 @@ const translationEn = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Exercises',
         usermanagement_view: 'Users',
+        modulemanagement_view: 'Modules',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',
@@ -176,11 +177,21 @@ const translationEn = {
                 required: 'This field is required.',
             }
         },
+        modules: {
+            title: 'Module',
+            description: 'Description',
+            no_description: 'No description provided',
+            actions: 'Actions',
+            new: 'New module',
+            edit: 'Edit module',
+            delete: 'Delete module',
+            delete_confirm: 'Delete module "{0}"?',
+        },
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
             manage_task: 'Manage tasks',
-            manage_course: 'Manage courses',
+            manage_module: 'Manage modules',
             back: 'Back to homepage'
         }
     },

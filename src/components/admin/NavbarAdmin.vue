@@ -21,9 +21,8 @@
       />
       <v-list-item
           prepend-icon="mdi-file-tree"
-          :title="$t('admin.navbar.manage_course')"
-          @click="goToCourse"
-          disabled
+          :title="$t('admin.navbar.manage_module')"
+          @click="goToModule"
       />
     </v-list>
     <v-list density="compact" nav>
@@ -53,8 +52,8 @@ function goToTask(): void {
   router.push("/admin/tasks");
 }
 
-function goToCourse(): void {
-  router.push("/admin/courses");
+function goToModule(): void {
+  router.push("/admin/modules");
 }
 
 function goToHome(): void {
