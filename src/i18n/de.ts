@@ -203,6 +203,8 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+        confirmLeave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
+        confirmDelete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',

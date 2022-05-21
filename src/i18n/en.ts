@@ -201,6 +201,8 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+        confirmLeave: 'Do you really want to leave? Unsaved changes will be lost!',
+        confirmDelete: 'Do you really want to delete this exercise? This action can not be undone!'
     },
     error: {
         unauthorized: 'Unauthorized.',
