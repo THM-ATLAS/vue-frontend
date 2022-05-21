@@ -7,6 +7,7 @@ import './main.scss'
 import translationDe from './i18n/de'
 import translationEn from './i18n/en'
 import vuetify from './plugins/vuetify'
+import { store, key } from './store/store'
 
 loadFonts()
 
@@ -22,4 +23,5 @@ const i18n = createI18n({
 createApp(App).use(router)
     .use(vuetify)
     .use(i18n)
+    .use(store, key)
     .mount('#app')
