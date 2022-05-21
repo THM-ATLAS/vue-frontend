@@ -222,6 +222,7 @@
 import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 
+import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import ModuleService from "@/services/ModuleService";
 // import UserService from "@/services/UserService";
@@ -246,6 +247,7 @@ onBeforeMount(async () => {
   newExerciseDialog.value.target = getExerciseTemplate();
   exercises.value = (await ExerciseService.getExercises()).data;
 })
+// console.log(exercises.value);
 const i18n = useI18n();
 
 const rules = {
@@ -290,6 +292,7 @@ const deleteExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = re
 });
 
 async function createExercise() {
+  // Exercises.value.push(newExerciseDialog.value.target);
   console.log(newExerciseDialog.value.target);
   await ExerciseService.addExercise(newExerciseDialog.value.target);
   await loadExercises();
@@ -304,9 +307,18 @@ async function createExercise() {
 
 function editExercise(exercise: Exercise) {
   ExerciseService.editExercise(exercise).then(() => loadExercises());
+  // tasks.value.forEach(t => {
+  //   if (t.id === task.id) {
+  //     t.course = task.course;
+  //     t.title = task.title;
+  //     t.description = task.description;
+  //     t.content = task.content;
+  //   }
+  // });
 }
 
 function deleteExercise(exercise: Exercise) {
+  // tasks.value = tasks.value.filter(u => u.id !== task.id);
   ExerciseService.delExercise(exercise.exercise_id).then(async () =>
       loadExercises()
   );
