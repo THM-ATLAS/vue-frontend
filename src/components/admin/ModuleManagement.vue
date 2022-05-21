@@ -193,7 +193,7 @@ const display = useDisplay();
 const modules: Ref<Module[]> = ref([]);
 
 async function loadModules(): Promise<void> {
-  modules.value = (await ModuleService.loadModules()).data.sort(
+  modules.value = (await ModuleService.getModules()).data.sort(
       (a: Module, b: Module) => a.module_id - b.module_id
   );
 }
