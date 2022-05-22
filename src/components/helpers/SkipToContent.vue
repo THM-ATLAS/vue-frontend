@@ -14,13 +14,13 @@ defineProps({
 });
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .skipLink {
-  color: rgb(var(--v-theme-surface));
+  color:white;
   height: 30px;
   text-decoration: none;
   padding: 10px;
-  background: rgb(var(--v-theme-skipLink));
+  background: #4a5c66;
   z-index: 1000 !important;
   transform: translateY(-100%);
   transition: transform 0.3s;
