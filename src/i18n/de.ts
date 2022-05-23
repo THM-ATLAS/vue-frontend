@@ -110,6 +110,7 @@ const translationDe = {
         logout: 'Abmelden',
         register: 'Registrieren',
         new: 'Neu',
+        stay: 'Bleiben',
     },
     titles: {
         home_view: 'ATLAS',
@@ -203,8 +204,9 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
-        confirmLeave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
-        confirmDelete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+        confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
+        confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
+        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',

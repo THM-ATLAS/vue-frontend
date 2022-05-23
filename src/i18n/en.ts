@@ -124,6 +124,7 @@ const translationEn = {
         logout: 'Logout',
         register: 'Register',
         new: 'New',
+        stay: 'Stay',
     },
     languages: {
         en: 'English',
@@ -201,8 +202,9 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
-        confirmLeave: 'Do you really want to leave? Unsaved changes will be lost!',
-        confirmDelete: 'Do you really want to delete this exercise? This action can not be undone!'
+        confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
+        confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
+        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
     },
     error: {
         unauthorized: 'Unauthorized.',
