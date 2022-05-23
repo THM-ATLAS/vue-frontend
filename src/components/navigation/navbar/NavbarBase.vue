@@ -4,9 +4,9 @@
     <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
       <a @click="goToHome()">
         <v-img v-if="theme === 'light'" @keyup.enter.prevent.stop="goToHome"
-               src="@/assets/ATLAS_Logo.svg" height="70px"/>
+               src="@/assets/ATLAS_Logo.svg" height="70px" alt="ATLAS Logo"/>
         <v-img v-else @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
-               height="70px"/>
+               height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
     <CourseButton/>
