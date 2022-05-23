@@ -1,7 +1,7 @@
 
 import API from "@/services/API";
 
-import {User, Exercise} from "@/helpers/types";
+import {User, Exercise, PostExercise} from "@/helpers/types";
 
 // @ts-ignore
 
@@ -34,7 +34,7 @@ class ExerciseService{
         return API.put(`exercises/`, exercise);
     }
 
-    addExercise(exercise: Exercise): Promise<any> {
+    addExercise(exercise: PostExercise): Promise<any> {
         return API.post(`exercises/`, exercise);
     }
 }

@@ -13,7 +13,7 @@
         <tbody>
         <tr v-for="exercise in exercises" v-bind:key="exercise.id">
           <td>{{ exercise.title }}</td>
-          <td>{{ exercise.course.name }}</td>
+          <td>{{ exercise.module.name }}</td>
           <td v-if="exercise.description">{{ exercise.description }}</td>
           <td v-else style="opacity: 70%">{{ $t('admin.tasks.no_description') }}</td>
           <td>
@@ -116,13 +116,12 @@
                 :counter="256"
                 required
             />
-            Currently broken, don't change the module
             <v-select
-                v-model="newExerciseDialog.target.course"
-                :hint="`${newExerciseDialog.target.course.name}`"
-                :items="modules"
-                item-title="name"
-                item-value="model_id"
+                v-model="newExerciseDialog.target.module_id"
+                :hint="`${modules.find(m => m.module_id === newExerciseDialog.target.module_id)?.name}`"
+                :items="modules.map(m => m.module_id)"
+                :item-title="m => `${modules.find(ms => m === ms.module_id)?.name || m}`"
+                item-value="module_id"
                 :label="$t('admin.tasks.module')"
                 persistent-hint
                 return-object
@@ -171,8 +170,8 @@
             />
             Currently broken, don't change the module
             <v-select
-                v-model="editExerciseDialog.target.course"
-                :hint="`${editExerciseDialog.target.course.name}`"
+                v-model="editExerciseDialog.target.module"
+                :hint="`${editExerciseDialog.target.module.name}`"
                 :items="modules"
                 item-title="name"
                 item-value="model_id"
@@ -226,10 +225,10 @@ import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import ModuleService from "@/services/ModuleService";
 // import UserService from "@/services/UserService";
-import {Exercise, Module} from "@/helpers/types";
+import {Exercise, Module, PostExercise} from "@/helpers/types";
 
-const exercises: Ref<Exercise[]> = ref([]);
-const modules: Ref<Module[]> = ref([]);
+const exercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
+const modules: Ref<Module[]> = ref([]) as Ref<Module[]>;
 
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
@@ -257,10 +256,10 @@ const rules = {
   password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
 
-function getExerciseTemplate(): Exercise {
+function getExerciseTemplate(): PostExercise {
   return {
     exercise_id: 0,
-    course: modules.value[0],
+    module_id: 0,
     title: '',
     content: '',
     description: '',
@@ -273,14 +272,14 @@ const editExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref(
   target: null,
 });
 
-const newExerciseDialog: Ref<{ show: boolean, target: Exercise }> = ref({
+const newExerciseDialog: Ref<{ show: boolean, target: PostExercise }> = ref({
   show: false,
   target: getExerciseTemplate(),
 });
 
 const viewExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
   show: false,
-  target: getExerciseTemplate(),
+  target: null,
 });
 
 const newExerciseFormValid = ref(false);
