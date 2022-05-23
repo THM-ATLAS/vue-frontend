@@ -1,58 +1,48 @@
 <template>
   <v-card elevation="0" rounded="0">
-    <div class="exercise-editor">
-      <div class="exercise-editor__body">
-        <div class="exercise-editor__body__content flex">
-          <v-row>
-            <v-col
-                sm="12" md="2" lg="2">
-              <v-text-field
-                  v-model="exercise.exercise_id"
-                  :label="$t('exercise.id')"
-                  required
-                  @input="store"
-                  disabled
-              />
-            </v-col>
-            <v-col
-                sm="12" md="10" lg="10">
-              <v-text-field
-                  v-model="exercise.title"
-                  :label="$t('exercise.title')"
-                  required
-                  @input="store"
-              />
-            </v-col>
-          </v-row>
-        </div>
-        <div class="exercise-editor__body__content">
-          <div class="exercise-editor__body__content__input">
-            <v-textarea
-                solo
-                rows="1"
-                :label="$t('exercise.description')"
-                v-model="exercise.description"
-                @input="store"
-            />
-          </div>
-        </div>
-        <div class="exercise-editor__body__content">
-          <div class="exercise-editor__body__content__input">
-            <MarkdownModal
-                :editor="true"
-                v-model="exercise.content"
-                @input="store"/>
-          </div>
-        </div>
-        <v-card-actions justify="space-between">
-          <div class="exercise-editor__header__actions">
-            <v-btn color="primary" @click="save" v-html="$t('buttons.save')"/>
-            <v-btn color="red" @click="del" v-html="$t('buttons.delete')"/>
-            <v-btn class="btn btn-danger" @click="cancel" v-html="$t('buttons.cancel')"/>
-          </div>
-        </v-card-actions>
-      </div>
+    <div class="flex">
+      <v-row>
+        <v-col
+            sm="12" md="2" lg="2">
+          <v-text-field
+              v-model="exercise.exercise_id"
+              :label="$t('exercise.id')"
+              required
+
+              disabled
+          />
+        </v-col>
+        <v-col
+            sm="12" md="10" lg="10">
+          <v-text-field
+              v-model="exercise.title"
+              :label="$t('exercise.title')"
+              required
+
+          />
+        </v-col>
+      </v-row>
     </div>
+    <div>
+      <v-textarea
+          solo
+          rows="1"
+          :label="$t('exercise.description')"
+          v-model="exercise.description"
+
+      />
+    </div>
+    <div>
+      <MarkdownModal
+          :editor="true"
+          v-model="exercise.content"
+      />
+    </div>
+    <v-card-actions justify="space-between">
+      <v-btn color="primary" @click="save" v-html="$t('buttons.save')"/>
+      <v-btn color="red" @click="del" v-html="$t('buttons.delete')"/>
+      <v-btn class="btn btn-danger" @click="cancel" v-html="$t('buttons.cancel')"/>
+    </v-card-actions>
   </v-card>
   <!--br/-->
 
@@ -152,7 +142,7 @@
         <v-text-field
             v-model="item.title"
             label="Titel"
-            @input="store"
+
             variant="underlined"
             placeholder="Was soll abgegeben werden?"
             :rules="[value => !!value || 'Bitte Titel eingeben']"
@@ -162,7 +152,7 @@
             label="Beschreibung"
             placeholder="Optional"
             variant="underlined"
-            @input="store"
+
         />
         <v-text-field
             v-if="item.type === 'code'"
@@ -171,7 +161,7 @@
             placeholder="processing, java, c++, c#, python, etc."
             variant="underlined"
             :rules="[value => !!value || 'Bitte Sprache eingeben']"
-            @input="store"
+
         />
         <v-combobox
             v-if="item.type === 'file'"
@@ -235,45 +225,101 @@
 </template>
 
 <script setup>
-import {onBeforeMount, ref /*, onMounted, onUnmounted */} from "vue";
-// import MainpageCardModal from "../MainpageCardModal.vue";
-import {useRouter, useRoute} from "vue-router";
+import {onBeforeMount, onBeforeUnmount, ref} from "vue";
+import {useRouter, useRoute, onBeforeRouteLeave} from "vue-router";
+import {useI18n} from "vue-i18n";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal";
 import ExerciseService from "@/services/ExerciseService";
 
 const route = useRoute();
 const router = useRouter();
+const i18n = useI18n();
 
-/*
-function keyDownListener(e) {
-  if (e.keyCode === 16) {
-    this.isShiftPressed = true;
-  }
-}
-
-function keyUpListener(e) {
-  if (e.keyCode === 16) {
-    this.isShiftPressed = false;
-  }
-}
-
-onMounted(() => {
-  document.addEventListener("keydown", this.keyDownListener);
-  document.addEventListener("keyup", this.keyUpListener);
-})
-
-
-onUnmounted(() => {
-  document.removeEventListener("keydown", this.keyDownListener);
-  document.removeEventListener("keyup", this.keyUpListener);
-})
-*/
-
-const module = route.params.module;
+//const module = route.params.module;
 const id = route.params.id;
-const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
+//const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
 
+const exercise = ref({});
+let wasSave;
+let wasDelete;
+
+/*const store = () => {
+  localStorage.setItem(localStoragePath, JSON.stringify(exercise.value));
+};*/
+
+onBeforeMount(async () => {
+  /*if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
+    exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
+  } else { // get exercise from API*/
+  await ExerciseService.getExercise(id).then(response => {
+    exercise.value = response.data
+  })
+  wasSave = false;
+  wasDelete = false;
+  window.addEventListener('beforeunload', beforeWindowUnload)
+  //}
+  //store();
+})
+
+const save = async () => {
+  await ExerciseService.editExercise(exercise.value).then(response => {
+    console.log(response.data)
+  }).catch(error => {
+    console.log(error.message)
+  })
+  //localStorage.removeItem(localStoragePath);
+  wasSave = true;
+  router.back();
+};
+
+const del = async () => {
+  if (confirmDelete()) {
+    await ExerciseService.delExercise(id).then(response => {
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error.message)
+    })
+    //localStorage.removeItem(localStoragePath);
+    wasDelete = true;
+    router.go(-2);
+  }
+};
+
+const cancel = () => {
+  router.back();
+};
+
+onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload', beforeWindowUnload)
+})
+
+
+const confirmLeave = () => {
+  return window.confirm(i18n.t("exercise.confirmLeave"))
+}
+
+const confirmDelete = () => {
+  return window.confirm(i18n.t("exercise.confirmDelete"))
+}
+
+
+const beforeWindowUnload = (e) => {
+  if (!wasSave && confirmLeave()) {
+    // Cancel the event
+    e.preventDefault()
+    // Chrome requires returnValue to be set
+    e.returnValue = ''
+  }
+}
+
+onBeforeRouteLeave((to, from, next) => {
+  if (wasSave || wasDelete || confirmLeave()) {
+    next()
+  } else {
+    next(false)
+  }
+})
 /*
 const submissionTypes = [
   {id: "single-line", name: "Einzeiliger Text"},
@@ -291,48 +337,8 @@ const fileExtensions = [
   "image/gif",
   "text/plain",
 ]
-*/
-const exercise = ref({});
 
-const store = () => {
-  localStorage.setItem(localStoragePath, JSON.stringify(exercise.value));
-};
 
-onBeforeMount(async () => {
-  if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
-    exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
-  } else { // get exercise from API
-    await ExerciseService.getExercise(id).then(response => {
-      exercise.value = response.data
-    })
-  }
-
-  store();
-})
-
-const save = () => {
-  console.log(exercise);
-  // store stuff
-  //ExerciseService.editExercise
-  localStorage.removeItem(localStoragePath);
-  router.back();
-};
-
-const del = async () => {
-  await ExerciseService.delExercise(id).then(response => {
-    console.log(response.data)
-  }). catch(error => {
-    console.log(error.message)
-  })
-  localStorage.removeItem(localStoragePath);
-  router.back();
-};
-
-const cancel = () => {
-  router.back();
-};
-
-/*
 const addItem = (type) => {
   const item = {
     id: exercise.value.items.length + 1,
@@ -350,35 +356,7 @@ const addItem = (type) => {
   exercise.value.items.push(item);
   updateItemIds();
 };
-
-const deleteItem = (index, event) => { // hold shift to delete without confirmation
-  if (!event.shiftKey && !confirm("Möchtest du dieses Element löschen? Dies kann nicht rückgängig gemacht werden.\n(Halte beim Löschen Shift gedrückt, um diese Meldung zu umgehen.)")) return;
-  exercise.value.items.splice(index, 1);
-  updateItemIds();
-};
-
-const moveItem = (index, newIndex) => {
-  if (newIndex < 0 || newIndex > exercise.value.items.length - 1) return;
-  const item = exercise.value.items.splice(index, 1)[0];
-  exercise.value.items.splice(newIndex, 0, item);
-  updateItemIds();
-};
-
-const duplicateItem = (index) => {
-  const item = exercise.value.items[index];
-  const newItem = {...item};
-  exercise.value.items.splice(index + 1, 0, newItem);
-  updateItemIds();
-};
-
-const updateItemIds = () => {
-  exercise.value.items.forEach((item, index) => {
-    item.id = index + 1;
-  });
-  store();
-};
 */
-
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
