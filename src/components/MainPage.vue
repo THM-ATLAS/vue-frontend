@@ -6,7 +6,7 @@
     <v-row class="justify-center mainpage-row">
       <v-col
           v-for="exercise in exercises"
-          v-bind:key="exercise.id"
+          v-bind:key="exercise.exercise_id"
           class="mainpage-col"
           sm="6" md="4" lg="4"
       >
@@ -25,12 +25,8 @@ import {useRoute} from "vue-router";
 import {onBeforeMount, reactive} from "vue";
 import ExerciseService from "@/services/ExerciseService"
 import ModuleService from "@/services/ModuleService"
-import {useI18n} from "vue-i18n";
-
-const exercise = useI18n().t('main_page.exercise');
 
 const route = useRoute();
-
 const module = reactive({
   id: -1,
   moduleName: 'Loading'
@@ -38,23 +34,16 @@ const module = reactive({
 const exercises = reactive ([])
 
 onBeforeMount(async () => {
-  //Currently, whenever a exerciseID does not exist in the database we get a problem
-  //and their ids have more holes than swiss cheese
-  const array = [2,3,5,6]
-  for (const i of array) {
-    let apiExercise = (await ExerciseService.getExercise(i)).data
-    let newEntry = {
-      id: apiExercise.exercise_id,
-      title: apiExercise.title,
-      content: apiExercise.content,
-      exercisePublic: apiExercise.exercisePublic
-    }
-    exercises.push(newEntry)
-  }
-  let apiModule = (await ModuleService.getModule(route.params.module)).data
-  module.id = apiModule.module_id
-  module.moduleName = apiModule.name
-  //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
+
+  let apiModule = (await ModuleService.getModule(route.params.course)).data
+  module.id = apiModule.module.module_id
+  module.moduleName = apiCourse.course.name
+  let apiExercise = (await ExerciseService.getExercisesForModule(course.id)).data
+  apiExercise.forEach((entry : any) => {
+    exercises.push(entry)
+  })
+
+  //await router.replace(`/${encodeURIComponent(course.moduleName)}`)
 })
 
 </script>

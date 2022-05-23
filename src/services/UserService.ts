@@ -1,45 +1,33 @@
-
 import API from "@/services/API";
-import {User} from "@/helpers/types"
+import {User, UserRole} from "@/helpers/types"
 
 class UserService {
 
     //TODO: Return / check response codes
-    getUser(id : number) : Promise<any>{
+    getUser(id: number): Promise<any> {
         return API.get(`users/${id}`);
     }
 
-    delUser(user:User) : Promise<any>{
-        return API.delete(`users/${user.id}`);
+    getUsers(): Promise<any> {
+        return API.get(`users/`);
     }
 
-    editUser(user:User) : Promise<any>{
-        return API.put(`users/`,{
-                user : {
-                    user_id : user.id,
-                    firstName : user.firstName,
-                    lastName : user.lastName,
-                    email : user.email,
-                    password : user.password,
-                    roles : user.roles
-                }
-            }
-        );
+    delUser(user: User): Promise<any> {
+        return API.delete(`users/${user.user_id}`);
     }
 
-    addUser(user:User) : Promise<any>{
-        return API.post(`users/`,{
-                user : {
-                    user_id : user.id,
-                    firstName : user.firstName,
-                    lastName : user.lastName,
-                    email : user.email,
-                    password : user.password,
-                    roles : user.roles,
-                    settings : user.settings
-                }
-            }
-        );
+    editUser(user: User): Promise<any> {
+        return API.put(`users/`, user);
     }
+
+    addUser(user: User): Promise<any> {
+        return API.post(`users/`, user);
+    }
+
+    getRoles(): Promise<UserRole[]> {
+        return API.get(`roles/`);
+    }
+
 }
- export default new UserService();
+
+export default new UserService();

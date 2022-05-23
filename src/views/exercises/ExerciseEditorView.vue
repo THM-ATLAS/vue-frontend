@@ -25,4 +25,7 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import ExerciseEditor from "@/components/exercises/ExerciseEditor.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
+import {useI18n} from "vue-i18n";
+
+useI18n().t('titles.exerciseeditor_view')
 </script>

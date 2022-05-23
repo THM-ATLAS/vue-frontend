@@ -2,10 +2,12 @@
   <SkipToContent />
   <v-app-bar id="header" elevation="3"  height="100px" role="navigation">
     <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
-      <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-             src="@/assets/ATLAS_Logo.svg" height="70px"/>
-      <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
-             height="70px"/>
+      <a @click="goToHome()">
+        <v-img v-if="theme === 'light'" @keyup.enter.prevent.stop="goToHome"
+               src="@/assets/ATLAS_Logo.svg" height="70px"/>
+        <v-img v-else @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
+               height="70px"/>
+      </a>
     </v-app-bar-title>
     <ModuleButton/>
     <v-spacer/>
@@ -108,6 +110,9 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
         <span> {{ $t('header.dropdown.help') }} </span>
       </v-list-item>
+      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+        <span>{{ $t('header.dropdown.admin') }}</span>
+      </v-list-item>
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
@@ -141,6 +146,10 @@ function goToHome(): void {
 
 function goToLogin(): void {
   router.push("/login");
+}
+
+function goToAdmin() {
+  router.push("/admin/");
 }
 
 /*function getMobile(): boolean {

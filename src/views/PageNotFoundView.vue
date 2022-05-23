@@ -25,4 +25,7 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import PageNotFound from "@/components/navigation/PageNotFound.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
+import {useI18n} from "vue-i18n";
+
+document.title = useI18n().t('titles.pagenotfound_view')
 </script>

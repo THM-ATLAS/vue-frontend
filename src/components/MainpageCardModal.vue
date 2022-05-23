@@ -8,13 +8,13 @@
         v-bind:style="{backgroundColor: exercise.color }"
         elevation="0"
         max-width="450"
-        :color="setColorCardModal()"
+        color="highlight"
         @keyup.enter.prevent.stop="goToExercise"
         @click.prevent.stop="goToExercise"
     >
       <v-card-header>
         <v-card-header-text>
-          <v-card-title class="justify-center" v-html="exercise.title"/>
+          <v-card-title class="justify-center" v-html="props.exercise.title"/>
         </v-card-header-text>
       </v-card-header>
       <!--v-img
@@ -53,7 +53,6 @@
 </template>
 
 <script lang='ts' setup>
-import { theme } from "@/helpers/theme";
 //import VueStarRating from "vue-star-rating";
 import {useRouter} from "vue-router";
 // import {ref, Ref} from "vue";
@@ -70,7 +69,7 @@ const router = useRouter();
 // let likex: Ref<boolean> = ref(props.exercise?.like);
 
 function goToExercise(): void {
-  if (props.noRedirect !== true) router.push("/" + props.module?.moduleName + "/e/" + props.exercise?.id);
+  if (!props.noRedirect) router.push("/" + props.module?.name  + "/e/" + props.exercise?.exercise_id);
 }
 
 /*
@@ -101,11 +100,6 @@ function getBody() {
   } else {
     return sanitise(props.exercise.content);
   }
-}
-
-function setColorCardModal() {
-  if (theme.value === "light") return "green"
-  else return "grey-darken-3"
 }
 
 </script>

@@ -1,21 +1,36 @@
 export type User = {
-    id : number,
-    firstName : string,
-    lastName : string,
+    user_id : number,
+    roles : UserRole[],
+    name : string,
+    username : string,
     email : string,
-    password : string,
-    settings : any,
-    roles : string[]
+}
+
+export type UserRole = {
+    role_id : number,
+    name : string
 }
 
 export type Exercise = {
-    id : number,
+    exercise_id : number,
+    module: Module,
     title : string,
     content : string,
+    description: string,
+    exercisePublic : boolean
+}
+
+export type PostExercise = {
+    exercise_id : number,
+    module_id: number,
+    title : string,
+    content : string,
+    description: string,
     exercisePublic : boolean
 }
 
 export type Module = {
-    id : number,
-    name : string
+    module_id : number,
+    name : string,
+    description: string
 }

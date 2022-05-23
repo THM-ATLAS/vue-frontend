@@ -1,52 +1,41 @@
 
 import API from "@/services/API";
 
-import {User, Exercise} from "@/helpers/types";
+import {User, Exercise, PostExercise} from "@/helpers/types";
 
 // @ts-ignore
 
 class ExerciseService{
     //TODO: Return / check response codes
 
- /*   loadExercises(user) {
-        API.get(`exercises/user/${user.id}`)
+ /*   loadTasks(user) {
+        API.get(`tasks/user/${user.id}`)
             .then(function (response) {
             })
             .catch(function (error) {
             })
     }*/
-
-
-    getExercise(id : number) : Promise<any> {
-        return API.get(`exercises/${id}`);
+    getExercisesForModule(moduleId: number) : Promise<any> {
+        return API.get(`exercises/module/${moduleId}`);
     }
 
-    delExercise(exerciseId : number) : Promise<any>{
+    getExercise(exerciseId: number) : Promise<any> {
+        return API.get(`exercises/${exerciseId}`);
+    }
+    getExercises(): Promise<any> {
+        return API.get(`exercises/`);
+    }
+
+    delExercise(exerciseId: number): Promise<any> {
         return API.delete(`exercises/${exerciseId}`);
     }
 
-    editExercise(exercise : Exercise, user : User) : Promise<any>{
-        return API.put(`exercises/${user.id}`,{
-                exercise : {
-                    exercise_id : exercise.id,
-                    title : exercise.title,
-                    content : exercise.content,
-                    exercisePublic : exercise.exercisePublic
-                }
-            }
-        );
+    editExercise(exercise: Exercise): Promise<any> {
+        return API.put(`exercises/`, exercise);
     }
 
-    addExercise(exercise : Exercise, user : User) : Promise<any> {
-        return API.post(`exercises/${user.id}`,{
-                exercise : {
-                    id : exercise.id,
-                    title : exercise.title,
-                    content : exercise.content,
-                    exercisePublic : exercise.exercisePublic
-                }
-            }
-        );
+    addExercise(exercise: PostExercise): Promise<any> {
+        return API.post(`exercises/`, exercise);
     }
 }
 

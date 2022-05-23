@@ -23,7 +23,6 @@
           prepend-icon="mdi-file-tree"
           :title="$t('admin.navbar.manage_module')"
           @click="goToModule"
-          disabled
       />
     </v-list>
     <v-list density="compact" nav>
