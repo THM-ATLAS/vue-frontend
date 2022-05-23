@@ -182,6 +182,9 @@ const translationEn = {
         not_found: 'Could not find the requested resource.',
         internal_server_error: 'Internal server error.',
         unknown: 'An unknown error occurred.',
+    },
+    module_page: {
+        exercises: 'Exercises',
     }
 }
 

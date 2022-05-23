@@ -12,8 +12,8 @@ import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
-import CourseMainPage from "@/views/CourseMainPageView.vue"
-import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import ModuleMainPage from "@/views/ModuleMainPageView.vue"
+import ExerciseManagement from "@/views/admin/ExerciseManagementView.vue";
 import ModuleManagement from "@/views/admin/ModuleManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import ModuleSearch from "@/views/ModuleSearchView.vue";

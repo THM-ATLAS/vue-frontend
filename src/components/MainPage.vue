@@ -35,10 +35,10 @@ const exercises = reactive ([])
 
 onBeforeMount(async () => {
 
-  let apiModule = (await ModuleService.getModule(route.params.course)).data
+  let apiModule = (await ModuleService.getModule(route.params.module)).data
   module.id = apiModule.module.module_id
-  module.moduleName = apiCourse.course.name
-  let apiExercise = (await ExerciseService.getExercisesForModule(course.id)).data
+  module.moduleName = apiModule.course.name
+  let apiExercise = (await ExerciseService.getExercisesForModule(module.id)).data
   apiExercise.forEach((entry : any) => {
     exercises.push(entry)
   })

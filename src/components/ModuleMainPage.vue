@@ -10,7 +10,7 @@
     <v-card color="highlight" rounded="0">
       <div class="mx-2 my-2">
         <div>
-          <v-card-title class="text-left text-h4 moduleTitle" tabindex=0>{{ props.module.name }}</v-card-title>
+          <v-card-title class="text-left text-h4 moduleTitle" tabindex=0>{{ props.module.moduleName }}</v-card-title>
         </div>
       </div>
     </v-card>
@@ -20,7 +20,7 @@
     <v-container class="exerciseListBox">
         <v-row
              v-for="exercise in props.exercises"
-             v-bind:key="exercise.id"
+             v-bind:key="exercise.exercise_id"
             class="exerciseListEntry"
             @keyup.enter.prevent.stop="goToExercise(exercise)"
             @click.prevent.stop="goToExercise(exercise)"
@@ -46,7 +46,7 @@ const props = defineProps({
 });
 
 watch(() => {
-  document.title = props.module.name;
+  document.title = props.module.moduleName;
 })
 function goBack() {
   router.back()
@@ -54,7 +54,7 @@ function goBack() {
 
 
 function goToExercise(exercise) {
-  router.push("/" + props.module?.name  + "/e/" + exercise.exercise_id);
+  router.push("/" + props.module?.moduleName  + "/e/" + exercise.exercise_id);
 }
 </script>
 

@@ -184,6 +184,9 @@ const translationDe = {
         not_found: 'Element konnte nicht gefunden werden.',
         internal_server_error: 'Interner Serverfehler.',
         unknown: 'Unbekannter Fehler.',
+    },
+    module_page: {
+        exercises: 'Aufgaben',
     }
 }
 

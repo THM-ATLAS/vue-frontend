@@ -11,7 +11,7 @@
       </v-col>
     </v-row-->
     <v-row v-for="module in modules" :key="module.id">
-      <CourseSearchResult
+      <ModuleSearchResult
         :id="module.id"
         :moduleName="module.moduleName"
         class="searchResult"

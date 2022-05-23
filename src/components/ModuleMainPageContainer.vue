@@ -20,7 +20,7 @@ const exercises = reactive ([])
 onBeforeMount(async () => {
   //Currently, whenever a exerciseID does not exist in the database we get a problem
   //and their ids have more holes than swiss cheese
-  const array = [2,3,5,6]
+  const array = [3,6]
   for (const i of array) {
     let apiExercise = (await ExerciseService.getExercise(i)).data
     let newEntry = {
