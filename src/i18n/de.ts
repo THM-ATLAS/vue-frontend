@@ -217,6 +217,12 @@ const translationDe = {
     },
     module_page: {
         exercises: 'Aufgaben',
+    },
+    page_not_found: {
+        error_title: "Diese Seite konnte nicht gefunden werden.",
+        error_description: "Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.",
+        home_button: "Startseite",
+        back_button: "Zurück",
     }
 }
 

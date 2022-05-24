@@ -9,13 +9,13 @@
     </div>
     <v-card color="highlight" rounded="0">
       <div class="mx-2 my-2">
-        <div>
+        <h1>
           <v-card-title class="text-left text-h4 moduleTitle" tabindex=0>{{ props.module.name }}</v-card-title>
-        </div>
+        </h1>
       </div>
     </v-card>
     <v-row align="center" justify="center" class="exerciseTextRow">
-      <div class="exerciseText">{{ $t('module_page.exercises') }}</div>
+      <h2 class="exerciseText">{{ $t('module_page.exercises') }}</h2>
     </v-row>
     <v-container class="exerciseListBox">
         <v-row
@@ -27,7 +27,7 @@
             tabindex=0
         >
           <div>
-          <div class="exerciseTitle">{{exercise.title}}</div>
+          <h3 class="exerciseTitle">{{exercise.title}}</h3>
           <p>{{exercise.description}}</p>
           </div>
         </v-row>
@@ -98,7 +98,6 @@ function goToExercise(exercise) {
 .exerciseTextRow{
   margin-top: 30px;
   .exerciseText{
-    text-decoration-line: underline;
     font-size: 2rem;
   }
 }

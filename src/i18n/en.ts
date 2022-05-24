@@ -19,7 +19,7 @@ const translationEn = {
     },
     footer: {
         home: 'Home',
-        imprint: 'Imprint',
+        imprint: 'About us',
         help: 'Help',
         data_protection: 'Data protection',
         thm: 'THM',
@@ -33,7 +33,7 @@ const translationEn = {
     },
     landing_page: {
         welcome: 'Welcome to',
-        instructions: 'Start to search for courses or login!',
+        instructions: 'Start searching for courses or login!',
         search: 'e.g. Compilerbau'
     },
     main_page: {
@@ -215,6 +215,12 @@ const translationEn = {
     },
     module_page: {
         exercises: 'Exercises',
+    },
+    page_not_found: {
+        error_title: "This page could not be found.",
+        error_description: "If you think this is a mistake, please contact the lecturer of the module this link is from.",
+        home_button: "Go to the landing page",
+        back_button: "Go back",
     }
 }
 
