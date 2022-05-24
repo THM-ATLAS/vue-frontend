@@ -7,11 +7,12 @@ import './main.scss'
 import translationDe from './i18n/de'
 import translationEn from './i18n/en'
 import vuetify from './plugins/vuetify'
+import {fetchLocale} from "@/i18n/localeHelper";
 
 loadFonts()
 
 const i18n = createI18n({
-    locale: 'de',
+    locale: fetchLocale(),
     fallbackLocale: 'en',
     messages: {
         de: translationDe,
