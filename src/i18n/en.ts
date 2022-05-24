@@ -19,7 +19,7 @@ const translationEn = {
     },
     footer: {
         home: 'Home',
-        imprint: 'Imprint',
+        imprint: 'About us',
         help: 'Help',
         data_protection: 'Data protection',
         thm: 'THM',
@@ -33,7 +33,7 @@ const translationEn = {
     },
     landing_page: {
         welcome: 'Welcome to',
-        instructions: 'Start to search for courses or login!',
+        instructions: 'Start searching for courses or login!',
         search: 'e.g. Compilerbau'
     },
     main_page: {
@@ -99,6 +99,7 @@ const translationEn = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Exercises',
         usermanagement_view: 'Users',
+        modulemanagement_view: 'Modules',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',
@@ -123,6 +124,7 @@ const translationEn = {
         logout: 'Logout',
         register: 'Register',
         new: 'New',
+        stay: 'Stay',
     },
     languages: {
         en: 'English',
@@ -167,7 +169,7 @@ const translationEn = {
             delete: 'Delete task',
             delete_confirm: 'Delete task {0}?',
             title: 'Title',
-            course: 'Course',
+            module: 'Module',
             description: 'Description',
             no_description: 'No description provided',
             created_at: 'Created at',
@@ -176,11 +178,21 @@ const translationEn = {
                 required: 'This field is required.',
             }
         },
+        modules: {
+            title: 'Module',
+            description: 'Description',
+            no_description: 'No description provided',
+            actions: 'Actions',
+            new: 'New module',
+            edit: 'Edit module',
+            delete: 'Delete module',
+            delete_confirm: 'Delete module "{0}"?',
+        },
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
             manage_task: 'Manage tasks',
-            manage_course: 'Manage courses',
+            manage_module: 'Manage modules',
             back: 'Back to homepage'
         }
     },
@@ -190,6 +202,9 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+        confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
+        confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
+        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
     },
     error: {
         unauthorized: 'Unauthorized.',
@@ -197,6 +212,15 @@ const translationEn = {
         not_found: 'Could not find the requested resource.',
         internal_server_error: 'Internal server error.',
         unknown: 'An unknown error occurred.',
+    },
+    module_page: {
+        exercises: 'Exercises',
+    },
+    page_not_found: {
+        error_title: "This page could not be found.",
+        error_description: "If you think this is a mistake, please contact the lecturer of the module this link is from.",
+        home_button: "Go to the landing page",
+        back_button: "Go back",
     }
 }
 

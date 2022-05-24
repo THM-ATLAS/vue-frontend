@@ -8,7 +8,7 @@ class ModuleService {
         return API.get(`modules/${user.id}`);
     }*/
 
-    loadModules(): Promise<any> {
+    getModules(): Promise<any> {
         return API.get(`modules/`);
     }
 
@@ -17,14 +17,14 @@ class ModuleService {
     }
 
     delModule(module: Module): Promise<any> {
-        return API.delete(`modules/${module.id}`);
+        return API.delete(`modules/${module.module_id}`);
     }
 
 
     editModule(module: Module): Promise<any> {
         return API.put(`modules/`, {
                 module: {
-                    id: module.id,
+                    id: module.module_id,
                     name: module.name
                 }
             }
@@ -34,7 +34,7 @@ class ModuleService {
     addModule(module: Module): Promise<any> {
         return API.post(`modules/`, {
                 module: {
-                    id: module.id,
+                    id: module.module_id,
                     name: module.name
                 }
             }

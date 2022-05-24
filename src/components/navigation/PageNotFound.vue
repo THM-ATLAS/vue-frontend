@@ -8,24 +8,24 @@
       <div class="text-h3">404</div>
     </v-card-title>
     <v-card-text>
-      <div class="text-h4">Diese Seite konnte nicht gefunden werden.</div>
+      <div class="text-h4">{{ $t('page_not_found.error_title') }}</div>
       <br/>
-      <span>Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.</span>
+      <span>{{ $t('page_not_found.error_description') }}</span>
     </v-card-text>
     <v-card-actions>
       <v-btn
-          color="primary"
+          color="secondary"
           dark
           href="/"
       >
-        Startseite
+        {{ $t('page_not_found.home_button') }}
       </v-btn>
       <v-btn
           color="secondary"
           dark
           @click="$router.back()"
       >
-        Zurück
+        {{ $t('page_not_found.back_button') }}
       </v-btn>
     </v-card-actions>
   </v-card>

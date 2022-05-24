@@ -14,6 +14,7 @@ import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
 import CourseMainPage from "@/views/CourseMainPageView.vue"
 import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import ModuleManagement from "@/views/admin/ModuleManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import CourseSearch from "@/views/CourseSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
@@ -47,8 +48,10 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/admin/', component: Admin},
   {path: '/admin/users', component: UserManagement},
-  {path: '/admin/tasks', component: TaskManagement},
-  { path: '/courses', component: CourseSearch },
+  {path: '/admin/exercises', component: TaskManagement},
+  {path: '/admin/modules', component: ModuleManagement},
+
+  {path: '/courses', component: CourseSearch},
 ]
 
 const router = createRouter({

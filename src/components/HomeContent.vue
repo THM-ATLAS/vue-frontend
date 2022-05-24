@@ -7,9 +7,9 @@
         </v-row>
         <v-row class="homepage-row">
           <v-img v-if="theme === 'light'" @click="goToHome()" @keyup.enter.prevent.stop="goToHome"
-                 src="@/assets/ATLAS_Logo.svg" height="150px"/>
+                 src="@/assets/ATLAS_Logo.svg" height="150px" alt="ATLAS Logo"/>
           <v-img v-else @click="goToHome()" @keyup.enter.prevent.stop="goToHome" src="@/assets/ATLAS_Logo_Dark.svg"
-                 height="150px"/>
+                 height="150px" alt="ATLAS Logo"/>
         </v-row>
         <v-row class="justify-center homepage-row">
           <div class="text-h5">{{ $t('landing_page.instructions') }}</div>

@@ -20,7 +20,17 @@ export type Exercise = {
     exercisePublic : boolean
 }
 
+export type PostExercise = {
+    exercise_id : number,
+    module_id: number,
+    title : string,
+    content : string,
+    description: string,
+    exercisePublic : boolean
+}
+
 export type Module = {
-    id : number,
-    name : string
+    module_id : number,
+    name : string,
+    description: string
 }

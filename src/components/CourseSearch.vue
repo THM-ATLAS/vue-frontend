@@ -33,7 +33,7 @@ const courses = reactive([]);
 let apiCourses;
 
 onBeforeMount(async () => {
-  apiCourses = (await ModuleService.loadModules()).data;
+  apiCourses = (await ModuleService.getModules()).data;
   apiCourses.forEach((result) => {
     console.log(result);
     let newEntry = {

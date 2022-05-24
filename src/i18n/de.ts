@@ -110,6 +110,7 @@ const translationDe = {
         logout: 'Abmelden',
         register: 'Registrieren',
         new: 'Neu',
+        stay: 'Bleiben',
     },
     titles: {
         home_view: 'ATLAS',
@@ -119,6 +120,7 @@ const translationDe = {
         admin_view: 'Admin',
         exercisemanagement_view: 'Aufgaben',
         usermanagement_view: 'Benutzer',
+        modulemanagement_view: 'Module',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',
@@ -169,7 +171,7 @@ const translationDe = {
             delete: 'Aufgabe löschen',
             delete_confirm: 'Aufgabe "{0}" wirklich löschen?',
             title: 'Titel',
-            course: 'Kurs',
+            module: 'Modul',
             description: 'Beschreibung',
             no_description: 'Keine Beschreibung',
             created_at: 'Erstellt am',
@@ -178,11 +180,21 @@ const translationDe = {
                 required: 'Dieses Feld ist erforderlich.',
             }
         },
+        modules: {
+            title: 'Modul',
+            description: 'Beschreibung',
+            no_description: 'Keine Beschreibung',
+            actions: 'Aktionen',
+            new: 'Modul erstellen',
+            edit: 'Modul bearbeiten',
+            delete: 'Modul löschen',
+            delete_confirm: 'Modul "{0}" wirklich löschen?',
+        },
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer verwalten',
             manage_task: 'Aufgaben verwalten',
-            manage_course: 'Kurse verwalten',
+            manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
         }
     },
@@ -192,6 +204,9 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+        confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
+        confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
+        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
@@ -199,6 +214,15 @@ const translationDe = {
         not_found: 'Element konnte nicht gefunden werden.',
         internal_server_error: 'Interner Serverfehler.',
         unknown: 'Unbekannter Fehler.',
+    },
+    module_page: {
+        exercises: 'Aufgaben',
+    },
+    page_not_found: {
+        error_title: "Diese Seite konnte nicht gefunden werden.",
+        error_description: "Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.",
+        home_button: "Startseite",
+        back_button: "Zurück",
     }
 }
 
