@@ -13,6 +13,7 @@
       v-else
       style="background: none"
       previewOnly
+      :theme="theme"
       class="text-left"
       language="en-US"
       :modelValue="modelValue"
