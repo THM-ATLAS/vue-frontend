@@ -122,15 +122,15 @@
 import { toggleTheme, theme } from "@/helpers/theme";
 import {ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
+import {setLocale} from "@/i18n/localeHelper";
 
 const i18n = useI18n();
 const availableLocales = i18n.availableLocales
 const localeSetting = ref(i18n.locale)
-console.log("locales " + localeSetting.value)
 
 watch(localeSetting, (newValue) => {
-  window.localStorage.setItem('locale', JSON.stringify(newValue));
-  console.log("set localStorage locale to " + newValue)
+  setLocale(JSON.stringify(newValue))
+  //window.localStorage.setItem('locale', JSON.stringify(newValue));
 })
 
 /*
