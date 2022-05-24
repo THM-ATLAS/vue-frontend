@@ -29,11 +29,10 @@
             <v-col cols="12" md="6">
               <h2>{{ $t("settings.language") }}</h2>
               <v-select
-                v-model="$i18n.locale"
-                :items="$i18n.availableLocales"
+                v-model="localeSetting"
+                :items="availableLocales"
                 persistent-hint
                 :label="$t('settings.language')"
-                :text="$t('languages.' + item)"
               />
             </v-col>
             <!--v-col cols="12" md="12">
@@ -121,6 +120,18 @@
 
 <script setup>
 import { toggleTheme, theme } from "@/helpers/theme";
+import {ref, watch} from "vue";
+import {useI18n} from "vue-i18n";
+import {setLocale} from "@/i18n/localeHelper";
+
+const i18n = useI18n();
+const availableLocales = i18n.availableLocales
+const localeSetting = ref(i18n.locale)
+
+watch(localeSetting, (newValue) => {
+  setLocale(newValue)
+})
+
 /*
 import { ref } from "vue";
 
