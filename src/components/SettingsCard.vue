@@ -129,8 +129,7 @@ const availableLocales = i18n.availableLocales
 const localeSetting = ref(i18n.locale)
 
 watch(localeSetting, (newValue) => {
-  setLocale(JSON.stringify(newValue))
-  //window.localStorage.setItem('locale', JSON.stringify(newValue));
+  setLocale(newValue)
 })
 
 /*

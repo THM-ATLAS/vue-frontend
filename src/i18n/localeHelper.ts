@@ -13,5 +13,4 @@ export function fetchLocale(): any {
 
 export function setLocale(newLocale: string): void {
     window.localStorage.setItem('locale', JSON.stringify(newLocale));
-    //i18nInstance.locale = newLocale;
 }
