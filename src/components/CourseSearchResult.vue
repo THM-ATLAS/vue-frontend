@@ -6,10 +6,12 @@
             elevation="2"
             color="highlight"
             @click="router.push(`/${id}`)">
+          <h1>
           <v-card-title
               class="course-result-title">
             {{ props.moduleName }}
           </v-card-title>
+          </h1>
           <!-- <v-card-text>
             {{ props.moduleDescription }}
           </v-card-text> -->
