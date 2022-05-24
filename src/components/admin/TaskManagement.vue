@@ -89,6 +89,7 @@
 
     <!-- new Exercise dialog -->
     <v-dialog
+        style="z-index: 0"
         v-model="newExerciseDialog.show"
         :scrollable="true"
         :retain-focus="false"
@@ -100,6 +101,7 @@
         <v-card-text>
           <v-form ref="newExerciseForm"
                   v-model="newExerciseFormValid"
+                  style="z-index: 1"
           >
             <v-text-field
                 @change="$refs.newExerciseForm.validate()"
