@@ -9,7 +9,7 @@ class ModuleService {
     }*/
 
     getModules(): Promise<any> {
-        return API.get(`modules/`);
+        return API.get(`modules`);
     }
 
     getModule(id: number): Promise<any> {
@@ -22,23 +22,11 @@ class ModuleService {
 
 
     editModule(module: Module): Promise<any> {
-        return API.put(`modules/`, {
-                module: {
-                    id: module.module_id,
-                    name: module.name
-                }
-            }
-        );
+        return API.put(`modules`, module);
     }
 
     addModule(module: Module): Promise<any> {
-        return API.post(`modules/`, {
-                module: {
-                    id: module.module_id,
-                    name: module.name
-                }
-            }
-        );
+        return API.post(`modules`, module);
     }
 }
 
