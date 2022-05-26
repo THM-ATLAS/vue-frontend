@@ -8,6 +8,7 @@ import translationDe from './i18n/de'
 import translationEn from './i18n/en'
 import vuetify from './plugins/vuetify'
 import {fetchLocale} from "@/i18n/localeHelper";
+import  "./scrollbar.scss"
 
 loadFonts()
 
