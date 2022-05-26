@@ -114,7 +114,7 @@
         <v-img :src="exercise.images_before[0].url" :aspect-ratio="exercise.images_before[0].aspect_ratio"/>
       </v-container-->
 
-      <div class="py-1">
+      <div class="py-1" >
         <MarkdownModal :model-value="exercise.content"/>
       </div>
 
@@ -145,6 +145,16 @@
 </template>
 
 <style scoped>
+div{
+  width: auto;
+  margin: 2px;
+}
+div.py-1 {
+  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 
 <script setup lang='ts'>
@@ -215,3 +225,4 @@ let dialog2 = ref(false);
 let hasSubmission = true;
 */
 </script>
+
