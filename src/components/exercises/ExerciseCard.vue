@@ -145,16 +145,7 @@
 </template>
 
 <style scoped>
-div{
-  width: auto;
-  margin: 2px;
-}
-div.py-1 {
-  overflow-wrap: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  hyphens: auto;
-}
+
 </style>
 
 <script setup lang='ts'>
