@@ -20,7 +20,7 @@
     <v-container class="exerciseListBox">
         <v-row
              v-for="exercise in props.exercises"
-             v-bind:key="exercise.id"
+             v-bind:key="exercise.exercise_id"
             class="exerciseListEntry"
             @keyup.enter.prevent.stop="goToExercise(exercise)"
             @click.prevent.stop="goToExercise(exercise)"
