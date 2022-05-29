@@ -78,12 +78,12 @@
         </v-card-title>
         <v-card-text>
           <span v-if="viewExerciseDialog.target.description" v-html="viewExerciseDialog.target.description"/>
-        </v-card-text>
         <v-container class="my">
           <MarkdownModal
               :model-value="viewExerciseDialog.target.content"
           />
         </v-container>
+        </v-card-text>
       </v-card>
     </v-dialog>
 
