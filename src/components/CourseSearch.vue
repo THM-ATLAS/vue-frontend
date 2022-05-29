@@ -57,7 +57,6 @@ onBeforeMount(async () => {
     modules.value.push(result);
   });
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  console.log(currentPage.value)
 });
 
 watch(currentPageNumber, (newNumber) => {
