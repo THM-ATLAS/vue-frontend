@@ -54,7 +54,7 @@ function goBack() {
 
 
 function goToExercise(exercise) {
-  router.push("/" + props.module?.name  + "/e/" + exercise.exercise_id);
+  router.push("/" + props.module?.module_id  + "/e/" + exercise.exercise_id);
 }
 </script>
 
