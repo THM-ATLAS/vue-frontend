@@ -13,6 +13,9 @@
           <v-card-title class="text-left text-h4 moduleTitle" tabindex=0>{{ props.module.name }}</v-card-title>
         </h1>
       </div>
+      <v-card-text>
+        {{ props.module.description }}
+      </v-card-text>
     </v-card>
     <v-row align="center" justify="center" class="exerciseTextRow">
       <h2 class="exerciseText">{{ $t('module_page.exercises') }}</h2>

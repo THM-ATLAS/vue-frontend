@@ -93,6 +93,9 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
+    course_search: {
+        items_per_page: 'Einträge pro Seite'
+    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
