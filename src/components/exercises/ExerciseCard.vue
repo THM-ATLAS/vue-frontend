@@ -153,34 +153,23 @@
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
-import {onBeforeMount, reactive} from "vue";
+import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
 import {useI18n} from "vue-i18n";
+import {Exercise} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
 const i18n = useI18n();
 const id = route.params.id;
-const course = route.params.course;
-let exerciseData: any;
 
-const exercise = reactive({
-  id: -1,
-  title: 'Loading title',
-  content: 'Loading content',
-  taskPublic: false
-});
+const exercise: Ref<Exercise | any> = ref({});
 
 onBeforeMount(async () => {
-  exerciseData = (await ExerciseService.getExercise(id)).data
-  exercise.id = exerciseData.exercise_id
-  exercise.title = exerciseData.title
-  exercise.content = exerciseData.content
-  exercise.taskPublic = exerciseData.exercisePublic
+  exercise.value = (await ExerciseService.getExercise(id)).data
+  await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
 
-  await router.replace(`/${course}/e/${id}/${encodeURIComponent(exercise.title)}`)
-
-  document.title = i18n.t('titles.exercise_view') + ' - ' + exercise.title
+  document.title = i18n.t('titles.exercise_view') + ' - ' + exercise.value.title
 })
 
 function goBack() {
@@ -188,7 +177,7 @@ function goBack() {
 }
 
 function goToEditor(): void {
-  router.push('edit');
+  router.push(`/${exercise.value.module.module_id}/e/${id}/edit`);
 }
 
 /*

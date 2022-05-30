@@ -20,7 +20,7 @@
     <v-container class="exerciseListBox">
         <v-row
              v-for="exercise in props.exercises"
-             v-bind:key="exercise.id"
+             v-bind:key="exercise.exercise_id"
             class="exerciseListEntry"
             @keyup.enter.prevent.stop="goToExercise(exercise)"
             @click.prevent.stop="goToExercise(exercise)"
@@ -54,7 +54,7 @@ function goBack() {
 
 
 function goToExercise(exercise) {
-  router.push("/" + props.module?.name  + "/e/" + exercise.exercise_id);
+  router.push("/" + props.module?.module_id  + "/e/" + exercise.exercise_id);
 }
 </script>
 
