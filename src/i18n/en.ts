@@ -217,7 +217,11 @@ const translationEn = {
         unknown: 'An unknown error occurred.',
     },
     module_page: {
+        module: 'Module',
         exercises: 'Exercises',
+        about: 'About',
+        teachers: 'Teachers',
+        tutors: 'Tutors',
     },
     page_not_found: {
         error_title: "This page could not be found.",

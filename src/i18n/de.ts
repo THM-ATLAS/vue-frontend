@@ -219,7 +219,11 @@ const translationDe = {
         unknown: 'Unbekannter Fehler.',
     },
     module_page: {
+        module: 'Modul',
         exercises: 'Aufgaben',
+        about: 'Über',
+        teachers: 'Lehrende',
+        tutors: 'Tutor:innen',
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
