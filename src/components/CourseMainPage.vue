@@ -15,7 +15,7 @@
             {{ module.name }}
           </h1>
 
-          <v-tabs v-model="tab" end class="pb-0 mt-2">
+          <v-tabs v-model="tab" class="pb-0 mt-2">
             <v-tab value="home">
               {{ $t('module_page.module') }}
             </v-tab>
