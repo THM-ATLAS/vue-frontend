@@ -1,24 +1,19 @@
 <template>
-  <v-container fill-height>
     <v-row>
       <v-col cols="12">
-        <v-card
-            elevation="2"
-            color="highlight"
-            @click="router.push(`/${id}`)">
-          <h1>
-          <v-card-title
-              class="course-result-title">
+        <v-btn id="course-card" class="justify-start" block
+               elevation="2"
+               color="highlight"
+               @click="router.push(`/${id}`)">
+          <v-card-title>
             {{ props.moduleName }}
           </v-card-title>
-          </h1>
           <!-- <v-card-text>
             {{ props.moduleDescription }}
           </v-card-text> -->
-        </v-card>
+        </v-btn>
       </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -67,5 +62,9 @@ const props = defineProps({
 
 .course-result-title {
   cursor: pointer;
+}
+
+#course-card {
+  height: 100px;
 }
 </style>
