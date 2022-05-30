@@ -4,13 +4,13 @@
         <v-btn id="course-card" class="justify-start" block
                elevation="2"
                color="highlight"
-               @click="router.push(`/${id}`)">
+               @click="router.push(`/${props.module_id}`)">
           <v-card-title>
-            {{ props.moduleName }}
+            {{ props.name }}
           </v-card-title>
-          <!-- <v-card-text>
-            {{ props.moduleDescription }}
-          </v-card-text> -->
+          <v-card-text>
+            {{ props.description }}
+          </v-card-text>
         </v-btn>
       </v-col>
     </v-row>
@@ -22,21 +22,14 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 
-// @ts-ignore
-const props = defineProps({
-  id: {
-    required: true,
-    type: Number,
-  },
-  moduleName: {
-    required: true,
-    type: String
-  }
-  // courseDescription: String,
-  // courseThumbnail: Image,
-});
+type Module = {
+  module_id : number
+  name : string
+  description: string
+}
 
-//console.log("Props in CourseSearchResult: " + props.id)
+const props = defineProps<Module>();
+
 </script>
 
 <style scoped>
