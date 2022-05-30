@@ -21,10 +21,6 @@
           </v-col>
           <v-spacer/>
         </v-row>
-        <v-btn>
-          1
-          <v-btn @click="router.push('')">2</v-btn>
-        </v-btn>
       </v-container>
     </v-card>
   </v-container>
