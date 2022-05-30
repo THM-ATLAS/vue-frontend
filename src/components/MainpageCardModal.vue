@@ -69,7 +69,7 @@ const router = useRouter();
 // let likex: Ref<boolean> = ref(props.exercise?.like);
 
 function goToExercise(): void {
-  if (!props.noRedirect) router.push("/" + props.module?.name  + "/e/" + props.exercise?.exercise_id);
+  if (!props.noRedirect) router.push("/" + props.module?.module_id  + "/e/" + props.exercise?.exercise_id);
 }
 
 /*
