@@ -5,10 +5,18 @@
 
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: rgb(var(--v-theme-scrollbar-thumb));
     border-radius: 5px;
 }
 
+::-webkit-scrollbar-track {
+    background: rgb(var(--v-theme-scrollbar-track));
+}
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: rgb(var(--v-theme-scrollbar-thumb-hover));
+}
+
+* {
+    scrollbar-color: rgb(var(--v-theme-scrollbar-thumb)) rgb(var(--v-theme-scrollbar-track));
 }

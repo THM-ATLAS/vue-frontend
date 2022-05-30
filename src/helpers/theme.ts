@@ -37,6 +37,9 @@ export const lightTheme: ThemeDefinition = {
         text: '#394a59',
         link: '#9c132e',
         skipLink: '#4a5c66',
+        'scrollbar-track' : '#E0E0E0',
+        'scrollbar-thumb' : '#b2b2b2',
+        'scrollbar-thumb-hover' : '#8a8a8a'
     }
 };
 
@@ -55,5 +58,8 @@ export const darkTheme: ThemeDefinition = {
         warning: '#FB8C00',
         highlight: '#3d3d3d',
         skipLink: '#FFFFFF',
+        'scrollbar-track' : '#131313',
+        'scrollbar-thumb' : '#3f3f3f',
+        'scrollbar-thumb-hover' : '#313131',
     }
 };
