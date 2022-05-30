@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import CourseSearchResult from "@/components/CourseSearchResult";
+import CourseSearchResult from "@/components/CourseSearchResult.vue";
 import ModuleService from "@/services/ModuleService";
 import {onBeforeMount, ref, Ref, watch} from "vue";
 import {Module} from "@/helpers/types"
@@ -77,4 +77,4 @@ currentPage.value = computed(()=>{
 })*/
 </script>
 
-<style scoped></style>
+<style scoped/>
