@@ -11,7 +11,7 @@
     "@mdi/font": "6.5.95",
     "axios": "^0.27.2",
     "core-js": "^3.22.3",
-    "md-editor-v3": "^1.11.12",
+    "md-editor-v3": "^2.0.1",
     "moment": "^2.29.3",
     "ress": "^5.0.2",
     "roboto-fontface": "*",
