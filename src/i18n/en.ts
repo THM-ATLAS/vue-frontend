@@ -91,6 +91,9 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
+    course_search: {
+      items_per_page: 'Items per page'
+    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',
