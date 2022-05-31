@@ -222,6 +222,7 @@ const translationDe = {
         module: 'Modul',
         exercises: 'Aufgaben',
         about: 'Über',
+        manage: 'Verwalten',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
     },

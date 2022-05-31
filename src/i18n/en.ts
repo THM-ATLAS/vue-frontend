@@ -220,6 +220,7 @@ const translationEn = {
         module: 'Module',
         exercises: 'Exercises',
         about: 'About',
+        manage: 'Manage',
         teachers: 'Teachers',
         tutors: 'Tutors',
     },

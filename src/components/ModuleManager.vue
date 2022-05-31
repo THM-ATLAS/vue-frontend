@@ -3,7 +3,9 @@
     <v-card>
       <v-row>
         <v-col cols="1" align-self="center">
-          <v-btn @click="goBack" class="back-button"> &lt; </v-btn>
+          <v-btn @click="goBack()" class="back-button" rounded="false">
+            <v-icon icon="mdi-arrow-left"/>
+          </v-btn>
         </v-col>
         <v-col cols="9">
           <v-card-title>Modulname</v-card-title>
@@ -39,12 +41,14 @@
     </v-card>
 
     <!-- Edit tags dialog start -->
-    <v-dialog v-model="manageTagsDialog.show" :retain-focus="false" transition="slide-y-transition">
+    <v-dialog
+      v-model="manageTagsDialog.show"
+      :retain-focus="false"
+      transition="slide-y-transition"
+    >
       <v-card top="20%" width="50vw">
         <v-card-title> Tags für Modulname </v-card-title>
-        <v-card-text>
-          TABELLE MIT TAGS ZUM SELECTEN
-        </v-card-text>
+        <v-card-text> TABELLE MIT TAGS ZUM SELECTEN </v-card-text>
         <v-card-actions>
           <v-btn
             @click="manageTagsDialog.show = false"

@@ -15,14 +15,15 @@
             {{ module.name }}
           </h1>
 
-          <v-btn @click="goToManage">Manage</v-btn>
-
           <v-tabs v-model="tab" class="pb-0 mt-2">
             <v-tab value="home">
               {{ $t('module_page.module') }}
             </v-tab>
             <v-tab value="about">
               {{ $t('module_page.about') }}
+            </v-tab>
+            <v-tab @click="goToManage()" value="manage">
+              {{ $t('module_page.manage') }}
             </v-tab>
           </v-tabs>
         </v-card>
