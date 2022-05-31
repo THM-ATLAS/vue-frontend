@@ -1,12 +1,8 @@
 <template>
   <Navbar/>
-  <v-container>
-    <v-row justify="center" align-content="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
-        <CourseMainPageContainer id="content"/>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-main>
+    <CourseMainPage id="content"/>
+  </v-main>
   <Footer/>
 </template>
 
@@ -14,8 +10,16 @@
 <script setup>
 import Footer from "@/components/navigation/FooterCard";
 import Navbar from "@/components/navigation/navbar/NavbarBase";
-import CourseMainPageContainer from "@/components/CourseMainPageContainer";
+import CourseMainPage from "@/components/CourseMainPage";
 </script>
 
 <style scoped>
+.v-card {
+  margin-top: 15px !important;
+  margin-bottom: 30px !important;
+}
+
+.v-row {
+  padding-block: 10em;
+}
 </style>
