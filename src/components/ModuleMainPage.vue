@@ -15,6 +15,8 @@
             {{ module.name }}
           </h1>
 
+          <v-btn @click="goToManage">Manage</v-btn>
+
           <v-tabs v-model="tab" class="pb-0 mt-2">
             <v-tab value="home">
               {{ $t('module_page.module') }}
@@ -148,6 +150,10 @@ function goBack(): void {
 
 function goToExercise(exercise: Exercise): void {
   router.push("/" + module.value.module_id + "/e/" + exercise.exercise_id);
+}
+
+function goToManage(): void {
+  router.push("/" + module.value.module_id + "/e/modman");
 }
 </script>
 
