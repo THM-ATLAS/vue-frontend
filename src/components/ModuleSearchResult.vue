@@ -1,24 +1,20 @@
 <template>
-  <v-container fill-height>
     <v-row>
       <v-col cols="12">
-        <v-card
-            elevation="2"
-            color="highlight"
-            @click="router.push(`/${props.module_id}`)">
-          <h1>
-          <v-card-title
-              class="module-result-title">
+        <v-card class="justify-start"
+               elevation="2"
+               color="highlight" tabindex=0
+               @click="router.push(`/${props.module_id}`);"
+                @keyup.enter.prevent.stop="router.push(`/${props.module_id}`);">
+          <v-card-title>
             {{ props.name }}
           </v-card-title>
-          </h1>
           <v-card-text>
             {{ props.description }}
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
 </template>
 
 <script setup lang="ts">
@@ -38,27 +34,27 @@ const props = defineProps<Module>();
 </script>
 
 <style scoped>
-.moduleName {
+.courseName {
   font-size: 2rem;
   text-decoration: underline;
   padding-left: 1rem;
 }
 
-.moduleDescription {
+.courseDescription {
   padding: 1rem;
 }
 
-.moduleImage {
+.courseImage {
   margin-left: auto;
   margin-right: auto;
 }
 
-.moduleInfo {
+.courseInfo {
   margin-left: auto;
   margin-right: auto;
 }
 
-.module-result-title {
+.course-result-title {
   cursor: pointer;
 }
 </style>
