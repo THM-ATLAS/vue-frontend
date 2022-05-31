@@ -148,8 +148,4 @@ h2 {
 .header-exercises {
   font-size: 25px;
 }
-
-#username {
-  color: rgb(var(--v-theme-secondary));
-}
 </style>
