@@ -2,26 +2,23 @@
   <CourseMainPage :module=module :exercises=exercises />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CourseMainPage from "@/components/CourseMainPage";
-import {onBeforeMount, reactive} from "vue";
+import {onBeforeMount, reactive,ref, Ref} from "vue";
 import {useRoute} from "vue-router";
 import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
+import {Module} from "@/helpers/types";
 
 const route = useRoute();
 
-const module = reactive({
-  id: -1,
-  name: 'Loading'
-});
+const module: Ref<Module> = ref({});
+
 const exercises = reactive ([])
 
 onBeforeMount(async () => {
-  let apiCourse = (await ModuleService.getModule(route.params.course)).data
-  module.id = apiCourse.module_id
-  module.name = apiCourse.name
-  let apiExercise = (await ExerciseService.getExercisesForModule(module.id)).data
+  module.value = (await ModuleService.getModule(route.params.course)).data
+  let apiExercise = (await ExerciseService.getExercisesForModule(module.value.module_id)).data
   apiExercise.forEach((entry) => {
     exercises.push(entry)
   })

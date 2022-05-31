@@ -293,17 +293,9 @@ const confirmCancelDialog = ref({
 
 const currentDialog = ref({});
 
-/*const store = () => {
-  localStorage.setItem(localStoragePath, JSON.stringify(exercise.value));
-};*/
 
 onBeforeMount(async () => {
-  /*if (JSON.parse(localStorage.getItem(localStoragePath))) { // get exercise from local storage
-    exercise.value = JSON.parse(localStorage.getItem(localStoragePath));
-  } else { // get exercise from API*/
-  await ExerciseService.getExercise(id).then(response => {
-    exercise.value = response.data
-  })
+  exercise.value = (await  ExerciseService.getExercise(id)).data
   wasSave = false;
   wasDelete = false;
   window.addEventListener('beforeunload', beforeWindowUnload)

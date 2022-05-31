@@ -70,4 +70,7 @@ API.interceptors.response.use(
 #app-wrapper {
   min-height: 100vh;
 }
+.v-row {
+  margin: 0 !important;
+}
 </style>

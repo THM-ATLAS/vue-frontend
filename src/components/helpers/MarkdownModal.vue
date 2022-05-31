@@ -1,6 +1,8 @@
 <template>
   <Editor
       v-if="editor"
+      preview-theme="github"
+      code-theme="github"
       :theme="theme"
       v-model="contentRef"
       language="en-US"
@@ -12,9 +14,11 @@
   <Editor
       v-else
       style="background: none"
+      preview-theme="github"
+      code-theme="github"
       previewOnly
       :theme="theme"
-      class="text-left"
+      class="text-block"
       language="en-US"
       :modelValue="modelValue"
       :showCodeRowNumber="true"/>
@@ -48,6 +52,15 @@ const toolbars = [
 
 </script>
 
-<style scoped>
+<style>
+.md-content .md-preview,
+.md-content .md-html {
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
 </style>
