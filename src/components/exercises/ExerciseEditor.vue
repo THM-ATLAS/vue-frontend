@@ -64,7 +64,7 @@
     <!--br/-->
 
     <!-- Submission Editor -->
-    <!--div v-if="exercise.hasSubmission">
+    <!--<div v-if="exercise.hasSubmission">
       <v-container class="pt-0 pl-0">
         <h1 class="display-1">Abgabe</h1>
         <v-card elevation="0" rounded="0" v-for="(item, index) in exercise.items" class="submission-area mb-5"
