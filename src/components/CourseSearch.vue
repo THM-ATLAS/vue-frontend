@@ -1,5 +1,5 @@
 <template>
-  <v-card class="help-card" elevation="0" rounded="0">
+  <div id="background-card">
     <!--v-row align-content="center">
       <v-col id="content">
         <v-text-field
@@ -13,10 +13,9 @@
     <v-row v-for="module in currentPage" :key="module.module_id">
       <CourseSearchResult
         v-bind="module"
-        class="searchResult"
       />
     </v-row>
-  </v-card>
+  </div>
   <v-row>
     <v-col>
       <v-select
@@ -77,4 +76,9 @@ currentPage.value = computed(()=>{
 })*/
 </script>
 
-<style scoped/>
+<style scoped>
+#background-card {
+  width: 100%;
+  background: rgb(var(--v-theme-surface));
+}
+</style>

@@ -1,19 +1,18 @@
 <template>
     <v-row>
       <v-col cols="12">
-        <v-btn id="course-card" class="justify-start" block
+        <v-card class="justify-start"
                elevation="2"
-               color="highlight"
-               @click="router.push(`/${props.module_id}`)">
-          <span style="white-space: normal;">
+               color="highlight" tabindex=0
+               @click="router.push(`/${props.module_id}`);"
+                @keyup.enter.prevent.stop="router.push(`/${props.module_id}`);">
           <v-card-title>
             {{ props.name }}
           </v-card-title>
           <v-card-text>
             {{ props.description }}
           </v-card-text>
-          </span>
-        </v-btn>
+        </v-card>
       </v-col>
     </v-row>
 </template>
@@ -57,9 +56,5 @@ const props = defineProps<Module>();
 
 .course-result-title {
   cursor: pointer;
-}
-
-#course-card {
-  height: 100px;
 }
 </style>
