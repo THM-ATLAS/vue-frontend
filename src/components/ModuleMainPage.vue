@@ -154,7 +154,7 @@ function goToExercise(exercise: Exercise): void {
 }
 
 function goToManage(): void {
-  router.push("/" + module.value.module_id + "/e/modman");
+  router.push("/" + module.value.module_id + "/modman");
 }
 </script>
 

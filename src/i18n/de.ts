@@ -227,6 +227,11 @@ const translationDe = {
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
     },
+    module_manager: {
+        name: 'Name',
+        roles: 'Rollen',
+        edit_tag: 'Tags bearbeiten',
+    },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
         error_description: "Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.",

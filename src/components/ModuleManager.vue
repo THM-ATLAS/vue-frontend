@@ -1,17 +1,20 @@
 <template>
   <v-container>
     <v-card>
+      <!-- TEST BUTTON -->
+      <!-- <v-btn @click="test()">Test</v-btn> -->
+      <!-- TEST BUTTON -->
       <v-row>
         <v-col cols="1" align-self="center">
           <v-btn @click="goBack()" class="back-button" rounded="false">
-            <v-icon icon="mdi-arrow-left"/>
+            <v-icon icon="mdi-arrow-left" />
           </v-btn>
         </v-col>
-        <v-col cols="9">
-          <v-card-title>Modulname</v-card-title>
+        <v-col cols="8">
+          <v-card-title> {{ module.name }} </v-card-title>
         </v-col>
-        <v-col cols="2" align-self="center">
-          <v-btn @click="manageTagsDialog.show = true">Edit Tags </v-btn>
+        <v-col cols="3" align-self="center" class="d-flex justify-end">
+          <v-btn @click="manageTagsDialog.show = true">  {{ $t('module_manager.edit_tag') }}  </v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -22,14 +25,14 @@
           <v-table>
             <thead>
               <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Rollen</th>
+                <th class="text-left"> {{ $t('module_manager.name') }} </th>
+                <th class="text-left"> {{ $t('module_manager.roles') }} </th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="user in users" v-bind:key="user.user_id">
                 <td>{{ user.name }}</td>
-                <td>Rollen anzeigen</td>
+                <td>PLACEHOLDER</td>
               </tr>
             </tbody>
           </v-table>
@@ -69,12 +72,16 @@
 
 <script setup lang="ts">
 import { onBeforeMount, Ref, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import UserService from "@/services/UserService";
-import { User } from "@/helpers/types";
+import ModuleService from "@/services/ModuleService";
+import { User, Module } from "@/helpers/types";
+
+const route = useRoute();
 
 const router = useRouter();
 const users: Ref<User[]> = ref([]);
+const module: Ref<Module> = ref({}) as Ref<Module>;
 
 async function loadUsers(): Promise<void> {
   users.value = (await UserService.getUsers()).data.sort(
@@ -82,7 +89,14 @@ async function loadUsers(): Promise<void> {
   );
 }
 
+async function loadModule(): Promise<void> {
+  ModuleService.getModule(route.params.module).then(res => {
+    module.value = res.data;
+  });
+}
+
 onBeforeMount(async () => {
+  await loadModule();
   await loadUsers();
 });
 
@@ -93,6 +107,9 @@ function goBack(): void {
 const manageTagsDialog = ref({
   show: false,
 });
+
+// function test(): void {
+// }
 </script>
 
 <style scoped></style>

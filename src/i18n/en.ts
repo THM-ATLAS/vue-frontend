@@ -225,6 +225,11 @@ const translationEn = {
         teachers: 'Teachers',
         tutors: 'Tutors',
     },
+    module_manager: {
+        name: 'Name',
+        roles: 'Roles',
+        edit_tag: 'Edit tags',
+    },
     page_not_found: {
         error_title: "This page could not be found.",
         error_description: "If you think this is a mistake, please contact the lecturer of the module this link is from.",
