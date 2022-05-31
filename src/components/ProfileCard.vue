@@ -7,14 +7,21 @@
         </v-col>
         <v-col cols="12" md="5">
           <h2>{{ profile.name }}</h2>
-          <div class="profile-username">{{ profile.username }}</div>
+          <v-row>
+            <div id="username" class="ma-1">{{ profile.username }}</div>
+            <div>
+              <v-chip v-for="role in profile.roles" v-bind:key="role.role_id"
+                      class="mx-1" :label="role.name" :elevation="1" rounded
+                      v-html="role.name"/>
+            </div>
+          </v-row>
         </v-col>
         <v-col cols="12" md="3">
           <!-- HIER SPÄTER BADGES? -->
         </v-col>
         <v-col cols="12" md="1">
-          <v-btn class="edit-button" :icon="true" variant="outlined">
-            <v-icon icon="mdi-brush"/>
+          <v-btn class="edit-button" :icon="true" variant="outlined" @click="goToSettings">
+            <v-icon icon="mdi-cog"/>
           </v-btn>
         </v-col>
       </v-row>
@@ -97,6 +104,10 @@ onBeforeMount(async () => {
 
 const image = require("../assets/marianneMuster.png");
 
+function goToSettings() {
+  router.push("/settings");
+}
+
 //Profildaten kommen auf lange Sicht aus der Datenbank und nicht hier aus den Daten, hier nur Platzhalter weil kein Backend
 /*const profile_old = {
   username: id,
@@ -115,7 +126,7 @@ const image = require("../assets/marianneMuster.png");
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
-<style scoped>
+<style scoped lang="scss">
 .profile-card {
   margin-top: 2em;
   margin-bottom: 2em;
@@ -134,11 +145,11 @@ h2 {
   margin-bottom: 2em;
 }
 
-.profile-username {
-  color: gray;
-}
-
 .header-exercises {
   font-size: 25px;
+}
+
+#username {
+  color: rgb(var(--v-theme-secondary));
 }
 </style>
