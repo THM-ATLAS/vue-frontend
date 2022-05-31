@@ -35,7 +35,7 @@
                 small
                 elevation="0"
                 color="primary"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -45,7 +45,7 @@
                 small
                 elevation="0"
                 color="error"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -55,7 +55,7 @@
                 small
                 elevation="0"
                 color="success"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
