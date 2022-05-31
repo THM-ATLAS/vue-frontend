@@ -167,7 +167,7 @@ export default defineComponent({
     CodeEditor,
   },
   props: {
-    course: String,
+    module: String,
     exercise_id: String
   },
   setup: (props) => {
@@ -281,7 +281,7 @@ export default defineComponent({
       }
     ]; // should be fetched from server
 
-    const localStoragePath = `${props.course}.s.${props.exercise_id}`;
+    const localStoragePath = `${props.module}.s.${props.exercise_id}`;
 
     let submission_items;
 
@@ -305,7 +305,7 @@ export default defineComponent({
       // upon success, clear localStorage
       localStorage.removeItem(localStoragePath);
       // redirect to submission page
-      router.push(`/${props.course}/s/${submission_id}`);
+      router.push(`/${props.module}/s/${submission_id}`);
     };
 
     return {
