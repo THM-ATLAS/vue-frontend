@@ -1,25 +1,25 @@
 <template>
   <v-card class="profile-card" rounded="0" elevation="0">
     <v-container>
-      <v-row class="profile-header" align="center" no-gutters>
+      <v-row class="profile-header" align="center" :no-gutters="true">
         <v-col cols="12" md="3">
-          <v-avatar :image="profile.image" size="160"/>
+          <v-avatar :image="image" size="160"/>
         </v-col>
         <v-col cols="12" md="5">
-          <h2>{{ profile.fullName }}</h2>
+          <h2>{{ profile.name }}</h2>
           <div class="profile-username">{{ profile.username }}</div>
         </v-col>
         <v-col cols="12" md="3">
           <!-- HIER SPÄTER BADGES? -->
         </v-col>
         <v-col cols="12" md="1">
-          <v-btn class="edit-button" icon variant="outlined">
+          <v-btn class="edit-button" :icon="true" variant="outlined">
             <v-icon icon="mdi-brush"/>
           </v-btn>
         </v-col>
       </v-row>
 
-      <v-row class="profile-stats text-center">
+      <!--v-row class="profile-stats text-center">
         <v-col>
           <v-card variant="outlined">
             <div><b>Gelöste Aufgaben</b></div>
@@ -38,9 +38,9 @@
             <div>{{ profile.stats.joined }}</div>
           </v-card>
         </v-col>
-      </v-row>
+      </v-row-->
 
-      <v-row>
+      <!--v-row>
         <v-col cols="12" class="center-text">
           <div class="header-exercises">Deine favorisierten Aufgaben</div>
         </v-col>
@@ -59,17 +59,20 @@
             <v-img src="../assets/product-4.jpg" height="150px" cover/>
           </v-card>
         </v-col>
-      </v-row>
+      </v-row-->
     </v-container>
   </v-card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
+import {computed, onBeforeMount, ref, Ref} from "vue";
+import UserService from "@/services/UserService";
+import {User} from "@/helpers/types";
 
 const router = useRouter();
 const route = useRoute();
+const profile: Ref<User> = ref({}) as Ref<User>;
 
 const getID = computed(() => {
   if (!route.params.id) {
@@ -88,8 +91,14 @@ if (getID.value === undefined) {
   router.replace(`/u/${id}`);
 }
 
+onBeforeMount(async () => {
+  profile.value = (await UserService.getUser(id)).data;
+});
+
+const image = require("../assets/marianneMuster.png");
+
 //Profildaten kommen auf lange Sicht aus der Datenbank und nicht hier aus den Daten, hier nur Platzhalter weil kein Backend
-const profile = {
+/*const profile_old = {
   username: id,
   fullName: "Marianne Musterfrau",
   image: require("../assets/marianneMuster.png"),
@@ -102,7 +111,7 @@ const profile = {
     rating: 3.9,
     joined: "01.01.2022",
   },
-};
+};*/
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

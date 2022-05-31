@@ -23,7 +23,7 @@
                 small
                 elevation="0"
                 color="secondary"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
             />
             <v-btn
@@ -32,7 +32,7 @@
                 small
                 elevation="0"
                 color="primary"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -42,7 +42,17 @@
                 small
                 elevation="0"
                 color="error"
-                class="mr-2"
+                class="ma-1"
+                rounded="0"
+                variant="outlined"
+            />
+            <v-btn
+                @click="visitExercise(exercise)"
+                icon="mdi-open-in-new"
+                small
+                elevation="0"
+                color="success"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -78,11 +88,11 @@
         </v-card-title>
         <v-card-text>
           <span v-if="viewExerciseDialog.target.description" v-html="viewExerciseDialog.target.description"/>
-        <v-container class="my">
-          <MarkdownModal
-              :model-value="viewExerciseDialog.target.content"
-          />
-        </v-container>
+          <v-container class="my">
+            <MarkdownModal
+                :model-value="viewExerciseDialog.target.content"
+            />
+          </v-container>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -228,6 +238,7 @@ import ExerciseService from "@/services/ExerciseService";
 import ModuleService from "@/services/ModuleService";
 // import UserService from "@/services/UserService";
 import {Exercise, Module, PostExercise} from "@/helpers/types";
+import router from "@/router";
 
 const exercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
 const modules: Ref<Module[]> = ref([]) as Ref<Module[]>;
@@ -257,6 +268,10 @@ const rules = {
   email: (value: string) => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
   password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
+
+function visitExercise(exercise: Exercise) {
+  router.push(`/${exercise.module.module_id}/e/${exercise.exercise_id}`);
+}
 
 function getExerciseTemplate(): PostExercise {
   return {
