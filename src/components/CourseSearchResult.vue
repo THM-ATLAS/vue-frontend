@@ -5,12 +5,14 @@
                elevation="2"
                color="highlight"
                @click="router.push(`/${props.module_id}`)">
+          <span style="white-space: normal;">
           <v-card-title>
             {{ props.name }}
           </v-card-title>
           <v-card-text>
             {{ props.description }}
           </v-card-text>
+          </span>
         </v-btn>
       </v-col>
     </v-row>
