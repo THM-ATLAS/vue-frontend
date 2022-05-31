@@ -18,7 +18,7 @@
       code-theme="github"
       previewOnly
       :theme="theme"
-      class="text-block hyphenate"
+      class="text-block"
       language="en-US"
       :modelValue="modelValue"
       :showCodeRowNumber="true"/>
@@ -52,8 +52,10 @@ const toolbars = [
 
 </script>
 
-<style scoped>
-.hyphenate {
+<style>
+.md-content .md-preview,
+.md-content .md-html {
+  word-break: break-word;
   word-wrap: break-word;
   overflow-wrap: break-word;
 
