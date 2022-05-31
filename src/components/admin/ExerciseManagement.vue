@@ -4,10 +4,10 @@
       <v-table>
         <thead>
         <tr>
-          <th>{{ $t('admin.tasks.title') }}</th>
-          <th>{{ $t('admin.tasks.module') }}</th>
-          <th>{{ $t('admin.tasks.description') }}</th>
-          <th>{{ $t('admin.tasks.actions') }}</th>
+          <th>{{ $t('admin.exercises.title') }}</th>
+          <th>{{ $t('admin.exercises.module') }}</th>
+          <th>{{ $t('admin.exercises.description') }}</th>
+          <th>{{ $t('admin.exercises.actions') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -15,7 +15,7 @@
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.module.name }}</td>
           <td v-if="exercise.description">{{ exercise.description }}</td>
-          <td v-else style="opacity: 70%">{{ $t('admin.tasks.no_description') }}</td>
+          <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
           <td>
             <v-btn
                 @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
@@ -61,7 +61,7 @@
         </tbody>
       </v-table>
 
-      <!-- new task -->
+      <!-- new exercise -->
       <div>
         <v-btn
             @click="newExerciseDialog.show = true"
@@ -76,7 +76,7 @@
       </div>
     </v-card>
 
-    <!-- view task dialog -->
+    <!-- view exercise dialog -->
     <v-dialog
         v-model="viewExerciseDialog.show"
         :scrollable="true"
@@ -106,7 +106,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.tasks.new') }}</span>
+          <span class="headline">{{ $t('admin.exercises.new') }}</span>
         </v-card-title>
         <v-card-text>
           <v-form ref="newExerciseForm"
@@ -116,14 +116,14 @@
             <v-text-field
                 @change="$refs.newExerciseForm.validate()"
                 v-model="newExerciseDialog.target.title"
-                :label="$t('admin.tasks.title')"
+                :label="$t('admin.exercises.title')"
                 :rules="[rules.required]"
                 required
             />
             <v-text-field
                 @change="$refs.newExerciseForm.validate()"
                 v-model="newExerciseDialog.target.description"
-                :label="$t('admin.tasks.description')"
+                :label="$t('admin.exercises.description')"
                 :rules="[]"
                 :counter="256"
                 required
@@ -134,7 +134,7 @@
                 :items="modules.map(m => m.module_id)"
                 :item-title="m => `${modules.find(ms => m === ms.module_id)?.name || m}`"
                 item-value="module_id"
-                :label="$t('admin.tasks.module')"
+                :label="$t('admin.exercises.module')"
                 persistent-hint
                 return-object
                 single-line
@@ -151,7 +151,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- edit task dialog -->
+    <!-- edit exercise dialog -->
     <v-dialog
         v-model="editExerciseDialog.show"
         :scrollable="true"
@@ -159,7 +159,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.tasks.edit') }}</span>
+          <span class="headline">{{ $t('admin.exercises.edit') }}</span>
         </v-card-title>
         <v-card-text>
           <v-form ref="editExerciseForm"
@@ -168,14 +168,14 @@
             <v-text-field
                 @change="$refs.editExerciseForm.validate()"
                 v-model="editExerciseDialog.target.title"
-                :label="$t('admin.tasks.title')"
+                :label="$t('admin.exercises.title')"
                 :rules="[rules.required]"
                 required
             />
             <v-text-field
                 @change="$refs.editExerciseForm.validate()"
                 v-model="editExerciseDialog.target.description"
-                :label="$t('admin.tasks.description')"
+                :label="$t('admin.exercises.description')"
                 :rules="[]"
                 :counter="256"
                 required
@@ -187,7 +187,7 @@
                 :items="modules"
                 item-title="name"
                 item-value="model_id"
-                :label="$t('admin.tasks.module')"
+                :label="$t('admin.exercises.module')"
                 persistent-hint
                 return-object
                 single-line
@@ -206,7 +206,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- delete task dialog -->
+    <!-- delete exercise dialog -->
     <v-dialog
         v-model="deleteExerciseDialog.show"
         :scrollable="true"
@@ -214,10 +214,10 @@
     >
       <v-card top="20%" min-width="20vw">
         <v-card-title>
-          <span class="headline">{{ $t('admin.tasks.delete') }}</span>
+          <span class="headline">{{ $t('admin.exercises.delete') }}</span>
         </v-card-title>
         <v-card-text>
-          <p>{{ $t('admin.tasks.delete_confirm', [deleteExerciseDialog.target.title]) }}</p>
+          <p>{{ $t('admin.exercises.delete_confirm', [deleteExerciseDialog.target.title]) }}</p>
         </v-card-text>
         <v-card-actions>
           <v-btn @click="deleteExerciseDialog.show = false" v-html="$t('buttons.cancel')"/>
@@ -323,18 +323,18 @@ async function createExercise() {
 
 function editExercise(exercise: Exercise) {
   ExerciseService.editExercise(exercise).then(() => loadExercises());
-  // tasks.value.forEach(t => {
-  //   if (t.id === task.id) {
-  //     t.course = task.course;
-  //     t.title = task.title;
-  //     t.description = task.description;
-  //     t.content = task.content;
+  // exercises.value.forEach(t => {
+  //   if (t.id === exercise.id) {
+  //     t.module = exercise.module;
+  //     t.title = exercise.title;
+  //     t.description = exercise.description;
+  //     t.content = exercise.content;
   //   }
   // });
 }
 
 function deleteExercise(exercise: Exercise) {
-  // tasks.value = tasks.value.filter(u => u.id !== task.id);
+  // exercises.value = exercises.value.filter(u => u.id !== exercise.id);
   ExerciseService.delExercise(exercise.exercise_id).then(async () =>
       loadExercises()
   );

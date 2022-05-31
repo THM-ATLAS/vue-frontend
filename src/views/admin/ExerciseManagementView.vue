@@ -3,7 +3,7 @@
   <v-main class="main">
     <v-row class="main-row" justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <TaskManagement id="content"/>
+        <ExerciseManagement id="content"/>
       </v-col>
     </v-row>
   </v-main>
@@ -20,7 +20,7 @@
 </style>
 
 <script setup lang='ts'>
-import TaskManagement from "@/components/admin/TaskManagement.vue";
+import ExerciseManagement from "@/components/admin/ExerciseManagement.vue";
 import NavbarAdmin from "@/components/admin/NavbarAdmin.vue";
 import {useI18n} from "vue-i18n";
 document.title = useI18n().t('titles.exercisemanagement_view');

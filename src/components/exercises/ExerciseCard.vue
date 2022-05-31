@@ -140,7 +140,7 @@
   </v-card>
   <!--br/>
   <div>
-    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :course="this.$route.params.course"/>
+    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :module="this.$route.params.module"/>
   </div-->
 </template>
 
@@ -190,7 +190,7 @@ function filterYAMLHeader(text: string): string {
 }
 
 function getSubmitButton(): string {
-  return localStorage.getItem(`${course}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
+  return localStorage.getItem(`${module}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
 }
 
 let showSubmission = ref(false);

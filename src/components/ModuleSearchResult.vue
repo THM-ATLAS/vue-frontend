@@ -8,7 +8,7 @@
             @click="router.push(`/${props.module_id}`)">
           <h1>
           <v-card-title
-              class="course-result-title">
+              class="module-result-title">
             {{ props.name }}
           </v-card-title>
           </h1>
@@ -38,27 +38,27 @@ const props = defineProps<Module>();
 </script>
 
 <style scoped>
-.courseName {
+.moduleName {
   font-size: 2rem;
   text-decoration: underline;
   padding-left: 1rem;
 }
 
-.courseDescription {
+.moduleDescription {
   padding: 1rem;
 }
 
-.courseImage {
+.moduleImage {
   margin-left: auto;
   margin-right: auto;
 }
 
-.courseInfo {
+.moduleInfo {
   margin-left: auto;
   margin-right: auto;
 }
 
-.course-result-title {
+.module-result-title {
   cursor: pointer;
 }
 </style>

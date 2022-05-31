@@ -42,7 +42,7 @@
 
       <!--v-row>
         <v-col cols="12" class="center-text">
-          <div class="header-tasks">Deine favorisierten Aufgaben</div>
+          <div class="header-exercises">Deine favorisierten Aufgaben</div>
         </v-col>
         <v-col cols="12" md="4">
           <v-card border="false">
@@ -138,7 +138,7 @@ h2 {
   color: gray;
 }
 
-.header-tasks {
+.header-exercises {
   font-size: 25px;
 }
 </style>
