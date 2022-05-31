@@ -130,6 +130,7 @@ const translationDe = {
         exercise_view: 'Aufgabe',
         exerciseeditor_view: 'Bearbeiten',
         module_main_page: 'Modul',
+        modulemanager_view: "Modul Manager",
     },
     languages: {
         en: 'Englisch',

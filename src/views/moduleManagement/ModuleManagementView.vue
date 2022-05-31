@@ -31,7 +31,7 @@ import {watch} from "vue";
 const i18n = useI18n()
 
 watch(i18n.locale, () => {
-  document.title = i18n.t('titles.settings_view');
+  document.title = i18n.t('titles.modulemanager_view');
 })
-document.title = i18n.t('titles.settings_view');
+document.title = i18n.t('titles.modulemanager_view');
 </script>

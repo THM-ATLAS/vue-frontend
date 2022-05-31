@@ -109,6 +109,7 @@ const translationEn = {
         exercise_view: 'Exercise',
         exerciseeditor_view: 'Edit',
         module_main_page: 'Module',
+        modulemanager_view: "Module Manager",
     },
     buttons: {
         save: 'Save',
