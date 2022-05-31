@@ -1,5 +1,5 @@
 <template>
-  <!--v-text-field @keyup.enter="goToCoursePage"
+  <!--v-text-field @keyup.enter="goToModulePage"
       class="d-md-block"
       :label="$t('landing_page.search')"
       prepend-inner-icon="mdi-magnify"
@@ -7,8 +7,8 @@
       hide-details="auto"
       dense
   /-->
-  <v-btn @click="goToCoursePage" width="100%">
-   {{ $t('header.courses') }}
+  <v-btn @click="goToModulePage" width="100%">
+   {{ $t('header.modules') }}
   </v-btn>
 </template>
 
@@ -17,8 +17,8 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 
-function goToCoursePage() {
-  router.push("/courses");
+function goToModulePage() {
+  router.push("/modules");
 }
 </script>
 

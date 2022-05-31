@@ -2,7 +2,9 @@
   <div>
     <v-card elevation="0" rounded="0" role="main">
       <!-- main table -->
-      <v-table>
+      <v-table
+          :fixed-header="true"
+      density="compact">
         <thead>
         <tr>
           <th>{{ $t("admin.modules.title") }}</th>
@@ -29,7 +31,7 @@
                 small
                 elevation="0"
                 color="primary"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -42,7 +44,17 @@
                 small
                 elevation="0"
                 color="error"
-                class="mr-2"
+                class="ma-1"
+                rounded="0"
+                variant="outlined"
+            />
+            <v-btn
+                @click="visitModule(module)"
+                icon="mdi-open-in-new"
+                small
+                elevation="0"
+                color="success"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -188,8 +200,10 @@ import {onBeforeMount, Ref, ref} from "vue";
 import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
+import {useRouter} from "vue-router";
 
 const display = useDisplay();
+const router = useRouter();
 const modules: Ref<Module[]> = ref([]);
 
 async function loadModules(): Promise<void> {
@@ -201,6 +215,10 @@ async function loadModules(): Promise<void> {
 onBeforeMount(async () => {
   await loadModules();
 });
+
+function visitModule(module: Module): void {
+  router.push('/' + module.module_id);
+}
 
 async function createModule() {
   await ModuleService.addModule(newModuleDialog.value.target);
