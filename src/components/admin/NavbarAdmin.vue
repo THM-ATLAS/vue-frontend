@@ -36,13 +36,17 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
-
-let drawer = ref(true);
+import {useDisplay} from "vuetify";
 
 const router = useRouter();
+const route = useRoute();
+const display = useDisplay();
+
+const showDefault = route.path.replace(/\//g, '').endsWith("admin") || display.lgAndUp;
+const drawer = ref(showDefault);
 
 function goToUser(): void {
   router.push("/admin/users");
