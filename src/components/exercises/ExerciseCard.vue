@@ -140,7 +140,7 @@
   </v-card>
   <!--br/>
   <div>
-    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :course="this.$route.params.course"/>
+    <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :module="this.$route.params.module"/>
   </div-->
 </template>
 
@@ -155,12 +155,10 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
-import {useI18n} from "vue-i18n";
 import {Exercise} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
-const i18n = useI18n();
 const id = route.params.id;
 
 const exercise: Ref<Exercise | any> = ref({});
@@ -169,7 +167,7 @@ onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data
   await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
 
-  document.title = i18n.t('titles.exercise_view') + ' - ' + exercise.value.title
+  document.title = exercise.value.module.name + ' - ' + exercise.value.title
 })
 
 function goBack() {
@@ -192,7 +190,7 @@ function filterYAMLHeader(text: string): string {
 }
 
 function getSubmitButton(): string {
-  return localStorage.getItem(`${course}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
+  return localStorage.getItem(`${module}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
 }
 
 let showSubmission = ref(false);

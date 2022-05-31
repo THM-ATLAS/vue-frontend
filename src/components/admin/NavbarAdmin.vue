@@ -16,8 +16,8 @@
       />
       <v-list-item
           prepend-icon="mdi-pencil-ruler"
-          :title="$t('admin.navbar.manage_task')"
-          @click="goToTask"
+          :title="$t('admin.navbar.manage_exercise')"
+          @click="goToExercise"
       />
       <v-list-item
           prepend-icon="mdi-file-tree"
@@ -36,19 +36,23 @@
 </template>
 
 <script setup lang="ts">
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
-
-let drawer = ref(true);
+import {useDisplay} from "vuetify";
 
 const router = useRouter();
+const route = useRoute();
+const display = useDisplay();
+
+const showDefault = route.path.replace(/\//g, '').endsWith("admin") || display.lgAndUp;
+const drawer = ref(showDefault);
 
 function goToUser(): void {
   router.push("/admin/users");
 }
 
-function goToTask(): void {
+function goToExercise(): void {
   router.push("/admin/exercises");
 }
 

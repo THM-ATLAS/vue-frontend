@@ -7,8 +7,8 @@
         class="ma-2"
         variant="outlined"/>
     <v-btn
-        v-if="submission.task_id"
-        @click="this.$router.push(`/exercise/${submission.task_id}`)"
+        v-if="submission.exercise_id"
+        @click="this.$router.push(`/exercise/${submission.exercise_id}`)"
         icon="mdi-newspaper"
         class="ma-2"
         variant="outlined"/>
@@ -100,8 +100,8 @@
     </v-dialog>
     <v-card-header>
       <v-card-header-text class="text-h4 text-left fontszTi">
-        Abgabe für <a @click="visitIntLink(submission.task_link)" class="font-weight-bold"
-                      v-html="submission.task_title"/> vom {{ submission.date }}
+        Abgabe für <a @click="visitIntLink(submission.exercise_link)" class="font-weight-bold"
+                      v-html="submission.exercise_title"/> vom {{ submission.date }}
       </v-card-header-text>
     </v-card-header>
     <!-- submission status -->
@@ -368,8 +368,8 @@ export default defineComponent({
     ],
     submission: {
       id: 10393,
-      task_title: "Zielscheibe",
-      task_id: "103",
+      exercise_title: "Zielscheibe",
+      exercise_id: "103",
       date: "21.12.21",
       status: "partially_reviewed", // pending, accepted, rejected, graded, awarded, partially_reviewed, auto_accepted, auto_rejected
       // feedback: "Hast du ganz ganz toll gemacht", // optional, especially recommended for rejected & awarded
