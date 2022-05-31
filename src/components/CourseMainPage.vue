@@ -68,7 +68,7 @@
             </v-card>
           </v-container>
           <v-container class="aboutBox">
-            <v-row align="center" justify="center">
+            <v-row align="start" justify="center">
               <v-card style="width: 45%" class="mx-4">
                 <div>
                   <h3>{{ $t('module_page.teachers') }}</h3>
