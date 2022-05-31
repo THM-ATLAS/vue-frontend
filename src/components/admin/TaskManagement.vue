@@ -72,7 +72,7 @@
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           {{ viewExerciseDialog.target.title }}
         </v-card-title>
@@ -94,7 +94,7 @@
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           <span class="headline">{{ $t('admin.tasks.new') }}</span>
         </v-card-title>
@@ -147,7 +147,7 @@
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           <span class="headline">{{ $t('admin.tasks.edit') }}</span>
         </v-card-title>
