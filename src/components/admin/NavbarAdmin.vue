@@ -16,8 +16,8 @@
       />
       <v-list-item
           prepend-icon="mdi-pencil-ruler"
-          :title="$t('admin.navbar.manage_task')"
-          @click="goToTask"
+          :title="$t('admin.navbar.manage_exercise')"
+          @click="goToExercise"
       />
       <v-list-item
           prepend-icon="mdi-file-tree"
@@ -48,7 +48,7 @@ function goToUser(): void {
   router.push("/admin/users");
 }
 
-function goToTask(): void {
+function goToExercise(): void {
   router.push("/admin/exercises");
 }
 

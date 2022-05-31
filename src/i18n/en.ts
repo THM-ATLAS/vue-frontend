@@ -8,7 +8,7 @@ const translationEn = {
         skip_to_content: 'Skip to main content',
     },
     header: {
-        courses: 'Courses',
+        modules: 'Modules',
         dropdown: {
             settings: 'Settings',
             help: 'Help',
@@ -33,7 +33,7 @@ const translationEn = {
     },
     landing_page: {
         welcome: 'Welcome to',
-        instructions: 'Start searching for courses or login!',
+        instructions: 'Start searching for modules or login!',
         search: 'e.g. Compilerbau'
     },
     main_page: {
@@ -52,11 +52,11 @@ const translationEn = {
                 atlas_for_lecturers: {
                     title: 'ATLAS for lecturers',
                     description: 'Teachers must apply for a module entry to provide exercises on ATLAS. Once the entry is made, exercises can be created using the markdown-editor.',
-                    help: 'If you require assistance with setting up a course or its exercises, the ATLAS-team will gladly assist you.'
+                    help: 'If you require assistance with setting up a module or its exercises, the ATLAS-team will gladly assist you.'
                 },
                 atlas_for_students: {
                     title: 'ATLAS for students',
-                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                    description: 'The online learning platform ATLAS, including its modules and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
                 }
             }
         },
@@ -91,7 +91,7 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
-    course_search: {
+    module_search: {
       items_per_page: 'Items per page'
     },
     titles: {
@@ -166,11 +166,11 @@ const translationEn = {
                 password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
             }
         },
-        tasks: {
-            new: 'New task',
-            edit: 'Edit task',
-            delete: 'Delete task',
-            delete_confirm: 'Delete task {0}?',
+        exercises: {
+            new: 'New exercise',
+            edit: 'Edit exercise',
+            delete: 'Delete exercise',
+            delete_confirm: 'Delete exercise {0}?',
             title: 'Title',
             module: 'Module',
             description: 'Description',
@@ -194,7 +194,7 @@ const translationEn = {
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
-            manage_task: 'Manage tasks',
+            manage_exercise: 'Manage exercises',
             manage_module: 'Manage modules',
             back: 'Back to homepage'
         }

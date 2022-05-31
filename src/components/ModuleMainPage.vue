@@ -124,7 +124,7 @@ const teachers: Ref<Array<User>> = ref([])
 const tutors: Ref<Array<User>> = ref([])
 
 onBeforeMount(async () => {
-  ModuleService.getModule(route.params.course).then(res => {
+  ModuleService.getModule(route.params.module).then(res => {
     module.value = res.data
     document.title = module.value.name
     ExerciseService.getExercisesForModule(module.value.module_id).then(e => {
@@ -137,7 +137,7 @@ onBeforeMount(async () => {
   UserService.getUsers().then(res => {
     tutors.value = res.data.filter((user: User) => user.roles.some(role => role.name === "tutor"))
   })
-  //await router.replace(`/${encodeURIComponent(course.moduleName)}`)
+  //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 })
 const router = useRouter();
 

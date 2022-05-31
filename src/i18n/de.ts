@@ -8,7 +8,7 @@ const translationDe = {
         skip_to_content: 'Zum Inhalt springen',
     },
     header: {
-        courses: 'Zu den Kursen',
+        modules: 'Zu den Modulen',
         dropdown: {
             settings: 'Einstellungen',
             help: 'Hilfe',
@@ -33,7 +33,7 @@ const translationDe = {
     },
     landing_page: {
         welcome: 'Willkommen zu',
-        instructions: 'Starte mit der Suche nach Kursen oder logge dich oben rechts ein!',
+        instructions: 'Starte mit der Suche nach Modulen oder logge dich oben rechts ein!',
         search: 'z.B. Compilerbau'
     },
     main_page: {
@@ -56,7 +56,7 @@ const translationDe = {
                 },
                 atlas_for_students: {
                     title: 'ATLAS für Studierende',
-                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Kurse und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
+                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Module und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
                         '\n\n' +
                         'Je nach Aufgabentyp werden die Lösungen bearbeiteter Aufgaben direkt nach dem Upload automatisch ausgewertet. Für alle anderen Aufgaben erhalten Studierende Rückmeldung von einem/einer Dozent:in.'
                 }
@@ -93,7 +93,7 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
-    course_search: {
+    module_search: {
         items_per_page: 'Einträge pro Seite'
     },
     buttons: {
@@ -168,7 +168,7 @@ const translationDe = {
                 password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
             }
         },
-        tasks: {
+        exercises: {
             new: 'Neue Aufgabe',
             edit: 'Aufgabe bearbeiten',
             delete: 'Aufgabe löschen',
@@ -196,7 +196,7 @@ const translationDe = {
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer verwalten',
-            manage_task: 'Aufgaben verwalten',
+            manage_exercise: 'Aufgaben verwalten',
             manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
         }
