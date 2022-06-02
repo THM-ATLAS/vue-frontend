@@ -35,6 +35,7 @@ const translationDe = {
         username_required: 'Bitte gib deine Nutzerkennung ein.',
         password_required: 'Bitte gib dein Passwort ein.',
         invalid_credentials: 'Ungültige Nutzerdaten.',
+        skip_login: 'Weiter ohne Anmeldung',
     },
     landing_page: {
         welcome: 'Willkommen zu',

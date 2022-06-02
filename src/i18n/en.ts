@@ -35,6 +35,7 @@ const translationEn = {
         username_required: 'Please enter your username.',
         password_required: 'Please enter your password.',
         invalid_credentials: 'Invalid credentials.',
+        skip_login: 'Continue without login',
     },
     landing_page: {
         welcome: 'Welcome to',

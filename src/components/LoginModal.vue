@@ -53,6 +53,15 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+  <v-btn
+      class="ma-3"
+      :flat="true"
+      size="large"
+      rounded="0"
+      variant="outlined"
+      @click="goToHome">
+    {{ $t('login_page.skip_login') }}
+  </v-btn>
 </template>
 
 <script setup lang='ts'>
@@ -89,5 +98,9 @@ function login() {
 
 function goToProfile(userId: string) {
   router.push(`/u/${userId}`);
+}
+
+function goToHome() {
+  router.push("/");
 }
 </script>
