@@ -13,34 +13,34 @@
             v-model="loginFormValid"
     >
       <div class="textfields">
-        <div class="ma-3">
-          <v-text-field
-              v-model="loginCredentials.username"
-              :label="$t('login_page.user_id')"
-              :rules="[rules.username_required]"
-              :hide-details="true"
-              @change="alert = false; $refs.loginForm.validate()"
-          />
-        </div>
-        <div class="ma-3">
-          <v-text-field
-              v-model="loginCredentials.password"
-              :label="$t('login_page.password')"
-              :rules="[rules.password_required]"
-              :hide-details="true"
-              type="password"
-              @change="alert = false; $refs.loginForm.validate()"
-          />
-          <v-spacer height="100"/>
-        </div>
+        <v-alert
+            class="ma-3"
+            v-if="alert"
+            type="error"
+            rounded="0"
+        >
+          {{ $t('login_page.invalid_credentials') }}
+        </v-alert>
+        <v-text-field
+            class="ma-3"
+            v-model="loginCredentials.username"
+            :label="$t('login_page.user_id')"
+            :rules="[rules.username_required]"
+            :hide-details="true"
+            @change="alert = false; $refs.loginForm.validate()"
+        />
+        <v-text-field
+            class="ma-3"
+            v-model="loginCredentials.password"
+            :label="$t('login_page.password')"
+            :rules="[rules.password_required]"
+            :hide-details="true"
+            type="password"
+            @change="alert = false; $refs.loginForm.validate()"
+        />
+        <v-spacer height="100"/>
       </div>
     </v-form>
-    <v-alert
-        v-if="alert"
-        type="error"
-    >
-      {{ $t('login_page.invalid_credentials') }}
-    </v-alert>
     <v-card-actions class="align-self-end justify-center">
       <v-btn
           :flat="true"
@@ -54,11 +54,6 @@
     </v-card-actions>
   </v-card>
 </template>
-
-<!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
-<style scoped>
-
-</style>
 
 <script setup lang='ts'>
 import {useRouter} from "vue-router";
@@ -95,6 +90,4 @@ function login() {
 function goToProfile(userId: string) {
   router.push(`/u/${userId}`);
 }
-
-
 </script>
