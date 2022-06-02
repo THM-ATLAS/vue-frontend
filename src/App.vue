@@ -42,7 +42,6 @@ function setSnackbar(text, color = "info") {
 API.interceptors.response.use(
     response => response,
     error => {
-      // console.log(error)
       setSnackbar(i18n.t("error.not_found"), "error");
       switch (error.response.status) {
         case 401:
@@ -57,10 +56,12 @@ API.interceptors.response.use(
         case 500:
           setSnackbar(i18n.t("error.internal_server_error"), "error");
           break;
-        default:
-          setSnackbar(i18n.t("error.unknown"), "error");
-          break;
+        // default:
+        //   setSnackbar(i18n.t("error.unknown"), "error");
+        //   break;
+        // we assume that all other errors are handled locally!
       }
+      return Promise.reject(error);
     });
 </script>
 
