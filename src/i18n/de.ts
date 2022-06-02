@@ -15,6 +15,8 @@ const translationDe = {
             messages: 'Nachrichten',
             profile: 'Profil',
             admin: 'Admin',
+            login: 'Anmelden',
+            logout: 'Abmelden',
         }
     },
     footer: {

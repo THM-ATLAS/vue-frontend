@@ -1,6 +1,6 @@
 <template>
-  <SkipToContent />
-  <v-app-bar id="header" elevation="3"  height="100px" role="navigation">
+  <SkipToContent/>
+  <v-app-bar id="header" elevation="3" height="100px" role="navigation">
     <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
       <a @click="goToHome()">
         <v-img v-if="theme === 'light'" @keyup.enter.prevent.stop="goToHome"
@@ -97,7 +97,7 @@
       <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
         {{ $t('header.modules') }}
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider/>
       <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
         <span> {{ $t('header.dropdown.messages') }} </span>
       </v-list-item-->
@@ -116,8 +116,8 @@
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
-          <span v-if="loggedIn" @click='router.push("/");'> Logout </span>
-          <span v-else @click="goToLogin"> Login </span>
+          <span v-if="loggedIn" @click='goToLogin'> {{ $t('header.dropdown.logout') }} </span>
+          <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
         </v-btn>
       </v-list-item>
     </v-list>

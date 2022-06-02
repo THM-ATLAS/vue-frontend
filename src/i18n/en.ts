@@ -15,6 +15,8 @@ const translationEn = {
             messages: 'Messages',
             profile: 'Profile',
             admin: 'Admin',
+            login: 'Login',
+            logout: 'Logout',
         }
     },
     footer: {
