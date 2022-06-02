@@ -69,6 +69,7 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
+import {User} from "@/helpers/types";
 
 const router = useRouter();
 const i18n = useI18n();
@@ -88,12 +89,17 @@ const rules = {
 function login() {
   LoginService.login(loginCredentials.value.username, loginCredentials.value.password)
       .then((res) => {
+        storeUserData(res.data);
         goToProfile(res.data.user_id);
       }).catch(() => {
         alert.value = true;
         loginFormValid.value = false;
       }
   );
+}
+
+function storeUserData(user: User) {
+  localStorage.setItem("user", JSON.stringify(user));
 }
 
 function goToProfile(userId: string) {

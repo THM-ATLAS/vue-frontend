@@ -36,7 +36,7 @@
         <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
-          {{ username }}
+          {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
@@ -49,7 +49,7 @@
       <template v-else v-slot:activator="{ props }">
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
-          {{ username }}
+          {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
@@ -116,7 +116,7 @@
       <v-list-item>
         <v-btn block variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
-          <span v-if="loggedIn" @click='goToLogin'> {{ $t('header.dropdown.logout') }} </span>
+          <span v-if="loggedIn" @click='logout'> {{ $t('header.dropdown.logout') }} </span>
           <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
         </v-btn>
       </v-list-item>
@@ -131,20 +131,31 @@ import {useRouter} from 'vue-router';
 import {Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
+import {User} from "@/helpers/types";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
 
 const router = useRouter();
 
-const username = "Marianne Mustermann"; //must be either the logged in user's name or empty
-let loggedIn: Ref<boolean> = ref(!!username); //equals: username ? true : false
+const user = getUserData(); //must be either the logged in user's name or empty
+const loggedIn = !!user;
+
+function getUserData(): User | undefined {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : undefined;
+}
 
 function goToHome(): void {
   router.push(`/`);
 }
 
 function goToLogin(): void {
+  router.push("/login");
+}
+
+function logout(): void {
+  localStorage.removeItem('user');
   router.push("/login");
 }
 
