@@ -42,7 +42,6 @@ function setSnackbar(text, color = "info") {
 API.interceptors.response.use(
     response => response,
     error => {
-      setSnackbar(i18n.t("error.not_found"), "error");
       switch (error.response.status) {
         case 401:
           setSnackbar(i18n.t("error.unauthorized"), "error");
