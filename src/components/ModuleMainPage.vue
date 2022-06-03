@@ -130,6 +130,8 @@ onBeforeMount(async () => {
     ExerciseService.getExercisesForModule(module.value.module_id).then(e => {
       exercises.value = e.data
     })
+  }).catch(() => {
+    router.replace("/404")
   })
   UserService.getUsers().then(res => {
     teachers.value = res.data.filter((user: User) => user.roles.some(role => role.name === "teacher"))

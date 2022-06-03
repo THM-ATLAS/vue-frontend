@@ -90,7 +90,9 @@ const getID = computed(() => {
       : route.params.id;
 });
 
-const id = getID.value === undefined ? "abcd66" : getID.value; // at 1 would be a call to get own profile id
+const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+const id = getID.value === undefined ? user?.user_id || "0" : getID.value; // at 1 would be a call to get own profile id
 
 console.log(id);
 

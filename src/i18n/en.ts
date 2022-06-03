@@ -15,6 +15,8 @@ const translationEn = {
             messages: 'Messages',
             profile: 'Profile',
             admin: 'Admin',
+            login: 'Login',
+            logout: 'Logout',
         }
     },
     footer: {
@@ -28,8 +30,12 @@ const translationEn = {
     login_page: {
         login: 'Login',
         instructions: 'Use your THM user credentials.',
-        user_id: 'username',
-        password: 'password'
+        user_id: 'Username',
+        password: 'Password',
+        username_required: 'Please enter your username.',
+        password_required: 'Please enter your password.',
+        invalid_credentials: 'Invalid credentials.',
+        skip_login: 'Continue without login',
     },
     landing_page: {
         welcome: 'Welcome to',
