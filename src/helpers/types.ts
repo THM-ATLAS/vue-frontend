@@ -11,6 +11,10 @@ export type UserRole = {
     name : string
 }
 
+export type TokenRet = {
+    token : string
+}
+
 export type Exercise = {
     exercise_id : number,
     module: Module,
