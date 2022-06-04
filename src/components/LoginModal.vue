@@ -87,22 +87,18 @@ const rules = {
 };
 
 function login() {
-  LoginService.login(loginCredentials.value.username, loginCredentials.value.password)
-      .then((res) => {
-        storeUserData(res.data);
-        goToProfile(res.data.user_id);
-      }).catch(() => {
-        alert.value = true;
-        loginFormValid.value = false;
-      }
-  );
+  LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then((user: User) => {
+    goToProfile(user.user_id);
+  }).catch(() => {
+    alert.value = true;
+  });
 }
 
-function storeUserData(user: User) {
-  localStorage.setItem("user", JSON.stringify(user));
-}
+// function storeUserData(user: User) {
+//   localStorage.setItem("user", JSON.stringify(user));
+// }
 
-function goToProfile(userId: string) {
+function goToProfile(userId: number) {
   router.push(`/u/${userId}`);
 }
 

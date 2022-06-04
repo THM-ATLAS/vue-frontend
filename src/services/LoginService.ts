@@ -6,21 +6,20 @@ import UserService from "@/services/UserService";
 class LoginService {
     //TODO: Return / check response codes
 
-    login(username: string, password: string): Promise<User> | void {
-        API.post(`authenticate`, {
-            username,
-            password
-        }).then((response: AxiosResponse) => {
-            localStorage.setItem("token", response.data.token);
-            // get and return user here
-            UserService.getUsers().then((users: User[]) => {
-                return users[0];
-            });
+    login(username: string, password: string): Promise<User> {
+        return API.post(`authenticate`, {
+                username,
+                password
+            }, {withCredentials: true} // this *would* work if we got a token from the server
+        ).then((response: AxiosResponse) => {
+            console.log(response.headers) // there should be a Set-Cookie header with a token
+            const token = response.headers["set-cookie"]?.pop() || "";
+            localStorage.setItem("token", token);
+            return response.data;
         }).catch((error) => {
             console.log(error);
             return Promise.reject(error);
         });
-        return;
     }
 }
 
