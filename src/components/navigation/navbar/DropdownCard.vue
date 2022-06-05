@@ -33,8 +33,8 @@
         <v-list-item-title>{{ $t('header.dropdown.admin') }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-btn prepend-icon="mdi-logout" @click="goToLogin()" variant="outlined" rounded="0">
-          <span>Logout</span>
+        <v-btn prepend-icon="mdi-logout" @click="logout()" variant="outlined" rounded="0">
+          <span>{{ $t('header.dropdown.logout') }}</span>
         </v-btn>
       </v-list-item>
     </v-list>
@@ -49,7 +49,8 @@ import {useRouter} from 'vue-router';
 
 const router = useRouter();
 
-function goToLogin(): void {
+function logout(): void {
+  localStorage.removeItem('user');
   router.push("/login");
 }
 

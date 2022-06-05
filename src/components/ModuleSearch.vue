@@ -1,37 +1,39 @@
 <template>
-  <div id="background-card">
-    <!--v-row align-content="center">
-      <v-col id="content">
-        <v-text-field
-            label="Suche nach Modulen"
-            prepend-inner-icon="mdi-magnify"
-            variant="plain"
-            role="search"
+  <div>
+    <div id="background-card">
+      <!--v-row align-content="center">
+        <v-col id="content">
+          <v-text-field
+              label="Suche nach Modulen"
+              prepend-inner-icon="mdi-magnify"
+              variant="plain"
+              role="search"
+          />
+        </v-col>
+      </v-row-->
+      <v-row v-for="module in currentPage" :key="module.module_id">
+        <ModuleSearchResult
+            v-bind="module"
         />
+      </v-row>
+    </div>
+    <v-row>
+      <v-col>
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
       </v-col>
-    </v-row-->
-    <v-row v-for="module in currentPage" :key="module.module_id">
-      <ModuleSearchResult
-        v-bind="module"
-      />
+      <v-col>
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
     </v-row>
   </div>
-  <v-row>
-    <v-col>
-      <v-select
-        :items="numbers"
-        :label="itemsPerPageLabel"
-        v-model="itemsPerPage">
-      </v-select>
-    </v-col>
-    <v-col>
-      <v-pagination
-          v-model="currentPageNumber"
-          :length="length"
-          total-visible="5"
-      ></v-pagination>
-    </v-col>
-  </v-row>
 </template>
 
 <script setup lang="ts">

@@ -15,6 +15,8 @@ const translationDe = {
             messages: 'Nachrichten',
             profile: 'Profil',
             admin: 'Admin',
+            login: 'Anmelden',
+            logout: 'Abmelden',
         }
     },
     footer: {
@@ -29,7 +31,11 @@ const translationDe = {
         login: 'Anmelden',
         instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
         user_id: 'Nutzerkennung',
-        password: 'Passwort'
+        password: 'Passwort',
+        username_required: 'Bitte gib deine Nutzerkennung ein.',
+        password_required: 'Bitte gib dein Passwort ein.',
+        invalid_credentials: 'Ungültige Nutzerdaten.',
+        skip_login: 'Weiter ohne Anmeldung',
     },
     landing_page: {
         welcome: 'Willkommen zu',

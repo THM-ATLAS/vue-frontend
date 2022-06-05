@@ -27,7 +27,7 @@
                 rounded="0"
             />
             <v-btn
-                @click="editExerciseDialog.show = true; editExerciseDialog.target = exercise"
+                @click="goToEditor(exercise)"
                 icon="mdi-file-document-edit"
                 small
                 elevation="0"
@@ -82,7 +82,7 @@
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           {{ viewExerciseDialog.target.title }}
         </v-card-title>
@@ -104,7 +104,7 @@
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           <span class="headline">{{ $t('admin.exercises.new') }}</span>
         </v-card-title>
@@ -152,12 +152,12 @@
       </v-card>
     </v-dialog>
     <!-- edit exercise dialog -->
-    <v-dialog
+    <!--v-dialog
         v-model="editExerciseDialog.show"
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="80vw">
         <v-card-title>
           <span class="headline">{{ $t('admin.exercises.edit') }}</span>
         </v-card-title>
@@ -205,7 +205,7 @@
                  v-html="$t('buttons.save')"/>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog-->
     <!-- delete exercise dialog -->
     <v-dialog
         v-model="deleteExerciseDialog.show"
@@ -284,10 +284,14 @@ function getExerciseTemplate(): PostExercise {
   };
 }
 
-const editExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
+function goToEditor(exercise: Exercise) {
+  router.push(`/${exercise.module.module_id}/e/${exercise.exercise_id}/edit`);
+}
+
+/*const editExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
   show: false,
   target: null,
-});
+});*/
 
 const newExerciseDialog: Ref<{ show: boolean, target: PostExercise }> = ref({
   show: false,
@@ -300,7 +304,7 @@ const viewExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref(
 });
 
 const newExerciseFormValid = ref(false);
-const editExerciseFormValid = ref(true);
+//const editExerciseFormValid = ref(true);
 
 const deleteExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
   show: false,
@@ -321,7 +325,7 @@ async function createExercise() {
 //   // return exercises.value.map(u => u.exercise_id).sort().pop() + 1;
 // }
 
-function editExercise(exercise: Exercise) {
+/*function editExercise(exercise: Exercise) {
   ExerciseService.editExercise(exercise).then(() => loadExercises());
   // exercises.value.forEach(t => {
   //   if (t.id === exercise.id) {
@@ -331,7 +335,7 @@ function editExercise(exercise: Exercise) {
   //     t.content = exercise.content;
   //   }
   // });
-}
+}*/
 
 function deleteExercise(exercise: Exercise) {
   // exercises.value = exercises.value.filter(u => u.id !== exercise.id);
