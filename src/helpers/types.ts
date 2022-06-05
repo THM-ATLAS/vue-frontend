@@ -34,3 +34,16 @@ export type Module = {
     name : string,
     description: string
 }
+
+export type ModuleUser = {
+    user_id: number,
+    module_role: ModuleRole[],
+    name: string,
+    username: string,
+    email: string
+}
+
+export type ModuleRole = {
+    role_id: number,
+    name: string
+}
