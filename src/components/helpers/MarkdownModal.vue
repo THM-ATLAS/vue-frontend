@@ -8,7 +8,7 @@
       language="en-US"
       @input="$emit('update:modelValue', $event.target.value)"
       :toolbars="toolbars"
-      footers=""
+      :footers="[]"
       :showCodeRowNumber="true"
   />
 
@@ -22,7 +22,7 @@
       class="text-block"
       language="en-US"
       :modelValue="modelValue"
-      footers=""
+      :footers="[]"
       :showCodeRowNumber="true"/>
 </template>
 
