@@ -99,7 +99,6 @@
 
     <!-- new Exercise dialog -->
     <v-dialog
-        style="z-index: 0"
         v-model="newExerciseDialog.show"
         :scrollable="true"
         :retain-focus="false"
@@ -130,13 +129,11 @@
             />
             <v-select
                 v-model="newExerciseDialog.target.module_id"
-                :hint="`${modules.find(m => m.module_id === newExerciseDialog.target.module_id)?.name}`"
-                :items="modules.map(m => m.module_id)"
-                :item-title="m => `${modules.find(ms => m === ms.module_id)?.name || m}`"
+                :items="modules"
+                item-title="name"
                 item-value="module_id"
                 :label="$t('admin.exercises.module')"
                 persistent-hint
-                return-object
                 single-line
             />
             <MarkdownModal
@@ -256,7 +253,7 @@ async function loadModules(): Promise<void> {
 onBeforeMount(async () => {
   await loadExercises();
   await loadModules();
-  newExerciseDialog.value.target = getExerciseTemplate();
+  newExerciseDialog.value.target = await getExerciseTemplate();
   exercises.value = (await ExerciseService.getExercises()).data;
 })
 // console.log(exercises.value);
@@ -273,15 +270,19 @@ function visitExercise(exercise: Exercise) {
   router.push(`/${exercise.module.module_id}/e/${exercise.exercise_id}`);
 }
 
-function getExerciseTemplate(): PostExercise {
-  return {
-    exercise_id: 0,
-    module_id: 0,
-    title: '',
-    content: '',
-    description: '',
-    exercisePublic: true
-  };
+async function getExerciseTemplate(): Promise<PostExercise> {
+  let module_id = 0;
+  return ModuleService.getModules().then((res) => module_id = res.data[0].module_id).then(() => {
+        return {
+          exercise_id: 0,
+          module_id,
+          title: '',
+          content: '',
+          description: '',
+          exercisePublic: true
+        };
+      }
+  );
 }
 
 function goToEditor(exercise: Exercise) {
