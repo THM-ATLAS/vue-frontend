@@ -158,7 +158,7 @@
 
 <script>
 import CodeEditor from 'simple-code-editor/CodeEditor.vue';
-import {ref} from "vue";
+import {defineComponent, ref} from "vue";
 import {useRouter} from "vue-router";
 
 export default defineComponent({

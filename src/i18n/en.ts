@@ -208,6 +208,10 @@ const translationEn = {
     exercise: {
         back: 'Back',
         edit: 'Edit',
+        submit: {
+            button: 'Submit solution',
+            tooltip: 'Login to submit a solution!'
+        },
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',

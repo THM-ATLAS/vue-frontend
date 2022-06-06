@@ -34,3 +34,11 @@ export type Module = {
     name : string,
     description: string
 }
+
+export type Submission = {
+    submission_id : number,
+    exercise_id: number,
+    user_id : number,
+    file: string,
+    grade: number
+}

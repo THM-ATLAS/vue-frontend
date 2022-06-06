@@ -210,12 +210,25 @@ const translationDe = {
     exercise: {
         back: 'Zurück',
         edit: 'Bearbeiten',
+        submit: {
+            button: 'Abgabe hinzufügen',
+            tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
+        },
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+    },
+    submission: {
+        'submitted-solutions': {
+            title: 'Deine Abgaben',
+            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.'
+        },
+        'submit-a-solution': {
+            title: 'Abgabe für '
+        }
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
