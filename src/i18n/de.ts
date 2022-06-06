@@ -237,6 +237,8 @@ const translationDe = {
         name: 'Name',
         roles: 'Rollen',
         edit_tag: 'Tags bearbeiten',
+        add_user: 'Nutzer hinzufügen',
+        edit_privilege: 'Rolle ändern'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

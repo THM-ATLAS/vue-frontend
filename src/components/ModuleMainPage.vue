@@ -19,7 +19,7 @@
             </v-col>
             <v-col cols="2" align-self="center" class="d-flex justify-end">
               <v-btn
-              @click="getUserStatus()">
+              disabled>
                 Einschreiben
               </v-btn>
             </v-col>

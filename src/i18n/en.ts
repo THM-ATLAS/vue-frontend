@@ -235,6 +235,8 @@ const translationEn = {
         name: 'Name',
         roles: 'Roles',
         edit_tag: 'Edit tags',
+        add_user: 'Add user',
+        edit_privilege: 'Change role'
     },
     page_not_found: {
         error_title: "This page could not be found.",

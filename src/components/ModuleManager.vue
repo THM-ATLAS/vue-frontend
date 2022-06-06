@@ -36,7 +36,10 @@
                 <td class="text-left">{{ user.module_role.name }}</td>
                 <td class="placeholder-td"></td>
                 <td class="text-right">
-                  <v-btn class="manage-button" color="primary">
+                  <v-btn 
+                  @click="editPrivilegeDialog.show = true"
+                  class="manage-button" 
+                  color="primary">
                     <v-icon icon="mdi-cog"></v-icon>
                   </v-btn>
                   <v-btn
@@ -50,8 +53,13 @@
               </tr>
             </tbody>
           </v-table>
+        <v-btn
+        class="add-user-btn"
+        @click="manageUsersDialog.show = true"
+        color="secondary"
+        v-html="$t('module_manager.add_user')"
+        />
         </v-col>
-        <v-btn @click="manageUsersDialog.show = true">User hinzufügen</v-btn>
         <v-col cols="12">
           <v-pagination></v-pagination>
         </v-col>
@@ -65,7 +73,8 @@
       transition="slide-y-transition"
     >
       <v-card top="20%" width="50vw">
-        <v-card-title> WIP </v-card-title>
+        <v-card-title> {{ $t('module_manager.edit_tag') }} </v-card-title>
+        <v-card-text> WIP </v-card-text>
         <v-card-actions>
           <v-btn
             @click="manageTagsDialog.show = false"
@@ -84,23 +93,42 @@
 
     <!-- Edit users dialog start -->
     <v-dialog
+      v-model="editPrivilegeDialog.show"
+      :retain-focus="false"
+      transition="slide-y-transition"
+    >
+      <v-card top="20%" width="50vw">
+        <v-card-title> {{ $t('module_manager.edit_privilege') }} </v-card-title>
+        <v-card-text> WIP </v-card-text>
+        <v-card-actions>
+          <v-btn 
+          @click="editPrivilegeDialog.show = false" 
+          color="error"
+          v-html="$t('buttons.close')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- Edit users dialog end -->
+
+    <!-- Edit users dialog start -->
+    <v-dialog
       v-model="manageUsersDialog.show"
       :retain-focus="false"
       transition="slide-y-transition"
     >
       <v-card top="20%" width="50vw">
-        <v-card-title> User hinzufügen </v-card-title>
+        <v-card-title> {{ $t("module_manager.add_user") }} </v-card-title>
         <v-table fixed-header height="400px">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>{{ $t("module_manager.name") }}</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="user in filteredUsers" v-bind:key="user.user_id">
-              <td v-if="user.name">{{ user.name }}</td>
-              <td v-else>No users to add</td>
+              <td>{{ user.name }}</td>
               <td class="text-right">
                 <v-btn 
                 @click="addModuleUser(user.user_id)"
@@ -113,9 +141,11 @@
           </tbody>
         </v-table>
         <v-card-actions>
-          <v-btn @click="manageUsersDialog.show = false" color="error"
-            >Schließen</v-btn
-          >
+          <v-btn 
+          @click="manageUsersDialog.show = false" 
+          color="error"
+          v-html="$t('buttons.close')"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -216,10 +246,19 @@ const manageTagsDialog = ref({
 const manageUsersDialog = ref({
   show: false,
 });
+
+const editPrivilegeDialog = ref({
+  show: false,
+});
 </script>
 
 <style scoped>
 .manage-button {
   margin-right: 1em;
+}
+
+.add-user-btn {
+  margin-top: 1em;
+  margin-bottom: -1em;
 }
 </style>
