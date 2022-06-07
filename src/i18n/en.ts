@@ -134,6 +134,7 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        submit: 'Submit Solution'
     },
     languages: {
         en: 'English',
@@ -218,6 +219,29 @@ const translationEn = {
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
+    },
+    submission: {
+        'submitted-solutions': {
+            title: 'Your submissions for',
+            'no-solutions': 'You have not submitted a solution to this exercise yet.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Submission Type',
+                grade: 'Evaluation',
+                date: 'Date',
+                'evaluated-by': 'Evaluated by',
+                comment: 'Comment',
+                'view-submission':'View submission'
+            },
+            'submission-types': {
+                'file-upload': 'File Upload',
+                'text-field': 'Text Field',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Submission for '
+        }
     },
     error: {
         unauthorized: 'Unauthorized.',

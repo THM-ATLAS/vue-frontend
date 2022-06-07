@@ -120,6 +120,7 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
+        submit: 'Lösung hochladen'
     },
     titles: {
         home_view: 'ATLAS',
@@ -223,8 +224,22 @@ const translationDe = {
     },
     submission: {
         'submitted-solutions': {
-            title: 'Deine Abgaben',
-            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.'
+            title: 'Deine Abgaben für',
+            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Abgabetyp',
+                grade: 'Bewertung',
+                date: 'Datum',
+                'evaluated-by': 'Bewertet von',
+                comment: 'Kommentar',
+                'view-submission':'Abgabe ansehen'
+            },
+            'submission-types': {
+                'file-upload': 'Datei-Upload',
+                'text-field': 'Freitextfeld',
+                'multiple-choice': 'Multiple Choice'
+            }
         },
         'submit-a-solution': {
             title: 'Abgabe für '
