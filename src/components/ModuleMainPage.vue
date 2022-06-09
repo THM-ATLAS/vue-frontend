@@ -1,5 +1,29 @@
 <template>
-  <div class="main">
+  <!-- desktop version -->
+  <div class="desktopView d-none d-md-block">
+    <!-- Image loaded from backend, contains div with module name -->
+    <div>
+      <v-img
+          lazy-src="@/assets/product-6.jpg"
+          max-height="98"
+          max-width="500"
+          src="@/assets/product-4.jpg"
+      ></v-img>
+    </div>
+    <!-- todo: find better back button placement -->
+    <div class="pt-0 pl-0 backButton">
+      <v-btn
+          @click="goBack"
+          icon="mdi-menu-left"
+          class="mx-3"
+          variant="outlined"/>
+    </div>
+    <!-- info card -> course description -->
+    <!-- grid, left side contains exercises by category (use vuetify expansion panels), right side contains info cards for lecturers and tutors -->
+  </div>
+
+  <!-- mobile version-->
+  <div class="mobileView d-xs-block d-sm-block d-md-none">
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
         <div class="pt-0 pl-0 backButton">
@@ -69,7 +93,7 @@
           </v-container>
           <v-container class="aboutBox">
             <v-row align="start" justify="center">
-              <v-card style="width: 45%" class="mx-4">
+              <v-card class="mx-4 infoCardMobile">
                 <div>
                   <h3>{{ $t('module_page.teachers') }}</h3>
                   <v-list>
@@ -84,7 +108,7 @@
                   </v-list>
                 </div>
               </v-card>
-              <v-card style="width: 45%" class="mx-4">
+              <v-card class="mx-4 infoCardMobile">
                 <div>
                   <h3>{{ $t('module_page.tutors') }}</h3>
                   <v-list>
@@ -154,20 +178,38 @@ function goToExercise(exercise: Exercise): void {
 </script>
 
 <style scoped lang="scss">
-.main {
+//CSS classes for the desktop version of the component
+.desktopView {
+  background-color: rgb(var(--v-theme-surface));
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6em;
+}
+
+//CSS classes for the mobile version of the component
+.mobileView {
   margin-block: 6em;
   justify-content: center;
+  background-color: rgb(var(--v-theme-surface));
+  padding-bottom: 6px;
 }
 
 .exerciseListBox {
   width: 70%;
   justify-self: center;
   margin-top: 16px;
+  margin-bottom: 6px;
 }
 
 .aboutBox {
-  width: 70%;
+  width: 95%;
   justify-self: center;
   margin-top: 16px;
+}
+
+.infoCardMobile {
+  width: 100%;
+  margin-top: 20px;
 }
 </style>
