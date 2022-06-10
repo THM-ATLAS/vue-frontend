@@ -6,8 +6,8 @@ import UserService from "@/services/UserService";
 class LoginService {
     //TODO: Return / check response codes
 
-    login(username: string, password: string): Promise<User> {
-        return API.post(`authenticate`, {
+    login(username: string, password: string): any {
+        return API.post(`login`, {
                 username,
                 password
             }
@@ -20,6 +20,9 @@ class LoginService {
             console.log(error);
             return Promise.reject(error);
         });
+    }
+    logout(): any {
+        return API.post(`logout`, {})
     }
 }
 

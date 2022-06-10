@@ -1,10 +1,18 @@
 services:
-    atlas-frontend:
-        image: ghcr.io/thm-atlas/vue-frontend:dev
-        build:
-            target: dev
-            context: ./
-        volumes:
-            - ./:/frontend
-            - /frontend/node_modules
-        
+    #atlas-frontend:
+     #   image: ghcr.io/thm-atlas/vue-frontend:dev
+     #   build:
+    #        target: dev
+     #       context: ./
+     #   volumes:
+     #       - ./:/frontend
+     #       - /frontend/node_modules
+
+    atlas-backend:
+        image: ghcr.io/thm-atlas/spring-backend:development
+        environment:
+            - db_source=brueckenkurs-programmieren.thm.de:5432/atlas
+            - db_username=postgres
+            - db_password=aE%us^0v3BBlMG7082&t
+            - mode=api-dev
+        network_mode: host
