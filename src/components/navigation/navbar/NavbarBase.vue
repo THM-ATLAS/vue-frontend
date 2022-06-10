@@ -101,9 +101,9 @@
       <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
         <span> {{ $t('header.dropdown.messages') }} </span>
       </v-list-item-->
-      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> {{ $t('header.dropdown.profile') }} </span>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
         <span> {{ $t('header.dropdown.settings') }} </span>
       </v-list-item>
@@ -188,9 +188,9 @@ function goToSettings(): void {
   router.push("/settings");
 }
 
-/*function goToUser() {
+function goToUser() {
   router.push("/u/");
-}*/
+}
 
 </script>
 

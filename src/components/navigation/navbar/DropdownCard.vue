@@ -22,10 +22,10 @@
       <v-list-item prepend-icon="mdi-cog" @click="goToSettings()">
         <v-list-item-title>{{ $t('header.dropdown.settings') }}</v-list-item-title>
       </v-list-item>
-      <!--v-list-item
+      <v-list-item
           @click="goToUser">
-        <v-list-item-title>Profil</v-list-item-title>
-      </v-list-item-->
+        <v-list-item-title>{{ $t('header.dropdown.profile') }}</v-list-item-title>
+      </v-list-item>
       <v-list-item prepend-icon="mdi-help" @click="goToHelp()">
         <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
@@ -70,11 +70,12 @@ function goToHelp() {
 function goToLeaderboard() {
   router.push("/leaderboard");
 }
+*/
 
 function goToUser() {
   router.push("/u/");
 }
-*/
+
 function goToSettings() {
   router.push("/settings");
 }
