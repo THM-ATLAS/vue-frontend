@@ -17,7 +17,10 @@ export type Exercise = {
     title : string,
     content : string,
     description: string,
-    exercisePublic : boolean
+    exercisePublic : boolean,
+    avgRating: number,
+    type: string,
+    tags: Tag[]
 }
 
 export type PostExercise = {
@@ -26,7 +29,15 @@ export type PostExercise = {
     title : string,
     content : string,
     description: string,
-    exercisePublic : boolean
+    exercisePublic : boolean,
+    avgRating: number,
+    type: string,
+    tags: Tag[]
+}
+
+export type Tag = {
+    tag_id: number,
+    name: string
 }
 
 export type Module = {

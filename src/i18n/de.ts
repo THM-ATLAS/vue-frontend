@@ -236,7 +236,8 @@ const translationDe = {
     module_manager: {
         name: 'Name',
         roles: 'Rollen',
-        edit_tag: 'Tags bearbeiten',
+        edit_tag_button: 'Tags bearbeiten',
+        edit_tag: 'Tags bearbeiten oder löschen',
         add_user: 'Nutzer hinzufügen',
         edit_privilege: 'Rolle ändern'
     },

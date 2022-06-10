@@ -12,7 +12,7 @@
         </v-col>
         <v-col cols="3" align-self="center" class="d-flex justify-end">
           <v-btn @click="manageTagsDialog.show = true">
-            {{ $t("module_manager.edit_tag") }}
+            {{ $t("module_manager.edit_tag_button") }}
           </v-btn>
         </v-col>
       </v-row>
@@ -74,17 +74,47 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t('module_manager.edit_tag') }} </v-card-title>
-        <v-card-text> WIP </v-card-text>
+        <v-card-text>
+          <v-table fixed-header height="400px">
+          <thead>
+            <tr>
+              <th>Tag</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
+              <!--<td>{{ tag[0].name }}</td>-->
+              <td>
+                <v-text-field
+                v-model="tag[0].name">
+                </v-text-field>
+              </td>
+              <td class="text-right">
+                <v-btn
+                class="manage-button"
+                @click="editTag(tag[0])"
+                color="primary"
+                >
+                  <v-icon icon="mdi-content-save"></v-icon>
+                </v-btn>
+                <v-btn
+                class="manage-button"
+                @click="removeTag(tag[0])"
+                color="error"
+                >
+                  <v-icon icon="mdi-delete"></v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+        </v-card-text>
         <v-card-actions>
           <v-btn
             @click="manageTagsDialog.show = false"
             color="error"
-            v-html="$t('buttons.cancel')"
-          />
-          <v-btn
-            @click="manageTagsDialog.show = false"
-            color="primary"
-            v-html="$t('buttons.save')"
+            v-html="$t('buttons.close')"
           />
         </v-card-actions>
       </v-card>
@@ -154,12 +184,14 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, Ref, ref,  } from "vue";
+import { onBeforeMount, Ref, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import UserService from "@/services/UserService";
 import ModuleService from "@/services/ModuleService";
+import TagService from "@/services/TagService";
 import ModuleManagerService from "@/services/ModuleManagerService";
-import { ModuleUser, User, Module } from "@/helpers/types";
+import ExerciseService from "@/services/ExerciseService";
+import { ModuleUser, User, Module, Tag, Exercise } from "@/helpers/types";
 
 //Router
 const route = useRoute();
@@ -168,6 +200,8 @@ const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const allUsers: Ref<User[]> = ref([]);
 const filteredUsers: Ref<User[]> = ref([]);
+const tagsCurrent: Ref<Tag[]> = ref([]);
+const exercises: Ref<Exercise[]> = ref([]);
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module).then((res) => {
@@ -200,6 +234,7 @@ onBeforeMount(async () => {
   await loadAllUsers();
   await loadModuleUsers();
   await loadFilteredUsers();
+  await getCurrentTags();
 });
 
 function addModuleUser(number: Number): void {
@@ -250,6 +285,28 @@ const manageUsersDialog = ref({
 const editPrivilegeDialog = ref({
   show: false,
 });
+
+/**
+ * Test
+ */
+
+function getCurrentTags(): void {
+  ExerciseService.getExercisesForModule(module.value.module_id).then((res) => {
+    exercises.value = [];
+    exercises.value = res.data;
+    exercises.value.forEach(ex => {
+      tagsCurrent.value.push(ex.tags);
+    });
+  });
+}
+
+function editTag(tag: Tag): void {
+  TagService.editTag(tag);
+}
+function removeTag(tag: Tag): void {
+  console.log(tag);
+}
+
 </script>
 
 <style scoped>
