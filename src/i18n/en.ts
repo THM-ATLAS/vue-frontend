@@ -207,6 +207,9 @@ const translationEn = {
         }
     },
     exercise: {
+        add_tag: 'Add tags',
+        tag_add_desc: 'Add tag from list',
+        tag: 'Tag',
         back: 'Back',
         edit: 'Edit',
         description: 'Description (optional)',
@@ -236,6 +239,7 @@ const translationEn = {
         roles: 'Roles',
         edit_tag_button: 'Edit tags',
         edit_tag: 'Change or delete tags',
+        tag: 'Tag',
         add_user: 'Add user',
         edit_privilege: 'Change role'
     },

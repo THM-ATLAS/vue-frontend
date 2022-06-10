@@ -13,7 +13,11 @@ class TagService {
     }
 
     addTag(tag: Tag): Promise<any> {
-        return API.post(`tags/`, tag);
+        return API.post(`tags`, tag);
+    }
+
+    delTag(tag: Tag): Promise<any> {
+        return API.delete(`tags/${tag.tag_id}`);
     }
 
     getTagsFromExercise(exercise: Exercise): Promise<any> {

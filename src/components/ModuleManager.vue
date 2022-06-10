@@ -36,10 +36,11 @@
                 <td class="text-left">{{ user.module_role.name }}</td>
                 <td class="placeholder-td"></td>
                 <td class="text-right">
-                  <v-btn 
-                  @click="editPrivilegeDialog.show = true"
-                  class="manage-button" 
-                  color="primary">
+                  <v-btn
+                    @click="editPrivilegeDialog.show = true"
+                    class="manage-button"
+                    color="primary"
+                  >
                     <v-icon icon="mdi-cog"></v-icon>
                   </v-btn>
                   <v-btn
@@ -53,12 +54,12 @@
               </tr>
             </tbody>
           </v-table>
-        <v-btn
-        class="add-user-btn"
-        @click="manageUsersDialog.show = true"
-        color="secondary"
-        v-html="$t('module_manager.add_user')"
-        />
+          <v-btn
+            class="add-user-btn"
+            @click="manageUsersDialog.show = true"
+            color="secondary"
+            v-html="$t('module_manager.add_user')"
+          />
         </v-col>
         <v-col cols="12">
           <v-pagination></v-pagination>
@@ -73,42 +74,39 @@
       transition="slide-y-transition"
     >
       <v-card top="20%" width="50vw">
-        <v-card-title> {{ $t('module_manager.edit_tag') }} </v-card-title>
+        <v-card-title> {{ $t("module_manager.edit_tag") }} </v-card-title>
         <v-card-text>
           <v-table fixed-header height="400px">
-          <thead>
-            <tr>
-              <th>Tag</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
-              <!--<td>{{ tag[0].name }}</td>-->
-              <td>
-                <v-text-field
-                v-model="tag[0].name">
-                </v-text-field>
-              </td>
-              <td class="text-right">
-                <v-btn
-                class="manage-button"
-                @click="editTag(tag[0])"
-                color="primary"
-                >
-                  <v-icon icon="mdi-content-save"></v-icon>
-                </v-btn>
-                <v-btn
-                class="manage-button"
-                @click="removeTag(tag[0])"
-                color="error"
-                >
-                  <v-icon icon="mdi-delete"></v-icon>
-                </v-btn>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
+            <thead>
+              <tr>
+                <th>{{ $t("module_manager.tag") }}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
+                <td>
+                  <v-text-field v-model="tag.name"> </v-text-field>
+                </td>
+                <td class="text-right">
+                  <v-btn
+                    class="manage-button"
+                    @click="editTag(tag)"
+                    color="primary"
+                  >
+                    <v-icon icon="mdi-content-save"></v-icon>
+                  </v-btn>
+                  <v-btn
+                    class="manage-button"
+                    @click="removeTag(tag)"
+                    color="error"
+                  >
+                    <v-icon icon="mdi-delete"></v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </v-table>
         </v-card-text>
         <v-card-actions>
           <v-btn
@@ -128,13 +126,13 @@
       transition="slide-y-transition"
     >
       <v-card top="20%" width="50vw">
-        <v-card-title> {{ $t('module_manager.edit_privilege') }} </v-card-title>
+        <v-card-title> {{ $t("module_manager.edit_privilege") }} </v-card-title>
         <v-card-text> WIP </v-card-text>
         <v-card-actions>
-          <v-btn 
-          @click="editPrivilegeDialog.show = false" 
-          color="error"
-          v-html="$t('buttons.close')"
+          <v-btn
+            @click="editPrivilegeDialog.show = false"
+            color="error"
+            v-html="$t('buttons.close')"
           />
         </v-card-actions>
       </v-card>
@@ -160,10 +158,7 @@
             <tr v-for="user in filteredUsers" v-bind:key="user.user_id">
               <td>{{ user.name }}</td>
               <td class="text-right">
-                <v-btn 
-                @click="addModuleUser(user.user_id)"
-                color="primary"
-                >
+                <v-btn @click="addModuleUser(user.user_id)" color="primary">
                   <v-icon icon="mdi-account-plus"></v-icon>
                 </v-btn>
               </td>
@@ -171,10 +166,10 @@
           </tbody>
         </v-table>
         <v-card-actions>
-          <v-btn 
-          @click="manageUsersDialog.show = false" 
-          color="error"
-          v-html="$t('buttons.close')"
+          <v-btn
+            @click="manageUsersDialog.show = false"
+            color="error"
+            v-html="$t('buttons.close')"
           />
         </v-card-actions>
       </v-card>
@@ -225,7 +220,7 @@ async function loadFilteredUsers(): Promise<void> {
   filteredUsers.value = await allUsers.value
     .map(({ user_id, name }) => ({ user_id, name }))
     .filter(
-      (a) => !moduleUsers.value.map((a) => a.user_id).includes(a.user_id)
+      (a) => !moduleUsers.value.map((b) => b.user_id).includes(a.user_id)
     );
 }
 
@@ -293,9 +288,10 @@ const editPrivilegeDialog = ref({
 function getCurrentTags(): void {
   ExerciseService.getExercisesForModule(module.value.module_id).then((res) => {
     exercises.value = [];
+    tagsCurrent.value = [];
     exercises.value = res.data;
-    exercises.value.forEach(ex => {
-      tagsCurrent.value.push(ex.tags);
+    exercises.value.forEach((ex) => {
+      ex.tags.forEach((t) => tagsCurrent.value.push(t));
     });
   });
 }
@@ -304,9 +300,10 @@ function editTag(tag: Tag): void {
   TagService.editTag(tag);
 }
 function removeTag(tag: Tag): void {
-  console.log(tag);
+  exercises.value.forEach((ex) => {
+    TagService.delTagFromExercise(tag, ex).then(() => getCurrentTags());
+  });
 }
-
 </script>
 
 <style scoped>

@@ -209,6 +209,9 @@ const translationDe = {
         }
     },
     exercise: {
+        add_tag: 'Tags hinzufügen',
+        tag_add_desc: 'Tag aus der Liste hinzufügen',
+        tag: 'Tag',
         back: 'Zurück',
         edit: 'Bearbeiten',
         description: 'Beschreibung (optional)',
@@ -238,6 +241,7 @@ const translationDe = {
         roles: 'Rollen',
         edit_tag_button: 'Tags bearbeiten',
         edit_tag: 'Tags bearbeiten oder löschen',
+        tag: 'Tag',
         add_user: 'Nutzer hinzufügen',
         edit_privilege: 'Rolle ändern'
     },
