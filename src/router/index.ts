@@ -4,6 +4,7 @@ import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
+import SpecificSubmission from "@/views/exercises/submissions/SpecificSubmissionView.vue";
 import Notifications from "@/views/NotificationsView.vue";
 import Help from "@/views/HelpView.vue";
 import Leaderboard from "@/views/LeaderboardView.vue";
@@ -34,6 +35,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
   {path: '/:module/s/:id', component: Submission},
+  {path: '/:module/s/:id/:sid', component: SpecificSubmission},
   // TODO {path: '/:module/s/:id/review', component: SubmissionReview},
 
   {path: '/u/', component: Profile}, // personal profile

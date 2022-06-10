@@ -244,7 +244,11 @@ const translationDe = {
         'submit-a-solution': {
             title: 'Lösung hochladen',
             'form-placeholder': 'Schreibe hier deine Lösung hinein...'
+        },
+        'specific-submission': {
+            title: 'Deine Lösung zu '
         }
+
     },
     error: {
         unauthorized: 'Keine Berechtigung.',

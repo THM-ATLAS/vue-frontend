@@ -242,7 +242,10 @@ const translationEn = {
         'submit-a-solution': {
             title: 'Submit a solution',
             'form-placeholder': 'Enter your solution...'
-        }
+        },
+        'specific-submission': {
+            title: 'Your solution for '
+        },
     },
     error: {
         unauthorized: 'Unauthorized.',

@@ -34,7 +34,7 @@
                 <td>{{s.comment}}</td>
                 <td>
                   <v-btn
-                         @click="visitSubmission()"
+                         @click="visitSubmission(s)"
                          icon="mdi-open-in-new"
                          small
                          elevation="0"
@@ -160,6 +160,10 @@ async function submitSolution() {
 
 function goBack(): void {
 router.back();
+}
+
+function visitSubmission(s: any) {
+  router.push(`/${exercise.value.module.module_id}/s/${exerciseId}/${s.submission_id}`);
 }
 
 </script>
