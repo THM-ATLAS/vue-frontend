@@ -11,8 +11,24 @@ services:
     atlas-backend:
         image: ghcr.io/thm-atlas/spring-backend:development
         environment:
-            - db_source=brueckenkurs-programmieren.thm.de:5432/atlas
-            - db_username=postgres
-            - db_password=aE%us^0v3BBlMG7082&t
             - mode=api-dev
         network_mode: host
+        env_file:
+            - backend_db_credentials.env
+
+        # Use docker secrets as an alternative to a .env file
+        # You will need to create and manage all these secrets in your docker installation
+        # for example with "echo "supersecretpassword" | docker secret create db_password -"
+        #secrets:
+        #    - db_source
+        #    - db_username
+        #    - db_password
+        #entrypoint: [ '/bin/sh', '-c', 'export db_source=$$(cat /run/secrets/db_source) ; export db_username=$$(cat /run/secrets/db_username) ;export db_password=$$(cat /run/secrets/db_password) ; source /entrypoint.sh' ]
+
+    #secrets:
+    #    db_source:
+    #        external: true
+    #    db_username:
+    #        external: true
+    #    db_password:
+    #        external: true
