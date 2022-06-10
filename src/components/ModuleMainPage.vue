@@ -1,7 +1,7 @@
 <template>
   <!-- desktop version -->
   <div class="desktopView d-none d-md-block">
-    <!-- Image loaded from backend, contains div with module name -->
+    <!-- todo: Image loaded from backend -->
     <div>
       <v-img
           lazy-src="@/assets/product-5.jpg"
@@ -10,8 +10,8 @@
           src="@/assets/product-4.jpg"
           cover
       >
-        <div class="moduleNameContainer">
-          <h1>{{ module.name }}</h1>
+        <div class="moduleNameContainer"> <!-- todo: specify linebreaks to occur when h1 reaches 50% of its parent's width -->
+          <h1>{{ module.name }} Sample Module</h1>
         </div>
       </v-img>
     </div>
@@ -25,9 +25,54 @@
     </div>
     <!-- info card -> module description -->
     <!-- grid, left side contains exercises by category (use vuetify expansion panels), right side contains info cards for lecturers and tutors -->
-    <v-card class="infoBox">
-      <v-card-text>{{module.description}}</v-card-text>
+    <v-card class="moduleInfoBox rounded-0">
+      <v-card-text>{{module.description}}
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </v-card-text>
     </v-card>
+    <v-container>
+      <v-row>
+        <v-col cols="8">
+          <!-- todo: Aufgaben Dropdown erstellen -->
+        </v-col>
+        <v-col cols="4">
+          <!-- todo: API Anbindung -->
+          <v-card class="moduleInfoBox rounded-0">
+            <v-card-title>Dozent:innen</v-card-title>
+            <v-card-text>
+              <v-list class="moduleInfoBoxList">
+                <v-list-item>Max</v-list-item>
+                <v-list-item>Manuela</v-list-item>
+                <v-list-item>Alice</v-list-item>
+                <v-list-item>Bob</v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+          <v-card class="moduleInfoBox rounded-0">
+            <v-card-title>Tutor:innen</v-card-title>
+            <v-card-text>
+              <v-list class="moduleInfoBoxList">
+                <v-list-item>Max</v-list-item>
+                <v-list-item>Manuela</v-list-item>
+                <v-list-item>Alice</v-list-item>
+                <v-list-item>Bob</v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+          <v-card class="moduleInfoBox rounded-0">
+            <v-card-title>Lernmaterial</v-card-title>
+            <v-card-text>
+              <v-list class="moduleInfoBoxList">
+                <v-list-item>Max</v-list-item>
+                <v-list-item>Manuela</v-list-item>
+                <v-list-item>Alice</v-list-item>
+                <v-list-item>Bob</v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 
   <!-- mobile version-->
@@ -163,7 +208,8 @@ onBeforeMount(async () => {
       exercises.value = e.data
     })
   }).catch(() => {
-    router.replace("/404")
+    //router.replace("/404")
+    //todo: uncomment this and rollback index.ts before pushing
   })
   UserService.getUsers().then(res => {
     teachers.value = res.data.filter((user: User) => user.roles.some(role => role.name === "teacher"))
@@ -213,7 +259,14 @@ function goToExercise(exercise: Exercise): void {
 }
 
 .moduleInfoBox{
-  background-color: rgb(var(--v-theme-background));
+  background-color: rgb(var(--v-theme-background)) !important;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+}
+//can't apply css to v-lists using tags in the moduleInfoBox class - not specific enough to override vuetify styling
+.moduleInfoBoxList{
+  background-color: rgb(var(--v-theme-background)) !important;
 }
 
 //CSS classes for the mobile version of the component
