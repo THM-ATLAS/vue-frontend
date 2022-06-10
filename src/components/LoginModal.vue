@@ -69,7 +69,6 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
-import {User} from "@/helpers/types";
 
 const router = useRouter();
 const i18n = useI18n();
@@ -86,21 +85,18 @@ const rules = {
   password_required: (value: any) => !!value || i18n.t("login_page.password_required"),
 };
 
-function login() {
-  LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then((user: User) => {
-    goToProfile(user.user_id);
-  }).catch(() => {
-    alert.value = true;
-  });
+async function login() {
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password);
+  goToHome();
 }
 
 // function storeUserData(user: User) {
 //   localStorage.setItem("user", JSON.stringify(user));
 // }
 
-function goToProfile(userId: number) {
-  router.push(`/u/${userId}`);
-}
+// function goToProfile(userId: string) {
+//   router.push(`/u/${userId}`);
+// }
 
 function goToHome() {
   router.push("/");

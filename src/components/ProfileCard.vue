@@ -95,13 +95,7 @@ onBeforeMount(async () => {
     }
 });
 
-if (getID.value === undefined) {
-  router.replace(`/u/${id}`);
-}
-
-onBeforeMount(async () => {
-  profile.value = (await UserService.getUser(id)).data;
-});
+console.log(getID.value);
 
 const image = require("../assets/marianneMuster.png");
 

@@ -43,15 +43,20 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router';
+import LoginService from "@/services/LoginService";
 //import {Ref, ref} from 'vue';
 
 //const messages: Ref<number> = ref(3);
 
 const router = useRouter();
 
-function logout(): void {
-  localStorage.removeItem('user');
-  router.push("/login");
+async function logout(): Promise<void> {
+  await LoginService.logout();
+  goToHome();
+}
+
+function goToHome(): void {
+  router.push(`/`);
 }
 
 //function goToNotifications(): void {

@@ -11,7 +11,7 @@ class LoginService {
                 username,
                 password
             }
-        ).then((response: AxiosResponse) => {
+        )/*.then((response: AxiosResponse) => {
             console.log(response) // there should be a Set-Cookie header with a token
             const token = response.headers["set-cookie"]?.pop() || "";
             localStorage.setItem("token", token);
@@ -19,7 +19,7 @@ class LoginService {
         }).catch((error) => {
             console.log(error);
             return Promise.reject(error);
-        });
+        });*/
     }
     logout(): any {
         return API.post(`logout`, {})
