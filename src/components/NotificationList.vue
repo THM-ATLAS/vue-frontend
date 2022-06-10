@@ -3,11 +3,11 @@
     <v-card-header>
       <v-icon class="ma-1">mdi-bell</v-icon>
       <v-card-header-text class="text-left fontszTi">
-        Nachrichten
+        {{ i18n.t('news_page.notifications') }}
       </v-card-header-text>
     </v-card-header>
     <v-card-subtitle>
-      Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.
+      {{ i18n.t('news_page.description') }}
     </v-card-subtitle>
     <!--
     <v-btn class="">
@@ -120,6 +120,8 @@ function del(index) {
   this.items.splice(index, 1);
 }
 */
+import {useI18n} from "vue-i18n";
+
 function visitExtLink(url) {
   window.open(url, "_blank");
 }
@@ -128,11 +130,9 @@ function visitIntLink(url) {
   this.$router.push(url);
 }
 
+const i18n = useI18n();
+
 const items = [
-  {
-    header: 'Ungelesen',
-    icon: 'mdi-email'
-  },
   {
     icon: 'mdi-note-check',
     type: 'Rückmeldung erhalten',
@@ -152,7 +152,7 @@ const items = [
       content: '/oop/s/1234',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-trophy-award',
     type: 'Level-Up',
@@ -166,7 +166,7 @@ const items = [
       content: '/u/',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-note-remove',
     type: 'Rückmeldung erhalten',
@@ -186,7 +186,7 @@ const items = [
       content: 'bkp/s/1234',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-note-search',
     type: 'Neue Abgabe erhalten',
@@ -217,7 +217,7 @@ const items = [
       content: 'mpt/s/1234',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-message-badge',
     type: 'Feedback erhalten',
@@ -231,7 +231,7 @@ const items = [
       content: '/Brueckenkurs Programmieren/e/5/feedback',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-email',
     type: 'Private Nachricht',
@@ -251,7 +251,7 @@ const items = [
           'culpa qui officia deserunt mollit anim id est laborum.',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-newspaper-plus',
     type: 'Neue Aufgaben',
@@ -265,7 +265,7 @@ const items = [
       content: '/Brueckenkurs Programmieren',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-file-cog',
     type: 'Korrektur erhalten',
@@ -285,7 +285,7 @@ const items = [
       content: '/Brueckenkurs Programmieren/e/5/edit',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-check',
     type: 'Korrektur bearbeitet',
@@ -299,7 +299,7 @@ const items = [
       content: 'Keine Ahnung lol',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-trophy-award',
     type: 'Neues Abzeichen',
@@ -313,7 +313,7 @@ const items = [
       content: '/u/',
     }]
   },
-  {divider: true, inset: true},
+   
   {
     icon: 'mdi-email',
     type: 'Private Nachricht',

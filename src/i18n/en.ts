@@ -100,6 +100,13 @@ const translationEn = {
     module_search: {
       items_per_page: 'Items per page'
     },
+    news_page: {
+        notifications: 'Notifications',
+        news: 'News',
+        description: 'You can view your messages, reviews for submissions and site news here.',
+        unread: 'Unread',
+        older_messages: 'Older messages'
+    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',
@@ -134,6 +141,12 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        to_profile: 'Go to profile',
+        read_feedback: 'Read feedback',
+        to_submission: 'Go to submission',
+        read_message: 'Read',
+        edit_exercise: 'Edit exercise',
+        to_help_page: 'Go to help page'
     },
     languages: {
         en: 'English',
