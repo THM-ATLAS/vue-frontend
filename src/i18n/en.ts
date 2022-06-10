@@ -222,7 +222,7 @@ const translationEn = {
     },
     submission: {
         'submitted-solutions': {
-            title: 'Your submissions for',
+            title: 'Your submissions',
             'no-solutions': 'You have not submitted a solution to this exercise yet.',
             'table-header': {
                 'submission-id' : 'ID',
@@ -240,7 +240,8 @@ const translationEn = {
             }
         },
         'submit-a-solution': {
-            title: 'Submission for '
+            title: 'Submit a solution',
+            'form-placeholder': 'Enter your solution...'
         }
     },
     error: {

@@ -17,7 +17,8 @@ export type Exercise = {
     title : string,
     content : string,
     description: string,
-    exercisePublic : boolean
+    exercisePublic : boolean,
+    type: string
 }
 
 export type PostExercise = {
@@ -40,5 +41,8 @@ export type Submission = {
     exercise_id: number,
     user_id : number,
     file: string,
-    grade: number
+    upload_time: string,
+    grade: number | null,
+    teacher_id: number | null,
+    comment: string | null
 }

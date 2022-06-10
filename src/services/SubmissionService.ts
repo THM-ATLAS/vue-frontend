@@ -12,13 +12,16 @@ class SubmissionService{
     }
 
     getUserSubmissions(userId: number) : Promise<any> {
-        return API.get(`user/${userId}/submissions`);
+        return API.get(`users/${userId}/submissions`);
     }
 
-    putSubmission(submission: Submission) : Promise<any> {
-        return API.put(`/submissions`, submission);
+    postSubmission(submission: Submission) : Promise<any> {
+        return API.post(`/submissions`, submission);
     }
 
+    getSubmissions(): Promise<any> {
+        return API.get(`/submissions`);
+    }
 
 }
 

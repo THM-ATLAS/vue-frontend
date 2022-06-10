@@ -28,6 +28,10 @@ class UserService {
         return API.get(`roles/`);
     }
 
+    getMe(): Promise<any> {
+        return API.get(`users/me`)
+    }
+
 }
 
 export default new UserService();

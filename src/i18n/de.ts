@@ -224,7 +224,7 @@ const translationDe = {
     },
     submission: {
         'submitted-solutions': {
-            title: 'Deine Abgaben für',
+            title: 'Deine Abgaben',
             'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
             'table-header': {
                 'submission-id' : 'ID',
@@ -242,7 +242,8 @@ const translationDe = {
             }
         },
         'submit-a-solution': {
-            title: 'Abgabe für '
+            title: 'Lösung hochladen',
+            'form-placeholder': 'Schreibe hier deine Lösung hinein...'
         }
     },
     error: {

@@ -5,238 +5,162 @@
         icon="mdi-menu-left"
         class="ma-2"
         variant="outlined"/>
+    <br>
+    <v-card-title class="text-h3">"{{exercise.title}}"</v-card-title>
     <v-container>
-      <v-card-title class="text-h4">{{$t('submission.submitted-solutions.title')}} ID {{exerciseId}}</v-card-title>
+      <v-card-title class="text-h4">{{$t('submission.submitted-solutions.title')}}</v-card-title>
+      <v-card-text v-if="!filteredSubmissions.length">{{$t('submission.submitted-solutions.no-solutions')}}</v-card-text>
       <v-table>
-        <thead>
-        <tr>
-          <th>{{ $t('submission.submitted-solutions.table-header.submission-id') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.type') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.date') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.grade') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.evaluated-by') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.comment') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.view-submission') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>13</td>
-          <td>{{ $t('submission.submitted-solutions.submission-types.file-upload') }}</td>
-          <td>06.06.2022, 23:46:15</td>
-          <td>75%</td>
-          <td>Nina Hammer</td>
-          <td>Bei den Aufgaben 2 und 3 fehlt jeweils die Ausgabe des Arrays, sowie die...</td>
-          <td>
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td>14</td>
-          <td>{{ $t('submission.submitted-solutions.submission-types.multiple-choice') }}</td>
-          <td>08.06.2022, 14:09:02</td>
-          <td>100%</td>
-          <td>Nina Hammer</td>
-          <td>-</td>
-          <td>
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-          </td>
-        </tr>
-        <!--tr v-for="exercise in exercises" v-bind:key="exercise.id">
-          <td>{{ exercise.title }}</td>
-          <td>{{ exercise.module.name }}</td>
-          <td v-if="exercise.description">{{ exercise.description }}</td>
-          <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
-          <td>
-            <v-btn
-                @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
-                icon="mdi-file-eye"
-                small
-                elevation="0"
-                color="secondary"
-                class="ma-1"
-                rounded="0"
-            />
-            <v-btn
-                @click="goToEditor(exercise)"
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-          </td>
-        </tr-->
-        </tbody>
-      </v-table>
-      <br><br><br><br>
-      <v-card-title class="text-h4">{{$t('submission.submitted-solutions.title')}} ID {{exerciseId}}</v-card-title>
-      <v-card-text>{{$t('submission.submitted-solutions.no-solutions')}}</v-card-text>
-      <v-table>
-        <thead>
-        <tr>
-          <th>{{ $t('submission.submitted-solutions.table-header.submission-id') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.type') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.date') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.grade') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.evaluated-by') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.comment') }}</th>
-          <th>{{ $t('submission.submitted-solutions.table-header.view-submission') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>
-            <v-btn
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined disabled"
-            />
-          </td>
-        </tr>
-        <!--tr v-for="exercise in exercises" v-bind:key="exercise.id">
-          <td>{{ exercise.title }}</td>
-          <td>{{ exercise.module.name }}</td>
-          <td v-if="exercise.description">{{ exercise.description }}</td>
-          <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
-          <td>
-            <v-btn
-                @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
-                icon="mdi-file-eye"
-                small
-                elevation="0"
-                color="secondary"
-                class="ma-1"
-                rounded="0"
-            />
-            <v-btn
-                @click="goToEditor(exercise)"
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-          </td>
-        </tr-->
-        </tbody>
-      </v-table>
-      <br><br><br><br>
+          <thead>
+            <tr>
+              <th>{{ $t('submission.submitted-solutions.table-header.submission-id') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.type') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.date') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.grade') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.evaluated-by') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.comment') }}</th>
+              <th>{{ $t('submission.submitted-solutions.table-header.view-submission') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-if="filteredSubmissions.length">
+              <tr v-for="s in filteredSubmissions" :key="s.submission_id"> <!-- loop through the submissions array! -->
+                <td>{{s.submission_id}}</td>
+                <td>{{exercise.type}}</td>
+                <td>{{new Date(s.upload_time).toLocaleString()}}</td>
+                <td v-if="s.grade">{{s.grade}}%</td>
+                <td v-else></td>
+                <td>{{s.teacher_id}}</td>
+                <td>{{s.comment}}</td>
+                <td>
+                  <v-btn
+                         @click="visitSubmission()"
+                         icon="mdi-open-in-new"
+                         small
+                         elevation="0"
+                         color="success"
+                         class="ma-1"
+                         rounded="0"
+                         variant="outlined"
+                  />
+                </td>
+              </tr>
+            </template>
+            <template v-else>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                  <v-btn
+                         icon="mdi-open-in-new"
+                         small
+                         elevation="0"
+                         color="error"
+                         class="ma-1"
+                         rounded="0"
+                         variant="outlined"
+                  />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </v-table>
     </v-container>
     <v-divider/>
     <v-container>
-      <v-card-title class="text-h4">{{$t('submission.submit-a-solution.title')}} ID {{exerciseId}}</v-card-title>
-      <v-card-text v-if="gotSubmission">Für diese Aufgabe wurde bereits eine Lösung abgegeben.  Dies dient nur Testzwecken.</v-card-text>
-      <v-card-text v-else>Für diese Aufgabe wurde noch keine Lösung abgegeben. Dies dient nur Testzwecken.</v-card-text>
-      <v-form
+      <v-card-title class="text-h4">{{$t('submission.submit-a-solution.title')}}</v-card-title>
+      <v-form v-if="submissionType === 'Freitext'"
           ref="form"
           class="pa-4 pt-6"
       >
-        <v-textarea
+        <v-textarea v-model="formInput"
             filled
-            :rules="[rules.required]"
             color="deep-purple"
             counter="6"
-            label="Schreibe hier deine Lösung hinein..."
+            :label="$t('submission.submit-a-solution.form-placeholder')"
         ></v-textarea>
       </v-form>
-      <v-btn>{{$t('buttons.submit')}}</v-btn>
+      <v-btn v-if="formInput" @click="submitSolution" prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
+      <v-btn disabled v-else prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
     </v-container>
   </v-card>
 </template>
 
 <script setup lang="ts">
-  import router from "@/router";
-  import SubmissionService from "@/services/SubmissionService";
-  import { onBeforeMount, ref } from "vue";
-    let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
-    let gotSubmission = ref(false);
-    let submissions;
+import router from "@/router";
+import SubmissionService from "@/services/SubmissionService";
+import {onBeforeMount, Ref, ref} from "vue";
+import UserService from "@/services/UserService";
+import ExerciseService from "@/services/ExerciseService";
+import {Exercise, Submission} from "@/helpers/types"
 
-    onBeforeMount(async () => {
-      submissions = (await SubmissionService.getSubmissionsForExercise(exerciseId)).data;
-      gotSubmission.value = submissions.length; //does the exercise have submissions or not?
-    });
+let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
+let loggedInUser;
+const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
+let filteredSubmissions: Ref<Submission[]> = ref([]);
+const usersSubmissions: Ref<Submission[]> = ref([]);
+const submissionType = ref("");
+let formInput = ref("")
 
-  function goBack(): void {
-    router.back();
+onBeforeMount(async () => {
+
+  await getExercise();
+  submissionType.value = exercise.value.type; //get submission type of exercise
+
+  await getLoggedInUsersSubmissions();
+
+  await replaceTeacherIds();
+
+});
+
+async function getExercise(): Promise<void> {
+  exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
+}
+
+async function getLoggedInUser() {
+  loggedInUser = (await UserService.getMe()).data; //get logged in user
+}
+
+async function getLoggedInUsersSubmissions(): Promise<void> {
+  await getLoggedInUser();
+  let apiUsersSubmissions = (await SubmissionService.getUserSubmissions(loggedInUser.user_id)).data; //get all submissions of logged in user
+  apiUsersSubmissions.forEach((result: Submission) => {
+    usersSubmissions.value.push(result);
+  })
+  filteredSubmissions.value = usersSubmissions.value.filter(s => s.exercise_id === exerciseId); //filter submissions: only submissions for this exercise
+}
+
+async function replaceTeacherIds(): Promise<void> {
+
+  //get the names of the users/teachers that evaluated the submissions
+  for(let i = 0; i<filteredSubmissions.value.length; i++) {
+    if (filteredSubmissions.value[i].teacher_id !== null) { //submissions have a teacher_id = null, if the evaluation is pending
+      filteredSubmissions.value[i].teacher_id = ((await UserService.getUser(filteredSubmissions.value[i].teacher_id)).data.name); //replaces id with name: not a good solution
+    }
   }
+}
 
-  const rules = {
-    required: (value: any) => !!value || "Dieses Feld ist erforderlich",
-  };
+async function submitSolution() {
+  let s: Submission = {
+    submission_id : 0,
+    exercise_id: exerciseId,
+    user_id : loggedInUser.user_id,
+    file: formInput.value,
+    upload_time: new Date().toISOString(),
+    grade: null,
+    teacher_id: null,
+    comment: null
+  }
+  await SubmissionService.postSubmission(s);
+}
+
+function goBack(): void {
+router.back();
+}
 
 </script>
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
