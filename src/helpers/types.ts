@@ -1,5 +1,5 @@
 export type User = {
-    user_id : number,
+    user_id : string,
     roles : UserRole[],
     name : string,
     username : string,
@@ -9,6 +9,10 @@ export type User = {
 export type UserRole = {
     role_id : number,
     name : string
+}
+
+export type TokenRet = {
+    token : string
 }
 
 export type Exercise = {

@@ -1,4 +1,6 @@
 services:
-    atlas-frontend:
-        ports:
-            - 8080:8080
+    #atlas-frontend:
+    #    ports:
+   #         - 8080:8080
+
+    atlas-backend:
