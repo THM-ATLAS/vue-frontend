@@ -4,22 +4,30 @@
     <!-- Image loaded from backend, contains div with module name -->
     <div>
       <v-img
-          lazy-src="@/assets/product-6.jpg"
-          max-height="98"
-          max-width="500"
+          lazy-src="@/assets/product-5.jpg"
+          max-height="240px"
+          width="100%"
           src="@/assets/product-4.jpg"
-      ></v-img>
+          cover
+      >
+        <div class="moduleNameContainer">
+          <h1>{{ module.name }}</h1>
+        </div>
+      </v-img>
     </div>
     <!-- todo: find better back button placement -->
     <div class="pt-0 pl-0 backButton">
       <v-btn
           @click="goBack"
           icon="mdi-menu-left"
-          class="mx-3"
+          class="mx-3 desktopBackButton"
           variant="outlined"/>
     </div>
-    <!-- info card -> course description -->
+    <!-- info card -> module description -->
     <!-- grid, left side contains exercises by category (use vuetify expansion panels), right side contains info cards for lecturers and tutors -->
+    <v-card class="infoBox">
+      <v-card-text>{{module.description}}</v-card-text>
+    </v-card>
   </div>
 
   <!-- mobile version-->
@@ -185,6 +193,27 @@ function goToExercise(exercise: Exercise): void {
   margin-left: auto;
   margin-right: auto;
   margin-top: 6em;
+}
+
+.desktopBackButton{
+  margin-top: 10px;
+}
+
+.moduleNameContainer{
+  background-color: rgb(var(--v-theme-surface));
+  align-self: center;
+  position: relative;
+  top: 25%;
+  padding: 2em;
+  padding-left: 0.8em;
+  display: inline-block;
+  h1 {
+    text-align: left;
+  }
+}
+
+.moduleInfoBox{
+  background-color: rgb(var(--v-theme-background));
 }
 
 //CSS classes for the mobile version of the component
