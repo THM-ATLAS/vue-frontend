@@ -9,12 +9,12 @@
           {{ $t("exercise.add_tag") }}
         </v-btn>
         <v-chip
-          v-for="t in exerciseTags"
-          v-bind:key="t.id"
+          v-for="tag in exerciseTags"
+          v-bind:key="tag.id"
           closable
-          @click:close="removeTag(t)"
+          @click:close="removeTag(tag)"
         >
-          {{ t.name }}
+          {{ tag.name }}
         </v-chip>
       </div>
       <div class="flex">
@@ -378,7 +378,6 @@ onBeforeMount(async () => {
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
   getExerciseTags();
-  getAllTags();
   //}
   //store();
 });
@@ -485,43 +484,34 @@ const addItem = (type) => {
 };
 */
 
-async function getExerciseTags(): Promise<void> {
+function getExerciseTags(): void {
   TagService.getTagsFromExercise(exercise.value).then((res) => {
     exerciseTags.value = res.data;
-  });
-}
-
-async function getAllTags(): Promise<void> {
-  TagService.getAllTags().then((res) => {
-    allTags.value = res.data;
-    filteredTags.value = allTags.value.filter(
-      (tag) => !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
-    );
+    TagService.getAllTags().then((res) => {
+      allTags.value = res.data;
+      filteredTags.value = allTags.value.sort().filter(
+        (tag) => !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
+      )
+    });
   });
 }
 
 function addTag(tag: Tag): void {
-  TagService.addTagToExercise(tag, exercise.value);
+  TagService.addTagToExercise(tag, exercise.value).then(() => getExerciseTags());
 }
 
-function removeTag(tag: Tag): void {
-  TagService.delTagFromExercise(tag, exercise.value);
+async function removeTag(tag: Tag): Promise<void> {
+  //Bugged when not removing the last tag
+  await TagService.delTagFromExercise(tag, exercise.value).then(() => getExerciseTags());
 }
 
 function createTag(tag: Tag): any {
   if(!allTags.value.map(at => at.name.toLowerCase()).includes(tag.name.toLowerCase())) {
-    TagService.addTag(tag).then(() => getAllTags());
+    TagService.addTag(tag).then(() => getExerciseTags());
     return 0;
   }
   else return 1;
 }
-
-// function addDummyToExercise(): void {
-//   const testTag: Ref<Tag> = ref({});
-//   testTag.value.tag_id = 28;
-//   testTag.value.name = "TestTag";
-//   TagService.addTagToExercise(testTag.value, exercise.value).then(() => getTags());
-// }
 
 const addTagsDialog = ref({
   show: false,
