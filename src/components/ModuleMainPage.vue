@@ -42,7 +42,7 @@
               >
                 <b>{{$t('module_page.exercises')}}</b>
               </v-expansion-panel-title>
-              <v-expansion-panel-text style="text-align: center">
+              <v-expansion-panel-text class="exercisePanelText">
                 <v-card class="exerciseCard">
                   <v-card-title class="exerciseCardTitle">Aufgabe 1</v-card-title>
                   <v-img src="@/assets/product-4.jpg" class="exerciseCardImage" contain></v-img>
@@ -342,6 +342,11 @@ function goToExercise(exercise: Exercise): void {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.exercisePanelText{
+  background-color: rgb(var(--v-theme-background)) !important;
+  text-align: center
 }
 
 //CSS classes for the mobile version of the component
