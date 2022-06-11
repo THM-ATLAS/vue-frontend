@@ -201,13 +201,13 @@ function getAssignStatus(): void {
     UserService.getMe().then((res) => {
       if(moduleUsers.value.map(a => a.user_id).includes(res.data.user_id)) {
         assignedStatus.value = true;
-        label.value.value = '(module_page.leave)';
+        label.value.value = '-';
         label.value.user = res.data;
         label.value.assigned = true;
       }
       else {
         assignedStatus.value = false;
-        label.value.value = '(module_page.attend)';
+        label.value.value = '+';
         label.value.user = res.data;
         label.value.assigned = false;
       }
@@ -232,8 +232,8 @@ function getUserTemplate(): ModuleUser {
   return {
     user_id: 0,
     module_role: {
-      role_id: 0,
-      name: "tutor",
+      role_id: 5,
+      name: "student",
     },
     name: "",
     username: "",
