@@ -228,6 +228,7 @@ const translationEn = {
         about: 'About',
         teachers: 'Teachers',
         tutors: 'Tutors',
+        materials: 'Learning material'
     },
     page_not_found: {
         error_title: "This page could not be found.",

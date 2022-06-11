@@ -25,20 +25,72 @@
     </div>
     <!-- info card -> module description -->
     <!-- grid, left side contains exercises by category (use vuetify expansion panels), right side contains info cards for lecturers and tutors -->
-    <v-card class="moduleInfoBox rounded-0">
+    <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;">
       <v-card-text>{{module.description}}
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
       </v-card-text>
     </v-card>
-    <v-container>
+    <v-container fluid>
       <v-row>
-        <v-col cols="8">
+        <v-col cols="9">
           <!-- todo: Aufgaben Dropdown erstellen -->
+          <v-expansion-panels style="z-index: 0;">
+            <v-expansion-panel rounded="0">
+              <v-expansion-panel-title
+                  expand-icon="mdi-plus"
+                  collapse-icon="mdi-minus"
+              >
+                <b>{{$t('module_page.exercises')}}</b>
+              </v-expansion-panel-title>
+              <v-expansion-panel-text style="text-align: center">
+                <v-card class="exerciseCard">
+                  <v-card-title class="exerciseCardTitle">Aufgabe 1</v-card-title>
+                  <v-img src="@/assets/product-4.jpg" class="exerciseCardImage" contain></v-img>
+                  <v-card-text class="exerciseCardText">Aufgabe 1 ist einfach, probiere es!</v-card-text>
+                </v-card>
+                <v-card class="exerciseCard">
+                  <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                  <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                  <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+                </v-card>
+                <v-card class="exerciseCard">
+                  <v-card-title class="exerciseCardTitle">Aufgabe 3</v-card-title>
+                  <v-img src="@/assets/product-1.jpg" class="exerciseCardImage" contain></v-img>
+                  <v-card-text class="exerciseCardText">Aufgabe 3 ist die schwerste.</v-card-text>
+                </v-card>
+                <v-card class="exerciseCard">
+                  <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                  <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                  <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+                </v-card>                <v-card class="exerciseCard">
+                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+              </v-card>                <v-card class="exerciseCard">
+                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+              </v-card>                <v-card class="exerciseCard">
+                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+              </v-card>                <v-card class="exerciseCard">
+                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+              </v-card>                <v-card class="exerciseCard">
+                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
+                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
+                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
+              </v-card>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-col>
-        <v-col cols="4">
+        <v-col cols="3">
           <!-- todo: API Anbindung -->
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>Dozent:innen</v-card-title>
+            <v-card-title>{{$t('module_page.teachers')}}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList">
                 <v-list-item>Max</v-list-item>
@@ -49,7 +101,7 @@
             </v-card-text>
           </v-card>
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>Tutor:innen</v-card-title>
+            <v-card-title>{{$t('module_page.tutors')}}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList">
                 <v-list-item>Max</v-list-item>
@@ -60,13 +112,13 @@
             </v-card-text>
           </v-card>
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>Lernmaterial</v-card-title>
+            <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList">
-                <v-list-item>Max</v-list-item>
-                <v-list-item>Manuela</v-list-item>
-                <v-list-item>Alice</v-list-item>
-                <v-list-item>Bob</v-list-item>
+                <v-list-item>Buch 1</v-list-item>
+                <v-list-item>Video 1</v-list-item>
+                <v-list-item>Video 2e</v-list-item>
+                <v-list-item>Buch 2</v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
@@ -262,11 +314,34 @@ function goToExercise(exercise: Exercise): void {
   background-color: rgb(var(--v-theme-background)) !important;
   margin-left: 30px;
   margin-right: 30px;
-  margin-top: 30px;
+  margin-bottom: 30px;
 }
 //can't apply css to v-lists using tags in the moduleInfoBox class - not specific enough to override vuetify styling
 .moduleInfoBoxList{
   background-color: rgb(var(--v-theme-background)) !important;
+}
+
+.exerciseCard{
+  display: inline-block;
+  margin: 10px;
+  width: 250px;
+  height: 340px;
+  .exerciseCardTitle {
+    text-align: center;
+    display: block;
+  }
+  .exerciseCardText {
+    text-align: center;
+  }
+  .exerciseCardImage {
+    //use of min and max to stop resizing of v-img - fixed width and height don't work
+    min-height: 160px;
+    max-height: 160px;
+    min-width: 200px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 //CSS classes for the mobile version of the component
