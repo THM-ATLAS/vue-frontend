@@ -57,7 +57,11 @@
               elevation="2"
               @click="goToExercise(exercise)"
             >
-              <h1>
+              <v-chip
+              v-for="tag in exercise.tags" :key="tag.tag_id">
+                {{ tag.name }}
+              </v-chip>
+              <h1 class="ex-title">
                 <v-card-title>
                   {{ exercise.title }}
                 </v-card-title>
@@ -228,7 +232,7 @@ function getUserTemplate(): ModuleUser {
   return {
     user_id: 0,
     module_role: {
-      role_id: 5,
+      role_id: 0,
       name: "tutor",
     },
     name: "",
@@ -254,5 +258,9 @@ function getUserTemplate(): ModuleUser {
   width: 70%;
   justify-self: center;
   margin-top: 16px;
+}
+
+.ex-title {
+  margin-top: 0.5em;
 }
 </style>
