@@ -231,6 +231,8 @@ const translationEn = {
         exercises: 'Exercises',
         about: 'About',
         manage: 'Manage',
+        attend: 'Assign to course',
+        leave: 'Leave course',
         teachers: 'Teachers',
         tutors: 'Tutors',
     },

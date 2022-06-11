@@ -19,8 +19,9 @@
             </v-col>
             <v-col cols="2" align-self="center" class="d-flex justify-end">
               <v-btn
-              disabled>
-                Einschreiben
+              @click="reassign()"
+              color="secondary">
+                {{ label.value }}
               </v-btn>
             </v-col>
           </v-row>
@@ -122,25 +123,34 @@
 import { onBeforeMount, ref, Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ModuleService from "@/services/ModuleService";
+import ModuleManagerService from "@/services/ModuleManagerService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import { Exercise, Module, User  } from "@/helpers/types";
+import { Exercise, Module, User, ModuleUser  } from "@/helpers/types";
 
 const route = useRoute();
 
 const module: Ref<Module> = ref({}) as Ref<Module>;
+const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const exercises: Ref<Array<Exercise>> = ref([]);
 const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
 const tutors: Ref<Array<User>> = ref([]);
+const assignedStatus = ref();
+const user: Ref<User> = ref({});
+const label = ref({
+  value: '',
+  user: user.value,
+  assigned: false
+});
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module).then((res) => {
       module.value = res.data;
       document.title = module.value.name;
-      ExerciseService.getExercisesForModule(module.value.module_id).then(
-        (e) => {
+      ExerciseService.getExercisesForModule(module.value.module_id).then((e) => {
           exercises.value = e.data;
+          getAssignStatus();
         }
       );
     })
@@ -179,6 +189,52 @@ function goToExercise(exercise: Exercise): void {
 
 function goToManage(): void {
   router.push("/" + module.value.module_id + "/manage");
+}
+
+function getAssignStatus(): void {
+  ModuleManagerService.getModuleUsers(module.value).then((res) => {
+    moduleUsers.value = res.data;
+    UserService.getMe().then((res) => {
+      if(moduleUsers.value.map(a => a.user_id).includes(res.data.user_id)) {
+        assignedStatus.value = true;
+        label.value.value = '(module_page.leave)';
+        label.value.user = res.data;
+        label.value.assigned = true;
+      }
+      else {
+        assignedStatus.value = false;
+        label.value.value = '(module_page.attend)';
+        label.value.user = res.data;
+        label.value.assigned = false;
+      }
+    })
+  })
+}
+
+function reassign(): void {
+  const moduleUser = ref({});
+  moduleUser.value = getUserTemplate();
+  moduleUser.value.user_id = label.value.user.user_id;
+  moduleUser.value.name = label.value.user.name;
+  moduleUser.value.username = label.value.user.username;
+  moduleUser.value.email = label.value.user.email;
+  console.log(moduleUser.value);
+  label.value.assigned 
+  ? ModuleManagerService.delModuleUser(module.value, moduleUser.value).then(() => getAssignStatus()) 
+  : ModuleManagerService.addModuleUser(module.value, moduleUser.value).then(() => getAssignStatus());
+}
+
+function getUserTemplate(): ModuleUser {
+  return {
+    user_id: 0,
+    module_role: {
+      role_id: 5,
+      name: "tutor",
+    },
+    name: "",
+    username: "",
+    email: "",
+  };
 }
 </script>
 

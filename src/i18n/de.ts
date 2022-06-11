@@ -233,6 +233,8 @@ const translationDe = {
         exercises: 'Aufgaben',
         about: 'Über',
         manage: 'Verwalten',
+        attend: 'Kurs belegen',
+        leave: 'Kurs verlassen',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
     },
