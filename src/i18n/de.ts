@@ -120,7 +120,9 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
-        submit: 'Lösung hochladen'
+        submit: 'Lösung hochladen',
+        view_submissions: 'Abgaben einsehen',
+        evaluate: 'Bewertung speichern'
     },
     titles: {
         home_view: 'ATLAS',
@@ -249,6 +251,26 @@ const translationDe = {
             title: 'Deine Lösung zu '
         }
 
+    },
+    submission_list: {
+        title: 'Abgaben aller Benutzer für',
+        no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
+        table: {
+            user_id: 'Benutzer ID',
+            status: {
+                title: 'Status',
+                evaluated: 'bewertet',
+                pending: 'ausstehend'
+            },
+            evaluate: 'Zur Bewertung'
+        }
+    },
+    evaluation: {
+        title: 'Bewertung der Abgabe',
+        comment: 'Ihre Bewertung',
+        comment_form: 'Schreiben Sie hier einen Kommentar zur Abgabe hinein...',
+        grade_form: 'Bewertung von 0-100 in %',
+        solution: 'Lösung des Nutzers'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',

@@ -79,7 +79,6 @@
       >
         <v-textarea v-model="formInput"
             filled
-            color="deep-purple"
             counter="6"
             :label="$t('submission.submit-a-solution.form-placeholder')"
         ></v-textarea>

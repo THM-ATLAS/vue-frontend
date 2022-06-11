@@ -5,6 +5,8 @@ import Exercise from "@/views/exercises/ExerciseView.vue";
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
 import SpecificSubmission from "@/views/exercises/submissions/SpecificSubmissionView.vue";
+import SpecificEvaluation from "@/views/exercises/submissions/SpecificEvaluationView.vue";
+import EvaluationList from "@/views/exercises/submissions/EvaluationListView.vue";
 import Notifications from "@/views/NotificationsView.vue";
 import Help from "@/views/HelpView.vue";
 import Leaderboard from "@/views/LeaderboardView.vue";
@@ -36,7 +38,8 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/:module/s/:id', component: Submission},
   {path: '/:module/s/:id/:sid', component: SpecificSubmission},
-  // TODO {path: '/:module/s/:id/review', component: SubmissionReview},
+  {path: '/:module/eval/:id', component: EvaluationList},
+  {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
 
   {path: '/u/', component: Profile}, // personal profile
   {path: '/u/:id', component: Profile}, // profile of other user

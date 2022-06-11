@@ -134,7 +134,9 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
-        submit: 'Submit Solution'
+        submit: 'Submit Solution',
+        view_submissions: 'View submissions',
+        evaluate: 'Save Evaluation'
     },
     languages: {
         en: 'English',
@@ -246,6 +248,26 @@ const translationEn = {
         'specific-submission': {
             title: 'Your solution for '
         },
+    },
+    submission_list: {
+        title: 'Submissions of all Users for',
+        no_solutions: 'No solutions have been submitted to this exercise yet.',
+        table: {
+            user_id: 'User ID',
+            status: {
+                title: 'Status',
+                evaluated: 'evaluated',
+                pending: 'pending'
+            },
+            evaluate: 'View Evaluation'
+        }
+    },
+    evaluation: {
+        title: 'Evaluation of Submission',
+        comment: 'Your evaluation',
+        comment_form: 'Add a comment to the submission...',
+        grade_form: 'Grade between 0-100 in %',
+        solution: 'The User\'s solution'
     },
     error: {
         unauthorized: 'Unauthorized.',

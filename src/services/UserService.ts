@@ -8,10 +8,6 @@ class UserService {
         return API.get(`users/${id}`);
     }
 
-    getMe(): Promise<any> {
-        return API.get(`users/me`);
-    }
-
     getUsers(): Promise<any> {
         return API.get(`users/`);
     }

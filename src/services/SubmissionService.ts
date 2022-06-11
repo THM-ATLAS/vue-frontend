@@ -23,6 +23,9 @@ class SubmissionService{
         return API.get(`/submissions`);
     }
 
+    adjustSubmission(submission: Submission): Promise<any> {
+        return API.put(`/submissions`, submission);
+    }
 }
 
 

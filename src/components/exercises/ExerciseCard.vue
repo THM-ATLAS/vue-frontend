@@ -21,12 +21,15 @@
               <span v-html="$t('exercise.edit')"/>
             </v-tooltip>
           </v-col>
-          <v-col v-if="loggedIn" align-self="center" style="text-align: end">
+          <v-col v-if="loggedIn" align-self="center" class="button-col">
             <v-btn @click="goToSubmission" prepend-icon="mdi-upload" variant="outlined" elevation="0" outlined>
               {{$t('exercise.submit.button')}}
+            </v-btn><br><br>
+            <v-btn @click="goToSubmissionsList" prepend-icon="mdi-human-male-board" variant="outlined" elevation="0" outlined>
+              {{$t('buttons.view_submissions')}}
             </v-btn>
           </v-col>
-          <v-col v-else align-self="center" style="text-align: end">
+          <v-col v-else align-self="center" class="button-col">
             <v-tooltip bottom>
               <template v-slot:activator="{ props }">
                 <div v-bind="props">
@@ -164,9 +167,6 @@
   <h1></h1-->
 </template>
 
-<style scoped>
-</style>
-
 <script setup lang='ts'>
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 //import NewSubmission from "@/components/exercises/submissions/NewSubmission.vue";
@@ -175,18 +175,18 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
+import UserService from "@/services/UserService";
 import {Exercise, User} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
-const user = getUserData(); //must be either the logged in user's name or empty
-const loggedIn = !!user;
-
-function getUserData(): User | undefined {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : undefined;
-}
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn = ref(false);
+onBeforeMount(async () => {
+  user.value = (await UserService.getMe())?.data || undefined;
+  loggedIn.value = !!user.value;
+})
 
 const exercise: Ref<Exercise | any> = ref({});
 
@@ -207,6 +207,10 @@ function goToEditor(): void {
 
 function goToSubmission() {
   router.push(`/${exercise.value.module.module_id}/s/${id}`);
+}
+
+function goToSubmissionsList() {
+  router.push(`/${exercise.value.module.module_id}/eval/${id}`);
 }
 
 /*
@@ -234,3 +238,9 @@ let dialog2 = ref(false);
 let hasSubmission = true;
 */
 </script>
+
+<style scoped>
+  .button-col {
+    text-align: end;
+  }
+</style>
