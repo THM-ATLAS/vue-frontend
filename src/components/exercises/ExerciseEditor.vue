@@ -105,7 +105,7 @@
                 {{ tag.name }}
               </td>
               <td class="text-right">
-                <v-btn @click="addTag(tag)" color="primary">
+                <v-btn @click="addTagToExercise(tag)" color="primary">
                   <v-icon icon="mdi-plus"></v-icon>
                 </v-btn>
               </td>
@@ -113,15 +113,15 @@
           </tbody>
         </v-table>
           <v-row>
-            <v-col cols="10">
+            <v-col cols="9">
               <v-text-field
                 v-model="addTagsDialog.target.name">
               </v-text-field>
             </v-col>
-            <v-col cols="2">
+            <v-col cols="3">
               <v-btn
               @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
-                Create
+                {{ $t('exercise.create') }}
               </v-btn>
             </v-col>
           </v-row>
@@ -489,6 +489,7 @@ function getExerciseTags(): void {
     exerciseTags.value = res.data;
     TagService.getAllTags().then((res) => {
       allTags.value = res.data;
+      console.log(allTags.value);
       filteredTags.value = allTags.value.sort().filter(
         (tag) => !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
       )
@@ -496,7 +497,7 @@ function getExerciseTags(): void {
   });
 }
 
-function addTag(tag: Tag): void {
+function addTagToExercise(tag: Tag): void {
   TagService.addTagToExercise(tag, exercise.value).then(() => getExerciseTags());
 }
 
@@ -506,7 +507,7 @@ async function removeTag(tag: Tag): Promise<void> {
 }
 
 function createTag(tag: Tag): any {
-  if(!allTags.value.map(at => at.name.toLowerCase()).includes(tag.name.toLowerCase())) {
+  if(!allTags.value.map(at => at.name.toLowerCase()).includes(tag.name.toLowerCase()) && tag.name != '') {
     TagService.addTag(tag).then(() => getExerciseTags());
     return 0;
   }

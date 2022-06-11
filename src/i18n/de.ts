@@ -212,6 +212,7 @@ const translationDe = {
         add_tag: 'Tags hinzufügen',
         tag_add_desc: 'Tag aus der Liste hinzufügen',
         tag: 'Tag',
+        create: 'Hinzufügen',
         back: 'Zurück',
         edit: 'Bearbeiten',
         description: 'Beschreibung (optional)',

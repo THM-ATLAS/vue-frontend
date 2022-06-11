@@ -210,6 +210,7 @@ const translationEn = {
         add_tag: 'Add tags',
         tag_add_desc: 'Add tag from list',
         tag: 'Tag',
+        create: 'Create',
         back: 'Back',
         edit: 'Edit',
         description: 'Description (optional)',

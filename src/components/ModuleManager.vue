@@ -281,10 +281,6 @@ const editPrivilegeDialog = ref({
   show: false,
 });
 
-/**
- * Test
- */
-
 function getCurrentTags(): void {
   ExerciseService.getExercisesForModule(module.value.module_id).then((res) => {
     exercises.value = [];
@@ -300,6 +296,7 @@ function editTag(tag: Tag): void {
   TagService.editTag(tag);
 }
 function removeTag(tag: Tag): void {
+  //No way to delete tags globally
   exercises.value.forEach((ex) => {
     TagService.delTagFromExercise(tag, ex).then(() => getCurrentTags());
   });
