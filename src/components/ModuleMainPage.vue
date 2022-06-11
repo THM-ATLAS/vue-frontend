@@ -10,12 +10,12 @@
           src="@/assets/product-4.jpg"
           cover
       >
-        <div class="moduleNameContainer"> <!-- todo: specify linebreaks to occur when h1 reaches 50% of its parent's width -->
-          <h1>{{ module.name }} Sample Module</h1>
+        <div class="moduleNameContainer">
+          <h1>{{ module.name }}</h1>
         </div>
       </v-img>
     </div>
-    <!-- todo: find better back button placement -->
+    <!-- todo: edit button and menu for lecturers and admins-->
     <div class="pt-0 pl-0 backButton">
       <v-btn
           @click="goBack"
@@ -23,17 +23,12 @@
           class="mx-3 desktopBackButton"
           variant="outlined"/>
     </div>
-    <!-- info card -> module description -->
-    <!-- grid, left side contains exercises by category (use vuetify expansion panels), right side contains info cards for lecturers and tutors -->
     <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;">
-      <v-card-text>{{module.description}}
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-      </v-card-text>
+      <v-card-text>{{module.description}}</v-card-text>
     </v-card>
     <v-container fluid>
       <v-row>
         <v-col cols="9">
-          <!-- todo: Aufgaben Dropdown erstellen -->
           <v-expansion-panels style="z-index: 0;">
             <v-expansion-panel rounded="0">
               <v-expansion-panel-title
@@ -43,85 +38,47 @@
                 <b>{{$t('module_page.exercises')}}</b>
               </v-expansion-panel-title>
               <v-expansion-panel-text class="exercisePanelText">
-                <v-card class="exerciseCard">
-                  <v-card-title class="exerciseCardTitle">Aufgabe 1</v-card-title>
+                <div v-for="exercise in exercises"
+                      v-bind:key="exercise.exercise_id" style="display: inline-flex; text-align: center">
+                <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
+                        @click.prevent.stop="goToExercise(exercise)">
+                  <v-card-title class="exerciseCardTitle">{{exercise.title}}</v-card-title>
                   <v-img src="@/assets/product-4.jpg" class="exerciseCardImage" contain></v-img>
-                  <v-card-text class="exerciseCardText">Aufgabe 1 ist einfach, probiere es!</v-card-text>
+                  <v-card-text class="exerciseCardText">{{exercise.description}}</v-card-text>
                 </v-card>
-                <v-card class="exerciseCard">
-                  <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                  <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                  <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-                </v-card>
-                <v-card class="exerciseCard">
-                  <v-card-title class="exerciseCardTitle">Aufgabe 3</v-card-title>
-                  <v-img src="@/assets/product-1.jpg" class="exerciseCardImage" contain></v-img>
-                  <v-card-text class="exerciseCardText">Aufgabe 3 ist die schwerste.</v-card-text>
-                </v-card>
-                <v-card class="exerciseCard">
-                  <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                  <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                  <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-                </v-card>                <v-card class="exerciseCard">
-                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-              </v-card>                <v-card class="exerciseCard">
-                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-              </v-card>                <v-card class="exerciseCard">
-                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-              </v-card>                <v-card class="exerciseCard">
-                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-              </v-card>                <v-card class="exerciseCard">
-                <v-card-title class="exerciseCardTitle">Aufgabe 2</v-card-title>
-                <v-img src="@/assets/product-2.jpg" class="exerciseCardImage" contain></v-img>
-                <v-card-text class="exerciseCardText">Aufgabe 2 kann etwas länger dauern.</v-card-text>
-              </v-card>
+                </div>
               </v-expansion-panel-text>
             </v-expansion-panel>
           </v-expansion-panels>
         </v-col>
         <v-col cols="3">
-          <!-- todo: API Anbindung -->
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.teachers')}}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList">
-                <v-list-item>Max</v-list-item>
-                <v-list-item>Manuela</v-list-item>
-                <v-list-item>Alice</v-list-item>
-                <v-list-item>Bob</v-list-item>
+              <v-list class="moduleInfoBoxList" v-for="teacher in teachers"
+                      :key="teacher.user_id">
+                <v-list-item class="moduleInfoListItem"><v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>{{teacher.name}}</v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.tutors')}}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList">
-                <v-list-item>Max</v-list-item>
-                <v-list-item>Manuela</v-list-item>
-                <v-list-item>Alice</v-list-item>
-                <v-list-item>Bob</v-list-item>
+              <v-list class="moduleInfoBoxList"  v-for="tutor in tutors"
+                      :key="tutor.user_id">
+                <v-list-item class="moduleInfoListItem"><v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>{{tutor.name}}</v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
+          <!-- todo: module materials
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList">
-                <v-list-item>Buch 1</v-list-item>
-                <v-list-item>Video 1</v-list-item>
-                <v-list-item>Video 2e</v-list-item>
-                <v-list-item>Buch 2</v-list-item>
+                <v-list-item></v-list-item>
               </v-list>
             </v-card-text>
-          </v-card>
+          </v-card> -->
         </v-col>
       </v-row>
     </v-container>
@@ -315,10 +272,17 @@ function goToExercise(exercise: Exercise): void {
   margin-left: 30px;
   margin-right: 30px;
   margin-bottom: 30px;
+  overflow-x: hidden;
 }
 //can't apply css to v-lists using tags in the moduleInfoBox class - not specific enough to override vuetify styling
 .moduleInfoBoxList{
   background-color: rgb(var(--v-theme-background)) !important;
+}
+
+.moduleInfoListItem{
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-inline-start: 0;
 }
 
 .exerciseCard{
@@ -326,9 +290,20 @@ function goToExercise(exercise: Exercise): void {
   margin: 10px;
   width: 250px;
   height: 340px;
+
+  &:hover {
+    filter: brightness(150%);
+    cursor: pointer;
+  }
+  &:target{
+    filter: brightness(150%);
+  }
   .exerciseCardTitle {
     text-align: center;
+    align-items: center;
     display: block;
+    font-size: 1.1rem !important;
+    height: 64px;
   }
   .exerciseCardText {
     text-align: center;
