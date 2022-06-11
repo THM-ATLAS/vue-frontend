@@ -4,8 +4,12 @@ import {User, UserRole} from "@/helpers/types"
 class UserService {
 
     //TODO: Return / check response codes
-    getUser(id: number): Promise<any> {
+    getUser(id: string): Promise<any> {
         return API.get(`users/${id}`);
+    }
+
+    getMe(): Promise<any> {
+        return API.get(`users/me`);
     }
 
     getUsers(): Promise<any> {
