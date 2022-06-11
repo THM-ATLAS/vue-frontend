@@ -93,7 +93,7 @@
       class="d-md-none"
   >
     <v-spacer/>
-    <v-list nav>
+    <v-list :nav="true">
       <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
         {{ $t('header.modules') }}
       </v-list-item>
@@ -101,9 +101,9 @@
       <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
         <span> {{ $t('header.dropdown.messages') }} </span>
       </v-list-item-->
-      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> {{ $t('header.dropdown.profile') }} </span>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
         <span> {{ $t('header.dropdown.settings') }} </span>
       </v-list-item>
@@ -114,7 +114,7 @@
         <span>{{ $t('header.dropdown.admin') }}</span>
       </v-list-item>
       <v-list-item>
-        <v-btn block variant="outlined" rounded="0">
+        <v-btn :block="true" variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
           <span v-if="loggedIn" @click='logout'> {{ $t('header.dropdown.logout') }} </span>
           <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
@@ -128,23 +128,24 @@
 import Dropdown from "./DropdownCard.vue";
 import ModuleButton from "./ModuleButton.vue"
 import {useRouter} from 'vue-router';
-import {Ref, ref} from 'vue';
+import {onBeforeMount, Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import {User} from "@/helpers/types";
+import UserService from "@/services/UserService";
+import LoginService from "@/services/LoginService";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn = ref(false);
+
+onBeforeMount(async () => {
+  user.value = (await UserService.getMe())?.data || undefined;
+  loggedIn.value = !!user.value;
+})
 
 const router = useRouter();
-
-const user = getUserData(); //must be either the logged in user's name or empty
-const loggedIn = !!user;
-
-function getUserData(): User | undefined {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : undefined;
-}
 
 function goToHome(): void {
   router.push(`/`);
@@ -154,9 +155,9 @@ function goToLogin(): void {
   router.push("/login");
 }
 
-function logout(): void {
-  localStorage.removeItem('user');
-  router.push("/login");
+async function logout(): Promise<void> {
+  await LoginService.logout();
+  goToHome();
 }
 
 function goToAdmin() {
@@ -187,9 +188,9 @@ function goToSettings(): void {
   router.push("/settings");
 }
 
-/*function goToUser() {
+function goToUser() {
   router.push("/u/");
-}*/
+}
 
 </script>
 
