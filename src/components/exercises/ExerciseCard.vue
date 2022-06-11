@@ -98,7 +98,11 @@
           </template>
           <span>Feedback ansehen</span>
         </v-tooltip-->
-
+        <v-chip
+        v-for="t in tags"
+        v-bind:key="t.id">
+          {{ t.name }}
+        </v-chip>
       </div>
       <div>
         <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{ exercise.title }}</v-card-title>
@@ -144,9 +148,6 @@
   </div-->
 </template>
 
-<style scoped>
-</style>
-
 <script setup lang='ts'>
 // import FeedbackModal from "@/components/FeedbackModal.vue";
 // import NewSubmission from "@/components/exercises/NewSubmission.vue";
@@ -155,18 +156,19 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
-import {Exercise} from "@/helpers/types";
+import {Exercise, Tag} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
 
 const exercise: Ref<Exercise | any> = ref({});
+const tags: Ref<Tag[]> = ref([]);
 
 onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data
   await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
-
+  tags.value = exercise.value.tags;
   document.title = exercise.value.module.name + ' - ' + exercise.value.title
 })
 
@@ -202,3 +204,6 @@ let dialog2 = ref(false);
 let hasSubmission = true;
 */
 </script>
+
+<style scoped>
+</style>

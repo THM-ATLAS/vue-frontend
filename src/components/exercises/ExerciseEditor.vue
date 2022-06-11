@@ -112,6 +112,19 @@
             </tr>
           </tbody>
         </v-table>
+          <v-row>
+            <v-col cols="10">
+              <v-text-field
+                v-model="addTagsDialog.target.name">
+              </v-text-field>
+            </v-col>
+            <v-col cols="2">
+              <v-btn
+              @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
+                Create
+              </v-btn>
+            </v-col>
+          </v-row>
         <v-card-actions>
           <v-btn
             @click="addTagsDialog.show = false"
@@ -495,6 +508,14 @@ function removeTag(tag: Tag): void {
   TagService.delTagFromExercise(tag, exercise.value);
 }
 
+function createTag(tag: Tag): any {
+  if(!allTags.value.map(at => at.name.toLowerCase()).includes(tag.name.toLowerCase())) {
+    TagService.addTag(tag).then(() => getAllTags());
+    return 0;
+  }
+  else return 1;
+}
+
 // function addDummyToExercise(): void {
 //   const testTag: Ref<Tag> = ref({});
 //   testTag.value.tag_id = 28;
@@ -504,7 +525,15 @@ function removeTag(tag: Tag): void {
 
 const addTagsDialog = ref({
   show: false,
+  target: getTagTemplate()
 });
+
+function getTagTemplate(): Tag {
+  return {
+    tag_id: 0,
+    name: '',
+  };
+}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
