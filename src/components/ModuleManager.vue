@@ -86,7 +86,12 @@
             <tbody>
               <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
                 <td>
-                  <v-text-field v-model="tag.name"> </v-text-field>
+                  <v-container class="test-class">
+                    <v-text-field
+                    vertical-align="middle"
+                    class="centered-input"
+                    v-model="tag.name"/>
+                  </v-container>
                 </td>
                 <td class="text-right">
                   <v-btn
@@ -311,5 +316,12 @@ function removeTag(tag: Tag): void {
 .add-user-btn {
   margin-top: 1em;
   margin-bottom: -1em;
+}
+.centered-input >>> input {
+  text-align: center
+}
+
+.test-class {
+  margin-bottom: -2.5em;
 }
 </style>
