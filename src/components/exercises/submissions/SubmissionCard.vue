@@ -149,6 +149,7 @@ async function submitSolution() {
     comment: null
   }
   await SubmissionService.postSubmission(s);
+  goBack();
 }
 
 function goBack(): void {

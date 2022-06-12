@@ -113,6 +113,7 @@
       comment: formInput.value
     }
     await SubmissionService.adjustSubmission(s);
+    goBack();
   }
 
   function evaluationUpdated() {
