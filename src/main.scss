@@ -21,3 +21,7 @@
 .v-text-field {
   font-family: 'Courier New', serif; // set font: Courier New for input fields
 }
+
+a {
+  color: rgb(var(--v-theme-hyperlink));
+}
