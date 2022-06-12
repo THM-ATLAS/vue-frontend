@@ -89,7 +89,7 @@
                   <v-container class="test-class">
                     <v-text-field
                     vertical-align="middle"
-                    class="centered-input"
+                    class="centered-input extend"
                     v-model="tag.name"/>
                   </v-container>
                 </td>
@@ -323,5 +323,12 @@ function removeTag(tag: Tag): void {
 
 .test-class {
   margin-bottom: -2.5em;
+}
+
+.extend {
+  width: 15em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
