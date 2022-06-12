@@ -73,7 +73,7 @@
       :retain-focus="false"
       transition="slide-y-transition"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="70vw">
         <v-card-title> {{ $t("module_manager.edit_tag") }} </v-card-title>
         <v-card-text>
           <v-table fixed-header height="400px">
@@ -130,7 +130,7 @@
       :retain-focus="false"
       transition="slide-y-transition"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="70vw">
         <v-card-title> {{ $t("module_manager.edit_privilege") }} </v-card-title>
         <v-card-text> WIP </v-card-text>
         <v-card-actions>
@@ -150,7 +150,7 @@
       :retain-focus="false"
       transition="slide-y-transition"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" width="70vw">
         <v-card-title> {{ $t("module_manager.add_user") }} </v-card-title>
         <v-table fixed-header height="400px">
           <thead>
