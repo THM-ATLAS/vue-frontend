@@ -6,9 +6,9 @@
         class="ma-2"
         variant="outlined"/>
     <br>
-    <v-card-title class="text-h3">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
+    <v-card-title class="text-h4">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
     <v-container>
-      <v-card-title class="text-h4">{{$t('submission.submitted-solutions.title')}}</v-card-title>
+      <v-card-title class="text-h5">{{$t('submission.submitted-solutions.title')}}</v-card-title>
       <v-card-text v-if="!filteredSubmissions.length">{{$t('submission.submitted-solutions.no-solutions')}}</v-card-text>
       <v-table>
           <thead>
@@ -74,7 +74,7 @@
     </v-container>
     <v-divider/>
     <v-container>
-      <v-card-title class="text-h4">{{$t('submission.submit-a-solution.title')}}</v-card-title>
+      <v-card-title class="text-h5">{{$t('submission.submit-a-solution.title')}}</v-card-title>
       <v-form v-if="submissionType === 'Freitext'"
           ref="form"
           class="pa-4 pt-6"
