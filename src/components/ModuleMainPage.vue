@@ -248,6 +248,7 @@ function goToExercise(exercise: Exercise): void {
   margin-left: auto;
   margin-right: auto;
   margin-top: 6em;
+  margin-bottom: 3em;
 }
 
 .desktopBackButton{
