@@ -37,6 +37,7 @@ export const lightTheme: ThemeDefinition = {
         text: '#394a59',
         link: '#9c132e',
         skipLink: '#4a5c66',
+        hyperlink: '#272ef5',
     }
 };
 
@@ -55,5 +56,6 @@ export const darkTheme: ThemeDefinition = {
         warning: '#FB8C00',
         highlight: '#3d3d3d',
         skipLink: '#FFFFFF',
+        hyperlink: '#34ebe5',
     }
 };
