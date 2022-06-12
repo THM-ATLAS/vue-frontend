@@ -225,6 +225,7 @@ const translationDe = {
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
     },
     submission: {
+        title: 'Aufgabe',
         'submitted-solutions': {
             title: 'Deine Abgaben',
             'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
@@ -253,7 +254,7 @@ const translationDe = {
 
     },
     submission_list: {
-        title: 'Abgaben aller Benutzer für',
+        title: 'Abgaben aller Benutzer für Aufgabe',
         no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
         table: {
             user_id: 'Benutzer ID',

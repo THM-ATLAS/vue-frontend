@@ -26,9 +26,11 @@
             <td>{{exercise.type}}</td>
             <td>{{new Date(submission.upload_time).toLocaleString()}}</td>
             <td v-if="submission.grade">{{submission.grade}}%</td>
-            <td v-else></td>
-            <td>{{submission.teacher_id}}</td>
-            <td>{{submission.comment}}</td>
+            <td v-else>-</td>
+            <td v-if="teacher">{{teacher}}</td>
+            <td v-else>-</td>
+            <td v-if="submission.comment">{{submission.comment}}</td>
+            <td v-else>-</td>
           </tr>
           </tbody>
         </v-table>
@@ -38,7 +40,7 @@
         </v-card-title>
         <v-container>
           <div id="submission">
-            {{submissionContent}}
+            <pre>{{submissionContent}}</pre>
           </div>
         </v-container>
       </v-card-text>
@@ -53,7 +55,6 @@
             v-model="grade"
             :max="100"
             step="1"
-            ticks="always"
             tick-size="10"
             thumb-label="always"
         ></v-slider>
@@ -73,54 +74,51 @@
 <script setup lang="ts">
   import router from "@/router";
   import {onBeforeMount, Ref, ref} from "vue";
-  import {Exercise, Submission} from "@/helpers/types";
+  import {Exercise, Submission, User} from "@/helpers/types";
   import SubmissionService from "@/services/SubmissionService";
   import ExerciseService from "@/services/ExerciseService";
   import UserService from "@/services/UserService";
 
-  let formInput = ref("");
-  let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
-  let submissionId: number = Number(router.currentRoute.value.params.sid); //is it ok to get the exercise-id from the url?
-  let submission: Ref<Submission> = ref({}) as Ref<Submission>;
-  let submissionContent = ref("");
-  let exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-  let grade = ref(0);
-  let loggedInUser;
+  const formInput = ref("");
+  const exerciseId: number = Number(router.currentRoute.value.params.id);
+  const submissionId: number = Number(router.currentRoute.value.params.sid);
+  const submission: Ref<Submission> = ref({}) as Ref<Submission>;
+  const submissionContent = ref("");
+  const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
+  const grade = ref(0);
+  const teacher = ref("");
+  const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 
   onBeforeMount(async () => {
-    await getSubmission();
+    submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
     submissionContent.value = submission.value.file;
+    grade.value = submission.value.grade;
+
     formInput.value = submission.value.comment ? submission.value.comment : "";
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
+    if(submission.value.teacher_id) teacher.value = (await UserService.getUser(submission.value.teacher_id.toString())).data.name;
   })
 
-  async function getSubmission() {
-    submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
-  }
-
-  async function getLoggedInUser() {
-    loggedInUser = (await UserService.getMe()).data; //get logged in user
-  }
-
   async function submitEvaluation() {
-    await getLoggedInUser();
+    loggedInUser.value = (await UserService.getMe()).data; //get logged in user
     //overwrite grade, comment and teacher_id of submission
-    let s: Submission = {
+    const s: Submission = {
       submission_id : submission.value.submission_id,
       exercise_id: exerciseId,
       user_id : submission.value.user_id,
       file: submission.value.file,
       upload_time: submission.value.upload_time,
       grade: grade.value,
-      teacher_id: loggedInUser.user_id,
+      teacher_id: Number(loggedInUser.value.user_id),
       comment: formInput.value
     }
     await SubmissionService.adjustSubmission(s);
   }
 
   function evaluationUpdated() {
-    let commentHasChanged = submission.value.comment == formInput.value;
-    let gradeHasChanged = submission.value.grade == grade.value;
+    const comment = !submission.value.comment ? "" : submission.value.comment;
+    const commentHasChanged = comment == formInput.value;
+    const gradeHasChanged = submission.value.grade == grade.value;
     return !commentHasChanged || !gradeHasChanged;
   }
 
@@ -133,5 +131,6 @@
 #submission {
   padding: 20px;
   background: rgb(var(--v-theme-background));
+  overflow: scroll;
 }
 </style>

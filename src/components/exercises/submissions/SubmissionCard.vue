@@ -6,7 +6,7 @@
         class="ma-2"
         variant="outlined"/>
     <br>
-    <v-card-title class="text-h3">"{{exercise.title}}"</v-card-title>
+    <v-card-title class="text-h3">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
     <v-container>
       <v-card-title class="text-h4">{{$t('submission.submitted-solutions.title')}}</v-card-title>
       <v-card-text v-if="!filteredSubmissions.length">{{$t('submission.submitted-solutions.no-solutions')}}</v-card-text>
@@ -29,9 +29,11 @@
                 <td>{{exercise.type}}</td>
                 <td>{{new Date(s.upload_time).toLocaleString()}}</td>
                 <td v-if="s.grade">{{s.grade}}%</td>
-                <td v-else></td>
-                <td>{{s.teacher_id}}</td>
-                <td>{{s.comment}}</td>
+                <td v-else>-</td>
+                <td v-if="s.teacher_id">{{s.teacher_id}}</td>
+                <td v-else>-</td>
+                <td v-if="s.comment">{{s.comment}}</td>
+                <td v-else>-</td>
                 <td>
                   <v-btn
                          @click="visitSubmission(s)"
@@ -95,38 +97,30 @@ import SubmissionService from "@/services/SubmissionService";
 import {onBeforeMount, Ref, ref} from "vue";
 import UserService from "@/services/UserService";
 import ExerciseService from "@/services/ExerciseService";
-import {Exercise, Submission} from "@/helpers/types"
+import {Exercise, Submission, User} from "@/helpers/types"
 
-let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
-let loggedInUser;
+const exerciseId: number = Number(router.currentRoute.value.params.id);
+const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-let filteredSubmissions: Ref<Submission[]> = ref([]);
+const filteredSubmissions: Ref<Submission[]> = ref([]);
 const usersSubmissions: Ref<Submission[]> = ref([]);
 const submissionType = ref("");
-let formInput = ref("")
+const formInput = ref("")
 
 onBeforeMount(async () => {
 
-  await getExercise();
+  exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
   submissionType.value = exercise.value.type; //get submission type of exercise
 
+  loggedInUser.value = (await UserService.getMe()).data;
   await getLoggedInUsersSubmissions();
 
   await replaceTeacherIds();
 
 });
 
-async function getExercise(): Promise<void> {
-  exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
-}
-
-async function getLoggedInUser() {
-  loggedInUser = (await UserService.getMe()).data; //get logged in user
-}
-
 async function getLoggedInUsersSubmissions(): Promise<void> {
-  await getLoggedInUser();
-  let apiUsersSubmissions = (await SubmissionService.getUserSubmissions(loggedInUser.user_id)).data; //get all submissions of logged in user
+  const apiUsersSubmissions = (await SubmissionService.getUserSubmissions(Number(loggedInUser.value.user_id))).data; //get all submissions of logged in user
   apiUsersSubmissions.forEach((result: Submission) => {
     usersSubmissions.value.push(result);
   })
@@ -137,17 +131,17 @@ async function replaceTeacherIds(): Promise<void> {
 
   //get the names of the users/teachers that evaluated the submissions
   for(let i = 0; i<filteredSubmissions.value.length; i++) {
-    if (filteredSubmissions.value[i].teacher_id !== null) { //submissions have a teacher_id = null, if the evaluation is pending
-      filteredSubmissions.value[i].teacher_id = ((await UserService.getUser(filteredSubmissions.value[i].teacher_id)).data.name); //replaces id with name: not a good solution
-    }
+    if (filteredSubmissions.value[i].teacher_id !== null)  //submissions have a teacher_id = null, if the evaluation is pending
+      filteredSubmissions.value[i].teacher_id = ((await UserService.getUser(filteredSubmissions.value[i].teacher_id.toString())).data.name); //replaces id with name: not the best solution
+
   }
 }
 
 async function submitSolution() {
-  let s: Submission = {
+  const s: Submission = {
     submission_id : 0,
     exercise_id: exerciseId,
-    user_id : loggedInUser.user_id,
+    user_id : Number(loggedInUser.value.user_id),
     file: formInput.value,
     upload_time: new Date().toISOString(),
     grade: null,
@@ -158,7 +152,7 @@ async function submitSolution() {
 }
 
 function goBack(): void {
-router.back();
+  router.back();
 }
 
 function visitSubmission(s: any) {

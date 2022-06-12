@@ -6,7 +6,7 @@
         class="ma-2"
         variant="outlined"/>
     <br>
-    <v-card-title class="text-h4">{{$t('submission.specific-submission.title')}} "{{name}}"</v-card-title>
+    <v-card-title class="text-h4">{{ $t('submission.specific-submission.title') }} "{{ exerciseTitle }}"</v-card-title>
     <v-container>
       <v-card-text>
         <v-table>
@@ -26,14 +26,16 @@
             <td>{{exercise.type}}</td>
             <td>{{new Date(submission.upload_time).toLocaleString()}}</td>
             <td v-if="submission.grade">{{submission.grade}}%</td>
-            <td v-else></td>
-            <td>{{teacher}}</td>
-            <td>{{submission.comment}}</td>
+            <td v-else>-</td>
+            <td v-if="teacherName">{{ teacherName }}</td>
+            <td v-else>-</td>
+            <td v-if="submission.comment">{{submission.comment}}</td>
+            <td v-else>-</td>
           </tr>
           </tbody>
         </v-table>
         <div id="submission">
-          {{submissionContent}}
+          <pre>{{submissionContent}}</pre>
         </div>
       </v-card-text>
     </v-container>
@@ -48,24 +50,21 @@
   import UserService from "@/services/UserService";
   import {Exercise, Submission} from "@/helpers/types";
 
-  let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
-  let name = ref("");
-  let submission: Ref<Submission> = ref({}) as Ref<Submission>;
-  let exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-  let submissionContent = ref("");
-  let teacher = ref("");
+  const exerciseId: number = Number(router.currentRoute.value.params.id);
+  const exerciseTitle = ref("");
+  const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
+  const submission: Ref<Submission> = ref({}) as Ref<Submission>;
+  const submissionContent = ref("");
+  const teacherName = ref("");
 
   onBeforeMount(async () => {
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
-    name.value = exercise.value.title;
-    await getSubmission();
-    submissionContent.value = submission.value.file;
-    if(submission.value.teacher_id) teacher.value = (await UserService.getUser(submission.value.teacher_id)).data.name;
-  })
+    exerciseTitle.value = exercise.value.title;
 
-  async function getSubmission() {
     submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
-  }
+    submissionContent.value = submission.value.file;
+    if(submission.value.teacher_id) teacherName.value = (await UserService.getUser(submission.value.teacher_id.toString())).data.name;
+  })
 
   function goBack(): void {
     router.back();
@@ -78,5 +77,6 @@
   margin-top: 40px;
   padding: 20px;
   background: rgb(var(--v-theme-background));
+  overflow: scroll;
 }
 </style>

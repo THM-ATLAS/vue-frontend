@@ -21,55 +21,51 @@
               <th>{{ $t('submission_list.table.evaluate') }}</th>
             </tr>
           </thead>
-            <tbody>
-              <template v-if="submissions.length">
-                <tr v-for="s in submissions" :key="s.submission_id"> <!-- loop through the submissions array! -->
-                  <td>{{s.submission_id}}</td>
-                  <td>{{s.user_id}}</td>
-                  <td>{{exercise.type}}</td>
-                  <td>{{new Date(s.upload_time).toLocaleString()}}</td>
-                  <td v-if="!s.grade">{{$t('submission_list.table.status.pending')}}</td>
-                  <td v-else>{{$t('submission_list.table.status.evaluated')}}</td>
-                  <td>
-                    <v-btn
-                        @click="visitEvaluation(s)"
-                        icon="mdi-open-in-new"
-                        small
-                        elevation="0"
-                        color="success"
-                        class="ma-1"
-                        rounded="0"
-                        variant="outlined"
-                    />
-                  </td>
-                </tr>
-              </template>
-              <template v-else>
-                <tr>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>
-                    <v-btn
-                        icon="mdi-open-in-new"
-                        small
-                        elevation="0"
-                        color="error"
-                        class="ma-1"
-                        rounded="0"
-                        variant="outlined"
-                    />
-                  </td>
-                </tr>
-              </template>
-
-            </tbody>
+          <tbody>
+            <template v-if="submissions.length">
+              <tr v-for="s in submissions" :key="s.submission_id"> <!-- loop through the submissions array -->
+                <td>{{s.submission_id}}</td>
+                <td>{{s.user_id}}</td>
+                <td>{{exercise.type}}</td>
+                <td>{{new Date(s.upload_time).toLocaleString()}}</td>
+                <td v-if="!s.grade">{{$t('submission_list.table.status.pending')}}</td>
+                <td v-else>{{$t('submission_list.table.status.evaluated')}}</td>
+                <td>
+                  <v-btn
+                      @click="visitEvaluation(s)"
+                      icon="mdi-open-in-new"
+                      small
+                      elevation="0"
+                      color="success"
+                      class="ma-1"
+                      rounded="0"
+                      variant="outlined"
+                  />
+                </td>
+              </tr>
+            </template>
+            <template v-else>
+              <tr>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                  <v-btn
+                      icon="mdi-open-in-new"
+                      small
+                      elevation="0"
+                      color="error"
+                      class="ma-1"
+                      rounded="0"
+                      variant="outlined"
+                  />
+                </td>
+              </tr>
+            </template>
+          </tbody>
         </v-table>
-        <!--div id="submission">
-          {{submissionContent}}
-        </div-->
       </v-card-text>
     </v-container>
   </v-card>
@@ -82,9 +78,9 @@
   import ExerciseService from "@/services/ExerciseService";
   import SubmissionService from "@/services/SubmissionService";
 
+  const exerciseId: number = Number(router.currentRoute.value.params.id);
   const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-  let exerciseId: number = Number(router.currentRoute.value.params.id); //is it ok to get the exercise-id from the url?
-  let submissions: Ref<Submission[]> = ref([]);
+  const submissions: Ref<Submission[]> = ref([]);
 
   onBeforeMount(async () => {
 
@@ -96,6 +92,7 @@
   async function getExercise(): Promise<void> {
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
   }
+
   async function getSubmissions() {
     submissions.value = (await SubmissionService.getSubmissionsForExercise(exerciseId)).data;
   }

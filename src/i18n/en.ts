@@ -223,6 +223,7 @@ const translationEn = {
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
     },
     submission: {
+        title: 'Exercise',
         'submitted-solutions': {
             title: 'Your submissions',
             'no-solutions': 'You have not submitted a solution to this exercise yet.',
@@ -250,7 +251,7 @@ const translationEn = {
         },
     },
     submission_list: {
-        title: 'Submissions of all Users for',
+        title: 'Submissions of all Users for Exercise',
         no_solutions: 'No solutions have been submitted to this exercise yet.',
         table: {
             user_id: 'User ID',
