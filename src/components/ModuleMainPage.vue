@@ -4,10 +4,10 @@
     <!-- todo: Image loaded from backend -->
     <div>
       <v-img
-          lazy-src="@/assets/product-5.jpg"
+          lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
           max-height="240px"
           width="100%"
-          src="@/assets/product-4.jpg"
+          src=""
           cover
       >
         <div class="moduleNameContainer">
@@ -23,7 +23,7 @@
           class="mx-3 desktopBackButton"
           variant="outlined"/>
     </div>
-    <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;">
+    <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;" id="content">
       <v-card-text>{{module.description}}</v-card-text>
     </v-card>
     <v-container fluid>
@@ -43,7 +43,7 @@
                 <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
                         @click.prevent.stop="goToExercise(exercise)">
                   <v-card-title class="exerciseCardTitle">{{exercise.title}}</v-card-title>
-                  <v-img src="@/assets/product-4.jpg" class="exerciseCardImage" contain></v-img>
+                  <v-img src="@/assets/ModuleMainPage/book-open-variant.svg" class="exerciseCardImage" contain></v-img>
                   <v-card-text class="exerciseCardText">{{exercise.description}}</v-card-text>
                 </v-card>
                 </div>
