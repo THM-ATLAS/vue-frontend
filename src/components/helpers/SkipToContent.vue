@@ -22,7 +22,7 @@ defineProps({
   padding: 10px;
   background: rgb(var(--v-theme-skipLink));
   z-index: 1000 !important;
-  transform: translateY(-100%);
+  transform: translateY(-110%);
   transition: transform 0.3s;
   display: flex;
   justify-content: center;
