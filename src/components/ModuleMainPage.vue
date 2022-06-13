@@ -5,11 +5,11 @@
       <!-- todo: Image loaded from backend -->
       <div>
         <v-img
-          lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
-          max-height="240px"
-          width="100%"
-          src=""
-          cover
+            lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+            max-height="240px"
+            width="100%"
+            src=""
+            cover
         >
           <div class="moduleNameContainer">
             <h1>{{ module.name }}</h1>
@@ -19,22 +19,22 @@
       <!-- todo: edit button and menu for lecturers and admins-->
       <div class="pt-0 pl-0 backButton">
         <v-btn
-          @click="goBack()"
-          icon="mdi-menu-left"
-          class="mx-3 desktopBackButton"
-          variant="outlined"
+            @click="goBack()"
+            icon="mdi-menu-left"
+            class="mx-3 desktopBackButton"
+            variant="outlined"
         />
         <v-btn
-          @click="goToManage()"
-          icon="mdi-cog"
-          class="mx-3 desktopBackButton"
-          variant="outlined"
+            @click="goToManage()"
+            icon="mdi-cog"
+            class="mx-3 desktopBackButton"
+            variant="outlined"
         />
       </div>
       <v-card
-        class="moduleInfoBox rounded-0"
-        style="margin-top: 30px"
-        id="content"
+          class="moduleInfoBox rounded-0"
+          style="margin-top: 30px"
+          id="content"
       >
         <v-card-text>
           <v-row>
@@ -55,39 +55,41 @@
             <v-expansion-panels style="z-index: 0" v-model="panel">
               <v-expansion-panel rounded="0" key="0">
                 <v-expansion-panel-title
-                  expand-icon="mdi-plus"
-                  collapse-icon="mdi-minus"
+                    expand-icon="mdi-plus"
+                    collapse-icon="mdi-minus"
                 >
                   <b>{{ $t("module_page.exercises") }}</b>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text class="exercisePanelText">
                   <div
-                    v-for="exercise in exercises"
-                    v-bind:key="exercise.exercise_id"
-                    style="display: inline-flex; text-align: center"
+                      v-for="exercise in exercises"
+                      v-bind:key="exercise.exercise_id"
+                      style="display: inline-flex; text-align: center"
                   >
                     <v-card
-                      class="exerciseCard"
-                      tabindex="0"
-                      @keyup.enter.prevent.stop="goToExercise(exercise)"
-                      @click.prevent.stop="goToExercise(exercise)"
+                        class="exerciseCard"
+                        tabindex="0"
+                        @keyup.enter.prevent.stop="goToExercise(exercise)"
+                        @click.prevent.stop="goToExercise(exercise)"
                     >
                       <v-card-title class="exerciseCardTitle">{{
-                        exercise.title
-                      }}</v-card-title>
+                          exercise.title
+                        }}
+                      </v-card-title>
                       <!-- <v-chip
                     class="tag-chip"
                     v-for="tag in exercise.tags" :key="tag.tag_id">
                       {{ tag.name }}
                     </v-chip> -->
                       <v-icon
-                        class="exercise-icon"
-                        size="180px"
-                        icon="mdi-book-open-blank-variant"
+                          class="exercise-icon"
+                          size="180px"
+                          icon="mdi-book-open-blank-variant"
                       ></v-icon>
                       <v-card-text class="exerciseCardText">{{
-                        exercise.description
-                      }}</v-card-text>
+                          exercise.description
+                        }}
+                      </v-card-text>
                     </v-card>
                   </div>
                 </v-expansion-panel-text>
@@ -99,15 +101,16 @@
               <v-card-title>{{ $t("module_page.teachers") }}</v-card-title>
               <v-card-text>
                 <v-list
-                  class="moduleInfoBoxList"
-                  v-for="teacher in teachers"
-                  :key="teacher.user_id"
+                    class="moduleInfoBoxList"
+                    v-for="teacher in teachers"
+                    :key="teacher.user_id"
                 >
-                  <v-list-item class="moduleInfoListItem">
+                  <v-list-item class="moduleInfoListItem"
+                               @click="visitProfile(teacher)">
                     <v-icon
-                      class="ml-3"
-                      icon="mdi-account"
-                      style="margin-right: 8px"
+                        class="ml-3"
+                        icon="mdi-account"
+                        style="margin-right: 8px"
                     />
                     {{ teacher.name }}
                   </v-list-item>
@@ -118,15 +121,16 @@
               <v-card-title>{{ $t("module_page.tutors") }}</v-card-title>
               <v-card-text>
                 <v-list
-                  class="moduleInfoBoxList"
-                  v-for="tutor in tutors"
-                  :key="tutor.user_id"
+                    class="moduleInfoBoxList"
+                    v-for="tutor in tutors"
+                    :key="tutor.user_id"
                 >
-                  <v-list-item class="moduleInfoListItem">
+                  <v-list-item class="moduleInfoListItem"
+                               @click="visitProfile(tutor)">
                     <v-icon
-                      class="ml-3"
-                      icon="mdi-account"
-                      style="margin-right: 8px"
+                        class="ml-3"
+                        icon="mdi-account"
+                        style="margin-right: 8px"
                     />
                     {{ tutor.name }}
                   </v-list-item>
@@ -153,10 +157,10 @@
         <v-col sm="10" md="10" lg="10" xl="10">
           <div class="pt-0 pl-0 backButton">
             <v-btn
-              @click="goBack"
-              icon="mdi-menu-left"
-              class="mx-3"
-              variant="outlined"
+                @click="goBack"
+                icon="mdi-menu-left"
+                class="mx-3"
+                variant="outlined"
             />
           </div>
           <v-card color="highlight" rounded="0" class="pb-0 mt-3">
@@ -194,15 +198,15 @@
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
             <v-row
-              v-for="exercise in exercises"
-              v-bind:key="exercise.exercise_id"
-              class="exerciseListEntry"
-              justify="center"
+                v-for="exercise in exercises"
+                v-bind:key="exercise.exercise_id"
+                class="exerciseListEntry"
+                justify="center"
             >
               <v-card
-                class="exerciseListBox"
-                elevation="2"
-                @click="goToExercise(exercise)"
+                  class="exerciseListBox"
+                  elevation="2"
+                  @click="goToExercise(exercise)"
               >
                 <v-chip v-for="tag in exercise.tags" :key="tag.tag_id">
                   {{ tag.name }}
@@ -239,8 +243,9 @@
                     <h3>{{ $t("module_page.teachers") }}</h3>
                     <v-list>
                       <v-list-item
-                        v-for="teacher in teachers"
-                        :key="teacher.user_id"
+                          v-for="teacher in teachers"
+                          :key="teacher.user_id"
+                          @click="visitProfile(teacher)"
                       >
                         <v-list-item-title>
                           {{ teacher.name }}
@@ -253,7 +258,9 @@
                   <div>
                     <h3>{{ $t("module_page.tutors") }}</h3>
                     <v-list>
-                      <v-list-item v-for="tutor in tutors" :key="tutor.user_id">
+                      <v-list-item v-for="tutor in tutors"
+                                   :key="tutor.user_id"
+                                   @click="visitProfile(tutor)">
                         <v-list-item-title>
                           {{ tutor.name }}
                         </v-list-item-title>
@@ -271,12 +278,12 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, Ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import {onBeforeMount, ref, Ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import { Exercise, Module, User, ModuleUser } from "@/helpers/types";
+import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
 
 const route = useRoute();
 
@@ -297,26 +304,26 @@ const label = ref({
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
-    .then((res) => {
-      module.value = res.data;
-      loadUsers();
-      document.title = module.value.name;
-      ExerciseService.getExercisesForModule(module.value.module_id).then(
-        (e) => {
-          exercises.value = e.data;
-          getAssignStatus();
-        }
-      );
-    })
-    .catch(() => {
-      router.replace("/404");
-    });
+      .then((res) => {
+        module.value = res.data;
+        loadUsers();
+        document.title = module.value.name;
+        ExerciseService.getExercisesForModule(module.value.module_id).then(
+            (e) => {
+              exercises.value = e.data;
+              getAssignStatus();
+            }
+        );
+      })
+      .catch(() => {
+        router.replace("/404");
+      });
 }
 
 async function loadUsers(): Promise<void> {
   ModuleService.getModuleUsers(module.value).then((res) => {
     teachers.value = res.data.filter((user: ModuleUser) =>
-      user.module_role.name === "teacher"
+        user.module_role.name === "teacher"
     );
     tutors.value = res.data.filter((user: ModuleUser) =>
         user.module_role.name === "tutor"
@@ -340,6 +347,10 @@ function goToExercise(exercise: Exercise): void {
 
 function goToManage(): void {
   router.push("/" + module.value.module_id + "/manage");
+}
+
+function visitProfile(user: User): void {
+  router.push("/u/" + user.user_id);
 }
 
 function getAssignStatus(): void {
@@ -369,11 +380,11 @@ function reassign(): void {
   moduleUser.value.username = label.value.user.username;
   moduleUser.value.email = label.value.user.email;
   label.value.assigned
-    ? ModuleService.delModuleUser(module.value, moduleUser.value).then(
-        () => getAssignStatus()
+      ? ModuleService.delModuleUser(module.value, moduleUser.value).then(
+          () => getAssignStatus()
       )
-    : ModuleService.addModuleUser(module.value, moduleUser.value).then(
-        () => getAssignStatus()
+      : ModuleService.addModuleUser(module.value, moduleUser.value).then(
+          () => getAssignStatus()
       );
 }
 
