@@ -21,7 +21,8 @@ export type Exercise = {
     title : string,
     content : string,
     description: string,
-    exercisePublic : boolean
+    exercisePublic : boolean,
+    type: string
 }
 
 export type PostExercise = {
@@ -37,4 +38,15 @@ export type Module = {
     module_id : number,
     name : string,
     description: string
+}
+
+export type Submission = {
+    submission_id : number,
+    exercise_id: number,
+    user_id : number,
+    file: string,
+    upload_time: string,
+    grade: number | null,
+    teacher_id: number | null,
+    comment: string | null
 }
