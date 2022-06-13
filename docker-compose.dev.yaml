@@ -10,8 +10,6 @@ services:
 
     atlas-backend:
         image: ghcr.io/thm-atlas/spring-backend:development
-        environment:
-            - mode=api-dev
         network_mode: host
         env_file:
             - backend_db_credentials.env

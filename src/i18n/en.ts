@@ -135,6 +135,9 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        submit: 'Submit Solution',
+        view_submissions: 'View submissions',
+        evaluate: 'Save Evaluation'
     },
     languages: {
         en: 'English',
@@ -213,12 +216,64 @@ const translationEn = {
         create: 'Create',
         back: 'Back',
         edit: 'Edit',
+        submit: {
+            button: 'My solution',
+            tooltip: 'Login to submit a solution!'
+        },
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
+    },
+    submission: {
+        title: 'Exercise',
+        'submitted-solutions': {
+            title: 'Your submission',
+            'no-solutions': 'You have not submitted a solution to this exercise yet.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Submission Type',
+                grade: 'Evaluation',
+                date: 'Date',
+                'evaluated-by': 'Evaluated by',
+                comment: 'Comment',
+                'view-submission':'View submission'
+            },
+            'submission-types': {
+                'file-upload': 'File Upload',
+                'text-field': 'Text Field',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Submit a solution',
+            'form-placeholder': 'Enter your solution...'
+        },
+        'specific-submission': {
+            title: 'Your solution for '
+        },
+    },
+    submission_list: {
+        title: 'Submissions of all Users for Exercise',
+        no_solutions: 'No solutions have been submitted to this exercise yet.',
+        table: {
+            user_id: 'User ID',
+            status: {
+                title: 'Status',
+                evaluated: 'evaluated',
+                pending: 'pending'
+            },
+            evaluate: 'View Evaluation'
+        }
+    },
+    evaluation: {
+        title: 'Evaluation of Submission',
+        comment: 'Your evaluation',
+        comment_form: 'Add a comment to the submission...',
+        grade_form: 'Grade between 0-100 in %',
+        solution: 'The User\'s solution'
     },
     error: {
         unauthorized: 'Unauthorized.',
