@@ -302,7 +302,10 @@ const translationDe = {
         edit_tag: 'Tags bearbeiten oder löschen',
         tag: 'Tag',
         add_user: 'Nutzer hinzufügen',
-        edit_privilege: 'Rolle ändern'
+        edit_privilege: 'Rolle ändern',
+        student: 'Student:in',
+        tutor: 'Tutor:in',
+        teacher: 'Lehrer:in'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

@@ -36,11 +36,14 @@
                 <td class="text-left">{{ user.module_role.name }}</td>
                 <td class="placeholder-td"></td>
                 <td class="text-right">
+                  <!-- Disabled until it works -->
                   <v-btn
-                    @click="editPrivilegeDialog.show = true"
+                    @click="editPrivilegeDialog.show = true; editPrivilegeDialog.userRole = user.module_role.name; editPrivilegeDialog.user = user"
                     class="manage-button"
                     color="primary"
-                  >
+                    disabled
+                  > 
+                  <!-- Disabled until it works -->
                     <v-icon icon="mdi-cog"></v-icon>
                   </v-btn>
                   <v-btn
@@ -130,14 +133,35 @@
       :retain-focus="false"
       transition="slide-y-transition"
     >
-      <v-card top="20%" width="70vw">
+      <v-card top="15%" width="50vw">
         <v-card-title> {{ $t("module_manager.edit_privilege") }} </v-card-title>
-        <v-card-text> WIP </v-card-text>
+        <v-card-text>
+          <v-radio-group
+          v-model="editPrivilegeDialog.userRole">
+            <v-radio
+            :label="$t('module_manager.student')"
+            value="student"
+            @click="editPrivilegeDialog.userRole = 'student'"/>
+            <v-radio
+            :label="$t('module_manager.tutor')"
+            value="tutor"
+            @click="editPrivilegeDialog.userRole = 'tutor'"/>
+            <v-radio
+            :label="$t('module_manager.teacher')"
+            value="teacher"
+            @click="editPrivilegeDialog.userRole = 'teacher'"/>
+          </v-radio-group>
+        </v-card-text>
         <v-card-actions>
           <v-btn
-            @click="editPrivilegeDialog.show = false"
+            @click="editPrivilegeDialog.show = false; editPrivilegeDialog.userRole = null; editPrivilegeDialog.user = null"
             color="error"
             v-html="$t('buttons.close')"
+          />
+          <v-btn
+            @click="editPrivilegeDialog.show = false; editPrivilegeDialog.userRole = null; setUserRole(editPrivilegeDialog.user)"
+            color="primary"
+            v-html="$t('buttons.save')"
           />
         </v-card-actions>
       </v-card>
@@ -284,6 +308,8 @@ const manageUsersDialog = ref({
 
 const editPrivilegeDialog = ref({
   show: false,
+  userRole: null,
+  user: null
 });
 
 function getCurrentTags(): void {
@@ -305,6 +331,12 @@ function removeTag(tag: Tag): void {
   exercises.value.forEach((ex) => {
     TagService.delTagFromExercise(tag, ex).then(() => getCurrentTags());
   });
+}
+
+function setUserRole(user: ModuleUser): void {
+  console.log(user); 
+  editPrivilegeDialog.value.user = null;
+  //Set role here
 }
 </script>
 

@@ -299,7 +299,10 @@ const translationEn = {
         edit_tag: 'Change or delete tags',
         tag: 'Tag',
         add_user: 'Add user',
-        edit_privilege: 'Change role'
+        edit_privilege: 'Change role',
+        student: 'Student',
+        tutor: 'Tutor',
+        teacher: 'Teacher'
     },
     page_not_found: {
         error_title: "This page could not be found.",
