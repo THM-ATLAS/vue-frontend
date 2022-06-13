@@ -29,7 +29,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="9">
-          <v-expansion-panels style="z-index: 0;">
+          <v-expansion-panels style="z-index: 0;" v-model="panel">
             <v-expansion-panel rounded="0">
               <v-expansion-panel-title
                   expand-icon="mdi-plus"
@@ -43,7 +43,7 @@
                 <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
                         @click.prevent.stop="goToExercise(exercise)">
                   <v-card-title class="exerciseCardTitle">{{exercise.title}}</v-card-title>
-                  <v-img src="@/assets/ModuleMainPage/book-open-variant.svg" class="exerciseCardImage" contain></v-img>
+                  <v-icon size="180px" icon="mdi-book-open-blank-variant"></v-icon>
                   <v-card-text class="exerciseCardText">{{exercise.description}}</v-card-text>
                 </v-card>
                 </div>
@@ -208,6 +208,7 @@ const exercises: Ref<Array<Exercise>> = ref([])
 const tab = ref(0)
 const teachers: Ref<Array<User>> = ref([])
 const tutors: Ref<Array<User>> = ref([])
+const panel = [0];
 
 onBeforeMount(async () => {
   ModuleService.getModule(route.params.module).then(res => {
@@ -293,7 +294,6 @@ function goToExercise(exercise: Exercise): void {
   height: 340px;
 
   &:hover {
-    filter: brightness(150%);
     cursor: pointer;
   }
   &:target{
