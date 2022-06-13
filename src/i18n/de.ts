@@ -286,6 +286,7 @@ const translationDe = {
         about: 'Über',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
+        materials: 'Lernmaterial'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

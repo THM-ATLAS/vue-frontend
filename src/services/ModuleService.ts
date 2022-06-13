@@ -12,7 +12,7 @@ class ModuleService {
         return API.get(`modules`);
     }
 
-    getModule(id: number): Promise<any> {
+    getModule(id: string): Promise<any> {
         return API.get(`modules/${id}`);
     }
 

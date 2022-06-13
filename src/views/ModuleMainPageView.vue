@@ -14,12 +14,4 @@ import ModuleMainPage from "@/components/ModuleMainPage";
 </script>
 
 <style scoped>
-.v-card {
-  margin-top: 15px !important;
-  margin-bottom: 30px !important;
-}
-
-.v-row {
-  padding-block: 10em;
-}
 </style>
