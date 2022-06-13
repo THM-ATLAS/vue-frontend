@@ -120,6 +120,9 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
+        submit: 'Lösung hochladen',
+        view_submissions: 'Abgaben einsehen',
+        evaluate: 'Bewertung speichern'
     },
     titles: {
         home_view: 'ATLAS',
@@ -210,12 +213,65 @@ const translationDe = {
     exercise: {
         back: 'Zurück',
         edit: 'Bearbeiten',
+        submit: {
+            button: 'Meine Abgabe',
+            tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
+        },
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+    },
+    submission: {
+        title: 'Aufgabe',
+        'submitted-solutions': {
+            title: 'Deine Abgabe',
+            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Abgabetyp',
+                grade: 'Bewertung',
+                date: 'Datum',
+                'evaluated-by': 'Bewertet von',
+                comment: 'Kommentar',
+                'view-submission':'Abgabe ansehen'
+            },
+            'submission-types': {
+                'file-upload': 'Datei-Upload',
+                'text-field': 'Freitextfeld',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Lösung hochladen',
+            'form-placeholder': 'Schreibe hier deine Lösung hinein...'
+        },
+        'specific-submission': {
+            title: 'Deine Lösung zu '
+        }
+
+    },
+    submission_list: {
+        title: 'Abgaben aller Benutzer für Aufgabe',
+        no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
+        table: {
+            user_id: 'Benutzer ID',
+            status: {
+                title: 'Status',
+                evaluated: 'bewertet',
+                pending: 'ausstehend'
+            },
+            evaluate: 'Zur Bewertung'
+        }
+    },
+    evaluation: {
+        title: 'Bewertung der Abgabe',
+        comment: 'Ihre Bewertung',
+        comment_form: 'Schreiben Sie hier einen Kommentar zur Abgabe hinein...',
+        grade_form: 'Bewertung von 0-100 in %',
+        solution: 'Lösung des Nutzers'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
