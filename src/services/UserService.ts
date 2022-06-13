@@ -1,5 +1,5 @@
 import API from "@/services/API";
-import {User, UserRole} from "@/helpers/types"
+import {User, Role} from "@/helpers/types"
 
 class UserService {
 
@@ -24,7 +24,7 @@ class UserService {
         return API.post(`users/`, user);
     }
 
-    getRoles(): Promise<UserRole[]> {
+    getRoles(): Promise<Role[]> {
         return API.get(`roles/`);
     }
 
