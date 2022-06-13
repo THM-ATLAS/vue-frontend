@@ -212,7 +212,7 @@ const translationEn = {
         back: 'Back',
         edit: 'Edit',
         submit: {
-            button: 'Submit solution',
+            button: 'My solution',
             tooltip: 'Login to submit a solution!'
         },
         description: 'Description (optional)',
@@ -225,7 +225,7 @@ const translationEn = {
     submission: {
         title: 'Exercise',
         'submitted-solutions': {
-            title: 'Your submissions',
+            title: 'Your submission',
             'no-solutions': 'You have not submitted a solution to this exercise yet.',
             'table-header': {
                 'submission-id' : 'ID',

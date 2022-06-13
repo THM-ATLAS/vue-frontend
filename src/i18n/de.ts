@@ -214,7 +214,7 @@ const translationDe = {
         back: 'Zurück',
         edit: 'Bearbeiten',
         submit: {
-            button: 'Abgabe hinzufügen',
+            button: 'Meine Abgabe',
             tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
         },
         description: 'Beschreibung (optional)',
@@ -227,7 +227,7 @@ const translationDe = {
     submission: {
         title: 'Aufgabe',
         'submitted-solutions': {
-            title: 'Deine Abgaben',
+            title: 'Deine Abgabe',
             'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
             'table-header': {
                 'submission-id' : 'ID',
