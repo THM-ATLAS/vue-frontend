@@ -115,6 +115,7 @@ const translationEn = {
         exercise_view: 'Exercise',
         exerciseeditor_view: 'Edit',
         module_main_page: 'Module',
+        modulemanager_view: "Module Manager",
     },
     buttons: {
         save: 'Save',
@@ -209,6 +210,10 @@ const translationEn = {
         }
     },
     exercise: {
+        add_tag: 'Add tags',
+        tag_add_desc: 'Add tag from list',
+        tag: 'Tag',
+        create: 'Create',
         back: 'Back',
         edit: 'Edit',
         submit: {
@@ -281,9 +286,24 @@ const translationEn = {
         module: 'Module',
         exercises: 'Exercises',
         about: 'About',
+        manage: 'Manage',
+        attend: 'Assign to course',
+        leave: 'Leave course',
         teachers: 'Teachers',
         tutors: 'Tutors',
         materials: 'Learning material'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Roles',
+        edit_tag_button: 'Edit tags',
+        edit_tag: 'Change or delete tags',
+        tag: 'Tag',
+        add_user: 'Add user',
+        edit_privilege: 'Change role',
+        student: 'Student',
+        tutor: 'Tutor',
+        teacher: 'Teacher'
     },
     page_not_found: {
         error_title: "This page could not be found.",

@@ -22,7 +22,9 @@ export type Exercise = {
     content : string,
     description: string,
     exercisePublic : boolean,
-    type: string
+    avgRating: number,
+    type: string,
+    tags: Tag[]
 }
 
 export type PostExercise = {
@@ -31,13 +33,34 @@ export type PostExercise = {
     title : string,
     content : string,
     description: string,
-    exercisePublic : boolean
+    exercisePublic : boolean,
+    avgRating: number,
+    type: string,
+    tags: Tag[]
+}
+
+export type Tag = {
+    tag_id: number,
+    name: string
 }
 
 export type Module = {
     module_id : number,
     name : string,
     description: string
+}
+
+export type ModuleUser = {
+    user_id: number,
+    module_role: ModuleRole[],
+    name: string,
+    username: string,
+    email: string
+}
+
+export type ModuleRole = {
+    role_id: number,
+    name: string
 }
 
 export type Submission = {

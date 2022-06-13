@@ -1,66 +1,140 @@
 <template>
   <div>
     <v-card elevation="0" rounded="0">
+      <div class="tag-chips">
+        <v-btn 
+        class="tag-button" 
+        @click="addTagsDialog.show = true"
+        color="secondary">
+          {{ $t("exercise.add_tag") }}
+        </v-btn>
+        <v-chip
+          v-for="tag in exerciseTags"
+          v-bind:key="tag.id"
+          closable
+          @click:close="removeTag(tag)"
+        >
+          {{ tag.name }}
+        </v-chip>
+      </div>
       <div class="flex">
         <v-row>
-          <v-col
-              sm="12" md="2" lg="2">
+          <v-col sm="12" md="2" lg="2">
             <v-text-field
-                v-model="exercise.exercise_id"
-                :label="$t('exercise.id')"
-                required
-                disabled
+              v-model="exercise.exercise_id"
+              :label="$t('exercise.id')"
+              required
+              disabled
             />
           </v-col>
-          <v-col
-              sm="12" md="10" lg="10">
+          <v-col sm="12" md="10" lg="10">
             <v-text-field
-                v-model="exercise.title"
-                :label="$t('exercise.title')"
-                required
+              v-model="exercise.title"
+              :label="$t('exercise.title')"
+              required
             />
           </v-col>
         </v-row>
       </div>
       <div>
         <v-textarea
-            solo
-            rows="1"
-            :label="$t('exercise.description')"
-            v-model="exercise.description"
+          solo
+          rows="1"
+          :label="$t('exercise.description')"
+          v-model="exercise.description"
         />
       </div>
       <div>
-        <MarkdownModal
-            :editor="true"
-            v-model="exercise.content"
-        />
+        <MarkdownModal :editor="true" v-model="exercise.content" />
       </div>
       <v-card-actions justify="space-between">
-        <v-btn color="primary" @click="save" v-html="$t('buttons.save')"/>
-        <v-btn color="red" @click="requestDelete" v-html="$t('buttons.delete')"/>
-        <v-btn @click="requestCancel" v-html="$t('buttons.cancel')"/>
+        <v-btn color="primary" @click="save" v-html="$t('buttons.save')" />
+        <v-btn
+          color="red"
+          @click="requestDelete"
+          v-html="$t('buttons.delete')"
+        />
+        <v-btn @click="requestCancel" v-html="$t('buttons.cancel')" />
       </v-card-actions>
     </v-card>
-    <v-dialog
-        v-model="currentDialog.show"
-        persistent
-        width="500px"
-    >
+    <v-dialog v-model="currentDialog.show" persistent width="500px">
       <v-card>
         <v-card-title>
-          <span class="headline" v-html="$t(currentDialog.header)"/>
+          <span class="headline" v-html="$t(currentDialog.header)" />
         </v-card-title>
-        <v-card-text v-html="$t(currentDialog.text)"/>
+        <v-card-text v-html="$t(currentDialog.text)" />
         <v-card-actions>
-          <v-spacer/>
-          <v-btn color="green darken-1" text @click="currentDialog.show = false"
-                 v-html="$t(currentDialog.cancelText)"/>
-          <v-btn color="red darken-1" text @click="currentDialog.confirmCallback(); currentDialog.show = false"
-                 v-html="$t(currentDialog.confirmText)"/>
+          <v-spacer />
+          <v-btn
+            color="green darken-1"
+            text
+            @click="currentDialog.show = false"
+            v-html="$t(currentDialog.cancelText)"
+          />
+          <v-btn
+            color="red darken-1"
+            text
+            @click="
+              currentDialog.confirmCallback();
+              currentDialog.show = false;
+            "
+            v-html="$t(currentDialog.confirmText)"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Add tags dialog start -->
+    <v-dialog
+      v-model="addTagsDialog.show"
+      :retain-focus="false"
+      transition="slide-y-transition"
+    >
+      <v-card top="20%" width="50vw">
+        <v-card-title> {{ $t("exercise.tag_add_desc") }} </v-card-title>
+        <v-table fixed-header height="400px">
+          <thead>
+            <tr>
+              <th>{{ $t("exercise.tag") }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="tag in filteredTags" :key="tag.tag_id">
+              <td>
+                {{ tag.name }}
+              </td>
+              <td class="text-right">
+                <v-btn @click="addTagToExercise(tag)" color="primary">
+                  <v-icon icon="mdi-plus"></v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+          <v-row>
+            <v-col cols="9">
+              <v-text-field
+                v-model="addTagsDialog.target.name">
+              </v-text-field>
+            </v-col>
+            <v-col cols="3">
+              <v-btn
+              @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
+                {{ $t('exercise.create') }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        <v-card-actions>
+          <v-btn
+            @click="addTagsDialog.show = false"
+            color="error"
+            v-html="$t('buttons.close')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- Edit users dialog end -->
     <!--br/-->
 
     <!-- Submission Editor -->
@@ -243,13 +317,14 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, onBeforeUnmount, Ref, ref} from "vue";
-import {useRouter, useRoute, onBeforeRouteLeave} from "vue-router";
-import {useI18n} from "vue-i18n";
+import { onBeforeMount, onBeforeUnmount, Ref, ref } from "vue";
+import { useRouter, useRoute, onBeforeRouteLeave } from "vue-router";
+import { useI18n } from "vue-i18n";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
-import {Exercise} from "@/helpers/types";
+import TagService from "@/services/TagService";
+import { Exercise, Tag } from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
@@ -260,6 +335,10 @@ const id = route.params.id;
 //const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
 
 const exercise: Ref<Exercise | null> = ref({}) as Ref<Exercise>;
+const exerciseTags: Ref<Tag[]> = ref([]);
+const allTags: Ref<Tag[]> = ref([]);
+const filteredTags: Ref<Tag[]> = ref([]);
+
 let wasSave: boolean = false;
 let wasDelete: boolean = false;
 let wasCancel: boolean = false;
@@ -267,49 +346,51 @@ let wasCancel: boolean = false;
 const confirmDeleteDialog = ref({
   show: false,
   confirmed: false,
-  header: 'buttons.delete',
-  text: 'exercise.confirm_delete',
-  confirmText: 'buttons.delete',
-  cancelText: 'buttons.cancel',
+  header: "buttons.delete",
+  text: "exercise.confirm_delete",
+  confirmText: "buttons.delete",
+  cancelText: "buttons.cancel",
   confirmCallback: () => {
     del();
-    router.push('/' + exercise.value?.module.module_id || '/404');
+    router.push("/" + exercise.value?.module.module_id || "/404");
     wasDelete = true;
   },
-})
+});
 
 const confirmCancelDialog = ref({
   show: false,
   confirmed: false,
-  header: 'buttons.cancel',
-  text: 'exercise.confirm_cancel',
-  confirmText: 'buttons.cancel',
-  cancelText: 'buttons.stay',
+  header: "buttons.cancel",
+  text: "exercise.confirm_cancel",
+  confirmText: "buttons.cancel",
+  cancelText: "buttons.stay",
   confirmCallback: () => {
     router.back();
     wasCancel = true;
   },
-})
+});
 
 const currentDialog = ref({});
 
-
 onBeforeMount(async () => {
-  exercise.value = (await  ExerciseService.getExercise(id)).data
+  exercise.value = (await ExerciseService.getExercise(id)).data;
   wasSave = false;
   wasDelete = false;
-  window.addEventListener('beforeunload', beforeWindowUnload)
+  window.addEventListener("beforeunload", beforeWindowUnload);
+  getExerciseTags();
   //}
   //store();
-})
+});
 
 const save = async () => {
   if (!exercise.value) return;
-  await ExerciseService.editExercise(exercise.value).then(response => {
-    console.log(response.data)
-  }).catch(error => {
-    console.log(error.message)
-  })
+  await ExerciseService.editExercise(exercise.value)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
   //localStorage.removeItem(localStoragePath);
   wasSave = true;
   router.back();
@@ -326,17 +407,18 @@ function requestCancel() {
 }
 
 const del = async () => {
-  await ExerciseService.delExercise(id).then(response => {
-    console.log(response.data)
-  }).catch(error => {
-    console.log(error.message)
-  })
+  await ExerciseService.delExercise(id)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
 };
 
 onBeforeUnmount(() => {
-  window.removeEventListener('beforeunload', beforeWindowUnload)
-})
-
+  window.removeEventListener("beforeunload", beforeWindowUnload);
+});
 
 /*
 const confirmDelete = () => {
@@ -345,25 +427,25 @@ const confirmDelete = () => {
 */
 
 const confirmLeave = () => {
-  return window.confirm(i18n.t("exercise.confirm_leave"))
-}
+  return window.confirm(i18n.t("exercise.confirm_leave"));
+};
 
 const beforeWindowUnload = (e) => {
   if (!wasSave && confirmLeave()) {
     // Cancel the event
-    e.preventDefault()
+    e.preventDefault();
     // Chrome requires returnValue to be set
-    e.returnValue = ''
+    e.returnValue = "";
   }
-}
+};
 
 onBeforeRouteLeave((to, from, next) => {
   if (wasSave || wasDelete || wasCancel || confirmLeave()) {
-    next()
+    next();
   } else {
-    next(false)
+    next(false);
   }
-})
+});
 /*
 const submissionTypes = [
   {id: "single-line", name: "Einzeiliger Text"},
@@ -401,8 +483,57 @@ const addItem = (type) => {
   updateItemIds();
 };
 */
+
+function getExerciseTags(): void {
+  TagService.getTagsFromExercise(exercise.value).then((res) => {
+    exerciseTags.value = res.data;
+    TagService.getAllTags().then((res) => {
+      allTags.value = res.data;
+      console.log(allTags.value);
+      filteredTags.value = allTags.value.sort().filter(
+        (tag) => !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
+      )
+    });
+  });
+}
+
+function addTagToExercise(tag: Tag): void {
+  TagService.addTagToExercise(tag, exercise.value).then(() => getExerciseTags());
+}
+
+async function removeTag(tag: Tag): Promise<void> {
+  //Bugged when not removing the last tag
+  await TagService.delTagFromExercise(tag, exercise.value).then(() => getExerciseTags());
+}
+
+function createTag(tag: Tag): any {
+  if(!allTags.value.map(at => at.name.toLowerCase()).includes(tag.name.toLowerCase()) && tag.name != '') {
+    TagService.addTag(tag).then(() => getExerciseTags());
+    return 0;
+  }
+  else return 1;
+}
+
+const addTagsDialog = ref({
+  show: false,
+  target: getTagTemplate()
+});
+
+function getTagTemplate(): Tag {
+  return {
+    tag_id: 0,
+    name: '',
+  };
+}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
 <style scoped>
+.tag-button {
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+.tag-chips {
+  margin-bottom: 1em;
+}
 </style>

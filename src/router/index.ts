@@ -21,6 +21,7 @@ import ModuleManagement from "@/views/admin/ModuleManagementView.vue";
 import Home from "@/views/HomeView.vue";
 import ModuleSearch from "@/views/ModuleSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
+import ModuleManager from "@/views/moduleManagement/ModuleManagementView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
@@ -30,6 +31,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/:pathMatch(.*)*', redirect: '/404' },
 
   {path: '/:module/', component: ModuleMainPage},
+  {path: '/:module/manage', component: ModuleManager},
   {path: '/:module/e/new/edit', component: ExerciseEditor}, // create new exercise
   {path: '/:module/e/:id', component: Exercise},
   {path: '/:module/e/:id/edit', component: ExerciseEditor}, // edit mode

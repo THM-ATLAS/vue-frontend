@@ -120,7 +120,11 @@
           </template>
           <span>Feedback ansehen</span>
         </v-tooltip-->
-
+        <v-chip
+        v-for="t in tags"
+        v-bind:key="t.id">
+          {{ t.name }}
+        </v-chip>
       </div>
       <div>
         <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{ exercise.title }}</v-card-title>
@@ -176,7 +180,7 @@ import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import {Exercise, User} from "@/helpers/types";
+import {Exercise, User, Tag} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
@@ -189,11 +193,12 @@ onBeforeMount(async () => {
 })
 
 const exercise: Ref<Exercise | any> = ref({});
+const tags: Ref<Tag[]> = ref([]);
 
 onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data
   await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
-
+  tags.value = exercise.value.tags;
   document.title = exercise.value.module.name + ' - ' + exercise.value.title
 })
 

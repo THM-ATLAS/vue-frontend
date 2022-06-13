@@ -1,83 +1,139 @@
 <template>
   <div>
-  <!-- desktop version -->
-  <div class="desktopView d-none d-md-block">
-    <!-- todo: Image loaded from backend -->
-    <div>
-      <v-img
+    <!-- desktop version -->
+    <div class="desktopView d-none d-md-block">
+      <!-- todo: Image loaded from backend -->
+      <div>
+        <v-img
           lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
           max-height="240px"
           width="100%"
           src=""
           cover
-      >
-        <div class="moduleNameContainer">
-          <h1>{{ module.name }}</h1>
-        </div>
-      </v-img>
-    </div>
-    <!-- todo: edit button and menu for lecturers and admins-->
-    <div class="pt-0 pl-0 backButton">
-      <v-btn
-          @click="goBack"
+        >
+          <div class="moduleNameContainer">
+            <h1>{{ module.name }}</h1>
+          </div>
+        </v-img>
+      </div>
+      <!-- todo: edit button and menu for lecturers and admins-->
+      <div class="pt-0 pl-0 backButton">
+        <v-btn
+          @click="goBack()"
           icon="mdi-menu-left"
           class="mx-3 desktopBackButton"
-          variant="outlined"/>
-    </div>
-    <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;" id="content">
-      <v-card-text>{{ module.description }}</v-card-text>
-    </v-card>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="9">
-          <v-expansion-panels style="z-index: 0;" v-model="panel">
-            <v-expansion-panel rounded="0" key="0">
-              <v-expansion-panel-title
+          variant="outlined"
+        />
+        <v-btn
+          @click="goToManage()"
+          icon="mdi-cog"
+          class="mx-3 desktopBackButton"
+          variant="outlined"
+        />
+      </div>
+      <v-card
+        class="moduleInfoBox rounded-0"
+        style="margin-top: 30px"
+        id="content"
+      >
+        <v-card-text>
+          <v-row>
+            <v-col cols="11">
+              {{ module.description }}
+            </v-col>
+            <v-col class="testclass" cols="1">
+              <v-btn @click="reassign()" color="secondary">
+                {{ label.value }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="9">
+            <v-expansion-panels style="z-index: 0" v-model="panel">
+              <v-expansion-panel rounded="0" key="0">
+                <v-expansion-panel-title
                   expand-icon="mdi-plus"
                   collapse-icon="mdi-minus"
-              >
-                <b>{{ $t('module_page.exercises') }}</b>
-              </v-expansion-panel-title>
-              <v-expansion-panel-text class="exercisePanelText">
-                <div v-for="exercise in exercises"
-                     v-bind:key="exercise.exercise_id" style="display: inline-flex; text-align: center">
-                  <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
-                          @click.prevent.stop="goToExercise(exercise)">
-                    <v-card-title class="exerciseCardTitle">{{ exercise.title }}</v-card-title>
-                    <v-icon size="180px" icon="mdi-book-open-blank-variant"></v-icon>
-                    <v-card-text class="exerciseCardText">{{ exercise.description }}</v-card-text>
-                  </v-card>
-                </div>
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-col>
-        <v-col cols="3">
-          <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>{{ $t('module_page.teachers') }}</v-card-title>
-            <v-card-text>
-              <v-list class="moduleInfoBoxList" v-for="teacher in teachers"
-                      :key="teacher.user_id">
-                <v-list-item class="moduleInfoListItem">
-                  <v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>
-                  {{ teacher.name }}
-                </v-list-item>
-              </v-list>
-            </v-card-text>
-          </v-card>
-          <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>{{ $t('module_page.tutors') }}</v-card-title>
-            <v-card-text>
-              <v-list class="moduleInfoBoxList" v-for="tutor in tutors"
-                      :key="tutor.user_id">
-                <v-list-item class="moduleInfoListItem">
-                  <v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>
-                  {{ tutor.name }}
-                </v-list-item>
-              </v-list>
-            </v-card-text>
-          </v-card>
-          <!-- todo: module materials
+                >
+                  <b>{{ $t("module_page.exercises") }}</b>
+                </v-expansion-panel-title>
+                <v-expansion-panel-text class="exercisePanelText">
+                  <div
+                    v-for="exercise in exercises"
+                    v-bind:key="exercise.exercise_id"
+                    style="display: inline-flex; text-align: center"
+                  >
+                    <v-card
+                      class="exerciseCard"
+                      tabindex="0"
+                      @keyup.enter.prevent.stop="goToExercise(exercise)"
+                      @click.prevent.stop="goToExercise(exercise)"
+                    >
+                      <v-card-title class="exerciseCardTitle">{{
+                        exercise.title
+                      }}</v-card-title>
+                      <!-- <v-chip
+                    class="tag-chip"
+                    v-for="tag in exercise.tags" :key="tag.tag_id">
+                      {{ tag.name }}
+                    </v-chip> -->
+                      <v-icon
+                        class="exercise-icon"
+                        size="180px"
+                        icon="mdi-book-open-blank-variant"
+                      ></v-icon>
+                      <v-card-text class="exerciseCardText">{{
+                        exercise.description
+                      }}</v-card-text>
+                    </v-card>
+                  </div>
+                </v-expansion-panel-text>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+          <v-col cols="3">
+            <v-card class="moduleInfoBox rounded-0">
+              <v-card-title>{{ $t("module_page.teachers") }}</v-card-title>
+              <v-card-text>
+                <v-list
+                  class="moduleInfoBoxList"
+                  v-for="teacher in teachers"
+                  :key="teacher.user_id"
+                >
+                  <v-list-item class="moduleInfoListItem">
+                    <v-icon
+                      class="ml-3"
+                      icon="mdi-account"
+                      style="margin-right: 8px"
+                    />
+                    {{ teacher.name }}
+                  </v-list-item>
+                </v-list>
+              </v-card-text>
+            </v-card>
+            <v-card class="moduleInfoBox rounded-0">
+              <v-card-title>{{ $t("module_page.tutors") }}</v-card-title>
+              <v-card-text>
+                <v-list
+                  class="moduleInfoBoxList"
+                  v-for="tutor in tutors"
+                  :key="tutor.user_id"
+                >
+                  <v-list-item class="moduleInfoListItem">
+                    <v-icon
+                      class="ml-3"
+                      icon="mdi-account"
+                      style="margin-right: 8px"
+                    />
+                    {{ tutor.name }}
+                  </v-list-item>
+                </v-list>
+              </v-card-text>
+            </v-card>
+            <!-- todo: module materials
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
@@ -86,165 +142,255 @@
               </v-list>
             </v-card-text>
           </v-card> -->
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
 
-  <!-- mobile version-->
-  <div class="mobileView d-xs-block d-sm-block d-md-none">
-    <v-row justify="center">
-      <v-col sm="10" md="10" lg="10" xl="10">
-        <div class="pt-0 pl-0 backButton">
-          <v-btn
+    <!-- mobile version-->
+    <div class="mobileView d-xs-block d-sm-block d-md-none">
+      <v-row justify="center">
+        <v-col sm="10" md="10" lg="10" xl="10">
+          <div class="pt-0 pl-0 backButton">
+            <v-btn
               @click="goBack"
               icon="mdi-menu-left"
               class="mx-3"
-              variant="outlined"/>
-        </div>
-        <v-card color="highlight" rounded="0" class="pb-0 mt-3">
+              variant="outlined"
+            />
+          </div>
+          <v-card color="highlight" rounded="0" class="pb-0 mt-3">
+            <v-row>
+              <v-col cols="10" align-self="center">
+                <h1>
+                  {{ module.name }}
+                </h1>
+              </v-col>
+              <v-col cols="2" align-self="center" class="d-flex justify-end">
+                <v-btn @click="reassign()" color="secondary">
+                  {{ label.value }}
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-tabs v-model="tab" class="pb-0 mt-2">
+              <v-tab value="home">
+                {{ $t("module_page.module") }}
+              </v-tab>
+              <v-tab value="about">
+                {{ $t("module_page.about") }}
+              </v-tab>
+              <v-tab @click="goToManage()" value="manage">
+                {{ $t("module_page.manage") }}
+              </v-tab>
+            </v-tabs>
+          </v-card>
+        </v-col>
+      </v-row>
 
-          <h1>
-            {{ module.name }}
-          </h1>
-
-          <v-tabs v-model="tab" class="pb-0 mt-2">
-            <v-tab value="home">
-              {{ $t('module_page.module') }}
-            </v-tab>
-            <v-tab value="about">
-              {{ $t('module_page.about') }}
-            </v-tab>
-          </v-tabs>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-window v-model="tab">
-      <v-window-item value="home">
-        <div>
-          <v-row align="center" justify="center" class="exerciseTextRow">
-            <h2 class="exerciseText">{{ $t('module_page.exercises') }}</h2>
-          </v-row>
-          <v-row
+      <v-window v-model="tab">
+        <v-window-item value="home">
+          <div>
+            <v-row align="center" justify="center" class="exerciseTextRow">
+              <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
+            </v-row>
+            <v-row
               v-for="exercise in exercises"
               v-bind:key="exercise.exercise_id"
               class="exerciseListEntry"
               justify="center"
-          >
-            <v-card class="exerciseListBox"
-                    elevation="2"
-                    @click="goToExercise(exercise)">
-              <h1>
-                <v-card-title>
-                  {{ exercise.title }}
-                </v-card-title>
-              </h1>
-              <v-card-text>
-                {{ exercise.description }}
-              </v-card-text>
-            </v-card>
-          </v-row>
-        </div>
-      </v-window-item>
-
-      <v-window-item value="about">
-        <div>
-          <v-container class="aboutBox">
-            <v-card>
-              <v-row>
-                <div>
-                  <h3>{{ module.name }}</h3>
-                  <p>{{ module.description }}</p>
-                </div>
-              </v-row>
-            </v-card>
-          </v-container>
-          <v-container class="aboutBox">
-            <v-row align="start" justify="center">
-              <v-card class="mx-4 infoCardMobile">
-                <div>
-                  <h3>{{ $t('module_page.teachers') }}</h3>
-                  <v-list>
-                    <v-list-item
-                        v-for="teacher in teachers"
-                        :key="teacher.user_id"
-                    >
-                      <v-list-item-title>
-                        {{ teacher.name }}
-                      </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </div>
-              </v-card>
-              <v-card class="mx-4 infoCardMobile">
-                <div>
-                  <h3>{{ $t('module_page.tutors') }}</h3>
-                  <v-list>
-                    <v-list-item
-                        v-for="tutor in tutors"
-                        :key="tutor.user_id"
-                    >
-                      <v-list-item-title>
-                        {{ tutor.name }}
-                      </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </div>
+            >
+              <v-card
+                class="exerciseListBox"
+                elevation="2"
+                @click="goToExercise(exercise)"
+              >
+                <v-chip v-for="tag in exercise.tags" :key="tag.tag_id">
+                  {{ tag.name }}
+                </v-chip>
+                <h1 class="ex-title">
+                  <v-card-title>
+                    {{ exercise.title }}
+                  </v-card-title>
+                </h1>
+                <v-card-text>
+                  {{ exercise.description }}
+                </v-card-text>
               </v-card>
             </v-row>
-          </v-container>
-        </div>
-      </v-window-item>
-    </v-window>
-  </div>
+          </div>
+        </v-window-item>
+
+        <v-window-item value="about">
+          <div>
+            <v-container class="aboutBox">
+              <v-card>
+                <v-row>
+                  <div>
+                    <h3>{{ module.name }}</h3>
+                    <p>{{ module.description }}</p>
+                  </div>
+                </v-row>
+              </v-card>
+            </v-container>
+            <v-container class="aboutBox">
+              <v-row align="start" justify="center">
+                <v-card class="mx-4 infoCardMobile">
+                  <div>
+                    <h3>{{ $t("module_page.teachers") }}</h3>
+                    <v-list>
+                      <v-list-item
+                        v-for="teacher in teachers"
+                        :key="teacher.user_id"
+                      >
+                        <v-list-item-title>
+                          {{ teacher.name }}
+                        </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </div>
+                </v-card>
+                <v-card class="mx-4 infoCardMobile">
+                  <div>
+                    <h3>{{ $t("module_page.tutors") }}</h3>
+                    <v-list>
+                      <v-list-item v-for="tutor in tutors" :key="tutor.user_id">
+                        <v-list-item-title>
+                          {{ tutor.name }}
+                        </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </div>
+                </v-card>
+              </v-row>
+            </v-container>
+          </div>
+        </v-window-item>
+      </v-window>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, ref, Ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import { onBeforeMount, ref, Ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import ModuleService from "@/services/ModuleService";
+import ModuleManagerService from "@/services/ModuleManagerService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import {Exercise, Module, User} from "@/helpers/types";
+import { Exercise, Module, User, ModuleUser } from "@/helpers/types";
 
 const route = useRoute();
 
 const module: Ref<Module> = ref({}) as Ref<Module>;
-const exercises: Ref<Array<Exercise>> = ref([])
-const tab = ref(0)
-const teachers: Ref<Array<User>> = ref([])
-const tutors: Ref<Array<User>> = ref([])
+const moduleUsers: Ref<ModuleUser[]> = ref([]);
+const exercises: Ref<Array<Exercise>> = ref([]);
+const tab = ref(0);
+const teachers: Ref<Array<User>> = ref([]);
+const tutors: Ref<Array<User>> = ref([]);
+const assignedStatus = ref();
+const user: Ref<User> = ref({});
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
+const label = ref({
+  value: "",
+  user: user.value,
+  assigned: false,
+});
+
+async function loadModule(): Promise<void> {
+  ModuleService.getModule(route.params.module)
+    .then((res) => {
+      module.value = res.data;
+      document.title = module.value.name;
+      ExerciseService.getExercisesForModule(module.value.module_id).then(
+        (e) => {
+          exercises.value = e.data;
+          getAssignStatus();
+        }
+      );
+    })
+    .catch(() => {
+      router.replace("/404");
+    });
+}
+
+async function loadUsers(): Promise<void> {
+  UserService.getUsers().then((res) => {
+    teachers.value = res.data.filter((user: User) =>
+      user.roles.some((role) => role.name === "teacher")
+    );
+  });
+  UserService.getUsers().then((res) => {
+    tutors.value = res.data.filter((user: User) =>
+      user.roles.some((role) => role.name === "tutor")
+    );
+  });
+}
 
 onBeforeMount(async () => {
-  ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module).then(res => {
-    module.value = res.data
-    document.title = module.value.name
-    ExerciseService.getExercisesForModule(module.value.module_id).then(e => {
-      exercises.value = e.data
-    })
-  }).catch(() => {
-    router.replace("/404")
-  })
-  UserService.getUsers().then(res => {
-    teachers.value = res.data.filter((user: User) => user.roles.some(role => role.name === "teacher"))
-  })
-  UserService.getUsers().then(res => {
-    tutors.value = res.data.filter((user: User) => user.roles.some(role => role.name === "tutor"))
-  })
+  await loadModule();
+  await loadUsers();
   //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
-})
+});
 const router = useRouter();
 
 function goBack(): void {
-  router.back()
+  router.back();
 }
-
 
 function goToExercise(exercise: Exercise): void {
   router.push("/" + module.value.module_id + "/e/" + exercise.exercise_id);
+}
+
+function goToManage(): void {
+  router.push("/" + module.value.module_id + "/manage");
+}
+
+function getAssignStatus(): void {
+  ModuleManagerService.getModuleUsers(module.value).then((res) => {
+    moduleUsers.value = res.data;
+    UserService.getMe().then((res) => {
+      if (moduleUsers.value.map((a) => a.user_id).includes(res.data.user_id)) {
+        assignedStatus.value = true;
+        label.value.value = "-";
+        label.value.user = res.data;
+        label.value.assigned = true;
+      } else {
+        assignedStatus.value = false;
+        label.value.value = "+";
+        label.value.user = res.data;
+        label.value.assigned = false;
+      }
+    });
+  });
+}
+
+function reassign(): void {
+  const moduleUser = ref({});
+  moduleUser.value = getUserTemplate();
+  moduleUser.value.user_id = label.value.user.user_id;
+  moduleUser.value.name = label.value.user.name;
+  moduleUser.value.username = label.value.user.username;
+  moduleUser.value.email = label.value.user.email;
+  label.value.assigned
+    ? ModuleManagerService.delModuleUser(module.value, moduleUser.value).then(
+        () => getAssignStatus()
+      )
+    : ModuleManagerService.addModuleUser(module.value, moduleUser.value).then(
+        () => getAssignStatus()
+      );
+}
+
+function getUserTemplate(): ModuleUser {
+  return {
+    user_id: 0,
+    module_role: {
+      role_id: 5,
+      name: "student",
+    },
+    name: "",
+    username: "",
+    email: "",
+  };
 }
 </script>
 
@@ -335,7 +481,7 @@ function goToExercise(exercise: Exercise): void {
 
 .exercisePanelText {
   background-color: rgb(var(--v-theme-background)) !important;
-  text-align: center
+  text-align: center;
 }
 
 //CSS classes for the mobile version of the component
@@ -359,8 +505,16 @@ function goToExercise(exercise: Exercise): void {
   margin-top: 16px;
 }
 
+.ex-title {
+  margin-top: 0.5em;
+}
+
 .infoCardMobile {
   width: 100%;
   margin-top: 20px;
+}
+
+.tag-chip {
+  margin-top: -2em;
 }
 </style>

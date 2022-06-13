@@ -139,6 +139,7 @@ const translationDe = {
         exercise_view: 'Aufgabe',
         exerciseeditor_view: 'Bearbeiten',
         module_main_page: 'Modul',
+        modulemanager_view: "Modul Manager",
     },
     languages: {
         en: 'Englisch',
@@ -211,6 +212,10 @@ const translationDe = {
         }
     },
     exercise: {
+        add_tag: 'Tags hinzufügen',
+        tag_add_desc: 'Tag aus der Liste hinzufügen',
+        tag: 'Tag',
+        create: 'Hinzufügen',
         back: 'Zurück',
         edit: 'Bearbeiten',
         submit: {
@@ -284,9 +289,24 @@ const translationDe = {
         module: 'Modul',
         exercises: 'Aufgaben',
         about: 'Über',
+        manage: 'Verwalten',
+        attend: 'Kurs belegen',
+        leave: 'Kurs verlassen',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
         materials: 'Lernmaterial'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Rollen',
+        edit_tag_button: 'Tags bearbeiten',
+        edit_tag: 'Tags bearbeiten oder löschen',
+        tag: 'Tag',
+        add_user: 'Nutzer hinzufügen',
+        edit_privilege: 'Rolle ändern',
+        student: 'Student:in',
+        tutor: 'Tutor:in',
+        teacher: 'Lehrer:in'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
