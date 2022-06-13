@@ -125,7 +125,7 @@
                 width="100%"
                 height="58%"
                 @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
-              {{ $t('exercise.create') }}
+              {{ $t('buttons.add') }}
             </v-btn>
           </v-col>
         </v-row>
