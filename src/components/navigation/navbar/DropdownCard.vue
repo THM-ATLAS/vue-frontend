@@ -22,8 +22,7 @@
       <v-list-item prepend-icon="mdi-cog" @click="goToSettings()">
         <v-list-item-title>{{ $t('header.dropdown.settings') }}</v-list-item-title>
       </v-list-item>
-      <v-list-item
-          @click="goToUser">
+      <v-list-item prepend-icon="mdi-account" @click="goToUser">
         <v-list-item-title>{{ $t('header.dropdown.profile') }}</v-list-item-title>
       </v-list-item>
       <v-list-item prepend-icon="mdi-help" @click="goToHelp()">

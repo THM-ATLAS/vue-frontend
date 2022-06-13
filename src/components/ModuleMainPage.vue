@@ -1,4 +1,5 @@
 <template>
+  <div>
   <!-- desktop version -->
   <div class="desktopView d-none d-md-block">
     <!-- todo: Image loaded from backend -->
@@ -24,28 +25,28 @@
           variant="outlined"/>
     </div>
     <v-card class="moduleInfoBox rounded-0" style="margin-top: 30px;" id="content">
-      <v-card-text>{{module.description}}</v-card-text>
+      <v-card-text>{{ module.description }}</v-card-text>
     </v-card>
     <v-container fluid>
       <v-row>
         <v-col cols="9">
           <v-expansion-panels style="z-index: 0;" v-model="panel">
-            <v-expansion-panel rounded="0">
+            <v-expansion-panel rounded="0" key="0">
               <v-expansion-panel-title
                   expand-icon="mdi-plus"
                   collapse-icon="mdi-minus"
               >
-                <b>{{$t('module_page.exercises')}}</b>
+                <b>{{ $t('module_page.exercises') }}</b>
               </v-expansion-panel-title>
               <v-expansion-panel-text class="exercisePanelText">
                 <div v-for="exercise in exercises"
-                      v-bind:key="exercise.exercise_id" style="display: inline-flex; text-align: center">
-                <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
-                        @click.prevent.stop="goToExercise(exercise)">
-                  <v-card-title class="exerciseCardTitle">{{exercise.title}}</v-card-title>
-                  <v-icon size="180px" icon="mdi-book-open-blank-variant"></v-icon>
-                  <v-card-text class="exerciseCardText">{{exercise.description}}</v-card-text>
-                </v-card>
+                     v-bind:key="exercise.exercise_id" style="display: inline-flex; text-align: center">
+                  <v-card class="exerciseCard" tabindex="0" @keyup.enter.prevent.stop="goToExercise(exercise)"
+                          @click.prevent.stop="goToExercise(exercise)">
+                    <v-card-title class="exerciseCardTitle">{{ exercise.title }}</v-card-title>
+                    <v-icon size="180px" icon="mdi-book-open-blank-variant"></v-icon>
+                    <v-card-text class="exerciseCardText">{{ exercise.description }}</v-card-text>
+                  </v-card>
                 </div>
               </v-expansion-panel-text>
             </v-expansion-panel>
@@ -53,20 +54,26 @@
         </v-col>
         <v-col cols="3">
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>{{$t('module_page.teachers')}}</v-card-title>
+            <v-card-title>{{ $t('module_page.teachers') }}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList" v-for="teacher in teachers"
                       :key="teacher.user_id">
-                <v-list-item class="moduleInfoListItem"><v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>{{teacher.name}}</v-list-item>
+                <v-list-item class="moduleInfoListItem">
+                  <v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>
+                  {{ teacher.name }}
+                </v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>{{$t('module_page.tutors')}}</v-card-title>
+            <v-card-title>{{ $t('module_page.tutors') }}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList"  v-for="tutor in tutors"
+              <v-list class="moduleInfoBoxList" v-for="tutor in tutors"
                       :key="tutor.user_id">
-                <v-list-item class="moduleInfoListItem"><v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>{{tutor.name}}</v-list-item>
+                <v-list-item class="moduleInfoListItem">
+                  <v-icon class="ml-3" icon="mdi-account" style="margin-right: 8px"/>
+                  {{ tutor.name }}
+                </v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
@@ -191,6 +198,7 @@
       </v-window-item>
     </v-window>
   </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -208,18 +216,17 @@ const exercises: Ref<Array<Exercise>> = ref([])
 const tab = ref(0)
 const teachers: Ref<Array<User>> = ref([])
 const tutors: Ref<Array<User>> = ref([])
-const panel = [0];
+const panel: Ref<Array<Boolean>> = ref([]);
 
 onBeforeMount(async () => {
-  ModuleService.getModule(route.params.module).then(res => {
+  ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module).then(res => {
     module.value = res.data
     document.title = module.value.name
     ExerciseService.getExercisesForModule(module.value.module_id).then(e => {
       exercises.value = e.data
     })
   }).catch(() => {
-    //router.replace("/404")
-    //todo: uncomment this and rollback index.ts before pushing
+    router.replace("/404")
   })
   UserService.getUsers().then(res => {
     teachers.value = res.data.filter((user: User) => user.roles.some(role => role.name === "teacher"))
@@ -252,11 +259,11 @@ function goToExercise(exercise: Exercise): void {
   margin-bottom: 3em;
 }
 
-.desktopBackButton{
+.desktopBackButton {
   margin-top: 10px;
 }
 
-.moduleNameContainer{
+.moduleNameContainer {
   background-color: rgb(var(--v-theme-surface));
   align-self: center;
   position: relative;
@@ -264,30 +271,32 @@ function goToExercise(exercise: Exercise): void {
   padding: 2em;
   padding-left: 0.8em;
   display: inline-block;
+
   h1 {
     text-align: left;
   }
 }
 
-.moduleInfoBox{
+.moduleInfoBox {
   background-color: rgb(var(--v-theme-background)) !important;
   margin-left: 30px;
   margin-right: 30px;
   margin-bottom: 30px;
   overflow-x: hidden;
 }
+
 //can't apply css to v-lists using tags in the moduleInfoBox class - not specific enough to override vuetify styling
-.moduleInfoBoxList{
+.moduleInfoBoxList {
   background-color: rgb(var(--v-theme-background)) !important;
 }
 
-.moduleInfoListItem{
+.moduleInfoListItem {
   max-width: 100%;
   overflow-x: hidden;
   padding-inline-start: 0;
 }
 
-.exerciseCard{
+.exerciseCard {
   display: inline-block;
   margin: 10px;
   width: 250px;
@@ -296,9 +305,11 @@ function goToExercise(exercise: Exercise): void {
   &:hover {
     cursor: pointer;
   }
-  &:target{
+
+  &:target {
     filter: brightness(150%);
   }
+
   .exerciseCardTitle {
     text-align: center;
     align-items: center;
@@ -306,9 +317,11 @@ function goToExercise(exercise: Exercise): void {
     font-size: 1.1rem !important;
     height: 64px;
   }
+
   .exerciseCardText {
     text-align: center;
   }
+
   .exerciseCardImage {
     //use of min and max to stop resizing of v-img - fixed width and height don't work
     min-height: 160px;
@@ -320,7 +333,7 @@ function goToExercise(exercise: Exercise): void {
   }
 }
 
-.exercisePanelText{
+.exercisePanelText {
   background-color: rgb(var(--v-theme-background)) !important;
   text-align: center
 }
