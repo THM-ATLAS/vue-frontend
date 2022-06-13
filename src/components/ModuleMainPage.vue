@@ -216,7 +216,7 @@ const exercises: Ref<Array<Exercise>> = ref([])
 const tab = ref(0)
 const teachers: Ref<Array<User>> = ref([])
 const tutors: Ref<Array<User>> = ref([])
-const panel: Ref<Array<Boolean>> = ref([]);
+const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
 
 onBeforeMount(async () => {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module).then(res => {
