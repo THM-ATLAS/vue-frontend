@@ -50,7 +50,6 @@ export type Module = {
     description: string
 }
 
-<<<<<<< HEAD
 export type ModuleUser = {
     user_id: number,
     module_role: ModuleRole[],
@@ -62,7 +61,8 @@ export type ModuleUser = {
 export type ModuleRole = {
     role_id: number,
     name: string
-=======
+}
+
 export type Submission = {
     submission_id : number,
     exercise_id: number,
@@ -72,5 +72,4 @@ export type Submission = {
     grade: number | null,
     teacher_id: number | null,
     comment: string | null
->>>>>>> development
 }
