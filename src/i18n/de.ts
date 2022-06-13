@@ -294,6 +294,7 @@ const translationDe = {
         leave: 'Kurs verlassen',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
+        materials: 'Lernmaterial'
     },
     module_manager: {
         name: 'Name',

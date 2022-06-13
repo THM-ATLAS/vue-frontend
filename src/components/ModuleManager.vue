@@ -38,12 +38,16 @@
                 <td class="text-right">
                   <!-- Disabled until it works -->
                   <v-btn
-                    @click="editPrivilegeDialog.show = true; editPrivilegeDialog.userRole = user.module_role.name; editPrivilegeDialog.user = user"
+                    @click="
+                      editPrivilegeDialog.show = true;
+                      editPrivilegeDialog.userRole = user.module_role.name;
+                      editPrivilegeDialog.user = user;
+                    "
                     class="manage-button"
                     color="primary"
                     disabled
-                  > 
-                  <!-- Disabled until it works -->
+                  >
+                    <!-- Disabled until it works -->
                     <v-icon icon="mdi-cog"></v-icon>
                   </v-btn>
                   <v-btn
@@ -91,9 +95,10 @@
                 <td>
                   <v-container class="test-class">
                     <v-text-field
-                    vertical-align="middle"
-                    class="centered-input extend"
-                    v-model="tag.name"/>
+                      vertical-align="middle"
+                      class="centered-input extend"
+                      v-model="tag.name"
+                    />
                   </v-container>
                 </td>
                 <td class="text-right">
@@ -136,30 +141,40 @@
       <v-card top="15%" width="50vw">
         <v-card-title> {{ $t("module_manager.edit_privilege") }} </v-card-title>
         <v-card-text>
-          <v-radio-group
-          v-model="editPrivilegeDialog.userRole">
+          <v-radio-group v-model="editPrivilegeDialog.userRole">
             <v-radio
-            :label="$t('module_manager.student')"
-            value="student"
-            @click="editPrivilegeDialog.userRole = 'student'"/>
+              :label="$t('module_manager.student')"
+              value="student"
+              @click="editPrivilegeDialog.userRole = 'student'"
+            />
             <v-radio
-            :label="$t('module_manager.tutor')"
-            value="tutor"
-            @click="editPrivilegeDialog.userRole = 'tutor'"/>
+              :label="$t('module_manager.tutor')"
+              value="tutor"
+              @click="editPrivilegeDialog.userRole = 'tutor'"
+            />
             <v-radio
-            :label="$t('module_manager.teacher')"
-            value="teacher"
-            @click="editPrivilegeDialog.userRole = 'teacher'"/>
+              :label="$t('module_manager.teacher')"
+              value="teacher"
+              @click="editPrivilegeDialog.userRole = 'teacher'"
+            />
           </v-radio-group>
         </v-card-text>
         <v-card-actions>
           <v-btn
-            @click="editPrivilegeDialog.show = false; editPrivilegeDialog.userRole = null; editPrivilegeDialog.user = null"
+            @click="
+              editPrivilegeDialog.show = false;
+              editPrivilegeDialog.userRole = null;
+              editPrivilegeDialog.user = null;
+            "
             color="error"
             v-html="$t('buttons.close')"
           />
           <v-btn
-            @click="editPrivilegeDialog.show = false; editPrivilegeDialog.userRole = null; setUserRole(editPrivilegeDialog.user)"
+            @click="
+              editPrivilegeDialog.show = false;
+              editPrivilegeDialog.userRole = null;
+              setUserRole(editPrivilegeDialog.user);
+            "
             color="primary"
             v-html="$t('buttons.save')"
           />
@@ -309,7 +324,7 @@ const manageUsersDialog = ref({
 const editPrivilegeDialog = ref({
   show: false,
   userRole: null,
-  user: null
+  user: null,
 });
 
 function getCurrentTags(): void {
@@ -334,7 +349,7 @@ function removeTag(tag: Tag): void {
 }
 
 function setUserRole(user: ModuleUser): void {
-  console.log(user); 
+  console.log(user);
   editPrivilegeDialog.value.user = null;
   //Set role here
 }
@@ -350,7 +365,7 @@ function setUserRole(user: ModuleUser): void {
   margin-bottom: -1em;
 }
 .centered-input >>> input {
-  text-align: center
+  text-align: center;
 }
 
 .test-class {

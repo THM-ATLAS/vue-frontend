@@ -291,6 +291,7 @@ const translationEn = {
         leave: 'Leave course',
         teachers: 'Teachers',
         tutors: 'Tutors',
+        materials: 'Learning material'
     },
     module_manager: {
         name: 'Name',
