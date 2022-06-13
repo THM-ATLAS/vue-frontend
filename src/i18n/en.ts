@@ -225,7 +225,8 @@ const translationEn = {
         id: 'ID',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
-        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
+        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
+        tag_search_or_create: 'Search or create tag',
     },
     submission: {
         title: 'Exercise',
