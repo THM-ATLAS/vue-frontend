@@ -222,7 +222,6 @@ function reassign(): void {
   moduleUser.value.name = label.value.user.name;
   moduleUser.value.username = label.value.user.username;
   moduleUser.value.email = label.value.user.email;
-  console.log(moduleUser.value);
   label.value.assigned 
   ? ModuleManagerService.delModuleUser(module.value, moduleUser.value).then(() => getAssignStatus()) 
   : ModuleManagerService.addModuleUser(module.value, moduleUser.value).then(() => getAssignStatus());
