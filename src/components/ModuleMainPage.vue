@@ -19,8 +19,14 @@
       <!-- todo: edit button and menu for lecturers and admins-->
       <div class="pt-0 pl-0 backButton">
         <v-btn
-          @click="goBack"
+          @click="goBack()"
           icon="mdi-menu-left"
+          class="mx-3 desktopBackButton"
+          variant="outlined"
+        />
+        <v-btn
+          @click="goToManage()"
+          icon="mdi-cog"
           class="mx-3 desktopBackButton"
           variant="outlined"
         />
@@ -30,7 +36,18 @@
         style="margin-top: 30px"
         id="content"
       >
-        <v-card-text>{{ module.description }}</v-card-text>
+        <v-card-text>
+          <v-row>
+            <v-col cols="11">
+              {{ module.description }}
+            </v-col>
+            <v-col class="testclass" cols="1">
+              <v-btn @click="reassign()" color="secondary">
+                {{ label.value }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-card-text>
       </v-card>
       <v-container fluid>
         <v-row>
