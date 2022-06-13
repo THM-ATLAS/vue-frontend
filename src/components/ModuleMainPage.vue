@@ -274,7 +274,6 @@
 import { onBeforeMount, ref, Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import ModuleService from "@/services/ModuleService";
-import ModuleManagerService from "@/services/ModuleManagerService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import { Exercise, Module, User, ModuleUser } from "@/helpers/types";
@@ -288,7 +287,7 @@ const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
 const tutors: Ref<Array<User>> = ref([]);
 const assignedStatus = ref();
-const user: Ref<User> = ref({});
+const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
 const label = ref({
   value: "",
@@ -297,9 +296,10 @@ const label = ref({
 });
 
 async function loadModule(): Promise<void> {
-  ModuleService.getModule(route.params.module)
+  ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
     .then((res) => {
       module.value = res.data;
+      loadUsers();
       document.title = module.value.name;
       ExerciseService.getExercisesForModule(module.value.module_id).then(
         (e) => {
@@ -314,21 +314,18 @@ async function loadModule(): Promise<void> {
 }
 
 async function loadUsers(): Promise<void> {
-  UserService.getUsers().then((res) => {
-    teachers.value = res.data.filter((user: User) =>
-      user.roles.some((role) => role.name === "teacher")
+  ModuleService.getModuleUsers(module.value).then((res) => {
+    teachers.value = res.data.filter((user: ModuleUser) =>
+      user.module_role.name === "teacher"
     );
-  });
-  UserService.getUsers().then((res) => {
-    tutors.value = res.data.filter((user: User) =>
-      user.roles.some((role) => role.name === "tutor")
+    tutors.value = res.data.filter((user: ModuleUser) =>
+        user.module_role.name === "tutor"
     );
   });
 }
 
 onBeforeMount(async () => {
   await loadModule();
-  await loadUsers();
   //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 });
 const router = useRouter();
@@ -346,7 +343,7 @@ function goToManage(): void {
 }
 
 function getAssignStatus(): void {
-  ModuleManagerService.getModuleUsers(module.value).then((res) => {
+  ModuleService.getModuleUsers(module.value).then((res) => {
     moduleUsers.value = res.data;
     UserService.getMe().then((res) => {
       if (moduleUsers.value.map((a) => a.user_id).includes(res.data.user_id)) {
@@ -365,17 +362,17 @@ function getAssignStatus(): void {
 }
 
 function reassign(): void {
-  const moduleUser = ref({});
+  const moduleUser = ref({}) as Ref<ModuleUser>;
   moduleUser.value = getUserTemplate();
   moduleUser.value.user_id = label.value.user.user_id;
   moduleUser.value.name = label.value.user.name;
   moduleUser.value.username = label.value.user.username;
   moduleUser.value.email = label.value.user.email;
   label.value.assigned
-    ? ModuleManagerService.delModuleUser(module.value, moduleUser.value).then(
+    ? ModuleService.delModuleUser(module.value, moduleUser.value).then(
         () => getAssignStatus()
       )
-    : ModuleManagerService.addModuleUser(module.value, moduleUser.value).then(
+    : ModuleService.addModuleUser(module.value, moduleUser.value).then(
         () => getAssignStatus()
       );
 }
