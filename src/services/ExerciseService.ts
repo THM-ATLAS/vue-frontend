@@ -15,7 +15,7 @@ class ExerciseService{
             .catch(function (error) {
             })
     }*/
-    getExercisesForModule(moduleId: number) : Promise<any> {
+    getExercisesForModule(moduleId: string | number) : Promise<any> {
         return API.get(`exercises/module/${moduleId}`);
     }
 

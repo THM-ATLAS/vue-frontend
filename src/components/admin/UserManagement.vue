@@ -225,11 +225,11 @@
 import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
-import {User, UserRole} from "@/helpers/types";
+import {User, Role} from "@/helpers/types";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
-const roles: Ref<UserRole[]> = ref([]);
+const roles: Ref<Role[]> = ref([]);
 
 const users: Ref<User[]> = ref([]);
 
@@ -270,7 +270,7 @@ function getUserTemplate(): User {
   };
 }
 
-function removeRole(user: User, role: UserRole) {
+function removeRole(user: User, role: Role) {
   user.roles = user.roles.filter(r => r.role_id !== role.role_id);
   editUser(user);
 }
