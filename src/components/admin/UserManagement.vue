@@ -35,7 +35,7 @@
                 small
                 elevation="0"
                 color="primary"
-                class="mr-2"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -45,7 +45,17 @@
                 small
                 elevation="0"
                 color="error"
-                class="mr-2"
+                class="ma-1"
+                rounded="0"
+                variant="outlined"
+            />
+            <v-btn
+                @click="visitUser(user)"
+                icon="mdi-open-in-new"
+                small
+                elevation="0"
+                color="success"
+                class="ma-1"
                 rounded="0"
                 variant="outlined"
             />
@@ -216,7 +226,9 @@ import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
 import {User, UserRole} from "@/helpers/types";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const roles: Ref<UserRole[]> = ref([]);
 
 const users: Ref<User[]> = ref([]);
@@ -241,6 +253,10 @@ const rules = {
   password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
 };
 
+function visitUser(user: User) {
+  router.push('/u/' + user.user_id)
+}
+
 function getUserTemplate(): User {
   return {
     user_id: 0,
@@ -259,24 +275,24 @@ function removeRole(user: User, role: UserRole) {
   editUser(user);
 }
 
-const editRolesDialog: Ref<{show: boolean, target: User | null}> = ref({
+const editRolesDialog: Ref<{ show: boolean, target: User | null }> = ref({
   show: false,
   target: null,
 });
 
-const newUserDialog: Ref<{show: boolean, target: User | null}> = ref({
+const newUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
   show: false,
   target: getUserTemplate(),
 });
 
 const newUserFormValid = ref(false);
 
-const editUserDialog: Ref<{show: boolean, target: User | null}> = ref({
+const editUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
   show: false,
   target: null,
 });
 
-const deleteUserDialog: Ref<{show: boolean, target: User | null}> = ref({
+const deleteUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
   show: false,
   target: null,
 });

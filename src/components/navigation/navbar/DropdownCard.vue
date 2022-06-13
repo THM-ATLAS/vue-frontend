@@ -22,10 +22,9 @@
       <v-list-item prepend-icon="mdi-cog" @click="goToSettings()">
         <v-list-item-title>{{ $t('header.dropdown.settings') }}</v-list-item-title>
       </v-list-item>
-      <!--v-list-item
-          @click="goToUser">
-        <v-list-item-title>Profil</v-list-item-title>
-      </v-list-item-->
+      <v-list-item prepend-icon="mdi-account" @click="goToUser">
+        <v-list-item-title>{{ $t('header.dropdown.profile') }}</v-list-item-title>
+      </v-list-item>
       <v-list-item prepend-icon="mdi-help" @click="goToHelp()">
         <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
@@ -33,8 +32,8 @@
         <v-list-item-title>{{ $t('header.dropdown.admin') }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
-        <v-btn prepend-icon="mdi-logout" @click="goToLogin()" variant="outlined" rounded="0">
-          <span>Logout</span>
+        <v-btn prepend-icon="mdi-logout" @click="logout()" variant="outlined" rounded="0">
+          <span>{{ $t('header.dropdown.logout') }}</span>
         </v-btn>
       </v-list-item>
     </v-list>
@@ -43,14 +42,20 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router';
+import LoginService from "@/services/LoginService";
 //import {Ref, ref} from 'vue';
 
 //const messages: Ref<number> = ref(3);
 
 const router = useRouter();
 
-function goToLogin(): void {
-  router.push("/login");
+async function logout(): Promise<void> {
+  await LoginService.logout();
+  goToHome();
+}
+
+function goToHome(): void {
+  router.push(`/`);
 }
 
 //function goToNotifications(): void {
@@ -64,11 +69,12 @@ function goToHelp() {
 function goToLeaderboard() {
   router.push("/leaderboard");
 }
+*/
 
 function goToUser() {
   router.push("/u/");
 }
-*/
+
 function goToSettings() {
   router.push("/settings");
 }

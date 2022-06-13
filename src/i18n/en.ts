@@ -8,13 +8,15 @@ const translationEn = {
         skip_to_content: 'Skip to main content',
     },
     header: {
-        courses: 'Courses',
+        modules: 'Modules',
         dropdown: {
             settings: 'Settings',
             help: 'Help',
             messages: 'Messages',
             profile: 'Profile',
             admin: 'Admin',
+            login: 'Login',
+            logout: 'Logout',
         }
     },
     footer: {
@@ -28,12 +30,16 @@ const translationEn = {
     login_page: {
         login: 'Login',
         instructions: 'Use your THM user credentials.',
-        user_id: 'username',
-        password: 'password'
+        user_id: 'Username',
+        password: 'Password',
+        username_required: 'Please enter your username.',
+        password_required: 'Please enter your password.',
+        invalid_credentials: 'Invalid credentials.',
+        skip_login: 'Continue without login',
     },
     landing_page: {
         welcome: 'Welcome to',
-        instructions: 'Start searching for courses or login!',
+        instructions: 'Start searching for modules or login!',
         search: 'e.g. Compilerbau'
     },
     main_page: {
@@ -52,11 +58,11 @@ const translationEn = {
                 atlas_for_lecturers: {
                     title: 'ATLAS for lecturers',
                     description: 'Teachers must apply for a module entry to provide exercises on ATLAS. Once the entry is made, exercises can be created using the markdown-editor.',
-                    help: 'If you require assistance with setting up a course or its exercises, the ATLAS-team will gladly assist you.'
+                    help: 'If you require assistance with setting up a module or its exercises, the ATLAS-team will gladly assist you.'
                 },
                 atlas_for_students: {
                     title: 'ATLAS for students',
-                    description: 'The online learning platform ATLAS, including its courses and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
+                    description: 'The online learning platform ATLAS, including its modules and exercises, is publicly available and does not require authentification via LDAP. However, login is required in order to be able to upload a solution.\n\n Depending on the type of exercise, the solutions uploaded will either be evaluated automatically or manually by a lecturer.'
                 }
             }
         },
@@ -91,7 +97,7 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
-    course_search: {
+    module_search: {
       items_per_page: 'Items per page'
     },
     titles: {
@@ -109,6 +115,7 @@ const translationEn = {
         exercise_view: 'Exercise',
         exerciseeditor_view: 'Edit',
         module_main_page: 'Module',
+        modulemanager_view: "Module Manager",
     },
     buttons: {
         save: 'Save',
@@ -128,6 +135,9 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        submit: 'Submit Solution',
+        view_submissions: 'View submissions',
+        evaluate: 'Save Evaluation'
     },
     languages: {
         en: 'English',
@@ -166,11 +176,11 @@ const translationEn = {
                 password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
             }
         },
-        tasks: {
-            new: 'New task',
-            edit: 'Edit task',
-            delete: 'Delete task',
-            delete_confirm: 'Delete task {0}?',
+        exercises: {
+            new: 'New exercise',
+            edit: 'Edit exercise',
+            delete: 'Delete exercise',
+            delete_confirm: 'Delete exercise {0}?',
             title: 'Title',
             module: 'Module',
             description: 'Description',
@@ -194,20 +204,76 @@ const translationEn = {
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
-            manage_task: 'Manage tasks',
+            manage_exercise: 'Manage exercises',
             manage_module: 'Manage modules',
             back: 'Back to homepage'
         }
     },
     exercise: {
+        add_tag: 'Add tags',
+        tag_add_desc: 'Add tag from list',
+        tag: 'Tag',
+        create: 'Create',
         back: 'Back',
         edit: 'Edit',
+        submit: {
+            button: 'My solution',
+            tooltip: 'Login to submit a solution!'
+        },
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
+    },
+    submission: {
+        title: 'Exercise',
+        'submitted-solutions': {
+            title: 'Your submission',
+            'no-solutions': 'You have not submitted a solution to this exercise yet.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Submission Type',
+                grade: 'Evaluation',
+                date: 'Date',
+                'evaluated-by': 'Evaluated by',
+                comment: 'Comment',
+                'view-submission':'View submission'
+            },
+            'submission-types': {
+                'file-upload': 'File Upload',
+                'text-field': 'Text Field',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Submit a solution',
+            'form-placeholder': 'Enter your solution...'
+        },
+        'specific-submission': {
+            title: 'Your solution for '
+        },
+    },
+    submission_list: {
+        title: 'Submissions of all Users for Exercise',
+        no_solutions: 'No solutions have been submitted to this exercise yet.',
+        table: {
+            user_id: 'User ID',
+            status: {
+                title: 'Status',
+                evaluated: 'evaluated',
+                pending: 'pending'
+            },
+            evaluate: 'View Evaluation'
+        }
+    },
+    evaluation: {
+        title: 'Evaluation of Submission',
+        comment: 'Your evaluation',
+        comment_form: 'Add a comment to the submission...',
+        grade_form: 'Grade between 0-100 in %',
+        solution: 'The User\'s solution'
     },
     error: {
         unauthorized: 'Unauthorized.',
@@ -217,7 +283,27 @@ const translationEn = {
         unknown: 'An unknown error occurred.',
     },
     module_page: {
+        module: 'Module',
         exercises: 'Exercises',
+        about: 'About',
+        manage: 'Manage',
+        attend: 'Assign to course',
+        leave: 'Leave course',
+        teachers: 'Teachers',
+        tutors: 'Tutors',
+        materials: 'Learning material'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Roles',
+        edit_tag_button: 'Edit tags',
+        edit_tag: 'Change or delete tags',
+        tag: 'Tag',
+        add_user: 'Add user',
+        edit_privilege: 'Change role',
+        student: 'Student',
+        tutor: 'Tutor',
+        teacher: 'Teacher'
     },
     page_not_found: {
         error_title: "This page could not be found.",

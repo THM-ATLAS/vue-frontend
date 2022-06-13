@@ -4,6 +4,9 @@ import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
+import SpecificSubmission from "@/views/exercises/submissions/SpecificSubmissionView.vue";
+import SpecificEvaluation from "@/views/exercises/submissions/SpecificEvaluationView.vue";
+import EvaluationList from "@/views/exercises/submissions/EvaluationListView.vue";
 import Notifications from "@/views/NotificationsView.vue";
 import Help from "@/views/HelpView.vue";
 import Leaderboard from "@/views/LeaderboardView.vue";
@@ -12,12 +15,13 @@ import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
-import CourseMainPage from "@/views/CourseMainPageView.vue"
-import TaskManagement from "@/views/admin/TaskManagementView.vue";
+import ModuleMainPage from "@/views/ModuleMainPageView.vue"
+import ExerciseManagement from "@/views/admin/ExerciseManagementView.vue";
 import ModuleManagement from "@/views/admin/ModuleManagementView.vue";
 import Home from "@/views/HomeView.vue";
-import CourseSearch from "@/views/CourseSearchView.vue";
+import ModuleSearch from "@/views/ModuleSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
+import ModuleManager from "@/views/moduleManagement/ModuleManagementView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', component: Home},
@@ -26,15 +30,18 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/404', name: 'NotFound', component: PageNotFound },
   { path: '/:pathMatch(.*)*', redirect: '/404' },
 
-  {path: '/:course/', component: CourseMainPage},
-  {path: '/:course/e/new/edit', component: ExerciseEditor}, // create new exercise
-  {path: '/:course/e/:id', component: Exercise},
-  {path: '/:course/e/:id/edit', component: ExerciseEditor}, // edit mode
-  {path: '/:course/e/:id/feedback', component: Feedback}, // list feedback
-  {path: '/:course/e/:id/:title', component: Exercise}, // title specified, internally ignored
+  {path: '/:module/', component: ModuleMainPage},
+  {path: '/:module/manage', component: ModuleManager},
+  {path: '/:module/e/new/edit', component: ExerciseEditor}, // create new exercise
+  {path: '/:module/e/:id', component: Exercise},
+  {path: '/:module/e/:id/edit', component: ExerciseEditor}, // edit mode
+  {path: '/:module/e/:id/feedback', component: Feedback}, // list feedback
+  {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
-  {path: '/:course/s/:id', component: Submission},
-  // TODO {path: '/:course/s/:id/review', component: SubmissionReview},
+  {path: '/:module/s/:id', component: Submission},
+  {path: '/:module/s/:id/:sid', component: SpecificSubmission},
+  {path: '/:module/eval/:id', component: EvaluationList},
+  {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
 
   {path: '/u/', component: Profile}, // personal profile
   {path: '/u/:id', component: Profile}, // profile of other user
@@ -48,10 +55,10 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/admin/', component: Admin},
   {path: '/admin/users', component: UserManagement},
-  {path: '/admin/exercises', component: TaskManagement},
+  {path: '/admin/exercises', component: ExerciseManagement},
   {path: '/admin/modules', component: ModuleManagement},
 
-  {path: '/courses', component: CourseSearch},
+  {path: '/modules', component: ModuleSearch},
 ]
 
 const router = createRouter({

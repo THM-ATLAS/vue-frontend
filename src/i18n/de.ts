@@ -8,13 +8,15 @@ const translationDe = {
         skip_to_content: 'Zum Inhalt springen',
     },
     header: {
-        courses: 'Zu den Kursen',
+        modules: 'Zu den Modulen',
         dropdown: {
             settings: 'Einstellungen',
             help: 'Hilfe',
             messages: 'Nachrichten',
             profile: 'Profil',
             admin: 'Admin',
+            login: 'Anmelden',
+            logout: 'Abmelden',
         }
     },
     footer: {
@@ -29,11 +31,15 @@ const translationDe = {
         login: 'Anmelden',
         instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
         user_id: 'Nutzerkennung',
-        password: 'Passwort'
+        password: 'Passwort',
+        username_required: 'Bitte gib deine Nutzerkennung ein.',
+        password_required: 'Bitte gib dein Passwort ein.',
+        invalid_credentials: 'Ungültige Nutzerdaten.',
+        skip_login: 'Weiter ohne Anmeldung',
     },
     landing_page: {
         welcome: 'Willkommen zu',
-        instructions: 'Starte mit der Suche nach Kursen oder logge dich oben rechts ein!',
+        instructions: 'Starte mit der Suche nach Modulen oder logge dich oben rechts ein!',
         search: 'z.B. Compilerbau'
     },
     main_page: {
@@ -56,7 +62,7 @@ const translationDe = {
                 },
                 atlas_for_students: {
                     title: 'ATLAS für Studierende',
-                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Kurse und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
+                    description: 'Die Lernplattform ATLAS steht inklusive ihrer Module und Aufgaben auch ohne die Anmeldung über LDAP zur Verfügung, jedoch ist die Abgabe von Lösungen durch eine Anmeldung beschränkt.' +
                         '\n\n' +
                         'Je nach Aufgabentyp werden die Lösungen bearbeiteter Aufgaben direkt nach dem Upload automatisch ausgewertet. Für alle anderen Aufgaben erhalten Studierende Rückmeldung von einem/einer Dozent:in.'
                 }
@@ -93,7 +99,7 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
-    course_search: {
+    module_search: {
         items_per_page: 'Einträge pro Seite'
     },
     buttons: {
@@ -114,6 +120,9 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
+        submit: 'Lösung hochladen',
+        view_submissions: 'Abgaben einsehen',
+        evaluate: 'Bewertung speichern'
     },
     titles: {
         home_view: 'ATLAS',
@@ -130,6 +139,7 @@ const translationDe = {
         exercise_view: 'Aufgabe',
         exerciseeditor_view: 'Bearbeiten',
         module_main_page: 'Modul',
+        modulemanager_view: "Modul Manager",
     },
     languages: {
         en: 'Englisch',
@@ -168,7 +178,7 @@ const translationDe = {
                 password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
             }
         },
-        tasks: {
+        exercises: {
             new: 'Neue Aufgabe',
             edit: 'Aufgabe bearbeiten',
             delete: 'Aufgabe löschen',
@@ -196,20 +206,77 @@ const translationDe = {
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer verwalten',
-            manage_task: 'Aufgaben verwalten',
+            manage_exercise: 'Aufgaben verwalten',
             manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
         }
     },
     exercise: {
+        add_tag: 'Tags hinzufügen',
+        tag_add_desc: 'Tag aus der Liste hinzufügen',
+        tag: 'Tag',
+        create: 'Hinzufügen',
         back: 'Zurück',
         edit: 'Bearbeiten',
+        submit: {
+            button: 'Meine Abgabe',
+            tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
+        },
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+    },
+    submission: {
+        title: 'Aufgabe',
+        'submitted-solutions': {
+            title: 'Deine Abgabe',
+            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Abgabetyp',
+                grade: 'Bewertung',
+                date: 'Datum',
+                'evaluated-by': 'Bewertet von',
+                comment: 'Kommentar',
+                'view-submission':'Abgabe ansehen'
+            },
+            'submission-types': {
+                'file-upload': 'Datei-Upload',
+                'text-field': 'Freitextfeld',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Lösung hochladen',
+            'form-placeholder': 'Schreibe hier deine Lösung hinein...'
+        },
+        'specific-submission': {
+            title: 'Deine Lösung zu '
+        }
+
+    },
+    submission_list: {
+        title: 'Abgaben aller Benutzer für Aufgabe',
+        no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
+        table: {
+            user_id: 'Benutzer ID',
+            status: {
+                title: 'Status',
+                evaluated: 'bewertet',
+                pending: 'ausstehend'
+            },
+            evaluate: 'Zur Bewertung'
+        }
+    },
+    evaluation: {
+        title: 'Bewertung der Abgabe',
+        comment: 'Ihre Bewertung',
+        comment_form: 'Schreiben Sie hier einen Kommentar zur Abgabe hinein...',
+        grade_form: 'Bewertung von 0-100 in %',
+        solution: 'Lösung des Nutzers'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
@@ -219,7 +286,27 @@ const translationDe = {
         unknown: 'Unbekannter Fehler.',
     },
     module_page: {
+        module: 'Modul',
         exercises: 'Aufgaben',
+        about: 'Über',
+        manage: 'Verwalten',
+        attend: 'Kurs belegen',
+        leave: 'Kurs verlassen',
+        teachers: 'Lehrende',
+        tutors: 'Tutor:innen',
+        materials: 'Lernmaterial'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Rollen',
+        edit_tag_button: 'Tags bearbeiten',
+        edit_tag: 'Tags bearbeiten oder löschen',
+        tag: 'Tag',
+        add_user: 'Nutzer hinzufügen',
+        edit_privilege: 'Rolle ändern',
+        student: 'Student:in',
+        tutor: 'Tutor:in',
+        teacher: 'Lehrer:in'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

@@ -13,7 +13,7 @@
           <v-card-text>
             <v-btn class="mx-4" elevation="0" color="secondary" v-for="link in links" :key="link[0]"
                    @click.prevent.stop="link[1]">
-              <a>{{ $t(`footer.${link[0]}`) }}</a>
+              <a class="footerHyperlink">{{ $t(`footer.${link[0]}`) }}</a>
             </v-btn>
           </v-card-text>
         </v-row>
@@ -76,5 +76,9 @@ let links = [
 
 #h-line {
   border-top: 1px solid #b7b7b7;
+}
+
+.footerHyperlink{
+  color: white;
 }
 </style>

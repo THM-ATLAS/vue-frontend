@@ -4,7 +4,7 @@ import {User, UserRole} from "@/helpers/types"
 class UserService {
 
     //TODO: Return / check response codes
-    getUser(id: number): Promise<any> {
+    getUser(id: string): Promise<any> {
         return API.get(`users/${id}`);
     }
 
@@ -26,6 +26,10 @@ class UserService {
 
     getRoles(): Promise<UserRole[]> {
         return API.get(`roles/`);
+    }
+
+    getMe(): Promise<any> {
+        return API.get(`users/me`)
     }
 
 }

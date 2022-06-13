@@ -1,6 +1,6 @@
 <template>
-  <SkipToContent />
-  <v-app-bar id="header" elevation="3"  height="100px" role="navigation">
+  <SkipToContent/>
+  <v-app-bar id="header" elevation="3" height="100px" role="navigation">
     <v-app-bar-title style="max-width: 200px !important; min-width: 200px !important;">
       <a @click="goToHome()">
         <v-img v-if="theme === 'light'" @keyup.enter.prevent.stop="goToHome"
@@ -9,7 +9,7 @@
                height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
-    <CourseButton/>
+    <ModuleButton/>
     <v-spacer/>
     <v-spacer/>
     <v-spacer/>
@@ -36,7 +36,7 @@
         <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
-          {{ username }}
+          {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
@@ -49,7 +49,7 @@
       <template v-else v-slot:activator="{ props }">
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
-          {{ username }}
+          {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
@@ -93,17 +93,17 @@
       class="d-md-none"
   >
     <v-spacer/>
-    <v-list nav>
-      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToCourses">
-        {{ $t('header.courses') }}
+    <v-list :nav="true">
+      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
+        {{ $t('header.modules') }}
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider/>
       <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
         <span> {{ $t('header.dropdown.messages') }} </span>
       </v-list-item-->
-      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> {{ $t('header.dropdown.profile') }} </span>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
         <span> {{ $t('header.dropdown.settings') }} </span>
       </v-list-item>
@@ -114,10 +114,10 @@
         <span>{{ $t('header.dropdown.admin') }}</span>
       </v-list-item>
       <v-list-item>
-        <v-btn block variant="outlined" rounded="0">
+        <v-btn :block="true" variant="outlined" rounded="0">
           <v-icon icon="mdi-logout"/>
-          <span v-if="loggedIn" @click='router.push("/");'> Logout </span>
-          <span v-else @click="goToLogin"> Login </span>
+          <span v-if="loggedIn" @click='logout'> {{ $t('header.dropdown.logout') }} </span>
+          <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
         </v-btn>
       </v-list-item>
     </v-list>
@@ -126,19 +126,26 @@
 
 <script setup lang="ts">
 import Dropdown from "./DropdownCard.vue";
-import CourseButton from "./CourseButton.vue"
+import ModuleButton from "./ModuleButton.vue"
 import {useRouter} from 'vue-router';
-import {Ref, ref} from 'vue';
+import {onBeforeMount, Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
+import {User} from "@/helpers/types";
+import UserService from "@/services/UserService";
+import LoginService from "@/services/LoginService";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn = ref(false);
+
+onBeforeMount(async () => {
+  user.value = (await UserService.getMe())?.data || undefined;
+  loggedIn.value = !!user.value;
+})
 
 const router = useRouter();
-
-const username = "Marianne Mustermann"; //must be either the logged in user's name or empty
-let loggedIn: Ref<boolean> = ref(!!username); //equals: username ? true : false
 
 function goToHome(): void {
   router.push(`/`);
@@ -146,6 +153,11 @@ function goToHome(): void {
 
 function goToLogin(): void {
   router.push("/login");
+}
+
+async function logout(): Promise<void> {
+  await LoginService.logout();
+  goToHome();
 }
 
 function goToAdmin() {
@@ -164,8 +176,8 @@ function goToHelp(): void {
   router.push("/help");
 }
 
-function goToCourses(): void {
-  router.push("/courses")
+function goToModules(): void {
+  router.push("/modules")
 }
 
 /*function goToMessages(): void {
@@ -176,9 +188,9 @@ function goToSettings(): void {
   router.push("/settings");
 }
 
-/*function goToUser() {
+function goToUser() {
   router.push("/u/");
-}*/
+}
 
 </script>
 
