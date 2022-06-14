@@ -291,7 +291,9 @@ const translationEn = {
         leave: 'Leave course',
         teachers: 'Teachers',
         tutors: 'Tutors',
-        materials: 'Learning material'
+        materials: 'Learning material',
+        enrollment: 'Self enrollment in this module.',
+        disenroll: 'Disenroll from this module.'
     },
     module_manager: {
         name: 'Name',

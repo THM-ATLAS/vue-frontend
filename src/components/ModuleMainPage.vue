@@ -41,10 +41,16 @@
             <v-col cols="11">
               {{ module.description }}
             </v-col>
-            <v-col class="testclass" cols="1">
-              <v-btn @click="reassign()" color="secondary">
-                {{ label.value }}
-              </v-btn>
+            <v-col cols="1">
+              <v-tooltip top>
+                <template v-slot:activator="{ props }">
+                  <v-btn @click="reassign()" color="secondary" v-bind="props">
+                    {{ label.value }}
+                  </v-btn>
+                </template>
+                    <span v-if="assignedStatus.value">{{ $t("module_page.disenroll") }}</span>
+                    <span v-else>{{ $t("module_page.enrollment") }}</span>
+              </v-tooltip>
             </v-col>
           </v-row>
         </v-card-text>
