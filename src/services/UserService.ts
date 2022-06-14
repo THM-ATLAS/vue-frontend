@@ -24,7 +24,7 @@ class UserService {
         return API.post(`users/`, user);
     }
 
-    getRoles(): Promise<Role[]> {
+    getRoles(): Promise<any> {
         return API.get(`roles/`);
     }
 

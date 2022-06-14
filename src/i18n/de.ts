@@ -215,9 +215,6 @@ const translationDe = {
         add_tag: 'Tags hinzufügen',
         tag_add_desc: 'Tag aus der Liste hinzufügen',
         tag: 'Tag',
-        create: 'Hinzufügen',
-        back: 'Zurück',
-        edit: 'Bearbeiten',
         submit: {
             button: 'Meine Abgabe',
             tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
@@ -227,7 +224,8 @@ const translationDe = {
         id: 'ID',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
-        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
+        tag_search_or_create: 'Tag suchen oder erstellen',
     },
     submission: {
         title: 'Aufgabe',
