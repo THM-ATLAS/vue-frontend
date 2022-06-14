@@ -20,9 +20,7 @@
           <!-- HIER SPÄTER BADGES? -->
         </v-col>
         <v-col cols="12" md="1">
-          <v-btn class="edit-button" :icon="true" variant="outlined" @click="goToSettings">
-            <v-icon icon="mdi-cog"/>
-          </v-btn>
+          <v-btn class="edit-button" icon="mdi-cog" variant="outlined" @click="goToSettings"/>
         </v-col>
       </v-row>
 
