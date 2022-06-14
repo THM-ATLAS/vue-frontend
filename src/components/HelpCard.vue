@@ -24,7 +24,7 @@
         </div>
         <br/>
         <div class="accordion-panel">
-          <v-expansion-panels>
+          <v-expansion-panels style="z-index: 0">
             <v-expansion-panel rounded="0" elevation="0">
               <v-expansion-panel-title
                   expand-icon="mdi-plus"
