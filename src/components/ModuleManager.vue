@@ -45,7 +45,6 @@
                     "
                     class="manage-button"
                     color="primary"
-                    disabled
                 >
                   <!-- Disabled until it works -->
                   <v-icon icon="mdi-cog"></v-icon>
@@ -144,18 +143,18 @@
           <v-radio-group v-model="editPrivilegeDialog.userRole">
             <v-radio
                 :label="$t('module_manager.student')"
+                :key="1"
                 value="student"
-                @click="editPrivilegeDialog.userRole = 'student'"
             />
             <v-radio
                 :label="$t('module_manager.tutor')"
                 value="tutor"
-                @click="editPrivilegeDialog.userRole = 'tutor'"
+                :key="2"
             />
             <v-radio
                 :label="$t('module_manager.teacher')"
                 value="teacher"
-                @click="editPrivilegeDialog.userRole = 'teacher'"
+                :key="3"
             />
           </v-radio-group>
         </v-card-text>
@@ -172,8 +171,7 @@
           <v-btn
               @click="
               editPrivilegeDialog.show = false;
-              editPrivilegeDialog.userRole = null;
-              setUserRole(editPrivilegeDialog.user);
+              setUserRole(editPrivilegeDialog.user, editPrivilegeDialog.userRole);
             "
               color="primary"
               v-html="$t('buttons.save')"
@@ -229,7 +227,7 @@ import UserService from "@/services/UserService";
 import ModuleService from "@/services/ModuleService";
 import TagService from "@/services/TagService";
 import ExerciseService from "@/services/ExerciseService";
-import {ModuleUser, User, Module, Tag, Exercise} from "@/helpers/types";
+import {Exercise, Module, ModuleUser, Role, Tag, User} from "@/helpers/types";
 
 //Router
 const route = useRoute();
@@ -244,6 +242,12 @@ const exercises: Ref<Exercise[]> = ref([]);
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module).then((res) => {
     module.value = res.data;
+  }).then(() => {
+    loadAllUsers().then(() => {
+      loadFilteredUsers();
+    });
+    loadModuleUsers();
+    getCurrentTags();
   });
 }
 
@@ -270,10 +274,6 @@ async function loadFilteredUsers(): Promise<void> {
 
 onBeforeMount(async () => {
   await loadModule();
-  await loadAllUsers();
-  await loadModuleUsers();
-  await loadFilteredUsers();
-  await getCurrentTags();
 });
 
 function addModuleUser(number: number): void {
@@ -323,9 +323,13 @@ const manageUsersDialog = ref({
 
 const editPrivilegeDialog = ref({
   show: false,
-  userRole: null,
-  user: null,
-});
+  userRole: "",
+  user: undefined,
+}) as Ref<{
+  show: boolean;
+  userRole: string;
+  user: ModuleUser | undefined;
+}>;
 
 function getCurrentTags(): void {
   ExerciseService.getExercisesForModule(module.value.module_id).then((res) => {
@@ -349,10 +353,11 @@ function removeTag(tag: Tag): void {
   });
 }
 
-function setUserRole(user: ModuleUser): void {
-  console.log(user);
-  editPrivilegeDialog.value.user = null;
-  //Set role here
+function setUserRole(user: ModuleUser, role: string): void {
+  UserService.getRoles().then((res) => {
+    user.module_role = res.data.find((a: Role) => a.name == role)
+    ModuleService.editModuleUser(module.value, user); // intentionally not awaited, api does not update user role}
+  });
 }
 </script>
 
