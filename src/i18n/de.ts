@@ -292,7 +292,9 @@ const translationDe = {
         leave: 'Kurs verlassen',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
-        materials: 'Lernmaterial'
+        materials: 'Lernmaterial',
+        enrollment: 'Selbsteinschreibung in das Modul.',
+        disenroll: 'Von diesem Modul abmelden.'
     },
     module_manager: {
         name: 'Name',
