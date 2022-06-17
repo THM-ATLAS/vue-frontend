@@ -12,7 +12,8 @@ cd <Frontend Repo> && echo "db_source=<Link zur Datenbank>\ndb_username=<Datenba
 3. Starten des THM VPN Clients
 Die App funktioniert momentan nur mit aktivem THM VPN, auch wenn man sich bereits im THM Netz vor Ort befindet!
 4. Starten der App und des lokalen Backends für die Entwicklung
-`docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --force-recreate`   
+Dabei wird immer das neueste Image des Backends verwendet.
+` docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml pull && docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --force-recreate`   
 5. Starten einer Google Chrome Version ohne Websecurity     
 Dies ist wegen Cross Origin Policies leider nötig.
 `google-chrome --disable-web-security --user-data-dir=/chromeTemp`    
