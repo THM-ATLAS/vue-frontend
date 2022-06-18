@@ -13,7 +13,7 @@ export const API: AxiosInstance = axios.create({
 });
 
 export const AuthAPI: AxiosInstance = axios.create({ // only used for login and logout
-    baseURL:  ,
+    baseURL: `http://brueckenkurs-programmieren.thm.de/`,
     headers: {
         "Content-type": "application/json",
     },
