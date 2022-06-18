@@ -18,7 +18,7 @@
                     variant="outlined"
                     @click='goToEditor'/>
               </template>
-              <span v-html="$t('exercise.edit')"/>
+              <span v-html="$t('buttons.edit')"/>
             </v-tooltip>
           </v-col>
           <v-col v-if="loggedIn" align-self="center" class="button-col">
