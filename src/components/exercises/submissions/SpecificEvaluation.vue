@@ -66,8 +66,10 @@
                     :label="$t('evaluation.comment_form')"
         ></v-textarea>
       </v-form>
-      <v-btn v-if="evaluationUpdated()" @click="submitEvaluation" prepend-icon="mdi-file-check" variant="outlined">{{$t('buttons.evaluate')}}</v-btn>
-      <v-btn disabled v-else prepend-icon="mdi-file-check" variant="outlined">{{$t('buttons.evaluate')}}</v-btn>
+      <v-card-actions>
+        <v-btn @click="submitEvaluation" color="primary">{{$t('buttons.save')}}</v-btn>
+        <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
+      </v-card-actions>
     </v-container>
   </v-card>
 </template>
@@ -114,13 +116,6 @@
     }
     await SubmissionService.adjustSubmission(s);
     goBack();
-  }
-
-  function evaluationUpdated() {
-    const comment = !submission.value.comment ? "" : submission.value.comment;
-    const commentHasChanged = comment == formInput.value;
-    const gradeHasChanged = submission.value.grade == grade.value;
-    return !commentHasChanged || !gradeHasChanged;
   }
 
   function goBack(): void {
