@@ -5,7 +5,7 @@ const isLocalHost = true;
 */
 
 export const API: AxiosInstance = axios.create({
-    baseURL: `http://localhost:8080/api/`,
+    baseURL: `http://brueckenkurs-programmieren.thm.de/api/`, // PROD!
     headers: {
         "Content-type": "application/json",
     },
@@ -13,7 +13,7 @@ export const API: AxiosInstance = axios.create({
 });
 
 export const AuthAPI: AxiosInstance = axios.create({ // only used for login and logout
-    baseURL: `http://localhost:8080/`,
+    baseURL:  ,
     headers: {
         "Content-type": "application/json",
     },
