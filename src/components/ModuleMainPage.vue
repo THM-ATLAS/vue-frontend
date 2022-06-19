@@ -215,6 +215,10 @@
                   @click="goToExercise(exercise)"
               >
                 <v-chip v-for="tag in exercise.tags" :key="tag.tag_id">
+                  <!--
+                  <v-icon size="small" :icon="tag.icon"/>
+                  -->
+                  <v-icon class="tag-icon" size="small" :icon="tagdoticon"/>
                   {{ tag.name }}
                 </v-chip>
                 <h1 class="ex-title">
@@ -290,6 +294,8 @@ import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
+
+const tagdoticon = "mdi-cards";
 
 const route = useRoute();
 
@@ -530,5 +536,9 @@ function getUserTemplate(): ModuleUser {
 
 .tag-chip {
   margin-top: -2em;
+}
+
+.tag-icon {
+  margin-right: 0.2em;
 }
 </style>

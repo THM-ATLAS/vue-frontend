@@ -14,6 +14,10 @@
             :closable="true"
             @click:close="removeTag(tag)"
         >
+          <!--
+          <v-icon class="tag-icon" size="small" :icon="tag.icon"/>
+          -->
+          <v-icon class="tag-icon" size="small" :icon="tagdoticon"/>
           {{ tag.name }}
         </v-chip>
       </div>
@@ -92,7 +96,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
-        <v-table :fixed-header="true" height="400px">
+        <v-table height="400px">
           <thead>
           <tr>
             <th>{{ $t("exercise.tag") }}</th>
@@ -102,6 +106,10 @@
           <tbody>
           <tr v-for="tag in filteredTags" :key="tag.tag_id">
             <td>
+              <!--
+              <v-icon class="tag-icon" size="small" :icon="tag.icon"/>
+              -->
+              <v-icon class="tag-icon" size="small" :icon="tagdoticon"/>
               {{ tag.name }}
             </td>
             <td class="text-right">
@@ -342,6 +350,7 @@ const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
 const exerciseTags: Ref<Tag[]> = ref([]);
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
+const tagdoticon = "mdi-cards";
 
 let wasSave: boolean = false;
 let wasDelete: boolean = false;
@@ -548,5 +557,9 @@ function getTagTemplate(): Tag {
 
 .tag-chips {
   margin-bottom: 1em;
+}
+
+.tag-icon {
+  margin-right: 0.2em;
 }
 </style>

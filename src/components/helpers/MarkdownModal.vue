@@ -14,7 +14,6 @@
 
   <Editor
       v-else
-      style="background: none"
       preview-theme="github"
       code-theme="github"
       previewOnly

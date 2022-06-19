@@ -121,9 +121,13 @@
           <span>Feedback ansehen</span>
         </v-tooltip-->
         <v-chip
-        v-for="t in tags"
-        v-bind:key="t.id">
-          {{ t.name }}
+        v-for="tag in tags"
+        v-bind:key="tag.id">
+          <!--
+          <v-icon size="small" :icon="tag.icon"/>
+          -->
+          <v-icon class="tag-icon" size="small" :icon="tagdoticon"/>
+          {{ tag.name }}
         </v-chip>
       </div>
       <div>
@@ -181,6 +185,8 @@ import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, User, Tag} from "@/helpers/types";
+
+const tagdoticon = "mdi-cards";
 
 const route = useRoute();
 const router = useRouter();
@@ -245,7 +251,11 @@ let hasSubmission = true;
 </script>
 
 <style scoped>
-  .button-col {
-    text-align: end;
-  }
+.button-col {
+  text-align: end;
+}
+
+.tag-icon {
+  margin-right: 0.2em;
+}
 </style>
