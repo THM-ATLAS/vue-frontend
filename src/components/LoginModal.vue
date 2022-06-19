@@ -52,6 +52,7 @@
           :disabled="!loginFormValid"
           @click="login"
           @keyup.enter="login">
+
         {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
@@ -72,6 +73,11 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
+/*import UserService from "@/services/UserService";
+import SettingsService from "@/services/SettingsService";
+import {User, UserSettings} from "@/helpers/types";
+import {setTheme} from "@/helpers/theme";
+import {setLocale} from "@/i18n/localeHelper";*/
 
 const router = useRouter();
 const i18n = useI18n();
@@ -90,6 +96,10 @@ const rules = {
 
 async function login() {
   await LoginService.login(loginCredentials.value.username, loginCredentials.value.password);
+  /*const loggedInUser: User = (await UserService.getMe()).data;
+  const currentUserSettings : UserSettings = (await SettingsService.getUserSettings(loggedInUser.user_id)).data;
+  await setLocale(currentUserSettings.language);
+  await setTheme(currentUserSettings.theme);*/
   goToHome();
 }
 

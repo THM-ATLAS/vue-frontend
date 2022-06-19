@@ -1,9 +1,10 @@
 import SettingsService from "@/services/SettingsService";
 import UserService from "@/services/UserService";
+import {i18n} from "@/main";
 
 const DEFAULT_LOCALE: string = 'de';
 
-export function fetchLocale(): any {
+export function fetchLocale(): string{
     if (window.localStorage.getItem('locale') === null) {
         return DEFAULT_LOCALE
     } else if (window.localStorage.getItem('locale') === '[object Object]') {
@@ -15,13 +16,27 @@ export function fetchLocale(): any {
 }
 
 export async function setLocale(newLocale: string): Promise<any> {
-    const loggedIn = (await UserService.getMe()).data
-    if (loggedIn.user_id) {
+    await UserService.getMe().then( async res => {
         await SettingsService.editUserSettings({
-            user_id: loggedIn.user_id,
+            user_id: res.data.user_id,
             language: newLocale,
             theme: localStorage.getItem('theme') || 'light'
         })
-    }
-    window.localStorage.setItem('locale', newLocale);
+        i18n.global.locale = res.data.language
+        window.localStorage.setItem('locale', newLocale);
+    })
+}
+
+export async function getLocaleFromAPI(): Promise<any> {
+    let locale;
+    await UserService.getMe().then( async res => {
+         await SettingsService.getUserSettings(res.data.user_id).then(r => {
+             locale = r.data.language
+        }).catch(error => {
+            locale = 'de'
+        })
+    }).catch(error => {
+        locale = 'de'
+    })
+    return locale
 }

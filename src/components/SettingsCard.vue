@@ -124,6 +124,7 @@ import {toggleTheme, theme} from "@/helpers/theme";
 import {ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {setLocale} from "@/i18n/localeHelper";
+import router from "@/router";
 
 const i18n = useI18n();
 const availableLocales = i18n.availableLocales.map(locale => {
@@ -133,15 +134,15 @@ const availableLocales = i18n.availableLocales.map(locale => {
       }
     }
 );
-
-// const localeSetting = ref(availableLocales.find(locale => locale.code === i18n.locale));
 const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.locale.value));
 
 watch(chosenLocale, async (newValue) => {
-  i18n.locale = newValue.code;
+  console.log(newValue.code)
   await setLocale(newValue.code);
-  window.location.reload();
+  router.go()
+  //window.location.reload();
 })
+
 
 /*
 import { ref } from "vue";
