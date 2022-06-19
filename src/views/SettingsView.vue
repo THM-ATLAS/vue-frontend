@@ -25,7 +25,7 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Settings from "@/components/SettingsCard.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
-/*import {useI18n} from "vue-i18n";
+import {useI18n} from "vue-i18n";
 import {watch, ref} from "vue";
 
 const i18n = useI18n()
@@ -35,5 +35,5 @@ const currentLocale = ref(i18n.locale)
 watch(currentLocale, () => {
   document.title = i18n.t('titles.settings_view');
 })
-document.title = i18n.t('titles.settings_view');*/
+document.title = i18n.t('titles.settings_view');
 </script>
