@@ -34,7 +34,6 @@
                   item-title="name"
                   return-object
                   :label="$t('settings.language')"
-                  @change="changeLocale(chosenLocale)"
               />
             </v-col>
             <!--v-col cols="12" md="12">
@@ -138,15 +137,11 @@ const availableLocales = i18n.availableLocales.map(locale => {
 // const localeSetting = ref(availableLocales.find(locale => locale.code === i18n.locale));
 const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.locale.value));
 
-watch(chosenLocale, (newValue) => {
+watch(chosenLocale, async (newValue) => {
   i18n.locale = newValue.code;
-  setLocale(newValue.code);
+  await setLocale(newValue.code);
   window.location.reload();
 })
-
-function changeLocale(locale) {
-  setLocale(locale.value.code)
-}
 
 /*
 import { ref } from "vue";

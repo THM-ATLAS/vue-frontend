@@ -1,3 +1,6 @@
+import SettingsService from "@/services/SettingsService";
+import UserService from "@/services/UserService";
+
 const DEFAULT_LOCALE: string = 'de';
 
 export function fetchLocale(): any {
@@ -7,10 +10,18 @@ export function fetchLocale(): any {
         return DEFAULT_LOCALE
     } else {
         // @ts-ignore
-        return JSON.parse(window.localStorage.getItem('locale'))
+        return window.localStorage.getItem('locale')
     }
 }
 
-export function setLocale(newLocale: string): void {
-    window.localStorage.setItem('locale', JSON.stringify(newLocale));
+export async function setLocale(newLocale: string): Promise<any> {
+    const loggedIn = (await UserService.getMe()).data
+    if (loggedIn.user_id) {
+        await SettingsService.editUserSettings({
+            user_id: loggedIn.user_id,
+            language: newLocale,
+            theme: localStorage.getItem('theme') || 'light'
+        })
+    }
+    window.localStorage.setItem('locale', newLocale);
 }
