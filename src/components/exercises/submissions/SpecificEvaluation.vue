@@ -62,7 +62,6 @@
       <v-form ref="form" class="pa-4 pt-6">
         <v-textarea v-model="formInput"
                     filled
-                    counter="6"
                     :label="$t('evaluation.comment_form')"
         ></v-textarea>
       </v-form>
