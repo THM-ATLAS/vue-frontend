@@ -7,7 +7,7 @@
         variant="outlined"/>
     <br>
     <v-card-title class="text-h4">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
-    <v-container v-if="filteredSubmissions.length">
+    <v-container v-if="filteredSubmission">
       <v-card-title class="text-h5">{{$t('submission.submitted-solutions.title')}}</v-card-title>
       <v-table>
           <thead>
@@ -18,33 +18,20 @@
               <th>{{ $t('submission.submitted-solutions.table-header.grade') }}</th>
               <th>{{ $t('submission.submitted-solutions.table-header.evaluated-by') }}</th>
               <th>{{ $t('submission.submitted-solutions.table-header.comment') }}</th>
-              <th>{{ $t('submission.submitted-solutions.table-header.view-submission') }}</th>
             </tr>
           </thead>
           <tbody>
-            <template v-if="filteredSubmissions.length">
-              <tr v-for="s in filteredSubmissions" :key="s.submission_id"> <!-- loop through the submissions array! -->
-                <td>{{s.submission_id}}</td>
+            <template v-if="filteredSubmission">
+              <tr>
+                <td>{{filteredSubmission.submission_id}}</td>
                 <td>{{exercise.type}}</td>
-                <td>{{new Date(s.upload_time).toLocaleString()}}</td>
-                <td v-if="s.grade">{{s.grade}}%</td>
+                <td>{{new Date(filteredSubmission.upload_time).toLocaleString()}}</td>
+                <td v-if="filteredSubmission.grade">{{filteredSubmission.grade}}%</td>
                 <td v-else>-</td>
-                <td v-if="s.teacher_id">{{s.teacher_id}}</td>
+                <td v-if="teacher">{{teacher}}</td>
                 <td v-else>-</td>
-                <td v-if="s.comment">{{s.comment}}</td>
+                <td v-if="filteredSubmission.comment">{{filteredSubmission.comment}}</td>
                 <td v-else>-</td>
-                <td>
-                  <v-btn
-                         @click="visitSubmission(s)"
-                         icon="mdi-open-in-new"
-                         small
-                         elevation="0"
-                         color="success"
-                         class="ma-1"
-                         rounded="0"
-                         variant="outlined"
-                  />
-                </td>
               </tr>
             </template>
             <template v-else>
@@ -55,21 +42,12 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-                <td>
-                  <v-btn
-                         icon="mdi-open-in-new"
-                         small
-                         elevation="0"
-                         color="error"
-                         class="ma-1"
-                         rounded="0"
-                         variant="outlined"
-                  />
-                </td>
               </tr>
             </template>
           </tbody>
         </v-table>
+      <v-textarea readonly :value="filteredSubmission.file">
+      </v-textarea>
     </v-container>
     <v-container v-else>
       <v-card-title class="text-h5">{{$t('submission.submit-a-solution.title')}}</v-card-title>
@@ -101,10 +79,11 @@ import {Exercise, Submission, User} from "@/helpers/types"
 const exerciseId: number = Number(router.currentRoute.value.params.id);
 const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-const filteredSubmissions: Ref<Submission[]> = ref([]);
+const filteredSubmission: Ref<Submission> = ref({}) as Ref<Submission>;
 const usersSubmissions: Ref<Submission[]> = ref([]);
 const submissionType = ref("");
 const formInput = ref("")
+const teacher = ref("");
 
 onBeforeMount(async () => {
 
@@ -114,7 +93,7 @@ onBeforeMount(async () => {
   loggedInUser.value = (await UserService.getMe()).data;
   await getLoggedInUsersSubmissions();
 
-  await replaceTeacherIds();
+  if(filteredSubmission) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id.toString())).data.name;
 
 });
 
@@ -123,17 +102,7 @@ async function getLoggedInUsersSubmissions(): Promise<void> {
   apiUsersSubmissions.forEach((result: Submission) => {
     usersSubmissions.value.push(result);
   })
-  filteredSubmissions.value = usersSubmissions.value.filter(s => s.exercise_id === exerciseId); //filter submissions: only submissions for this exercise
-}
-
-async function replaceTeacherIds(): Promise<void> {
-
-  //get the names of the users/teachers that evaluated the submissions
-  for(let i = 0; i<filteredSubmissions.value.length; i++) {
-    if (filteredSubmissions.value[i].teacher_id !== null)  //submissions have a teacher_id = null, if the evaluation is pending
-      filteredSubmissions.value[i].teacher_id = ((await UserService.getUser(filteredSubmissions.value[i].teacher_id.toString())).data.name); //replaces id with name: not the best solution
-
-  }
+  filteredSubmission.value = usersSubmissions.value.find(s => s.exercise_id === exerciseId); //filter submissions: only submission for this exercise
 }
 
 async function submitSolution() {
@@ -153,10 +122,6 @@ async function submitSolution() {
 
 function goBack(): void {
   router.back();
-}
-
-function visitSubmission(s: any) {
-  router.push(`/${exercise.value.module.module_id}/s/${exerciseId}/${s.submission_id}`);
 }
 
 </script>

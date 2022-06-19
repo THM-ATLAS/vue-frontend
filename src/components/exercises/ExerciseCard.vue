@@ -20,25 +20,27 @@
               </template>
               <span v-html="$t('exercise.edit')"/>
             </v-tooltip>
-          </v-col>
-          <v-col v-if="loggedIn" align-self="center" class="button-col">
-            <v-btn @click="goToSubmission" prepend-icon="mdi-upload" variant="outlined" elevation="0" outlined>
-              {{$t('exercise.submit.button')}}
-            </v-btn><br><br>
-            <v-btn @click="goToSubmissionsList" prepend-icon="mdi-human-male-board" variant="outlined" elevation="0" outlined>
-              {{$t('buttons.view_submissions')}}
-            </v-btn>
-          </v-col>
-          <v-col v-else align-self="center" class="button-col">
             <v-tooltip bottom>
-              <template v-slot:activator="{ props }">
-                <div v-bind="props">
-                  <v-btn disabled @click="goToSubmission" prepend-icon="mdi-upload" variant="outlined" elevation="0" outlined>
-                    {{$t('exercise.submit.button')}}
-                </v-btn>
-                </div>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    icon="mdi-upload"
+                    class="ma-2"
+                    variant="outlined"
+                    @click='goToSubmission'/>
               </template>
-              <span>{{$t('exercise.submit.tooltip')}}</span>
+              <span v-html="$t('exercise.submit.button')"/>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    icon="mdi-human-male-board"
+                    class="ma-2"
+                    variant="outlined"
+                    @click='goToSubmissionsList'/>
+              </template>
+              <span v-html="$t('buttons.view_submissions')"/>
             </v-tooltip>
           </v-col>
         </v-row>
@@ -245,7 +247,4 @@ let hasSubmission = true;
 </script>
 
 <style scoped>
-  .button-col {
-    text-align: end;
-  }
 </style>
