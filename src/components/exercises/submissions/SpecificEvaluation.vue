@@ -25,7 +25,7 @@
             <td>{{submission.submission_id}}</td>
             <td>{{exercise.type}}</td>
             <td>{{new Date(submission.upload_time).toLocaleString()}}</td>
-            <td v-if="submission.grade">{{submission.grade}}%</td>
+            <td v-if="submission.grade !== null">{{submission.grade}}%</td>
             <td v-else>-</td>
             <td v-if="teacher">{{teacher}}</td>
             <td v-else>-</td>
@@ -93,7 +93,7 @@
   onBeforeMount(async () => {
     submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
     submissionContent.value = submission.value.file;
-    grade.value = submission.value.grade;
+    if(submission.value.grade !== null) grade.value = submission.value.grade;
 
     formInput.value = submission.value.comment ? submission.value.comment : "";
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
