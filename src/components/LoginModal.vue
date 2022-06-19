@@ -28,6 +28,7 @@
             :rules="[rules.username_required]"
             :hide-details="true"
             @change="alert = false; $refs.loginForm.validate()"
+            @keyup.enter="login"
         />
         <v-text-field
             class="ma-3"
@@ -37,6 +38,7 @@
             :hide-details="true"
             type="password"
             @change="alert = false; $refs.loginForm.validate()"
+            @keyup.enter="login"
         />
         <v-spacer height="100"/>
       </div>
@@ -48,7 +50,8 @@
           rounded="0"
           variant="outlined"
           :disabled="!loginFormValid"
-          @click="login">
+          @click="login"
+          @keyup.enter="login">
         {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
