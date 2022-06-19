@@ -82,8 +82,10 @@
             :label="$t('submission.submit-a-solution.form-placeholder')"
         ></v-textarea>
       </v-form>
-      <v-btn v-if="formInput" @click="submitSolution" prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
-      <v-btn disabled v-else prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
+      <v-card-actions>
+        <v-btn @click="submitSolution" color="primary">{{$t('buttons.save')}}</v-btn>
+        <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
+      </v-card-actions>
     </v-container>
   </v-card>
 </template>

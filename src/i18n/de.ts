@@ -120,9 +120,7 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
-        submit: 'Lösung hochladen',
-        view_submissions: 'Abgaben einsehen',
-        evaluate: 'Bewertung speichern'
+        view_submissions: 'Abgaben einsehen'
     },
     titles: {
         home_view: 'ATLAS',
