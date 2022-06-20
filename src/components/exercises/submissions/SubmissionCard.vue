@@ -5,6 +5,17 @@
         icon="mdi-menu-left"
         class="ma-2"
         variant="outlined"/>
+    <v-tooltip v-if="filteredSubmission" bottom>
+      <template v-slot:activator="{ props: tooltip3 }">
+        <v-btn
+            v-bind="tooltip3"
+            icon="mdi-file-document-edit"
+            class="ma-2"
+            variant="outlined"
+            @click='goToEditor'/>
+      </template>
+      <span v-html="$t('submission.edit_submission')"/>
+    </v-tooltip>
     <br>
     <v-card-title class="text-h4">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
     <v-container v-if="filteredSubmission">
@@ -84,6 +95,7 @@ const usersSubmissions: Ref<Submission[]> = ref([]);
 const submissionType = ref("");
 const formInput = ref("")
 const teacher = ref("");
+const sid = ref(0);
 
 onBeforeMount(async () => {
 
@@ -93,7 +105,11 @@ onBeforeMount(async () => {
   loggedInUser.value = (await UserService.getMe()).data;
   await getLoggedInUsersSubmissions();
 
-  if(filteredSubmission) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id.toString())).data.name;
+
+  if(filteredSubmission) {
+    if(filteredSubmission.value.teacher_id) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id.toString())).data.name;
+    sid.value = filteredSubmission.value.submission_id;
+  }
 
 });
 
@@ -103,6 +119,7 @@ async function getLoggedInUsersSubmissions(): Promise<void> {
     usersSubmissions.value.push(result);
   })
   filteredSubmission.value = usersSubmissions.value.find(s => s.exercise_id === exerciseId); //filter submissions: only submission for this exercise
+
 }
 
 async function submitSolution() {
@@ -118,6 +135,10 @@ async function submitSolution() {
   }
   await SubmissionService.postSubmission(s);
   goBack();
+}
+
+function goToEditor() {
+  router.push(`/${exercise.value.module.module_id}/s/${exerciseId}/edit/${sid.value}`);
 }
 
 function goBack(): void {

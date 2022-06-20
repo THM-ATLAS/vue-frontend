@@ -252,6 +252,7 @@ const translationEn = {
         'specific-submission': {
             title: 'Your solution for '
         },
+        edit_submission: 'Edit submission'
     },
     submission_list: {
         title: 'Submissions of all Users for Exercise',

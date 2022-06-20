@@ -251,8 +251,8 @@ const translationDe = {
         },
         'specific-submission': {
             title: 'Deine Lösung zu '
-        }
-
+        },
+        edit_submission: 'Abgabe bearbeiten'
     },
     submission_list: {
         title: 'Abgaben aller Benutzer für Aufgabe',

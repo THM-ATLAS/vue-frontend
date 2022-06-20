@@ -26,6 +26,10 @@ class SubmissionService{
     adjustSubmission(submission: Submission): Promise<any> {
         return API.put(`/submissions`, submission);
     }
+
+    deleteSubmission(submissionId: number): Promise<any> {
+        return API.delete(`/submissions/${submissionId}`);
+    }
 }
 
 

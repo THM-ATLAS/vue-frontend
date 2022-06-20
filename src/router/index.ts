@@ -4,6 +4,7 @@ import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
+import EditSubmission from "@/views/exercises/submissions/EditSubmissionView.vue";
 import SpecificEvaluation from "@/views/exercises/submissions/SpecificEvaluationView.vue";
 import EvaluationList from "@/views/exercises/submissions/EvaluationListView.vue";
 import Notifications from "@/views/NotificationsView.vue";
@@ -38,6 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
   {path: '/:module/s/:id', component: Submission},
+  {path: '/:module/s/:id/edit/:sid', component: EditSubmission},
   {path: '/:module/eval/:id', component: EvaluationList},
   {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
 

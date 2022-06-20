@@ -68,6 +68,7 @@
       <v-card-actions>
         <v-btn @click="submitEvaluation" color="primary">{{$t('buttons.save')}}</v-btn>
         <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
+        <v-btn @click="deleteEvaluation">{{$t('buttons.delete')}}</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>
@@ -112,6 +113,21 @@
       grade: grade.value,
       teacher_id: Number(loggedInUser.value.user_id),
       comment: formInput.value
+    }
+    await SubmissionService.adjustSubmission(s);
+    goBack();
+  }
+  async function deleteEvaluation() {
+    //overwrite grade, comment and teacher_id of submission
+    const s: Submission = {
+      submission_id : submission.value.submission_id,
+      exercise_id: exerciseId,
+      user_id : submission.value.user_id,
+      file: submission.value.file,
+      upload_time: submission.value.upload_time,
+      grade: null,
+      teacher_id: null,
+      comment: null
     }
     await SubmissionService.adjustSubmission(s);
     goBack();
