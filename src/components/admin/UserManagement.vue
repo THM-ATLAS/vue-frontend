@@ -20,7 +20,7 @@
             <v-chip v-for="role in user.roles" :closable="true"
                     @click:close="removeRole(user, role)" class="mr-1"
                     v-bind:key="role.role_id">
-              {{ role.name }}
+              {{ getRole(role.name) }}
             </v-chip>
 
             <v-chip prepend-icon="mdi-plus" @click="editRolesDialog.show = true; editRolesDialog.target = user"
@@ -89,8 +89,8 @@
         </v-card-title>
         <v-card-text>
           <template v-for="role in roles" v-bind:key="role.role_id">
-            <v-checkbox v-if="role.role_id !== 3" v-model="editRolesDialog.target.roles"
-                        :value="role" :label="role.name" @change="editUser(editRolesDialog.target)" />
+            <v-checkbox v-if="role.role_id !== 5" v-model="editRolesDialog.target.roles"
+                        :value="role" :label="getRole(role.name)" @change="editUser(editRolesDialog.target)" />
           </template>
         </v-card-text>
         <v-card-actions>
@@ -257,6 +257,10 @@ const rules = {
 
 function visitUser(user: User) {
   router.push('/u/' + user.user_id)
+}
+
+function getRole(role: string) {
+  return i18n.t("roles."+role);
 }
 
 function getUserTemplate(): User {

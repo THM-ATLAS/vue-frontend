@@ -143,6 +143,13 @@ const translationDe = {
         en: 'Englisch',
         de: 'Deutsch',
     },
+    roles: {
+      admin: 'Admin',
+      teacher: 'Lehrende:r',
+      student: 'Student:in',
+      tutor: 'Tutor:in',
+      guest: 'Gast'
+    },
     account: {
         title: 'Account',
         username: 'Benutzername',
