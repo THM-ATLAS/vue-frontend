@@ -17,7 +17,7 @@
     "ress": "^5.0.2",
     "roboto-fontface": "*",
     "simple-code-editor": "^1.2.0",
-    "vue": "^3.2.13",
+    "vue": "^3.2.37",
     "vue-class-component": "^8.0.0-0",
     "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.16",
