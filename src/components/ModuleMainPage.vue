@@ -5,10 +5,9 @@
       <!-- todo: Image loaded from backend -->
       <div>
         <v-img
-            lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+            src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
             max-height="240px"
             width="100%"
-            src=""
             cover
         >
           <div class="moduleNameContainer">
