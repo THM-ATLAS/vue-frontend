@@ -16,7 +16,7 @@
         </v-row>
         <v-row class="justify-center homepage-row">
           <v-spacer/>
-          <v-col>
+          <v-col v-if="loggedIn === 'false'">
             <SearchBar/>
           </v-col>
           <v-spacer/>
@@ -30,8 +30,16 @@
 import {theme} from "@/helpers/theme";
 import SearchBar from "@/components/navigation/navbar/SearchBar.vue";
 import {useRouter} from "vue-router";
+import {onBeforeMount} from "vue"
 
 const router = useRouter();
+
+let loggedIn;
+
+onBeforeMount (() => {
+      loggedIn = window.localStorage.getItem('userLoggedIn')
+    }
+)
 
 function goToHome(): void {
   router.push(`/`);
