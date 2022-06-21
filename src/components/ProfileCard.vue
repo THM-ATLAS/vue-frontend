@@ -20,9 +20,7 @@
           <!-- HIER SPÄTER BADGES? -->
         </v-col>
         <v-col cols="12" md="1">
-          <v-btn class="edit-button" :icon="true" variant="outlined" @click="goToSettings">
-            <v-icon icon="mdi-cog"/>
-          </v-btn>
+          <v-btn class="edit-button" icon="mdi-cog" variant="outlined" @click="goToSettings"/>
         </v-col>
       </v-row>
 
@@ -73,36 +71,29 @@
 
 <script setup lang="ts">
 import {useRoute, useRouter} from "vue-router";
-import {computed, onBeforeMount, ref, Ref} from "vue";
+import {onBeforeMount, ref, Ref} from "vue";
 import UserService from "@/services/UserService";
 import {User} from "@/helpers/types";
 
 const router = useRouter();
 const route = useRoute();
 const profile: Ref<User> = ref({}) as Ref<User>;
-
-const getID = computed(() => {
-  if (!route.params.id) {
-    return undefined;
-  }
-  return route.params.id instanceof Array
-      ? route.params.id[0]
-      : route.params.id;
-});
-
-const user = JSON.parse(localStorage.getItem("user") || "{}");
-
-const id = getID.value === undefined ? user?.user_id || "0" : getID.value; // at 1 would be a call to get own profile id
-
-console.log(id);
-
-if (getID.value === undefined) {
-  router.replace(`/u/${id}`);
-}
+const getID = ref("0");
 
 onBeforeMount(async () => {
-  profile.value = (await UserService.getUser(id)).data;
+    if (route.params.id) {
+      getID.value = route.params.id instanceof Array
+          ? route.params.id[0]
+          : route.params.id;
+      profile.value = (await UserService.getUser(getID.value)).data;
+    } else {
+      profile.value = (await UserService.getMe()).data;
+      getID.value = profile?.value.user_id || "-1";
+      await router.replace(`/u/${getID.value}`);
+    }
 });
+
+console.log(getID.value);
 
 const image = require("../assets/marianneMuster.png");
 

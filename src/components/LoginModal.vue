@@ -28,6 +28,7 @@
             :rules="[rules.username_required]"
             :hide-details="true"
             @change="alert = false; $refs.loginForm.validate()"
+            @keyup.enter="login"
         />
         <v-text-field
             class="ma-3"
@@ -37,6 +38,7 @@
             :hide-details="true"
             type="password"
             @change="alert = false; $refs.loginForm.validate()"
+            @keyup.enter="login"
         />
         <v-spacer height="100"/>
       </div>
@@ -48,7 +50,8 @@
           rounded="0"
           variant="outlined"
           :disabled="!loginFormValid"
-          @click="login">
+          @click="login"
+          @keyup.enter="login">
         {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
@@ -69,7 +72,6 @@ import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
-import {User} from "@/helpers/types";
 
 const router = useRouter();
 const i18n = useI18n();
@@ -86,25 +88,18 @@ const rules = {
   password_required: (value: any) => !!value || i18n.t("login_page.password_required"),
 };
 
-function login() {
-  LoginService.login(loginCredentials.value.username, loginCredentials.value.password)
-      .then((res) => {
-        storeUserData(res.data);
-        goToProfile(res.data.user_id);
-      }).catch(() => {
-        alert.value = true;
-        loginFormValid.value = false;
-      }
-  );
+async function login() {
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password);
+  goToHome();
 }
 
-function storeUserData(user: User) {
-  localStorage.setItem("user", JSON.stringify(user));
-}
+// function storeUserData(user: User) {
+//   localStorage.setItem("user", JSON.stringify(user));
+// }
 
-function goToProfile(userId: string) {
-  router.push(`/u/${userId}`);
-}
+// function goToProfile(userId: string) {
+//   router.push(`/u/${userId}`);
+// }
 
 function goToHome() {
   router.push("/");

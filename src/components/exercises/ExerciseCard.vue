@@ -2,12 +2,46 @@
   <v-card elevation="0" rounded="0" role="main">
     <div class="mx-2 my-2">
       <div class="pt-0 pl-0">
-        <v-btn
-            @click="goBack"
-            icon="mdi-menu-left"
-            class="ma-2"
-            variant="outlined"/>
-
+        <v-row>
+          <v-col>
+            <v-btn
+                @click="goBack"
+                icon="mdi-menu-left"
+                class="ma-2"
+                variant="outlined"/>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    icon="mdi-file-document-edit"
+                    class="ma-2"
+                    variant="outlined"
+                    @click='goToEditor'/>
+              </template>
+              <span v-html="$t('exercise.edit')"/>
+            </v-tooltip>
+          </v-col>
+          <v-col v-if="loggedIn" align-self="center" class="button-col">
+            <v-btn @click="goToSubmission" prepend-icon="mdi-upload" variant="outlined" elevation="0" outlined>
+              {{$t('exercise.submit.button')}}
+            </v-btn><br><br>
+            <v-btn @click="goToSubmissionsList" prepend-icon="mdi-human-male-board" variant="outlined" elevation="0" outlined>
+              {{$t('buttons.view_submissions')}}
+            </v-btn>
+          </v-col>
+          <v-col v-else align-self="center" class="button-col">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props }">
+                <div v-bind="props">
+                  <v-btn disabled @click="goToSubmission" prepend-icon="mdi-upload" variant="outlined" elevation="0" outlined>
+                    {{$t('exercise.submit.button')}}
+                </v-btn>
+                </div>
+              </template>
+              <span>{{$t('exercise.submit.tooltip')}}</span>
+            </v-tooltip>
+          </v-col>
+        </v-row>
         <!--v-btn
             rounded="xl"
             @click="saved = !saved"
@@ -75,18 +109,6 @@
           <FeedbackModal @close="dialog2 = false" close-variable/>
         </v-dialog-->
 
-        <v-tooltip bottom>
-          <template v-slot:activator="{ props: tooltip3 }">
-            <v-btn
-                v-bind="tooltip3"
-                icon="mdi-file-document-edit"
-                class="ma-2"
-                variant="outlined"
-                @click='goToEditor'/>
-          </template>
-          <span v-html="$t('exercise.edit')"/>
-        </v-tooltip>
-
         <!--v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip4 }">
             <v-btn
@@ -98,7 +120,11 @@
           </template>
           <span>Feedback ansehen</span>
         </v-tooltip-->
-
+        <v-chip
+        v-for="t in tags"
+        v-bind:key="t.id">
+          {{ t.name }}
+        </v-chip>
       </div>
       <div>
         <v-card-title class="text-left text-h4" style="padding-left: 0;"> {{ exercise.title }}</v-card-title>
@@ -138,35 +164,41 @@
       </v-btn-->
     </div>
   </v-card>
-  <!--br/>
-  <div>
+  <!--br/>-->
+  <!--div>
     <NewSubmission v-if="showSubmission" :exercise_id="exercise.id" :module="this.$route.params.module"/>
-  </div-->
+  </div>
+  <h1></h1-->
 </template>
-
-<style scoped>
-</style>
 
 <script setup lang='ts'>
 // import FeedbackModal from "@/components/FeedbackModal.vue";
-// import NewSubmission from "@/components/exercises/NewSubmission.vue";
+//import NewSubmission from "@/components/exercises/submissions/NewSubmission.vue";
 import {useRouter, useRoute} from "vue-router";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
-import {Exercise} from "@/helpers/types";
+import UserService from "@/services/UserService";
+import {Exercise, User, Tag} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
 const id = route.params.id;
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn = ref(false);
+onBeforeMount(async () => {
+  user.value = (await UserService.getMe())?.data || undefined;
+  loggedIn.value = !!user.value;
+})
 
 const exercise: Ref<Exercise | any> = ref({});
+const tags: Ref<Tag[]> = ref([]);
 
 onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data
   await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
-
+  tags.value = exercise.value.tags;
   document.title = exercise.value.module.name + ' - ' + exercise.value.title
 })
 
@@ -176,6 +208,14 @@ function goBack() {
 
 function goToEditor(): void {
   router.push(`/${exercise.value.module.module_id}/e/${id}/edit`);
+}
+
+function goToSubmission() {
+  router.push(`/${exercise.value.module.module_id}/s/${id}`);
+}
+
+function goToSubmissionsList() {
+  router.push(`/${exercise.value.module.module_id}/eval/${id}`);
 }
 
 /*
@@ -192,8 +232,9 @@ function filterYAMLHeader(text: string): string {
 function getSubmitButton(): string {
   return localStorage.getItem(`${module}.s.${id}`) ? 'Abgabe fertigstellen...' : 'Neue Abgabe...'
 }
-
-let showSubmission = ref(false);
+*/
+//let showSubmission = ref(true);
+/*
 let saved = ref(false);
 let error = ref('');
 let dialog = ref(false);
@@ -202,3 +243,9 @@ let dialog2 = ref(false);
 let hasSubmission = true;
 */
 </script>
+
+<style scoped>
+  .button-col {
+    text-align: end;
+  }
+</style>

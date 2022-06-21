@@ -2,11 +2,11 @@
   <v-container>
     <v-card class="help-card" elevation="0" rounded="0">
       <v-card-header>
-        <v-icon icon="mdi-globe-model" left="true" />
+        <v-icon icon="mdi-globe-model" left="true"/>
         <v-card-header-text class="text-left fontszTi">
           {{ $t("settings.title") }}
         </v-card-header-text>
-        <v-card-subtitle> {{ $t('settings.subtitle') }} </v-card-subtitle>
+        <v-card-subtitle> {{ $t('settings.subtitle') }}</v-card-subtitle>
       </v-card-header>
       <v-container>
         <v-card-text class="text-left fontszEx grow">
@@ -14,25 +14,27 @@
             <v-col cols="12" md="6">
               <h2>{{ $t("settings.theme.title") }}</h2>
               <v-btn
-                class="mr-3"
-                @click="toggleTheme"
-                :disabled="theme === 'dark'"
-                v-html="$t('settings.theme.dark')"
+                  class="mr-3"
+                  @click="toggleTheme"
+                  :disabled="theme === 'dark'"
+                  v-html="$t('settings.theme.dark')"
               />
               <v-btn
-                class="mr-3"
-                @click="toggleTheme"
-                :disabled="theme === 'light'"
-                v-html="$t('settings.theme.light')"
+                  class="mr-3"
+                  @click="toggleTheme"
+                  :disabled="theme === 'light'"
+                  v-html="$t('settings.theme.light')"
               />
             </v-col>
             <v-col cols="12" md="6">
               <h2>{{ $t("settings.language") }}</h2>
               <v-select
-                v-model="localeSetting"
-                :items="availableLocales"
-                persistent-hint
-                :label="$t('settings.language')"
+                  v-model="chosenLocale"
+                  :items="availableLocales"
+                  item-title="name"
+                  return-object
+                  :label="$t('settings.language')"
+                  @change="changeLocale(chosenLocale)"
               />
             </v-col>
             <!--v-col cols="12" md="12">
@@ -96,7 +98,7 @@
         </v-card-text>
       </v-container>
     </v-card>
-    <br />
+    <br/>
     <!--v-card elevation="0" rounded="0">
       <v-container>
         <v-card-text class="text-left fontszEx grow">
@@ -119,18 +121,32 @@
 </template>
 
 <script setup>
-import { toggleTheme, theme } from "@/helpers/theme";
+import {toggleTheme, theme} from "@/helpers/theme";
 import {ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {setLocale} from "@/i18n/localeHelper";
 
 const i18n = useI18n();
-const availableLocales = i18n.availableLocales
-const localeSetting = ref(i18n.locale)
+const availableLocales = i18n.availableLocales.map(locale => {
+      return {
+        name: i18n.t("languages." + locale),
+        code: locale
+      }
+    }
+);
 
-watch(localeSetting, (newValue) => {
-  setLocale(newValue)
+// const localeSetting = ref(availableLocales.find(locale => locale.code === i18n.locale));
+const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.locale.value));
+
+watch(chosenLocale, (newValue) => {
+  i18n.locale = newValue.code;
+  setLocale(newValue.code);
+  window.location.reload();
 })
+
+function changeLocale(locale) {
+  setLocale(locale.value.code)
+}
 
 /*
 import { ref } from "vue";

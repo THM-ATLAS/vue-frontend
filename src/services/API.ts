@@ -1,11 +1,23 @@
 import axios, {AxiosInstance} from "axios";
+/*
+const isDev = true;
+const isLocalHost = true;
+*/
 
-const isDev = true; // TODO: change to false when in prod
-
-const API: AxiosInstance = axios.create({
-    baseURL: `http://brueckenkurs-programmieren.thm.de/api${isDev ? '-dev' : ''}/`,
+export const API: AxiosInstance = axios.create({
+    baseURL: `http://localhost:8080/api/`,
     headers: {
         "Content-type": "application/json",
     },
+    withCredentials: true,
 });
+
+export const AuthAPI: AxiosInstance = axios.create({ // only used for login and logout
+    baseURL: `http://localhost:8080/`,
+    headers: {
+        "Content-type": "application/json",
+    },
+    withCredentials: true,
+});
+
 export default API;

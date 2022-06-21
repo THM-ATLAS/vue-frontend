@@ -1,14 +1,17 @@
-import API from "@/services/API";
-import {AxiosResponse} from "axios";
+import {AuthAPI} from "@/services/API";
 
 class LoginService {
     //TODO: Return / check response codes
 
-    login(username: string, password: string): Promise<AxiosResponse<any, any>> {
-        return API.post(`authenticate`, {
+    login(username: string, password: string): any {
+        return AuthAPI.post(`login`, {
             username,
             password
         })
+    }
+
+    logout(): any {
+        return AuthAPI.post(`logout`, {})
     }
 }
 

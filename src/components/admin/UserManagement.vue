@@ -88,8 +88,10 @@
           <span class="headline">{{ $t('admin.users.roles') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-checkbox v-for="role in roles" v-bind:key="role.role_id" v-model="editRolesDialog.target.roles"
-                      :value="role" :label="role.name" @change="editUser(editRolesDialog.target)"/>
+          <template v-for="role in roles" v-bind:key="role.role_id">
+            <v-checkbox v-if="role.role_id !== 3" v-model="editRolesDialog.target.roles"
+                        :value="role" :label="role.name" @change="editUser(editRolesDialog.target)" />
+          </template>
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="editRolesDialog.show = false">{{ $t('buttons.close') }}</v-btn>
@@ -225,11 +227,11 @@
 import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
-import {User, UserRole} from "@/helpers/types";
+import {User, Role} from "@/helpers/types";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
-const roles: Ref<UserRole[]> = ref([]);
+const roles: Ref<Role[]> = ref([]);
 
 const users: Ref<User[]> = ref([]);
 
@@ -270,7 +272,7 @@ function getUserTemplate(): User {
   };
 }
 
-function removeRole(user: User, role: UserRole) {
+function removeRole(user: User, role: Role) {
   user.roles = user.roles.filter(r => r.role_id !== role.role_id);
   editUser(user);
 }

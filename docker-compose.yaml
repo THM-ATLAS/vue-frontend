@@ -1,4 +1,7 @@
 services:
     atlas-frontend:
-        ports:
-            - 8080:8080
+        depends_on:
+            -   atlas-backend
+
+    atlas-backend:
+

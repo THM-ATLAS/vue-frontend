@@ -100,13 +100,6 @@ const translationEn = {
     module_search: {
       items_per_page: 'Items per page'
     },
-    news_page: {
-        notifications: 'Notifications',
-        news: 'News',
-        description: 'You can view your messages, reviews for submissions and site news here.',
-        unread: 'Unread',
-        older_messages: 'Older messages'
-    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',
@@ -122,6 +115,7 @@ const translationEn = {
         exercise_view: 'Exercise',
         exerciseeditor_view: 'Edit',
         module_main_page: 'Module',
+        modulemanager_view: "Module Manager",
     },
     buttons: {
         save: 'Save',
@@ -141,12 +135,9 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
-        to_profile: 'Go to profile',
-        read_feedback: 'Read feedback',
-        to_submission: 'Go to submission',
-        read_message: 'Read',
-        edit_exercise: 'Edit exercise',
-        to_help_page: 'Go to help page'
+        submit: 'Submit Solution',
+        view_submissions: 'View submissions',
+        evaluate: 'Save Evaluation'
     },
     languages: {
         en: 'English',
@@ -219,14 +210,68 @@ const translationEn = {
         }
     },
     exercise: {
-        back: 'Back',
-        edit: 'Edit',
+        add_tag: 'Add tags',
+        tag_add_desc: 'Add tag from list',
+        tag: 'Tag',
+        submit: {
+            button: 'My solution',
+            tooltip: 'Login to submit a solution!'
+        },
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
-        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!'
+        confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
+        tag_search_or_create: 'Search or create tag',
+    },
+    submission: {
+        title: 'Exercise',
+        'submitted-solutions': {
+            title: 'Your submission',
+            'no-solutions': 'You have not submitted a solution to this exercise yet.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Submission Type',
+                grade: 'Evaluation',
+                date: 'Date',
+                'evaluated-by': 'Evaluated by',
+                comment: 'Comment',
+                'view-submission':'View submission'
+            },
+            'submission-types': {
+                'file-upload': 'File Upload',
+                'text-field': 'Text Field',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Submit a solution',
+            'form-placeholder': 'Enter your solution...'
+        },
+        'specific-submission': {
+            title: 'Your solution for '
+        },
+    },
+    submission_list: {
+        title: 'Submissions of all Users for Exercise',
+        no_solutions: 'No solutions have been submitted to this exercise yet.',
+        table: {
+            user_id: 'User ID',
+            status: {
+                title: 'Status',
+                evaluated: 'evaluated',
+                pending: 'pending'
+            },
+            evaluate: 'View Evaluation'
+        }
+    },
+    evaluation: {
+        title: 'Evaluation of Submission',
+        comment: 'Your evaluation',
+        comment_form: 'Add a comment to the submission...',
+        grade_form: 'Grade between 0-100 in %',
+        solution: 'The User\'s solution'
     },
     error: {
         unauthorized: 'Unauthorized.',
@@ -239,8 +284,26 @@ const translationEn = {
         module: 'Module',
         exercises: 'Exercises',
         about: 'About',
+        manage: 'Manage',
+        attend: 'Assign to course',
+        leave: 'Leave course',
         teachers: 'Teachers',
         tutors: 'Tutors',
+        materials: 'Learning material',
+        enrollment: 'Self enrollment in this module.',
+        disenroll: 'Disenroll from this module.'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Roles',
+        edit_tag_button: 'Edit tags',
+        edit_tag: 'Change or delete tags',
+        tag: 'Tag',
+        add_user: 'Add user',
+        edit_privilege: 'Change role',
+        student: 'Student',
+        tutor: 'Tutor',
+        teacher: 'Teacher'
     },
     page_not_found: {
         error_title: "This page could not be found.",

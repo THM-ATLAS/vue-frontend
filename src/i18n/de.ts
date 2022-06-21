@@ -102,13 +102,6 @@ const translationDe = {
     module_search: {
         items_per_page: 'Einträge pro Seite'
     },
-    news_page: {
-        notifications: 'Benachrichtigungen',
-        news: 'Neuigkeiten',
-        description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
-        unread: 'Ungelesen',
-        older_messages: 'Ältere Nachrichten'
-    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
@@ -127,12 +120,7 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
-        to_profile: 'Zum Profil',
-        read_feedback: 'Feedback lesen',
-        to_submission: 'Zur Abgabe',
-        read_message: 'Lesen',
-        edit_exercise: 'Aufgabe bearbeiten',
-        to_help_page: 'Zur Hilfeseite'
+        view_submissions: 'Abgaben einsehen'
     },
     titles: {
         home_view: 'ATLAS',
@@ -149,6 +137,7 @@ const translationDe = {
         exercise_view: 'Aufgabe',
         exerciseeditor_view: 'Bearbeiten',
         module_main_page: 'Modul',
+        modulemanager_view: "Modul Manager",
     },
     languages: {
         en: 'Englisch',
@@ -221,14 +210,69 @@ const translationDe = {
         }
     },
     exercise: {
-        back: 'Zurück',
-        edit: 'Bearbeiten',
+        add_tag: 'Tags hinzufügen',
+        tag_add_desc: 'Tag aus der Liste hinzufügen',
+        tag: 'Tag',
+        submit: {
+            button: 'Meine Abgabe',
+            tooltip: 'Melde dich an, um eine Lösung hochzuladen!'
+        },
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
-        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?'
+        confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
+        tag_search_or_create: 'Tag suchen oder erstellen',
+    },
+    submission: {
+        title: 'Aufgabe',
+        'submitted-solutions': {
+            title: 'Deine Abgabe',
+            'no-solutions': 'Du hast bisher noch keine Lösung für diese Aufgabe hochgeladen.',
+            'table-header': {
+                'submission-id' : 'ID',
+                type: 'Abgabetyp',
+                grade: 'Bewertung',
+                date: 'Datum',
+                'evaluated-by': 'Bewertet von',
+                comment: 'Kommentar',
+                'view-submission':'Abgabe ansehen'
+            },
+            'submission-types': {
+                'file-upload': 'Datei-Upload',
+                'text-field': 'Freitextfeld',
+                'multiple-choice': 'Multiple Choice'
+            }
+        },
+        'submit-a-solution': {
+            title: 'Lösung hochladen',
+            'form-placeholder': 'Schreibe hier deine Lösung hinein...'
+        },
+        'specific-submission': {
+            title: 'Deine Lösung zu '
+        }
+
+    },
+    submission_list: {
+        title: 'Abgaben aller Benutzer für Aufgabe',
+        no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
+        table: {
+            user_id: 'Benutzer ID',
+            status: {
+                title: 'Status',
+                evaluated: 'bewertet',
+                pending: 'ausstehend'
+            },
+            evaluate: 'Zur Bewertung'
+        }
+    },
+    evaluation: {
+        title: 'Bewertung der Abgabe',
+        comment: 'Ihre Bewertung',
+        comment_form: 'Schreiben Sie hier einen Kommentar zur Abgabe hinein...',
+        grade_form: 'Bewertung von 0-100 in %',
+        solution: 'Lösung des Nutzers'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
@@ -241,8 +285,26 @@ const translationDe = {
         module: 'Modul',
         exercises: 'Aufgaben',
         about: 'Über',
+        manage: 'Verwalten',
+        attend: 'Kurs belegen',
+        leave: 'Kurs verlassen',
         teachers: 'Lehrende',
         tutors: 'Tutor:innen',
+        materials: 'Lernmaterial',
+        enrollment: 'Selbsteinschreibung in das Modul.',
+        disenroll: 'Von diesem Modul abmelden.'
+    },
+    module_manager: {
+        name: 'Name',
+        roles: 'Rollen',
+        edit_tag_button: 'Tags bearbeiten',
+        edit_tag: 'Tags bearbeiten oder löschen',
+        tag: 'Tag',
+        add_user: 'Nutzer hinzufügen',
+        edit_privilege: 'Rolle ändern',
+        student: 'Student:in',
+        tutor: 'Tutor:in',
+        teacher: 'Lehrer:in'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
