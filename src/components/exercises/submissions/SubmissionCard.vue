@@ -57,8 +57,9 @@
             </template>
           </tbody>
         </v-table>
-      <v-textarea readonly :value="filteredSubmission.file">
-      </v-textarea>
+      <v-card elevation="0" id="submission-card">
+        <pre v-html="filteredSubmission.file"></pre>
+      </v-card>
     </v-container>
     <v-container v-else>
       <v-card-title class="text-h5">{{$t('submission.submit-a-solution.title')}}</v-card-title>
@@ -148,5 +149,9 @@ function goBack(): void {
 </script>
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
 <style scoped>
-
+#submission-card {
+  overflow: scroll;
+  background: rgb(var(--v-theme-background));
+  margin-top: 2%;
+}
 </style>
