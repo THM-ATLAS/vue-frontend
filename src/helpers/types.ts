@@ -75,18 +75,6 @@ export type PostExercise = {
     exercisePublic : boolean,
 }
 
-export type Module = {
-    module_id : number,
-    name : string,
-    description: string
-}
-
-export type Settings = {
-    user_id: number,
-    language: string,
-    theme: string
-}
-
 export type Notification = {
     notification_id : number,
     notification_type: string,

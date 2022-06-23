@@ -102,6 +102,13 @@ const translationDe = {
     module_search: {
         items_per_page: 'Einträge pro Seite'
     },
+    news_page: {
+        notifications: 'Benachrichtigungen',
+        news: 'Neuigkeiten',
+        description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
+        unread: 'Ungelesen',
+        older_messages: 'Ältere Nachrichten'
+    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
@@ -120,7 +127,13 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
-        view_submissions: 'Abgaben einsehen'
+        view_submissions: 'Abgaben einsehen',
+        to_profile: 'Zum Profil',
+        read_feedback: 'Feedback lesen',
+        to_submission: 'Zur Abgabe',
+        read_message: 'Lesen',
+        edit_exercise: 'Aufgabe bearbeiten',
+        to_help_page: 'Zur Hilfeseite'
     },
     titles: {
         home_view: 'ATLAS',

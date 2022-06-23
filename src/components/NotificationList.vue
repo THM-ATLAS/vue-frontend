@@ -9,12 +9,7 @@
     <v-card-subtitle>
       {{ i18n.t('news_page.description') }}
     </v-card-subtitle>
-    <!--
-    <v-btn class="">
-      <v-icon class="ma-1">mdi-email-open</v-icon>
-      <span class="caption">Alle Nachrichten als gelesen markieren</span>
-    </v-btn>
-    -->
+
     <v-container>
       <v-list three-line>
         <template v-for="(item, index) in items">
