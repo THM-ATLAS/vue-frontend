@@ -88,8 +88,10 @@
           <span class="headline">{{ $t('admin.users.roles') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-checkbox v-for="role in roles" v-bind:key="role.role_id" v-model="editRolesDialog.target.roles"
-                      :value="role" :label="role.name" @change="editUser(editRolesDialog.target)"/>
+          <template v-for="role in roles" v-bind:key="role.role_id">
+            <v-checkbox v-if="role.role_id !== 3" v-model="editRolesDialog.target.roles"
+                        :value="role" :label="role.name" @change="editUser(editRolesDialog.target)" />
+          </template>
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="editRolesDialog.show = false">{{ $t('buttons.close') }}</v-btn>
