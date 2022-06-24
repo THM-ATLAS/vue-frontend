@@ -12,7 +12,7 @@
             <div>
               <v-chip v-for="role in profile.roles" v-bind:key="role.role_id"
                       class="mx-1" :label="role.name" :elevation="1" rounded
-                      v-html="role.name"/>
+                      v-html="getRole(role.name)"/>
             </div>
           </v-row>
         </v-col>
@@ -74,7 +74,10 @@ import {useRoute, useRouter} from "vue-router";
 import {onBeforeMount, ref, Ref} from "vue";
 import UserService from "@/services/UserService";
 import {User} from "@/helpers/types";
+import {useI18n} from "vue-i18n";
 
+
+const i18n = useI18n();
 const router = useRouter();
 const route = useRoute();
 const profile: Ref<User> = ref({}) as Ref<User>;
@@ -99,6 +102,10 @@ const image = require("../assets/marianneMuster.png");
 
 function goToSettings() {
   router.push("/settings");
+}
+
+function getRole(role: string) {
+  return i18n.t("roles."+role);
 }
 
 //Profildaten kommen auf lange Sicht aus der Datenbank und nicht hier aus den Daten, hier nur Platzhalter weil kein Backend
