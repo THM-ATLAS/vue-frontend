@@ -36,7 +36,6 @@
               <td class="text-left">{{ user.module_role.name }}</td>
               <td class="placeholder-td"></td>
               <td class="text-right">
-                <!-- Disabled until it works -->
                 <v-btn
                     @click="
                       editPrivilegeDialog.show = true;
@@ -46,7 +45,6 @@
                     class="manage-button"
                     color="primary"
                 >
-                  <!-- Disabled until it works -->
                   <v-icon icon="mdi-cog"></v-icon>
                 </v-btn>
                 <v-btn
@@ -86,7 +84,7 @@
             <thead>
             <tr>
               <th>{{ $t("module_manager.tag") }}</th>
-              <th></th>
+              <th class="hide-btn-behind-header"></th>
             </tr>
             </thead>
             <tbody>
@@ -193,7 +191,7 @@
           <thead>
           <tr>
             <th>{{ $t("module_manager.name") }}</th>
-            <th></th>
+            <th class="hide-btn-behind-header"></th>
           </tr>
           </thead>
           <tbody>
@@ -384,5 +382,9 @@ function setUserRole(user: ModuleUser, role: string): void {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>
