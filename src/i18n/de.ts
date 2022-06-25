@@ -121,7 +121,10 @@ const translationDe = {
         new: 'Neu',
         stay: 'Bleiben',
         view_submissions: 'Abgaben einsehen',
-        back: 'Zurück'
+        back: 'Zurück',
+        visit: 'Besuchen',
+        view: 'Ansehen',
+        visit_profile: 'Profil besuchen',
     },
     titles: {
         home_view: 'ATLAS',

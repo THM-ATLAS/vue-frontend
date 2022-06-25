@@ -138,7 +138,10 @@ const translationEn = {
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
         evaluate: 'Save Evaluation',
-        back: 'Back'
+        back: 'Back',
+        visit: 'Visit',
+        view: 'View',
+        visit_profile: 'Visit profile',
     },
     languages: {
         en: 'English',

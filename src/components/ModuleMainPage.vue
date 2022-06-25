@@ -123,12 +123,20 @@
                 >
                   <v-list-item class="moduleInfoListItem"
                                @click="visitProfile(teacher)">
-                    <v-icon
-                        class="ml-3"
-                        icon="mdi-account"
-                        style="margin-right: 8px"
-                    />
-                    {{ teacher.name }}
+                    <v-tooltip right>
+                      <template v-slot:activator="{ props: tooltip }">
+                        <span v-bind="tooltip">
+                        <v-icon
+                            class="ml-3"
+                            icon="mdi-account"
+                            style="margin-right: 8px"
+                        />
+                        {{ teacher.name }}
+                          </span>
+                      </template>
+                      <span v-html="$t('buttons.visit_profile')"/>
+                    </v-tooltip>
+
                   </v-list-item>
                 </v-list>
               </v-card-text>
@@ -143,12 +151,19 @@
                 >
                   <v-list-item class="moduleInfoListItem"
                                @click="visitProfile(tutor)">
-                    <v-icon
-                        class="ml-3"
-                        icon="mdi-account"
-                        style="margin-right: 8px"
-                    />
-                    {{ tutor.name }}
+                    <v-tooltip right>
+                      <template v-slot:activator="{ props: tooltip }">
+                        <span v-bind="tooltip">
+                          <v-icon
+                              class="ml-3"
+                              icon="mdi-account"
+                              style="margin-right: 8px"
+                          />
+                          {{ tutor.name }}
+                          </span>
+                      </template>
+                      <span v-html="$t('buttons.visit_profile')"/>
+                    </v-tooltip>
                   </v-list-item>
                 </v-list>
               </v-card-text>
