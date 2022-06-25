@@ -95,10 +95,10 @@
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
         <v-table :fixed-header="true" height="400px">
           <thead>
-            <tr>
-              <th>{{ $t("exercise.tag") }}</th>
-              <th></th>
-            </tr>
+          <tr>
+            <th>{{ $t("exercise.tag") }}</th>
+            <th class="hide-btn-behind-header"></th>
+          </tr>
           </thead>
           <tbody>
             <tr v-for="tag in filteredTags" :key="tag.tag_id">
@@ -582,5 +582,9 @@ function getTagTemplate(): Tag {
 
 .tag-chips {
   margin-bottom: 1em;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>
