@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import {theme} from "@/helpers/theme";
-import SearchBar from "@/components/navigation/navbar/SearchBar.vue";
+import SearchBar from "@/components/navigation/navbar/GoToModules.vue";
 import {useRouter} from "vue-router";
 
 const router = useRouter();

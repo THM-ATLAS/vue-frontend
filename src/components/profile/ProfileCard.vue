@@ -98,7 +98,7 @@ onBeforeMount(async () => {
 
 console.log(getID.value);
 
-const image = require("../assets/marianneMuster.png");
+const image = require("@/assets/marianneMuster.png");
 
 function goToSettings() {
   router.push("/settings");

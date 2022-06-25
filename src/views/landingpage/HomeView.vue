@@ -12,7 +12,7 @@
 
 
 <script setup lang="ts">
-import HomeContent from "@/components/HomeContent.vue";
+import HomeContent from "@/components/landingpage/HomeContent.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import NavbarBase from "@/components/navigation/navbar/NavbarBase.vue";
 import {useI18n} from "vue-i18n";

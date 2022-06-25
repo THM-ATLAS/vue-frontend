@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import ModuleSearchResult from "@/components/ModuleSearchResult.vue";
+import ModuleSearchResult from "@/components/module/moduleSearch/ModuleSearchResult.vue";
 import ModuleService from "@/services/ModuleService";
 import {onBeforeMount, ref, Ref, watch} from "vue";
 import {Module} from "@/helpers/types"

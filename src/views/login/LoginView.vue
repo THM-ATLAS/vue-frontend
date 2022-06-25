@@ -10,7 +10,7 @@
 </template>
 
 <script lang='ts' setup>
-import LoginModal from "@/components/LoginModal.vue";
+import LoginModal from "@/components/login/LoginModal.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import {useI18n} from "vue-i18n";
 document.title = useI18n().t('titles.login_view');

@@ -3,7 +3,7 @@
   <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="8" xl="6">
-        <Settings id="content"/>
+        <ModuleManager id="content"/>
       </v-col>
     </v-row>
   </v-main>
@@ -23,7 +23,7 @@
 
 <script lang='ts' setup>
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
-import Settings from "@/components/SettingsCard.vue";
+import ModuleManager from "@/components/module/ModuleManager.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import {useI18n} from "vue-i18n";
 import {watch} from "vue";
@@ -31,7 +31,7 @@ import {watch} from "vue";
 const i18n = useI18n()
 
 watch(i18n.locale, () => {
-  document.title = i18n.t('titles.settings_view');
+  document.title = i18n.t('titles.modulemanager_view');
 })
-document.title = i18n.t('titles.settings_view');
+document.title = i18n.t('titles.modulemanager_view');
 </script>
