@@ -76,7 +76,7 @@
 <script setup lang="ts">
   import router from "@/router";
   import {onBeforeMount, Ref, ref} from "vue";
-  import {Exercise, Submission, User} from "@/helpers/types";
+  import {Exercise, Submission, User, Evaluation} from "@/helpers/types";
   import SubmissionService from "@/services/SubmissionService";
   import ExerciseService from "@/services/ExerciseService";
   import UserService from "@/services/UserService";
@@ -104,32 +104,24 @@
   async function submitEvaluation() {
     loggedInUser.value = (await UserService.getMe()).data; //get logged in user
     //overwrite grade, comment and teacher_id of submission
-    const s: Submission = {
+    const e: Evaluation = {
       submission_id : submission.value.submission_id,
-      exercise_id: exerciseId,
-      user_id : submission.value.user_id,
-      file: submission.value.file,
-      upload_time: submission.value.upload_time,
       grade: grade.value,
       teacher_id: Number(loggedInUser.value.user_id),
       comment: formInput.value
     }
-    await SubmissionService.adjustSubmission(s);
+    await SubmissionService.editEvaluation(e);
     goBack();
   }
   async function deleteEvaluation() {
     //overwrite grade, comment and teacher_id of submission
-    const s: Submission = {
+    const e: Evaluation = {
       submission_id : submission.value.submission_id,
-      exercise_id: exerciseId,
-      user_id : submission.value.user_id,
-      file: submission.value.file,
-      upload_time: submission.value.upload_time,
       grade: null,
       teacher_id: null,
       comment: null
     }
-    await SubmissionService.adjustSubmission(s);
+    await SubmissionService.editEvaluation(e);
     goBack();
   }
 
