@@ -129,7 +129,7 @@ const translationDe = {
         settings_view: 'Einstellungen',
         admin_view: 'Admin',
         exercisemanagement_view: 'Aufgaben',
-        usermanagement_view: 'Benutzer',
+        usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
@@ -143,6 +143,13 @@ const translationDe = {
         en: 'Englisch',
         de: 'Deutsch',
     },
+    roles: {
+      admin: 'Admin',
+      teacher: 'Lehrende:r',
+      student: 'Student:in',
+      tutor: 'Tutor:in',
+      guest: 'Gast'
+    },
     account: {
         title: 'Account',
         username: 'Benutzername',
@@ -155,10 +162,10 @@ const translationDe = {
     admin: {
         choose_page: 'Wähle eine Seite aus, indem du einen Link in der Adminleiste klickst.',
         users: {
-            new: 'Neuer Benutzer',
-            edit: 'Benutzer bearbeiten',
-            delete: 'Benutzer löschen',
-            delete_confirm: 'Benutzer {0} wirklich löschen?',
+            new: 'Neue:r Benutzer:in',
+            edit: 'Benutzer:in bearbeiten',
+            delete: 'Benutzer:in löschen',
+            delete_confirm: 'Benutzer:in {0} wirklich löschen?',
             name: 'Name',
             username: 'Benutzername',
             email: 'E-mail',
@@ -203,7 +210,7 @@ const translationDe = {
         },
         navbar: {
             title: 'Administration',
-            manage_user: 'Benutzer verwalten',
+            manage_user: 'Benutzer:innen verwalten',
             manage_exercise: 'Aufgaben verwalten',
             manage_module: 'Module verwalten',
             back: 'Zurück zur Homepage'
@@ -255,10 +262,10 @@ const translationDe = {
 
     },
     submission_list: {
-        title: 'Abgaben aller Benutzer für Aufgabe',
+        title: 'Abgaben aller Benutzer:innen für Aufgabe',
         no_solutions: 'Für diese Aufgabe wurden noch keine Lösungen abgegeben.',
         table: {
-            user_id: 'Benutzer ID',
+            user_id: 'Benutzer-ID',
             status: {
                 title: 'Status',
                 evaluated: 'bewertet',
@@ -272,7 +279,7 @@ const translationDe = {
         comment: 'Ihre Bewertung',
         comment_form: 'Schreiben Sie hier einen Kommentar zur Abgabe hinein...',
         grade_form: 'Bewertung von 0-100 in %',
-        solution: 'Lösung des Nutzers'
+        solution: 'Lösung des/der Nutzers/Nutzerin'
     },
     error: {
         unauthorized: 'Keine Berechtigung.',
