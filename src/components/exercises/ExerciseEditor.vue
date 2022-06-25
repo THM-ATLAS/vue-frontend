@@ -501,7 +501,6 @@ function getExerciseTags(): void {
     exerciseTags.value = res.data;
     TagService.getAllTags().then((res) => {
       allTags.value = res.data;
-      console.log(allTags.value);
       filteredTags.value = allTags.value
         .sort((a, b) => a.name.localeCompare(b.name))
         .filter(
@@ -551,7 +550,6 @@ function createTag(tag: Tag): any {
         const newTag = res.data.filter(
           (t: Tag) => t.name.toLowerCase() == tag.name.toLowerCase()
         );
-        console.log(newTag[0]);
         TagService.addTagToExercise(newTag[0], exercise.value).then(() => {
           getExerciseTags();
           addTagsDialog.value.target.name = '';
