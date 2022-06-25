@@ -102,6 +102,9 @@ const translationDe = {
     module_search: {
         items_per_page: 'Einträge pro Seite'
     },
+    user_search: {
+        users_per_page: 'Benutzer pro Seite'
+    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',

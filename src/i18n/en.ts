@@ -100,6 +100,9 @@ const translationEn = {
     module_search: {
       items_per_page: 'Items per page'
     },
+    user_search: {
+        users_per_page: 'Users per page'
+    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',

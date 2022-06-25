@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="user in users" v-bind:key="user.user_id">
+        <tr v-for="user in currentPage" v-bind:key="user.user_id">
           <td>{{ user.name }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
@@ -62,7 +62,24 @@
           </td>
         </tr>
         </tbody>
+
       </v-table>
+      <v-row>
+        <v-col cols="4" sm="3">
+          <v-select
+              :items="numbers"
+              :label="itemsPerPageLabel"
+              v-model="itemsPerPage">
+          </v-select>
+        </v-col>
+        <v-col cols="12" sm="9">
+          <v-pagination
+              v-model="currentPageNumber"
+              :length="length"
+              total-visible="5"
+          ></v-pagination>
+        </v-col>
+      </v-row>
       <!-- new user -->
       <div>
         <v-btn
@@ -220,22 +237,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-row>
-      <v-col>
-        <v-select
-            :items="numbers"
-            :label="itemsPerPageLabel"
-            v-model="itemsPerPage">
-        </v-select>
-      </v-col>
-      <v-col>
-        <v-pagination
-            v-model="currentPageNumber"
-            :length="length"
-            total-visible="5"
-        ></v-pagination>
-      </v-col>
-    </v-row>
   </div>
 </template>
 
@@ -256,7 +257,7 @@ const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('user_search.items_per_page')
+const itemsPerPageLabel = i18n.t('user_search.users_per_page')
 
 async function loadUsers(): Promise<void> {
   users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
@@ -265,9 +266,6 @@ async function loadUsers(): Promise<void> {
 onBeforeMount(async () => {
   await loadUsers();
   roles.value = (await UserService.getRoles()).data;
-});
-
-onBeforeMount(async () => {
   let apiUsers = (await UserService.getUsers()).data;
   apiUsers.forEach((result : User) => {
     users.value.push(result);
@@ -372,5 +370,6 @@ function deleteUser(user: User) {
 </script>
 
 <style scoped>
+
 
 </style>
