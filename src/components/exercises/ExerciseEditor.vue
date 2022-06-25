@@ -1,5 +1,9 @@
 <template>
   <div>
+    <v-btn
+    @click="test()">
+      Remove
+    </v-btn>
     <v-card elevation="0" rounded="0">
       <div class="tag-chips">
         <v-btn
@@ -495,7 +499,7 @@ function getExerciseTags(): void {
     TagService.getAllTags().then((res) => {
       allTags.value = res.data;
       console.log(allTags.value);
-      filteredTags.value = allTags.value.sort().filter(
+      filteredTags.value = allTags.value.sort((a, b) => a.name.localeCompare(b.name)).filter(
           (tag) => !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
       )
     });
@@ -503,12 +507,12 @@ function getExerciseTags(): void {
 }
 
 function addTagToExercise(tag: Tag): void {
-  TagService.addTagToExercise(tag, exercise.value).then(() => updateFilterList());
+  TagService.addTagToExercise(tag, exercise.value).then(() => getExerciseTags());
 }
 
 async function removeTag(tag: Tag): Promise<void> {
   //Bugged when not removing the last tag
-  await TagService.delTagFromExercise(tag, exercise.value).then(() => updateFilterList());
+  await TagService.delTagFromExercise(tag, exercise.value).then(() => getExerciseTags());
 }
 
 function updateFilterList() {
@@ -536,6 +540,15 @@ function getTagTemplate(): Tag {
     tag_id: 0,
     name: '',
   };
+}
+
+function test(): void {
+  const t = {
+    tag_id: 42,
+    name: "Liste"
+  }
+  TagService.delTag(t);
+  console.log("Removed");
 }
 </script>
 
