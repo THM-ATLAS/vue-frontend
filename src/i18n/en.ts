@@ -225,6 +225,13 @@ const translationEn = {
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
         tag_search_or_create: 'Search or create tag',
     },
+    roles: {
+        admin: 'admin',
+        teacher: 'teacher',
+        student: 'student',
+        tutor: 'tutor',
+        guest: 'guest'
+    },
     submission: {
         title: 'Exercise',
         'submitted-solutions': {
