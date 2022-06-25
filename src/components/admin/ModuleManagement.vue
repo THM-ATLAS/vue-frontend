@@ -216,7 +216,6 @@ import {Module, Role} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
-import UserService from "@/services/UserService";
 import {useI18n} from "vue-i18n";
 
 const display = useDisplay();
@@ -226,7 +225,7 @@ const roles: Ref<Role[]> = ref([]);
 
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
-const itemsPerPage = ref(3);
+const modulesPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
@@ -240,18 +239,18 @@ async function loadModules(): Promise<void> {
 
 onBeforeMount(async () => {
   await loadModules();
-  roles.value = (await UserService.getRoles()).data;
-  let apiUsers = (await UserService.getUsers()).data;
-  apiUsers.forEach((result : Module) => {
+  roles.value = (await ModuleService.getRoles()).data;
+  let apiModules = (await ModuleService.getModules()).data;
+  apiModules.forEach((result : Module) => {
     modules.value.push(result);
   });
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * modulesPerPage.value, currentPageNumber.value * modulesPerPage.value)
 });
 watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+  currentPage.value = modules.value.slice((newNumber - 1) * modulesPerPage.value, newNumber * modulesPerPage.value)
 })
 
-watch(itemsPerPage, (newNumber) => {
+watch(modulesPerPage, (newNumber) => {
   currentPageNumber.value = 1
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
   length.value = Math.ceil(modules.value.length/newNumber)

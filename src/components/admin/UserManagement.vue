@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="user in currentPage" v-bind:key="user.user_id">
+        <tr v-for="user in users" v-bind:key="user.user_id">
           <td>{{ user.name }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
@@ -62,24 +62,7 @@
           </td>
         </tr>
         </tbody>
-
       </v-table>
-      <v-row>
-        <v-col cols="4" sm="3">
-          <v-select
-              :items="numbers"
-              :label="usersPerPageLabel"
-              v-model="usersPerPage">
-          </v-select>
-        </v-col>
-        <v-col cols="12" sm="9">
-          <v-pagination
-              v-model="currentPageNumber"
-              :length="length"
-              total-visible="5"
-          ></v-pagination>
-        </v-col>
-      </v-row>
       <!-- new user -->
       <div>
         <v-btn
@@ -241,7 +224,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref, watch} from "vue";
+import {onBeforeMount, Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
 import {User, Role} from "@/helpers/types";
@@ -249,15 +232,8 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 const roles: Ref<Role[]> = ref([]);
-const users: Ref<User[]> = ref([]);
 
-const currentPage: Ref<User[]> = ref([]);
-const currentPageNumber = ref(1);
-const itemsPerPage = ref(3);
-const numbers = [1,3,5,10,20,50];
-const length = ref(3);
-const i18n = useI18n();
-const usersPerPageLabel = i18n.t('user_search.users_per_page');
+const users: Ref<User[]> = ref([]);
 
 async function loadUsers(): Promise<void> {
   users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
@@ -266,25 +242,11 @@ async function loadUsers(): Promise<void> {
 onBeforeMount(async () => {
   await loadUsers();
   roles.value = (await UserService.getRoles()).data;
-  let apiUsers = (await UserService.getUsers()).data;
-  apiUsers.forEach((result : User) => {
-    users.value.push(result);
-  });
-  currentPage.value = users.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-});
-
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = users.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
 })
 
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = users.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(users.value.length/newNumber)
-})
 console.log(users.value);
 
-// const i18n = useI18n();
+const i18n = useI18n();
 
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
@@ -339,7 +301,7 @@ const deleteUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
 
 async function createUser() {
   // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  // await UserService.addUser(newUserDialog.value.target);
+  await UserService.addUser(newUserDialog.value.target);
   await loadUsers();
   newUserDialog.value.target = getUserTemplate();
   newUserDialog.value.show = false;
@@ -370,6 +332,5 @@ function deleteUser(user: User) {
 </script>
 
 <style scoped>
-
 
 </style>
