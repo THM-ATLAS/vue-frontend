@@ -98,7 +98,8 @@ const translationEn = {
         },
     },
     module_search: {
-      items_per_page: 'Items per page'
+        items_per_page: 'Items per page',
+        module_per_page: 'Modules per page',
     },
     user_search: {
         users_per_page: 'Users per page'

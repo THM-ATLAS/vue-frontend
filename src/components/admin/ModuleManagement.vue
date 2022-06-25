@@ -4,7 +4,7 @@
       <!-- main table -->
       <v-table
           :fixed-header="true"
-      density="compact">
+          density="compact">
         <thead>
         <tr>
           <th>{{ $t("admin.modules.title") }}</th>
@@ -13,7 +13,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="module in modules" v-bind:key="module.id">
+        <tr v-for="module in currentPage" v-bind:key="module.id">
           <td>{{ module.name }}</td>
           <td class="td-desc" v-if="module.description && display.width.value < 500"><p class="desc">
             {{ module.description.substring(0, 48) }}...</p></td>
@@ -60,24 +60,10 @@
             />
           </td>
         </tr>
+
         </tbody>
       </v-table>
-      <v-row>
-        <v-col cols="4" sm="3">
-          <v-select
-              :items="numbers"
-              :label="modulesPerPageLabel"
-              v-model="modulesPerPage">
-          </v-select>
-        </v-col>
-        <v-col cols="12" sm="9">
-          <v-pagination
-              v-model="currentPageNumber"
-              :length="length"
-              total-visible="5"
-          ></v-pagination>
-        </v-col>
-      </v-row>
+
       <!-- new module button -->
       <div>
         <v-btn
@@ -91,8 +77,24 @@
             variant="outlined"
         />
       </div>
-    </v-card>
 
+    </v-card>
+    <v-row>
+      <v-col cols="4" sm="3">
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
+    </v-row>
     <!-- edit module dialog -->
     <v-dialog
         v-model="editModuleDialog.show"
@@ -212,7 +214,7 @@
 
 <script setup lang="ts">
 import {onBeforeMount, Ref, ref, watch} from "vue";
-import {Module, Role} from "@/helpers/types";
+import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
@@ -220,16 +222,15 @@ import {useI18n} from "vue-i18n";
 
 const display = useDisplay();
 const router = useRouter();
-const modules: Ref<Module[]> = ref([]);
-const roles: Ref<Role[]> = ref([]);
 
+const modules: Ref<Module[]> = ref([]);
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
-const modulesPerPage = ref(3);
+const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const modulesPerPageLabel = i18n.t('module_search.items_per_page');
+const itemsPerPageLabel = i18n.t('module_search.module_per_page')
 
 async function loadModules(): Promise<void> {
   modules.value = (await ModuleService.getModules()).data.sort(
@@ -239,22 +240,24 @@ async function loadModules(): Promise<void> {
 
 onBeforeMount(async () => {
   await loadModules();
-  roles.value = (await ModuleService.getRoles()).data;
   let apiModules = (await ModuleService.getModules()).data;
   apiModules.forEach((result : Module) => {
     modules.value.push(result);
   });
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * modulesPerPage.value, currentPageNumber.value * modulesPerPage.value)
+  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
 });
+
 watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * modulesPerPage.value, newNumber * modulesPerPage.value)
+  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
 })
 
-watch(modulesPerPage, (newNumber) => {
+watch(itemsPerPage, (newNumber) => {
   currentPageNumber.value = 1
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
   length.value = Math.ceil(modules.value.length/newNumber)
 })
+console.log(modules.value);
+
 
 function visitModule(module: Module): void {
   router.push('/' + module.module_id);
