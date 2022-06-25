@@ -68,8 +68,8 @@
         <v-col cols="4" sm="3">
           <v-select
               :items="numbers"
-              :label="itemsPerPageLabel"
-              v-model="itemsPerPage">
+              :label="usersPerPageLabel"
+              v-model="usersPerPage">
           </v-select>
         </v-col>
         <v-col cols="12" sm="9">
@@ -257,7 +257,7 @@ const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('user_search.users_per_page')
+const usersPerPageLabel = i18n.t('user_search.users_per_page');
 
 async function loadUsers(): Promise<void> {
   users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
