@@ -75,3 +75,10 @@ export type PostExercise = {
     exercisePublic : boolean,
 }
 
+export type Asset = {
+    asset_id : number,
+    asset: string,
+    public: boolean,
+    filename: string,
+}
+
