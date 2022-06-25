@@ -16,19 +16,30 @@
         </v-img>
       </div>
       <!-- todo: edit button and menu for lecturers and admins-->
-      <div class="pt-0 pl-0 backButton">
-        <v-btn
-            @click="goBack()"
-            icon="mdi-menu-left"
-            class="mx-3 desktopBackButton"
-            variant="outlined"
-        />
-        <v-btn
-            @click="goToManage()"
-            icon="mdi-cog"
-            class="mx-3 desktopBackButton"
-            variant="outlined"
-        />
+      <div class="pt-0 pl-0 desktopBackButton">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ props: tooltip3 }">
+            <v-btn
+                v-bind="tooltip3"
+                @click="goBack"
+                icon="mdi-menu-left"
+                class="ma-2"
+                variant="outlined"/>
+          </template>
+          <span v-html="$t('buttons.back')"/>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ props: tooltip3 }">
+            <v-btn
+                v-bind="tooltip3"
+                @click="goToManage()"
+                icon="mdi-cog"
+                class="mx-3"
+                variant="outlined"
+            />
+          </template>
+          <span v-html="$t('buttons.edit')"/>
+        </v-tooltip>
       </div>
       <v-card
           class="moduleInfoBox rounded-0"
@@ -161,12 +172,17 @@
       <v-row justify="center">
         <v-col sm="10" md="10" lg="10" xl="10">
           <div class="pt-0 pl-0 backButton">
-            <v-btn
-                @click="goBack"
-                icon="mdi-menu-left"
-                class="mx-3"
-                variant="outlined"
-            />
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    @click="goBack"
+                    icon="mdi-menu-left"
+                    class="ma-2"
+                    variant="outlined"/>
+              </template>
+              <span v-html="$t('buttons.back')"/>
+            </v-tooltip>
           </div>
           <v-card color="highlight" rounded="0" class="pb-0 mt-3">
             <v-row>
@@ -419,7 +435,7 @@ function getUserTemplate(): ModuleUser {
 }
 
 .desktopBackButton {
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .moduleNameContainer {

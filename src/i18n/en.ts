@@ -137,7 +137,8 @@ const translationEn = {
         stay: 'Stay',
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
-        evaluate: 'Save Evaluation'
+        evaluate: 'Save Evaluation',
+        back: 'Back'
     },
     languages: {
         en: 'English',

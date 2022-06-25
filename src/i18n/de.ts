@@ -120,7 +120,8 @@ const translationDe = {
         register: 'Registrieren',
         new: 'Neu',
         stay: 'Bleiben',
-        view_submissions: 'Abgaben einsehen'
+        view_submissions: 'Abgaben einsehen',
+        back: 'Zurück'
     },
     titles: {
         home_view: 'ATLAS',

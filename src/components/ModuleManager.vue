@@ -3,9 +3,14 @@
     <v-card>
       <v-row>
         <v-col cols="1" align-self="center">
-          <v-btn @click="goBack()" class="back-button" rounded="false">
-            <v-icon icon="mdi-arrow-left"/>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ props: tooltip3 }">
+              <v-btn v-bind="tooltip3" @click="goBack()" class="back-button" rounded="false">
+                <v-icon icon="mdi-arrow-left"/>
+              </v-btn>
+            </template>
+            <span v-html="$t('buttons.back')"/>
+          </v-tooltip>
         </v-col>
         <v-col cols="8">
           <v-card-title> {{ module.name }}</v-card-title>
