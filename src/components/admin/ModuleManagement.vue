@@ -256,7 +256,7 @@ watch(itemsPerPage, (newNumber) => {
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
   length.value = Math.ceil(modules.value.length/newNumber)
 })
-console.log(modules.value);
+ // console.log(modules.value);
 
 
 function visitModule(module: Module): void {

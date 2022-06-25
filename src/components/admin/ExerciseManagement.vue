@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="exercise in exercises" v-bind:key="exercise.id">
+        <tr v-for="exercise in currentPage" v-bind:key="exercise.id">
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.module.name }}</td>
           <td v-if="exercise.description">{{ exercise.description }}</td>
@@ -75,7 +75,22 @@
         />
       </div>
     </v-card>
-
+    <v-row>
+      <v-col cols="4" sm="3">
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
+    </v-row>
     <!-- view exercise dialog -->
     <v-dialog
         v-model="viewExerciseDialog.show"
@@ -227,7 +242,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref} from "vue";
+import {onBeforeMount, Ref, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
@@ -240,6 +255,13 @@ import router from "@/router";
 const exercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
 const modules: Ref<Module[]> = ref([]) as Ref<Module[]>;
 
+const currentPage: Ref<Exercise[]> = ref([]);
+const currentPageNumber = ref(1);
+const itemsPerPage = ref(3);
+const numbers = [1,3,5,10,20,50];
+const length = ref(3);
+const i18n = useI18n();
+const itemsPerPageLabel = i18n.t('module_search.module_per_page')
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
   console.log(exercises.value);
@@ -255,9 +277,25 @@ onBeforeMount(async () => {
   await loadModules();
   newExerciseDialog.value.target = await getExerciseTemplate();
   exercises.value = (await ExerciseService.getExercises()).data;
+
+  let apiExercises = (await ExerciseService.getExercises()).data;
+  apiExercises.forEach((result : Exercise) => {
+    exercises.value.push(result);
+  });
+  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+});
+
+watch(currentPageNumber, (newNumber) => {
+  currentPage.value = exercises.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+})
+
+watch(itemsPerPage, (newNumber) => {
+  currentPageNumber.value = 1
+  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
+  length.value = Math.ceil(exercises.value.length/newNumber)
 })
 // console.log(exercises.value);
-const i18n = useI18n();
+// const i18n = useI18n();
 
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
