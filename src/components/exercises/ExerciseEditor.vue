@@ -57,7 +57,7 @@
         <v-btn @click="requestCancel" v-html="$t('buttons.cancel')"/>
       </v-card-actions>
     </v-card>
-    <v-dialog v-model="currentDialog.show" persistent width="500px">
+    <v-dialog v-model="currentDialog.show" persistent>
       <v-card>
         <v-card-title>
           <span class="headline" v-html="$t(currentDialog.header)"/>
@@ -92,7 +92,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
-        <v-table :fixed-header="true" height="400px">
+        <v-table :fixed-header="true">
           <thead>
           <tr>
             <th>{{ $t("exercise.tag") }}</th>
