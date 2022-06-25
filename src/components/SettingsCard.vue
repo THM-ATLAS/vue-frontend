@@ -136,6 +136,8 @@ const availableLocales = i18n.availableLocales.map(locale => {
 );
 const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.locale.value));
 
+
+
 watch(chosenLocale, async (newValue) => {
   console.log(newValue.code)
   await setLocale(newValue.code);
@@ -144,33 +146,6 @@ watch(chosenLocale, async (newValue) => {
 })
 
 
-/*
-import { ref } from "vue";
-
-let settings = ref({
-  general: {
-    important_notifications: true,
-    show_notifications: false,
-    show_notifications_in_browser: false,
-    send_notification_mails: false,
-    theme: "light",
-    language: "de",
-  },
-});
-function deleteAccount() {
-  // this.$store.dispatch("deleteAccount");
-}
-function saveSettings() {
-  console.log(this.settings);
-  // this.$store.dispatch("saveSettings", this.settings);
-}
-function resetSettings() {
-  // this.$store.dispatch("resetSettings");
-}
-function closeSettings() {
-  // this.$router.back();
-}
-*/
 </script>
 
 <style scoped>

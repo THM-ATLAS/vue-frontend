@@ -72,10 +72,17 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
     await UserService.getMe().then(async r =>{
-      await SettingsService.getUserSettings(r.data.user_id).then( res => {
-        theme.value = res.data.theme
-        i18n.global.locale = res.data.language
-      })
+      if (r.request.responseURL != "http://localhost:8080/login") {
+        window.localStorage.setItem('loggedIn', 'true')
+        await SettingsService.getUserSettings(r.data.user_id).then( res => {
+          theme.value = res.data.theme
+          i18n.global.locale = res.data.language
+        })
+      } else {
+        window.localStorage.removeItem('loggedIn')
+        theme.value = 'light'
+        i18n.global.locale = 'de'
+      }
     })
 })
 

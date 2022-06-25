@@ -138,11 +138,20 @@ import LoginService from "@/services/LoginService";
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
 const user: Ref<User | undefined> = ref(undefined);
-const loggedIn = ref(false);
+const loggedIn : Ref<boolean> = ref(false);
 
 onBeforeMount(async () => {
-  user.value = (await UserService.getMe())?.data || undefined;
-  loggedIn.value = !!user.value;
+  await UserService.getMe().then(r => {
+    if (r.request.responseURL != "http://localhost:8080/login") {
+      console.log(r.data)
+      user.value = r.data
+      console.log(user.value)
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
 })
 
 const router = useRouter();
