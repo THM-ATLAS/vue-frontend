@@ -547,7 +547,6 @@ function createTag(tag: Tag): any {
     tag.name != ""
   ) {
     TagService.addTag(tag).then(() => {
-      getExerciseTags();
       TagService.getAllTags().then((res) => {
         const newTag = res.data.filter(
           (t: Tag) => t.name.toLowerCase() == tag.name.toLowerCase()
