@@ -22,9 +22,13 @@ import Home from "@/views/HomeView.vue";
 import ModuleSearch from "@/views/ModuleSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
 import ModuleManager from "@/views/moduleManagement/ModuleManagementView.vue";
+import UserService from "@/services/UserService";
+import SettingsService from "@/services/SettingsService";
+import {theme} from "@/helpers/theme";
+import {i18n} from "@/main";
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '/', component: Home},
+  {path: '/', name: 'Home',component: Home},
 
   {path: '/login', component: Login},
   { path: '/404', name: 'NotFound', component: PageNotFound },
@@ -64,6 +68,22 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to, from) => {
+    await UserService.getMe().then(async r =>{
+      if (r.request.responseURL != "http://localhost:8080/login") {
+        window.localStorage.setItem('loggedIn', 'true')
+        await SettingsService.getUserSettings(r.data.user_id).then( res => {
+          theme.value = res.data.theme
+          i18n.global.locale = res.data.language
+        })
+      } else {
+        window.localStorage.removeItem('loggedIn')
+        theme.value = 'light'
+        i18n.global.locale = 'de'
+      }
+    })
 })
 
 export default router

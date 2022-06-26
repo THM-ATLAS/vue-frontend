@@ -52,6 +52,7 @@ const router = useRouter();
 async function logout(): Promise<void> {
   await LoginService.logout();
   goToHome();
+  window.location.reload();
 }
 
 function goToHome(): void {
