@@ -25,7 +25,7 @@
             <td>{{submission.submission_id}}</td>
             <td>{{exercise.type}}</td>
             <td>{{new Date(submission.upload_time).toLocaleString()}}</td>
-            <td v-if="submission.grade">{{submission.grade}}%</td>
+            <td v-if="submission.grade !== null">{{submission.grade}}%</td>
             <td v-else>-</td>
             <td v-if="teacher">{{teacher}}</td>
             <td v-else>-</td>
@@ -68,6 +68,7 @@
       <v-card-actions>
         <v-btn @click="submitEvaluation" color="primary">{{$t('buttons.save')}}</v-btn>
         <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
+        <v-btn @click="deleteEvaluation">{{$t('buttons.delete')}}</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>
@@ -75,7 +76,7 @@
 <script setup lang="ts">
   import router from "@/router";
   import {onBeforeMount, Ref, ref} from "vue";
-  import {Exercise, Submission, User} from "@/helpers/types";
+  import {Exercise, Submission, User, Evaluation} from "@/helpers/types";
   import SubmissionService from "@/services/SubmissionService";
   import ExerciseService from "@/services/ExerciseService";
   import UserService from "@/services/UserService";
@@ -93,7 +94,7 @@
   onBeforeMount(async () => {
     submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
     submissionContent.value = submission.value.file;
-    grade.value = submission.value.grade;
+    if(submission.value.grade !== null) grade.value = submission.value.grade;
 
     formInput.value = submission.value.comment ? submission.value.comment : "";
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
@@ -103,17 +104,24 @@
   async function submitEvaluation() {
     loggedInUser.value = (await UserService.getMe()).data; //get logged in user
     //overwrite grade, comment and teacher_id of submission
-    const s: Submission = {
+    const e: Evaluation = {
       submission_id : submission.value.submission_id,
-      exercise_id: exerciseId,
-      user_id : submission.value.user_id,
-      file: submission.value.file,
-      upload_time: submission.value.upload_time,
       grade: grade.value,
       teacher_id: Number(loggedInUser.value.user_id),
       comment: formInput.value
     }
-    await SubmissionService.adjustSubmission(s);
+    await SubmissionService.editEvaluation(e);
+    goBack();
+  }
+  async function deleteEvaluation() {
+    //overwrite grade, comment and teacher_id of submission
+    const e: Evaluation = {
+      submission_id : submission.value.submission_id,
+      grade: null,
+      teacher_id: null,
+      comment: null
+    }
+    await SubmissionService.editEvaluation(e);
     goBack();
   }
 

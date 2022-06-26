@@ -26,6 +26,13 @@ export type Submission = {
     comment: string | null
 }
 
+export type Evaluation = {
+    submission_id : number,
+    grade : number | null,
+    teacher_id : number | null,
+    comment : string | null
+}
+
 export type UserSettings = {
     user_id: number,
     language: string,
