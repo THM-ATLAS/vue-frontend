@@ -5,10 +5,9 @@
       <!-- todo: Image loaded from backend -->
       <div>
         <v-img
-            lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+            src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
             max-height="240px"
             width="100%"
-            src=""
             cover
         >
           <div class="moduleNameContainer">
@@ -38,10 +37,10 @@
       >
         <v-card-text>
           <v-row>
-            <v-col cols="11">
+            <v-col cols="10">
               {{ module.description }}
             </v-col>
-            <v-col cols="1">
+            <v-col align="right" cols="2">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
                     <v-btn @click="reassign" color="secondary" v-bind="props">
@@ -290,8 +289,10 @@ import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
+import { useI18n } from "vue-i18n";
 
 const route = useRoute();
+const i18n = useI18n();
 
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
@@ -365,12 +366,12 @@ function getAssignStatus(): void {
     UserService.getMe().then((res) => {
       if (moduleUsers.value.map((a) => a.user_id).includes(res.data.user_id)) {
         assignedStatus.value = true;
-        label.value.value = "-";
+        label.value.value = i18n.t('module_page.leave');
         label.value.user = res.data;
         label.value.assigned = true;
       } else {
         assignedStatus.value = false;
-        label.value.value = "+";
+        label.value.value = i18n.t('module_page.attend');
         label.value.user = res.data;
         label.value.assigned = false;
       }
