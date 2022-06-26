@@ -44,9 +44,11 @@
             v-model="exercise.description"
         />
       </div>
+
       <div>
         <MarkdownModal :editor="true" v-model="exercise.content"/>
       </div>
+
       <v-card-actions justify="space-between">
         <v-btn color="primary" @click="save" v-html="$t('buttons.save')"/>
         <v-btn

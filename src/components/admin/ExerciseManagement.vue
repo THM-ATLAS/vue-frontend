@@ -288,12 +288,12 @@ const i18n = useI18n();
 const itemsPerPageLabel = i18n.t('exercise_search.exercises_per_page')
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
-  console.log(exercises.value);
+  // console.log(exercises.value);
 }
 
 async function loadModules(): Promise<void> {
   modules.value = ((await ModuleService.getModules()).data).sort((a: Module, b: Module) => a.module_id - b.module_id);
-  console.log(modules.value);
+  // console.log(modules.value);
 }
 
 onBeforeMount(async () => {
@@ -342,7 +342,8 @@ async function getExerciseTemplate(): Promise<PostExercise> {
           title: '',
           content: '',
           description: '',
-          exercisePublic: true
+          exercisePublic: true,
+          type_id: 1,
         };
       }
   );
