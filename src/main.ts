@@ -11,7 +11,7 @@ import {fetchLocale} from "@/i18n/localeHelper";
 
 loadFonts()
 
-const i18n = createI18n({
+export const i18n = createI18n({
     locale: fetchLocale(),
     fallbackLocale: 'en',
     messages: {

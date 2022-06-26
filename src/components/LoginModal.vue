@@ -52,28 +52,21 @@
           :disabled="!loginFormValid"
           @click="login"
           @keyup.enter="login">
+
         {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
   </v-card>
-  <v-btn
-      class="ma-3"
-      :flat="true"
-      size="large"
-      rounded="0"
-      variant="outlined"
-      @click="goToHome">
-    {{ $t('login_page.skip_login') }}
-  </v-btn>
+
 </template>
 
 <script setup lang='ts'>
-import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
+import SettingsService from "@/services/SettingsService";
+import {theme} from "@/helpers/theme";
 
-const router = useRouter();
 const i18n = useI18n();
 
 const alert = ref(false);
@@ -89,19 +82,19 @@ const rules = {
 };
 
 async function login() {
-  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password);
-  goToHome();
-}
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then( async r  => {
+  if (r.request.responseURL != "http://localhost:8080/login") {
+    window.localStorage.setItem('loggedIn', 'true')
+    await SettingsService.getUserSettings(r.data.user_id).then( res => {
+      theme.value = res.data.theme
+      i18n.locale.value = res.data.language
+    })
+  } else {
+    window.localStorage.removeItem('loggedIn')
+    theme.value = 'light'
+    i18n.locale.value = 'de'
+  }
+})}
 
-// function storeUserData(user: User) {
-//   localStorage.setItem("user", JSON.stringify(user));
-// }
 
-// function goToProfile(userId: string) {
-//   router.push(`/u/${userId}`);
-// }
-
-function goToHome() {
-  router.push("/");
-}
 </script>

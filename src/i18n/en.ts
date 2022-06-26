@@ -137,7 +137,11 @@ const translationEn = {
         stay: 'Stay',
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
-        evaluate: 'Save Evaluation'
+        evaluate: 'Save Evaluation',
+        back: 'Back',
+        visit: 'Visit',
+        view: 'View',
+        visit_profile: 'Visit profile',
     },
     languages: {
         en: 'English',
@@ -220,6 +224,7 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+        edit: 'Edit',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
@@ -259,6 +264,7 @@ const translationEn = {
         'specific-submission': {
             title: 'Your solution for '
         },
+        edit_submission: 'Edit submission'
     },
     submission_list: {
         title: 'Submissions of all Users for Exercise',
@@ -292,8 +298,8 @@ const translationEn = {
         exercises: 'Exercises',
         about: 'About',
         manage: 'Manage',
-        attend: 'Assign to course',
-        leave: 'Leave course',
+        attend: 'Attend module',
+        leave: 'Leave module',
         teachers: 'Teachers',
         tutors: 'Tutors',
         materials: 'Learning material',
