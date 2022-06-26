@@ -46,7 +46,7 @@
       </div>
 
       <div>
-        <MarkdownModal :editor="true" :content="exercise.content" v-model:content="exercise.content" @contentChanged="(res) => exercise.content = res"/>
+        <MarkdownModal :editor="true" :model-value="exercise.content"/>
       </div>
 
       <v-card-actions justify="space-between">

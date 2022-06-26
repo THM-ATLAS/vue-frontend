@@ -6,7 +6,6 @@
       :theme="theme"
       v-model="contentRef"
       language="en-US"
-      @input="$emit('contentChanged', contentRef)"
       :toolbars="toolbars"
       :footers="[]"
       :showCodeRowNumber="true"
@@ -29,18 +28,27 @@
 
 <script setup lang="ts">
 import Editor from 'md-editor-v3';
-import {onMounted, ref} from "vue";
+import {PropType, ref, watch} from "vue";
 import {theme} from "@/helpers/theme";
 import AssetService from "@/services/AssetService";
 import {Asset} from "@/helpers/types";
 
-// these are compiler macros that don't need to be imported
 // eslint-disable-next-line no-undef
-const props = defineProps(['content', 'editor', 'storePath']);
-// eslint-disable-next-line no-undef
-defineEmits(['contentChanged']);
+const props = defineProps({
+  modelValue: {
+    type: String as PropType<string>,
+    default: '',
+  },
+  editor: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  }
+});
 
-const contentRef = ref('wait..')
+// eslint-disable-next-line no-undef
+defineEmits(['update:modelValue']);
+
+const contentRef = ref('');
 
 // https://imzbf.github.io/md-editor-v3/docs/index#%F0%9F%A7%B1%20toolbars
 const toolbars = [
@@ -55,11 +63,8 @@ const toolbars = [
   'revoke', 'next', 'pageFullscreen',
 ]
 
-onMounted(() => {
-  if (props.editor) {
-    contentRef.value = props.content
-    console.log('contentRef', contentRef.value)
-  }
+watch(props, (val) => {
+  contentRef.value = val.modelValue
 })
 
 // eslint-disable-next-line no-unused-vars
@@ -92,8 +97,8 @@ const onUploadImg = async (files: Array<File>, callback: (url: Array<String>) =>
           AssetService.addAsset(asset).then((res) => {
             console.log(res);
 
-            const asset_id = 10 // res.data.asset_id;
-            const url: string = `/api/asset/${asset_id}/download`;
+            const asset_id = res.data.asset_id == 0 ? 10 : res.data.asset_id;
+            const url: string = `/api/assets/${asset_id}/view`;
             console.log(url);
 
             resolve(url);
@@ -110,7 +115,7 @@ const onUploadImg = async (files: Array<File>, callback: (url: Array<String>) =>
     });
   }));
 
-  callback(res);
+  callback(res as Array<String>);
 }
 
 </script>

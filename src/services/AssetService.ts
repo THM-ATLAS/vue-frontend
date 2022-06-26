@@ -2,8 +2,6 @@ import API from "@/services/API";
 
 import {Asset} from "@/helpers/types";
 
-// @ts-ignore
-
 class AssetService {
     editAsset(asset: Asset): Promise<any> {
         return API.put(`assets/`, asset);

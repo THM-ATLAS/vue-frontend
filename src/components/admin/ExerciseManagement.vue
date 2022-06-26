@@ -161,7 +161,7 @@
                 single-line
             />
             <MarkdownModal
-                v-model="newExerciseDialog.target.content"
+                :model-value="newExerciseDialog.target.content"
                 :editor="true"
             />
           </v-form>
