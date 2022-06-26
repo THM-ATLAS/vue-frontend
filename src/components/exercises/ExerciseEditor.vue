@@ -96,7 +96,7 @@
           <thead>
           <tr>
             <th>{{ $t("exercise.tag") }}</th>
-            <th></th>
+            <th class="hide-btn-behind-header"></th>
           </tr>
           </thead>
           <tbody>
@@ -548,5 +548,9 @@ function getTagTemplate(): Tag {
 
 .tag-chips {
   margin-bottom: 1em;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>
