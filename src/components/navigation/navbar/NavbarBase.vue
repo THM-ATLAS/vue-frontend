@@ -166,7 +166,9 @@ function goToLogin(): void {
 
 async function logout(): Promise<void> {
   await LoginService.logout();
+  window.localStorage.removeItem('loggedIn');
   goToHome();
+  window.location.reload();
 }
 
 function goToAdmin() {
