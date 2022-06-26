@@ -240,10 +240,10 @@ async function loadModules(): Promise<void> {
 
 onBeforeMount(async () => {
   await loadModules();
-  let apiModules = (await ModuleService.getModules()).data;
-  apiModules.forEach((result : Module) => {
-    modules.value.push(result);
-  });
+  // let apiModules = (await ModuleService.getModules()).data;
+  // apiModules.forEach((result : Module) => {
+  //   modules.value.push(result);
+  // });
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
 });
 

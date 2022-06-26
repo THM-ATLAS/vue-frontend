@@ -267,10 +267,10 @@ async function loadUsers(): Promise<void> {
 onBeforeMount(async () => {
   await loadUsers();
   roles.value = (await UserService.getRoles()).data;
-  let apiUsers = (await UserService.getUsers()).data;
-  apiUsers.forEach((result : User) => {
-    users.value.push(result);
-  });
+  // let apiUsers = (await UserService.getUsers()).data;
+  // apiUsers.forEach((result : User) => {
+  //   users.value.push(result);
+  // });
   currentPage.value = users.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
 });
 
@@ -340,7 +340,7 @@ const deleteUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
 
 async function createUser() {
   // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  // await UserService.addUser(newUserDialog.value.target);
+  await UserService.addUser(newUserDialog.value.target);
   await loadUsers();
   newUserDialog.value.target = getUserTemplate();
   newUserDialog.value.show = false;

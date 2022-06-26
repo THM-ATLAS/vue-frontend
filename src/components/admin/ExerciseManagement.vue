@@ -278,10 +278,10 @@ onBeforeMount(async () => {
   newExerciseDialog.value.target = await getExerciseTemplate();
   exercises.value = (await ExerciseService.getExercises()).data;
 
-  let apiExercises = (await ExerciseService.getExercises()).data;
-  apiExercises.forEach((result : Exercise) => {
-    exercises.value.push(result);
-  });
+  // let apiExercises = (await ExerciseService.getExercises()).data;
+  // apiExercises.forEach((result : Exercise) => {
+  //   exercises.value.push(result);
+  // });
   currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
 });
 
