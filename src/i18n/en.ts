@@ -220,6 +220,7 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+        edit: 'Edit',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',

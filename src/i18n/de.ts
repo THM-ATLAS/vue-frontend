@@ -227,6 +227,7 @@ const translationDe = {
         description: 'Beschreibung (optional)',
         title: 'Titel',
         id: 'ID',
+        edit: 'Bearbeiten',
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
