@@ -98,7 +98,14 @@ const translationEn = {
         },
     },
     module_search: {
-      items_per_page: 'Items per page'
+        items_per_page: 'Items per page',
+        module_per_page: 'Modules per page',
+    },
+    user_search: {
+        users_per_page: 'Users per page'
+    },
+    exercise_search: {
+        exercises_per_page: 'Exercises per page'
     },
     titles: {
         home_view: 'ATLAS',
@@ -137,7 +144,11 @@ const translationEn = {
         stay: 'Stay',
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
-        evaluate: 'Save Evaluation'
+        evaluate: 'Save Evaluation',
+        back: 'Back',
+        visit: 'Visit',
+        view: 'View',
+        visit_profile: 'Visit profile',
     },
     languages: {
         en: 'English',
@@ -220,10 +231,18 @@ const translationEn = {
         description: 'Description (optional)',
         title: 'Title',
         id: 'ID',
+        edit: 'Edit',
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
         tag_search_or_create: 'Search or create tag',
+    },
+    roles: {
+        admin: 'admin',
+        teacher: 'teacher',
+        student: 'student',
+        tutor: 'tutor',
+        guest: 'guest'
     },
     submission: {
         title: 'Exercise',
@@ -252,6 +271,7 @@ const translationEn = {
         'specific-submission': {
             title: 'Your solution for '
         },
+        edit_submission: 'Edit submission'
     },
     submission_list: {
         title: 'Submissions of all Users for Exercise',
@@ -285,8 +305,8 @@ const translationEn = {
         exercises: 'Exercises',
         about: 'About',
         manage: 'Manage',
-        attend: 'Assign to course',
-        leave: 'Leave course',
+        attend: 'Attend module',
+        leave: 'Leave module',
         teachers: 'Teachers',
         tutors: 'Tutors',
         materials: 'Learning material',

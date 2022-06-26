@@ -1,6 +1,5 @@
 services:
     atlas-frontend:
-        image: ghcr.io/thm-atlas/vue-frontend:dev
         network_mode: host
         build:
             target: dev

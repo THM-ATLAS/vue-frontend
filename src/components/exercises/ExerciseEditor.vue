@@ -48,9 +48,11 @@
             v-model="exercise.description"
         />
       </div>
+
       <div>
         <MarkdownModal :editor="true" v-model="exercise.content"/>
       </div>
+
       <v-card-actions justify="space-between">
         <v-btn color="primary" @click="save" v-html="$t('buttons.save')"/>
         <v-btn
@@ -61,7 +63,7 @@
         <v-btn @click="requestCancel" v-html="$t('buttons.cancel')"/>
       </v-card-actions>
     </v-card>
-    <v-dialog v-model="currentDialog.show" persistent width="500px">
+    <v-dialog v-model="currentDialog.show" persistent>
       <v-card>
         <v-card-title>
           <span class="headline" v-html="$t(currentDialog.header)"/>
@@ -96,11 +98,11 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
-        <v-table height="400px">
+        <v-table :fixed-header="true" height="40vh">
           <thead>
           <tr>
             <th>{{ $t("exercise.tag") }}</th>
-            <th></th>
+            <th class="hide-btn-behind-header"></th>
           </tr>
           </thead>
           <tbody>
@@ -561,5 +563,9 @@ function getTagTemplate(): Tag {
 
 .tag-icon {
   margin-right: 0.2em;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>

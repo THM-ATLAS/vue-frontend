@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="user in users" v-bind:key="user.user_id">
+        <tr v-for="user in currentPage" v-bind:key="user.user_id">
           <td>{{ user.name }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
@@ -20,7 +20,7 @@
             <v-chip v-for="role in user.roles" :closable="true"
                     @click:close="removeRole(user, role)" class="mr-1"
                     v-bind:key="role.role_id">
-              {{ role.name }}
+              {{ getRole(role.name) }}
             </v-chip>
 
             <v-chip prepend-icon="mdi-plus" @click="editRolesDialog.show = true; editRolesDialog.target = user"
@@ -29,40 +29,60 @@
             </v-chip>
           </td>
           <td>
-            <v-btn
-                @click="editUserDialog.show = true; editUserDialog.target = user"
-                icon="mdi-account-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
-                icon="mdi-account-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitUser(user)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="editUserDialog.show = true; editUserDialog.target = user"
+                    icon="mdi-account-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
+                    icon="mdi-account-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitUser(user)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit_profile')"/>
+            </v-tooltip>
           </td>
         </tr>
         </tbody>
+
       </v-table>
+
       <!-- new user -->
       <div>
         <v-btn
@@ -77,6 +97,22 @@
         />
       </div>
     </v-card>
+    <v-row>
+      <v-col cols="4" sm="3">
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
+    </v-row>
     <!-- role dialog -->
     <v-dialog
         v-model="editRolesDialog.show"
@@ -89,8 +125,8 @@
         </v-card-title>
         <v-card-text>
           <template v-for="role in roles" v-bind:key="role.role_id">
-            <v-checkbox v-if="role.role_id !== 3" v-model="editRolesDialog.target.roles"
-                        :value="role" :label="role.name" @change="editUser(editRolesDialog.target)" />
+            <v-checkbox v-if="role.role_id !== 5" v-model="editRolesDialog.target.roles"
+                        :value="role" :label="getRole(role.name)" @change="editUser(editRolesDialog.target)" />
           </template>
         </v-card-text>
         <v-card-actions>
@@ -224,7 +260,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref} from "vue";
+import {onBeforeMount, Ref, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
 import {User, Role} from "@/helpers/types";
@@ -232,8 +268,15 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 const roles: Ref<Role[]> = ref([]);
-
 const users: Ref<User[]> = ref([]);
+
+const currentPage: Ref<User[]> = ref([]);
+const currentPageNumber = ref(1);
+const itemsPerPage = ref(5);
+const numbers = [1,3,5,10,20,50];
+const length = ref(3);
+const i18n = useI18n();
+const itemsPerPageLabel = i18n.t('user_search.users_per_page')
 
 async function loadUsers(): Promise<void> {
   users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
@@ -242,11 +285,26 @@ async function loadUsers(): Promise<void> {
 onBeforeMount(async () => {
   await loadUsers();
   roles.value = (await UserService.getRoles()).data;
+  // let apiUsers = (await UserService.getUsers()).data;
+  // apiUsers.forEach((result : User) => {
+  //   users.value.push(result);
+  // });
+  currentPage.value = users.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(users.value.length/itemsPerPage.value);
+});
+
+watch(currentPageNumber, (newNumber) => {
+  currentPage.value = users.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
 })
 
+watch(itemsPerPage, (newNumber) => {
+  currentPageNumber.value = 1
+  currentPage.value = users.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
+  length.value = Math.ceil(users.value.length/newNumber)
+})
 console.log(users.value);
 
-const i18n = useI18n();
+// const i18n = useI18n();
 
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
@@ -257,6 +315,10 @@ const rules = {
 
 function visitUser(user: User) {
   router.push('/u/' + user.user_id)
+}
+
+function getRole(role: string) {
+  return i18n.t("roles."+role);
 }
 
 function getUserTemplate(): User {
@@ -332,5 +394,6 @@ function deleteUser(user: User) {
 </script>
 
 <style scoped>
+
 
 </style>

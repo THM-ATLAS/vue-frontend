@@ -3,9 +3,14 @@
     <v-card>
       <v-row>
         <v-col cols="1" align-self="center">
-          <v-btn @click="goBack()" class="back-button" rounded="false">
-            <v-icon icon="mdi-arrow-left" />
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ props: tooltip3 }">
+              <v-btn v-bind="tooltip3" @click="goBack()" class="back-button" rounded="false">
+                <v-icon icon="mdi-arrow-left"/>
+              </v-btn>
+            </template>
+            <span v-html="$t('buttons.back')"/>
+          </v-tooltip>
         </v-col>
         <v-col cols="8">
           <v-card-title> {{ module.name }}</v-card-title>
@@ -31,33 +36,44 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in moduleUsers" v-bind:key="user.user_id">
-                <td class="text-left">{{ user.name }}</td>
-                <td class="text-left">{{ user.module_role.name }}</td>
-                <td class="placeholder-td"></td>
-                <td class="text-right">
-                  <!-- Disabled until it works -->
-                  <v-btn
-                    @click="
+            <tr v-for="user in moduleUsers" v-bind:key="user.user_id">
+              <td class="text-left">{{ user.name }}</td>
+              <td class="text-left">{{ user.module_role.name }}</td>
+              <td class="placeholder-td"></td>
+              <td class="text-right">
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip }">
+                    <v-btn
+                        @click="
                       editPrivilegeDialog.show = true;
                       editPrivilegeDialog.userRole = user.module_role.name;
                       editPrivilegeDialog.user = user;
                     "
-                    class="manage-button"
-                    color="primary"
-                  >
-                    <!-- Disabled until it works -->
-                    <v-icon icon="mdi-cog"></v-icon>
-                  </v-btn>
-                  <v-btn
-                    class="manage-button"
-                    @click="deleteModuleUser(user)"
-                    color="error"
-                  >
-                    <v-icon icon="mdi-delete"></v-icon>
-                  </v-btn>
-                </td>
-              </tr>
+                        class="manage-button"
+                        color="primary"
+                        v-bind="tooltip"
+                    >
+                      <v-icon icon="mdi-cog"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('module_manager.edit_privilege')"/>
+                </v-tooltip>
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip2 }">
+                    <v-btn
+                        class="manage-button"
+                        @click="deleteModuleUser(user)"
+                        color="error"
+                        v-bind="tooltip2"
+                    >
+                      <v-icon icon="mdi-delete"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('buttons.remove')"/>
+                </v-tooltip>
+
+              </td>
+            </tr>
             </tbody>
           </v-table>
           <v-btn
@@ -84,11 +100,10 @@
         <v-card-text>
           <v-table fixed-header height="400px">
             <thead>
-              <tr>
-                <th>{{ $t("module_manager.tag") }}</th>
-                <th></th>
-                <th></th>
-              </tr>
+            <tr>
+              <th>{{ $t("module_manager.tag") }}</th>
+              <th class="hide-btn-behind-header"></th>
+            </tr>
             </thead>
             <tbody>
               <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
@@ -213,10 +228,10 @@
         <v-card-title> {{ $t("module_manager.add_user") }}</v-card-title>
         <v-table fixed-header height="400px">
           <thead>
-            <tr>
-              <th>{{ $t("module_manager.name") }}</th>
-              <th></th>
-            </tr>
+          <tr>
+            <th>{{ $t("module_manager.name") }}</th>
+            <th class="hide-btn-behind-header"></th>
+          </tr>
           </thead>
           <tbody>
             <tr v-for="user in filteredUsers" v-bind:key="user.user_id">
@@ -422,5 +437,9 @@ function setTagIcon(icon: any): void {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>
