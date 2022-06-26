@@ -34,8 +34,8 @@
                 <td>{{s.user_id}}</td>
                 <td>{{exercise.type}}</td>
                 <td>{{new Date(s.upload_time).toLocaleString()}}</td>
-                <td v-if="!s.grade">{{$t('submission_list.table.status.pending')}}</td>
-                <td v-else>{{$t('submission_list.table.status.evaluated')}}</td>
+                <td v-if="s.grade !== null">{{$t('submission_list.table.status.evaluated')}}</td>
+                <td v-else>{{$t('submission_list.table.status.pending')}}</td>
                 <td>
                   <v-btn
                       @click="visitEvaluation(s)"
