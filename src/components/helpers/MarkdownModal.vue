@@ -46,7 +46,7 @@ const props = defineProps({
 });
 
 // eslint-disable-next-line no-undef
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 
 const contentRef = ref('');
 
@@ -67,6 +67,10 @@ watch(props, (val) => {
   contentRef.value = val.modelValue
 })
 
+watch(contentRef, (val) => {
+  emit('update:modelValue', val)
+})
+
 // eslint-disable-next-line no-unused-vars
 const onUploadImg = async (files: Array<File>, callback: (url: Array<String>) => void) => {
 
@@ -78,7 +82,7 @@ const onUploadImg = async (files: Array<File>, callback: (url: Array<String>) =>
       reader.readAsDataURL(file);
 
       reader.onload = async () => {
-        console.log(reader.result);
+        // console.log(reader.result);
 
         if (!reader.result) {
           reject(new Error("Could not read file"));
@@ -92,18 +96,18 @@ const onUploadImg = async (files: Array<File>, callback: (url: Array<String>) =>
             filename: file.name,
           };
 
-          console.log(asset);
+          // console.log(asset);
 
           AssetService.addAsset(asset).then((res) => {
-            console.log(res);
+            // console.log(res);
 
             const asset_id = res.data.asset_id == 0 ? 10 : res.data.asset_id;
             const url: string = `/api/assets/${asset_id}/view`;
-            console.log(url);
+            // console.log(url);
 
             resolve(url);
           }).catch((err) => {
-            console.log(err);
+            // console.log(err);
             reject(err);
           });
 
