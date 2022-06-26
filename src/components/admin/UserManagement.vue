@@ -20,7 +20,7 @@
             <v-chip v-for="role in user.roles" :closable="true"
                     @click:close="removeRole(user, role)" class="mr-1"
                     v-bind:key="role.role_id">
-              {{ role.name }}
+              {{ getRole(role.name) }}
             </v-chip>
 
             <v-chip prepend-icon="mdi-plus" @click="editRolesDialog.show = true; editRolesDialog.target = user"
@@ -29,36 +29,54 @@
             </v-chip>
           </td>
           <td>
-            <v-btn
-                @click="editUserDialog.show = true; editUserDialog.target = user"
-                icon="mdi-account-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
-                icon="mdi-account-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitUser(user)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="editUserDialog.show = true; editUserDialog.target = user"
+                    icon="mdi-account-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="deleteUserDialog.show = true; deleteUserDialog.target = user"
+                    icon="mdi-account-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitUser(user)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit_profile')"/>
+            </v-tooltip>
           </td>
         </tr>
         </tbody>
@@ -107,8 +125,8 @@
         </v-card-title>
         <v-card-text>
           <template v-for="role in roles" v-bind:key="role.role_id">
-            <v-checkbox v-if="role.role_id !== 3" v-model="editRolesDialog.target.roles"
-                        :value="role" :label="role.name" @change="editUser(editRolesDialog.target)" />
+            <v-checkbox v-if="role.role_id !== 5" v-model="editRolesDialog.target.roles"
+                        :value="role" :label="getRole(role.name)" @change="editUser(editRolesDialog.target)" />
           </template>
         </v-card-text>
         <v-card-actions>
@@ -296,6 +314,10 @@ const rules = {
 
 function visitUser(user: User) {
   router.push('/u/' + user.user_id)
+}
+
+function getRole(role: string) {
+  return i18n.t("roles."+role);
 }
 
 function getUserTemplate(): User {
