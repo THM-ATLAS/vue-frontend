@@ -261,7 +261,7 @@ const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('module_search.module_per_page')
+const itemsPerPageLabel = i18n.t('exercise_search.exercises_per_page')
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
   console.log(exercises.value);

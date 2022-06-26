@@ -104,6 +104,9 @@ const translationEn = {
     user_search: {
         users_per_page: 'Users per page'
     },
+    exercise_search: {
+        exercises_per_page: 'Exercises per page'
+    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',

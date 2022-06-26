@@ -106,6 +106,9 @@ const translationDe = {
     user_search: {
         users_per_page: 'Benutzer pro Seite'
     },
+    exercise_search: {
+        exercises_per_page: 'Aufgaben pro Seite'
+    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
