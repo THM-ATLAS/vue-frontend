@@ -272,7 +272,7 @@ const users: Ref<User[]> = ref([]);
 
 const currentPage: Ref<User[]> = ref([]);
 const currentPageNumber = ref(1);
-const itemsPerPage = ref(3);
+const itemsPerPage = ref(5);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
@@ -290,6 +290,7 @@ onBeforeMount(async () => {
   //   users.value.push(result);
   // });
   currentPage.value = users.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(users.value.length/itemsPerPage.value);
 });
 
 watch(currentPageNumber, (newNumber) => {

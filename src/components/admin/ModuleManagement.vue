@@ -263,6 +263,7 @@ onBeforeMount(async () => {
   //   modules.value.push(result);
   // });
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(modules.value.length/itemsPerPage.value);
 });
 
 watch(currentPageNumber, (newNumber) => {
