@@ -92,7 +92,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
-        <v-table :fixed-header="true">
+        <v-table :fixed-header="true" height="40vh">
           <thead>
           <tr>
             <th>{{ $t("exercise.tag") }}</th>
