@@ -97,10 +97,10 @@
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
         <v-table :fixed-header="true" height="40vh">
           <thead>
-          <tr>
-            <th>{{ $t("exercise.tag") }}</th>
-            <th class="hide-btn-behind-header"></th>
-          </tr>
+            <tr>
+              <th>{{ $t("exercise.tag") }}</th>
+              <th class="hide-btn-behind-header"></th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="tag in filteredTags" :key="tag.tag_id">
@@ -128,9 +128,7 @@
             <v-btn
               width="100%"
               height="58%"
-              @click="
-                createTag(addTagsDialog.target);
-              "
+              @click="createTag(addTagsDialog.target)"
             >
               {{ $t("buttons.add") }}
             </v-btn>
@@ -548,12 +546,14 @@ function createTag(tag: Tag): any {
   ) {
     TagService.addTag(tag).then(() => {
       TagService.getAllTags().then((res) => {
-        const newTag = res.data.filter(
-          (t: Tag) => t.name.toLowerCase() == tag.name.toLowerCase()
-        );
-        TagService.addTagToExercise(newTag[0], exercise.value).then(() => {
+        TagService.addTagToExercise(
+          res.data.filter(
+            (t: Tag) => t.name.toLowerCase() == tag.name.toLowerCase()
+          )[0],
+          exercise.value
+        ).then(() => {
           getExerciseTags();
-          addTagsDialog.value.target.name = '';
+          addTagsDialog.value.target.name = "";
         });
       });
     });
