@@ -100,7 +100,14 @@ const translationDe = {
         },
     },
     module_search: {
-        items_per_page: 'Einträge pro Seite'
+        items_per_page: 'Einträge pro Seite',
+        module_per_page: 'Module pro Seite',
+    },
+    user_search: {
+        users_per_page: 'Benutzer pro Seite'
+    },
+    exercise_search: {
+        exercises_per_page: 'Aufgaben pro Seite'
     },
     buttons: {
         save: 'Speichern',

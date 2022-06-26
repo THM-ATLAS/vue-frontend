@@ -98,7 +98,14 @@ const translationEn = {
         },
     },
     module_search: {
-      items_per_page: 'Items per page'
+        items_per_page: 'Items per page',
+        module_per_page: 'Modules per page',
+    },
+    user_search: {
+        users_per_page: 'Users per page'
+    },
+    exercise_search: {
+        exercises_per_page: 'Exercises per page'
     },
     titles: {
         home_view: 'ATLAS',
