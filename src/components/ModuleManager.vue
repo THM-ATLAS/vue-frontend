@@ -3,9 +3,14 @@
     <v-card>
       <v-row>
         <v-col cols="1" align-self="center">
-          <v-btn @click="goBack()" class="back-button" rounded="false">
-            <v-icon icon="mdi-arrow-left"/>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ props: tooltip3 }">
+              <v-btn v-bind="tooltip3" @click="goBack()" class="back-button" rounded="false">
+                <v-icon icon="mdi-arrow-left"/>
+              </v-btn>
+            </template>
+            <span v-html="$t('buttons.back')"/>
+          </v-tooltip>
         </v-col>
         <v-col cols="8">
           <v-card-title> {{ module.name }}</v-card-title>
@@ -36,24 +41,37 @@
               <td class="text-left">{{ user.module_role.name }}</td>
               <td class="placeholder-td"></td>
               <td class="text-right">
-                <v-btn
-                    @click="
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip }">
+                    <v-btn
+                        @click="
                       editPrivilegeDialog.show = true;
                       editPrivilegeDialog.userRole = user.module_role.name;
                       editPrivilegeDialog.user = user;
                     "
-                    class="manage-button"
-                    color="primary"
-                >
-                  <v-icon icon="mdi-cog"></v-icon>
-                </v-btn>
-                <v-btn
-                    class="manage-button"
-                    @click="deleteModuleUser(user)"
-                    color="error"
-                >
-                  <v-icon icon="mdi-delete"></v-icon>
-                </v-btn>
+                        class="manage-button"
+                        color="primary"
+                        v-bind="tooltip"
+                    >
+                      <v-icon icon="mdi-cog"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('module_manager.edit_privilege')"/>
+                </v-tooltip>
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip2 }">
+                    <v-btn
+                        class="manage-button"
+                        @click="deleteModuleUser(user)"
+                        color="error"
+                        v-bind="tooltip2"
+                    >
+                      <v-icon icon="mdi-delete"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('buttons.remove')"/>
+                </v-tooltip>
+
               </td>
             </tr>
             </tbody>

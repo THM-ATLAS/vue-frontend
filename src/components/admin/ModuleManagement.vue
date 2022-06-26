@@ -22,42 +22,60 @@
             <p class="desc">{{ $t("admin.modules.no_description") }}</p>
           </td>
           <td>
-            <v-btn
-                @click="
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip1 }">
+                <v-btn
+                    @click="
                   editModuleDialog.show = true;
                   editModuleDialog.target = module;
                 "
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="
+                    icon="mdi-file-document-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip1"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip2 }">
+                <v-btn
+                    @click="
                   deleteModuleDialog.show = true;
                   deleteModuleDialog.target = module;
                 "
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitModule(module)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+                    icon="mdi-file-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip2"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitModule(module)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit')"/>
+            </v-tooltip>
           </td>
         </tr>
         </tbody>

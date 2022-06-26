@@ -1,5 +1,16 @@
 <template>
   <v-card elevation="0" rounded="0">
+    <v-tooltip bottom>
+      <template v-slot:activator="{ props: tooltip3 }">
+        <v-btn
+            v-bind="tooltip3"
+            @click="goBack"
+            icon="mdi-menu-left"
+            class="ma-2"
+            variant="outlined"/>
+      </template>
+      <span v-html="$t('buttons.back')"/>
+    </v-tooltip>
     <v-btn
         @click="goBack"
         icon="mdi-menu-left"

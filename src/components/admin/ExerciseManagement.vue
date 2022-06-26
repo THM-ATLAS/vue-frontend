@@ -17,45 +17,69 @@
           <td v-if="exercise.description">{{ exercise.description }}</td>
           <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
           <td>
-            <v-btn
-                @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
-                icon="mdi-file-eye"
-                small
-                elevation="0"
-                color="secondary"
-                class="ma-1"
-                rounded="0"
-            />
-            <v-btn
-                @click="goToEditor(exercise)"
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
+                    icon="mdi-file-eye"
+                    small
+                    elevation="0"
+                    color="secondary"
+                    class="ma-1"
+                    rounded="0"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.view')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="goToEditor(exercise)"
+                    icon="mdi-file-document-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
+                    icon="mdi-file-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitExercise(exercise)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit')"/>
+            </v-tooltip>
           </td>
         </tr>
         </tbody>
