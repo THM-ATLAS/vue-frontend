@@ -4,7 +4,7 @@
       <!-- main table -->
       <v-table
           :fixed-header="true"
-      density="compact">
+          density="compact">
         <thead>
         <tr>
           <th>{{ $t("admin.modules.title") }}</th>
@@ -13,7 +13,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="module in modules" v-bind:key="module.id">
+        <tr v-for="module in currentPage" v-bind:key="module.id">
           <td>{{ module.name }}</td>
           <td class="td-desc" v-if="module.description && display.width.value < 500"><p class="desc">
             {{ module.description.substring(0, 48) }}...</p></td>
@@ -22,44 +22,63 @@
             <p class="desc">{{ $t("admin.modules.no_description") }}</p>
           </td>
           <td>
-            <v-btn
-                @click="
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip1 }">
+                <v-btn
+                    @click="
                   editModuleDialog.show = true;
                   editModuleDialog.target = module;
                 "
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="
+                    icon="mdi-file-document-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip1"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip2 }">
+                <v-btn
+                    @click="
                   deleteModuleDialog.show = true;
                   deleteModuleDialog.target = module;
                 "
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitModule(module)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+                    icon="mdi-file-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip2"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitModule(module)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit')"/>
+            </v-tooltip>
           </td>
         </tr>
+
         </tbody>
       </v-table>
 
@@ -76,8 +95,24 @@
             variant="outlined"
         />
       </div>
-    </v-card>
 
+    </v-card>
+    <v-row>
+      <v-col cols="4" sm="3">
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
+    </v-row>
     <!-- edit module dialog -->
     <v-dialog
         v-model="editModuleDialog.show"
@@ -196,15 +231,24 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref} from "vue";
+import {onBeforeMount, Ref, ref, watch} from "vue";
 import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
+import {useI18n} from "vue-i18n";
 
 const display = useDisplay();
 const router = useRouter();
+
 const modules: Ref<Module[]> = ref([]);
+const currentPage: Ref<Module[]> = ref([]);
+const currentPageNumber = ref(1);
+const itemsPerPage = ref(3);
+const numbers = [1,3,5,10,20,50];
+const length = ref(3);
+const i18n = useI18n();
+const itemsPerPageLabel = i18n.t('module_search.module_per_page')
 
 async function loadModules(): Promise<void> {
   modules.value = (await ModuleService.getModules()).data.sort(
@@ -214,7 +258,25 @@ async function loadModules(): Promise<void> {
 
 onBeforeMount(async () => {
   await loadModules();
+  // let apiModules = (await ModuleService.getModules()).data;
+  // apiModules.forEach((result : Module) => {
+  //   modules.value.push(result);
+  // });
+  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(modules.value.length/itemsPerPage.value);
 });
+
+watch(currentPageNumber, (newNumber) => {
+  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+})
+
+watch(itemsPerPage, (newNumber) => {
+  currentPageNumber.value = 1
+  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
+  length.value = Math.ceil(modules.value.length/newNumber)
+})
+ // console.log(modules.value);
+
 
 function visitModule(module: Module): void {
   router.push('/' + module.module_id);

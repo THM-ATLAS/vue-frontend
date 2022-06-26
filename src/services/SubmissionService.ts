@@ -1,5 +1,5 @@
 import API from "@/services/API";
-import {Submission} from "@/helpers/types";
+import {Evaluation, Submission} from "@/helpers/types";
 
 class SubmissionService{
 
@@ -25,6 +25,14 @@ class SubmissionService{
 
     adjustSubmission(submission: Submission): Promise<any> {
         return API.put(`/submissions`, submission);
+    }
+
+    deleteSubmission(submissionId: number): Promise<any> {
+        return API.delete(`/submissions/${submissionId}`);
+    }
+
+    editEvaluation(evaluation: Evaluation): Promise<any> {
+        return API.put(`/submissions/grade`, evaluation)
     }
 }
 

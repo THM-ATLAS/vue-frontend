@@ -11,51 +11,75 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="exercise in exercises" v-bind:key="exercise.id">
+        <tr v-for="exercise in currentPage" v-bind:key="exercise.id">
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.module.name }}</td>
           <td v-if="exercise.description">{{ exercise.description }}</td>
           <td v-else style="opacity: 70%">{{ $t('admin.exercises.no_description') }}</td>
           <td>
-            <v-btn
-                @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
-                icon="mdi-file-eye"
-                small
-                elevation="0"
-                color="secondary"
-                class="ma-1"
-                rounded="0"
-            />
-            <v-btn
-                @click="goToEditor(exercise)"
-                icon="mdi-file-document-edit"
-                small
-                elevation="0"
-                color="primary"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
-                icon="mdi-file-remove"
-                small
-                elevation="0"
-                color="error"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
-            <v-btn
-                @click="visitExercise(exercise)"
-                icon="mdi-open-in-new"
-                small
-                elevation="0"
-                color="success"
-                class="ma-1"
-                rounded="0"
-                variant="outlined"
-            />
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="viewExerciseDialog.show = true; viewExerciseDialog.target = exercise"
+                    icon="mdi-file-eye"
+                    small
+                    elevation="0"
+                    color="secondary"
+                    class="ma-1"
+                    rounded="0"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.view')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="goToEditor(exercise)"
+                    icon="mdi-file-document-edit"
+                    small
+                    elevation="0"
+                    color="primary"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.edit')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="deleteExerciseDialog.show = true; deleteExerciseDialog.target = exercise"
+                    icon="mdi-file-remove"
+                    small
+                    elevation="0"
+                    color="error"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.delete')"/>
+            </v-tooltip>
+            <v-tooltip right>
+              <template v-slot:activator="{ props: tooltip }">
+                <v-btn
+                    @click="visitExercise(exercise)"
+                    icon="mdi-open-in-new"
+                    small
+                    elevation="0"
+                    color="success"
+                    class="ma-1"
+                    rounded="0"
+                    variant="outlined"
+                    v-bind="tooltip"
+                />
+              </template>
+              <span v-html="$t('buttons.visit')"/>
+            </v-tooltip>
           </td>
         </tr>
         </tbody>
@@ -75,7 +99,22 @@
         />
       </div>
     </v-card>
-
+    <v-row>
+      <v-col cols="4" sm="3">
+        <v-select
+            :items="numbers"
+            :label="itemsPerPageLabel"
+            v-model="itemsPerPage">
+        </v-select>
+      </v-col>
+      <v-col cols="12" sm="9">
+        <v-pagination
+            v-model="currentPageNumber"
+            :length="length"
+            total-visible="5"
+        ></v-pagination>
+      </v-col>
+    </v-row>
     <!-- view exercise dialog -->
     <v-dialog
         v-model="viewExerciseDialog.show"
@@ -227,7 +266,7 @@
 </template>
 
 <script setup lang="ts">
-import {onBeforeMount, Ref, ref} from "vue";
+import {onBeforeMount, Ref, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
@@ -240,14 +279,21 @@ import router from "@/router";
 const exercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
 const modules: Ref<Module[]> = ref([]) as Ref<Module[]>;
 
+const currentPage: Ref<Exercise[]> = ref([]);
+const currentPageNumber = ref(1);
+const itemsPerPage = ref(10);
+const numbers = [1,3,5,10,20,50];
+const length = ref(3);
+const i18n = useI18n();
+const itemsPerPageLabel = i18n.t('exercise_search.exercises_per_page')
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
-  console.log(exercises.value);
+  // console.log(exercises.value);
 }
 
 async function loadModules(): Promise<void> {
   modules.value = ((await ModuleService.getModules()).data).sort((a: Module, b: Module) => a.module_id - b.module_id);
-  console.log(modules.value);
+  // console.log(modules.value);
 }
 
 onBeforeMount(async () => {
@@ -255,9 +301,26 @@ onBeforeMount(async () => {
   await loadModules();
   newExerciseDialog.value.target = await getExerciseTemplate();
   exercises.value = (await ExerciseService.getExercises()).data;
+
+  // let apiExercises = (await ExerciseService.getExercises()).data;
+  // apiExercises.forEach((result : Exercise) => {
+  //   exercises.value.push(result);
+  // });
+  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(exercises.value.length/itemsPerPage.value);
+});
+
+watch(currentPageNumber, (newNumber) => {
+  currentPage.value = exercises.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+})
+
+watch(itemsPerPage, (newNumber) => {
+  currentPageNumber.value = 1
+  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
+  length.value = Math.ceil(exercises.value.length/newNumber)
 })
 // console.log(exercises.value);
-const i18n = useI18n();
+// const i18n = useI18n();
 
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
@@ -279,7 +342,8 @@ async function getExerciseTemplate(): Promise<PostExercise> {
           title: '',
           content: '',
           description: '',
-          exercisePublic: true
+          exercisePublic: true,
+          type_id: 1,
         };
       }
   );

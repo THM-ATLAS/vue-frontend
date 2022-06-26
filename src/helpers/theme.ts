@@ -1,5 +1,7 @@
 import {Ref, ref} from "vue";
 import {ThemeDefinition} from "vuetify/dist/vuetify";
+import UserService from "@/services/UserService";
+import SettingsService from "@/services/SettingsService";
 
 const DEFAULT_THEME: string = 'light';
 
@@ -9,13 +11,21 @@ function fetchTheme(): string {
 
 export const theme: Ref<string> = ref(fetchTheme());
 
-export function setTheme(newTheme: string): void {
+export async function setTheme(newTheme: string): Promise<any> {
+    const loggedIn = (await UserService.getMe()).data
+    if (loggedIn.user_id) {
+        await SettingsService.editUserSettings({
+            user_id: loggedIn.user_id,
+            language: localStorage.getItem('locale') || 'de',
+            theme: newTheme
+        })
+    }
     window.localStorage.setItem('theme', newTheme);
     theme.value = newTheme;
 }
 
-export function toggleTheme(): void {
-    setTheme(theme.value === 'light' ? 'dark' : 'light');
+export async function toggleTheme(): Promise<any> {
+    await setTheme(theme.value === 'light' ? 'dark' : 'light');
 }
 
 // https://www.thm.de/thmweb/web-styleguide.html
