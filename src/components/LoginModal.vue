@@ -63,9 +63,10 @@
 <script setup lang='ts'>
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
-import LoginService from "@/services/LoginService";
+import LoginService, {isLoggedIn} from "@/services/LoginService";
 import SettingsService from "@/services/SettingsService";
 import {theme} from "@/helpers/theme";
+import {AxiosResponse} from "axios";
 
 const i18n = useI18n();
 
@@ -82,8 +83,8 @@ const rules = {
 };
 
 async function login() {
-  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then( async r  => {
-  if (r.request.responseURL != "http://localhost:8080/login") {
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then( async (r: AxiosResponse)  => {
+  if (isLoggedIn(r)) {
     window.localStorage.setItem('loggedIn', 'true')
     await SettingsService.getUserSettings(r.data.user_id).then( res => {
       theme.value = res.data.theme
