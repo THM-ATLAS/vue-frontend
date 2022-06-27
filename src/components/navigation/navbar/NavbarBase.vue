@@ -133,7 +133,8 @@ import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
-import LoginService from "@/services/LoginService";
+import LoginService, {isLoggedIn} from "@/services/LoginService";
+import {AxiosResponse} from "axios";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
@@ -141,11 +142,9 @@ const user: Ref<User | undefined> = ref(undefined);
 const loggedIn : Ref<boolean> = ref(false);
 
 onBeforeMount(async () => {
-  await UserService.getMe().then(r => {
-    if (r.request.responseURL != "http://localhost:8080/login") {
-      console.log(r.data)
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
       user.value = r.data
-      console.log(user.value)
       loggedIn.value = true;
       window.localStorage.setItem('loggedIn', 'true')
     } else {

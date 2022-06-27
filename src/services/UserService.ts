@@ -1,10 +1,10 @@
 import API from "@/services/API";
-import {User, Role} from "@/helpers/types"
+import {User} from "@/helpers/types"
 
 class UserService {
 
     //TODO: Return / check response codes
-    getUser(id: string): Promise<any> {
+    getUser(id: number): Promise<any> {
         return API.get(`users/${id}`);
     }
 

@@ -102,7 +102,7 @@ import {Exercise, Submission, User} from "@/helpers/types"
 const exerciseId: number = Number(router.currentRoute.value.params.id);
 const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-const filteredSubmission: Ref<Submission> = ref({}) as Ref<Submission>;
+const filteredSubmission: Ref<Submission | undefined> = ref({}) as Ref<Submission | undefined>;
 const usersSubmissions: Ref<Submission[]> = ref([]);
 const submissionType = ref("");
 const formInput = ref("")
@@ -118,8 +118,8 @@ onBeforeMount(async () => {
   await getLoggedInUsersSubmissions();
 
 
-  if(filteredSubmission) {
-    if(filteredSubmission.value.teacher_id) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id.toString())).data.name;
+  if(filteredSubmission.value) {
+    if(filteredSubmission.value.teacher_id) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id)).data.name;
     sid.value = filteredSubmission.value.submission_id;
   }
 

@@ -11,7 +11,7 @@
             <div id="username" class="ma-1">{{ profile.username }}</div>
             <div>
               <v-chip v-for="role in profile.roles" v-bind:key="role.role_id"
-                      class="mx-1" :label="role.name" :elevation="1" rounded
+                      class="mx-1" :label="true" :elevation="1" rounded
                       v-html="getRole(role.name)"/>
             </div>
           </v-row>
@@ -81,22 +81,22 @@ const i18n = useI18n();
 const router = useRouter();
 const route = useRoute();
 const profile: Ref<User> = ref({}) as Ref<User>;
-const getID = ref("0");
+const getID = ref(0);
 
 onBeforeMount(async () => {
     if (route.params.id) {
-      getID.value = route.params.id instanceof Array
+      getID.value = parseInt(route.params.id instanceof Array
           ? route.params.id[0]
-          : route.params.id;
+          : route.params.id);
       profile.value = (await UserService.getUser(getID.value)).data;
     } else {
       profile.value = (await UserService.getMe()).data;
-      getID.value = profile?.value.user_id || "-1";
+      getID.value = profile?.value.user_id || -1;
       await router.replace(`/u/${getID.value}`);
     }
 });
 
-console.log(getID.value);
+// console.log(getID.value);
 
 const image = require("../assets/marianneMuster.png");
 

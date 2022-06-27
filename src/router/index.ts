@@ -26,6 +26,8 @@ import UserService from "@/services/UserService";
 import SettingsService from "@/services/SettingsService";
 import {theme} from "@/helpers/theme";
 import {i18n} from "@/main";
+import {isLoggedIn} from "@/services/LoginService";
+import {AxiosResponse} from "axios";
 
 const routes: Array<RouteRecordRaw> = [
   {path: '/', name: 'Home',component: Home},
@@ -71,8 +73,8 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from) => {
-    await UserService.getMe().then(async r =>{
-      if (r.request.responseURL != "http://localhost:8080/login") {
+    await UserService.getMe().then(async (r: AxiosResponse) =>{
+      if (isLoggedIn(r)) {
         window.localStorage.setItem('loggedIn', 'true')
         await SettingsService.getUserSettings(r.data.user_id).then( res => {
           theme.value = res.data.theme
