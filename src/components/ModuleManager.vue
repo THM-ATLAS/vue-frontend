@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-card>
+    <v-card v-if="!embedded">
       <v-row>
-        <v-col cols="1" align-self="center">
+        <v-col cols="2" align-self="center">
           <v-tooltip bottom>
             <template v-slot:activator="{ props: tooltip3 }">
               <v-btn v-bind="tooltip3" @click="goBack()" class="back-button" rounded="false">
@@ -15,13 +15,18 @@
         <v-col cols="8">
           <v-card-title> {{ module.name }}</v-card-title>
         </v-col>
-        <v-col cols="3" align-self="center" class="d-flex justify-end">
+        <v-col cols="2">
           <v-btn @click="manageTagsDialog.show = true">
             {{ $t("module_manager.edit_tag_button") }}
           </v-btn>
         </v-col>
       </v-row>
     </v-card>
+    <br>
+    <v-btn @click="manageTagsDialog.show = true" v-if="embedded" class="embeddedEditTagsButton">
+      {{ $t("module_manager.edit_tag_button") }}
+    </v-btn>
+    <br>
     <br/>
     <v-card>
       <v-row>
@@ -398,6 +403,7 @@ import ModuleService from "@/services/ModuleService";
 import TagService from "@/services/TagService";
 import ExerciseService from "@/services/ExerciseService";
 import {Exercise, Module, ModuleUser, Role, Tag, User} from "@/helpers/types";
+import {defineProps} from "vue";
 
 //Router
 const route = useRoute();
@@ -408,6 +414,10 @@ const allUsers: Ref<ModuleUser[]> = ref([]);
 const filteredUsers: Ref<User[]> = ref([]);
 const tagsCurrent: Ref<Tag[]> = ref([]);
 const exercises: Ref<Exercise[]> = ref([]);
+
+defineProps<{
+  embedded?: boolean
+}>()
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module).then((res) => {
@@ -558,5 +568,11 @@ function setUserRole(user: ModuleUser, role: string): void {
 
 .hide-btn-behind-header {
   z-index: 1;
+}
+
+.embeddedEditTagsButton{
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
 }
 </style>
