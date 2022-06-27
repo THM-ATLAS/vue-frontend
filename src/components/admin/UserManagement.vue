@@ -134,8 +134,11 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <!-- new user dialog -->
+      <!-- [Desktop] -->
     <v-dialog
+        class="d-none d-md-flex"
         v-model="newUserDialog.show"
         :scrollable="true"
         :retain-focus="false"
@@ -186,8 +189,67 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- edit user dialog -->
+      <!-- [Desktop] -->
+      <!-- [Mobile] -->
     <v-dialog
+        class="d-md-none"
+        v-model="newUserDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
+    >
+      <v-card top="20%" width="80vw">
+        <v-card-title>
+          <span class="headline">{{ $t('admin.users.new') }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="newUserForm"
+                  v-model="newUserFormValid"
+          >
+            <v-text-field
+                @change="$refs.newUserForm.validate()"
+                v-model="newUserDialog.target.name"
+                :label="$t('admin.users.name')"
+                :rules="[rules.required]"
+                required
+            />
+            <v-text-field
+                @change="$refs.newUserForm.validate()"
+                v-model="newUserDialog.target.username"
+                :label="$t('admin.users.username')"
+                :rules="[rules.required, rules.username]"
+                :counter="32"
+                required
+            />
+            <v-text-field
+                @change="$refs.newUserForm.validate()"
+                v-model="newUserDialog.target.email"
+                :label="$t('admin.users.email')"
+                :rules="[rules.required, rules.email]"
+                required
+            />
+            <!--v-text-field
+                @change="$refs.newUserForm.validate()"
+                v-model="newUserDialog.target.password"
+                :label="$t('admin.users.password')"
+                :rules="[rules.required, rules.password]"
+                required
+                type="password"
+            /-->
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="newUserDialog.show = false" v-html="$t('buttons.cancel')"/>
+          <v-btn :disabled="!newUserFormValid" color="primary" @click="createUser" v-html="$t('buttons.save')"/>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- [Mobile] -->
+    <!-- [Desktop] new user dialog -->
+
+    <!-- edit user dialog -->
+      <!-- [Desktop] -->
+    <v-dialog
+        class="d-none d-md-flex"
         v-model="editUserDialog.show"
         :scrollable="true"
         :retain-focus="false"
@@ -236,7 +298,63 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+      <!-- [Desktop] -->
+      <!-- [Mobile] -->
+    <v-dialog
+        class="d-md-none"
+        v-model="editUserDialog.show"
+        :scrollable="true"
+        :retain-focus="false"
+    >
+      <v-card top="20%" width="80vw">
+        <v-card-title>
+          <span class="headline">{{ $t('admin.users.edit') }}</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field
+              v-model="editUserDialog.target.name"
+              :label="$t('admin.users.name')"
+              :rules="[rules.required]"
+          />
+          <v-text-field
+              v-model="editUserDialog.target.username"
+              :label="$t('admin.users.username')"
+              :rules="[rules.required, rules.username]"
+          />
+          <v-text-field
+              v-model="editUserDialog.target.email"
+              :label="$t('admin.users.email')"
+              :rules="[rules.required, rules.email]"
+          />
+          <!--v-btn
+              v-if="!editUserDialog.changePassword"
+              v-model="editUserDialog.changePassword"
+              @click="editUserDialog.changePassword = true"
+              v-html="$t('admin.users.change_password')"
+          />
+          <v-text-field
+              v-else
+              v-model="editUserDialog.target.password"
+              :label="$t('admin.users.password')"
+              :rules="[rules.required, rules.password]"
+          /-->
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="editUserDialog.show = false;"
+                 v-html="$t('buttons.cancel')"/>
+          <v-btn
+              color="primary"
+              @click="editUser(editUserDialog.target);
+               editUserDialog.show = false;"
+              v-html="$t('buttons.save')"/>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- [Mobile] -->
+    <!--  edit user dialog -->
+    
     <!-- delete user dialog -->
+      <!-- [Desktop, Mobile] -->
     <v-dialog
         v-model="deleteUserDialog.show"
         :scrollable="true"
@@ -256,6 +374,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+      <!-- [Desktop, Mobile] -->
+    <!-- delete user dialog -->
   </div>
 </template>
 

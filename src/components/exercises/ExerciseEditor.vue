@@ -87,11 +87,12 @@
       </v-card>
     </v-dialog>
 
-    <!-- Add tags dialog start -->
+    <!-- [Desktop] Add tags dialog start -->
     <v-dialog
-      v-model="addTagsDialog.show"
-      :retain-focus="false"
-      transition="slide-y-transition"
+        class="d-none d-md-flex"
+        v-model="addTagsDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
@@ -143,7 +144,64 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!-- Edit users dialog end -->
+    <!-- [Desktop] Edit tags dialog end -->
+
+    <!-- [Mobile] Add tags dialog start -->
+    <v-dialog
+        class="d-md-none"
+        v-model="addTagsDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
+    >
+      <v-card top="20%" width="90vw">
+        <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
+        <v-table :fixed-header="true" height="400px">
+          <thead>
+          <tr>
+            <th>{{ $t("exercise.tag") }}</th>
+            <th class="hide-btn-behind-header"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="tag in filteredTags" :key="tag.tag_id">
+            <td>
+              {{ tag.name }}
+            </td>
+            <td class="text-right">
+              <v-btn @click="addTagToExercise(tag)" color="primary">
+                <v-icon icon="mdi-plus"></v-icon>
+              </v-btn>
+            </td>
+          </tr>
+          </tbody>
+        </v-table>
+        <v-row>
+          <v-col cols="9">
+            <v-text-field
+                :label="$t('exercise.tag_search_or_create')"
+                v-model="addTagsDialog.target.name"
+                @input="updateFilterList">
+            </v-text-field>
+          </v-col>
+          <v-col cols="3">
+            <v-btn
+                width="100%"
+                height="58%"
+                @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
+              {{ $t('buttons.add') }}
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-btn
+              @click="addTagsDialog.show = false"
+              color="error"
+              v-html="$t('buttons.close')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- [Mobile] Edit tags dialog end -->
     <!--br/-->
 
     <!-- Submission Editor -->
