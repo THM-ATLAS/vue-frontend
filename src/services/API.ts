@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from "axios";
 
-const isDev = true;
+const isDev = false;
 
 export const API: AxiosInstance = axios.create({
     baseURL: isDev ? `http://localhost:8080/api/` : `/api/`,
