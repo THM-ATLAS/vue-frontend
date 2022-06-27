@@ -213,7 +213,7 @@
 
       <v-window v-model="tab">
         <v-window-item value="home">
-          <div>
+          <div class="mt-3">
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
