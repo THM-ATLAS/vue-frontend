@@ -104,7 +104,7 @@
 
     formInput.value = submission.value.comment ? submission.value.comment : "";
     exercise.value = (await ExerciseService.getExercise(exerciseId)).data;
-    if(submission.value.teacher_id) teacher.value = (await UserService.getUser(submission.value.teacher_id.toString())).data.name;
+    if(submission.value.teacher_id) teacher.value = (await UserService.getUser(submission.value.teacher_id)).data.name;
   })
 
   async function submitEvaluation() {
