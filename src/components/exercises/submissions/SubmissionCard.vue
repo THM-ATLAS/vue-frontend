@@ -1,13 +1,35 @@
 <template>
   <v-card elevation="0" rounded="0">
+    <v-tooltip bottom>
+      <template v-slot:activator="{ props: tooltip3 }">
+        <v-btn
+            v-bind="tooltip3"
+            @click="goBack"
+            icon="mdi-menu-left"
+            class="ma-2"
+            variant="outlined"/>
+      </template>
+      <span v-html="$t('buttons.back')"/>
+    </v-tooltip>
     <v-btn
         @click="goBack"
         icon="mdi-menu-left"
         class="ma-2"
         variant="outlined"/>
+    <v-tooltip v-if="filteredSubmission" bottom>
+      <template v-slot:activator="{ props: tooltip3 }">
+        <v-btn
+            v-bind="tooltip3"
+            icon="mdi-file-document-edit"
+            class="ma-2"
+            variant="outlined"
+            @click='goToEditor'/>
+      </template>
+      <span v-html="$t('submission.edit_submission')"/>
+    </v-tooltip>
     <br>
     <v-card-title class="text-h4">{{$t('submission.title')}} "{{exercise.title}}"</v-card-title>
-    <v-container v-if="filteredSubmissions.length">
+    <v-container v-if="filteredSubmission">
       <v-card-title class="text-h5">{{$t('submission.submitted-solutions.title')}}</v-card-title>
       <v-table>
           <thead>
@@ -18,33 +40,20 @@
               <th>{{ $t('submission.submitted-solutions.table-header.grade') }}</th>
               <th>{{ $t('submission.submitted-solutions.table-header.evaluated-by') }}</th>
               <th>{{ $t('submission.submitted-solutions.table-header.comment') }}</th>
-              <th>{{ $t('submission.submitted-solutions.table-header.view-submission') }}</th>
             </tr>
           </thead>
           <tbody>
-            <template v-if="filteredSubmissions.length">
-              <tr v-for="s in filteredSubmissions" :key="s.submission_id"> <!-- loop through the submissions array! -->
-                <td>{{s.submission_id}}</td>
+            <template v-if="filteredSubmission">
+              <tr>
+                <td>{{filteredSubmission.submission_id}}</td>
                 <td>{{exercise.type}}</td>
-                <td>{{new Date(s.upload_time).toLocaleString()}}</td>
-                <td v-if="s.grade">{{s.grade}}%</td>
+                <td>{{new Date(filteredSubmission.upload_time).toLocaleString()}}</td>
+                <td v-if="filteredSubmission.grade">{{filteredSubmission.grade}}%</td>
                 <td v-else>-</td>
-                <td v-if="s.teacher_id">{{s.teacher_id}}</td>
+                <td v-if="teacher">{{teacher}}</td>
                 <td v-else>-</td>
-                <td v-if="s.comment">{{s.comment}}</td>
+                <td v-if="filteredSubmission.comment">{{filteredSubmission.comment}}</td>
                 <td v-else>-</td>
-                <td>
-                  <v-btn
-                         @click="visitSubmission(s)"
-                         icon="mdi-open-in-new"
-                         small
-                         elevation="0"
-                         color="success"
-                         class="ma-1"
-                         rounded="0"
-                         variant="outlined"
-                  />
-                </td>
               </tr>
             </template>
             <template v-else>
@@ -55,21 +64,13 @@
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
-                <td>
-                  <v-btn
-                         icon="mdi-open-in-new"
-                         small
-                         elevation="0"
-                         color="error"
-                         class="ma-1"
-                         rounded="0"
-                         variant="outlined"
-                  />
-                </td>
               </tr>
             </template>
           </tbody>
         </v-table>
+      <v-card elevation="0" id="submission-card">
+        <pre v-html="filteredSubmission.file"></pre>
+      </v-card>
     </v-container>
     <v-container v-else>
       <v-card-title class="text-h5">{{$t('submission.submit-a-solution.title')}}</v-card-title>
@@ -79,12 +80,13 @@
       >
         <v-textarea v-model="formInput"
             filled
-            counter="6"
             :label="$t('submission.submit-a-solution.form-placeholder')"
         ></v-textarea>
       </v-form>
-      <v-btn v-if="formInput" @click="submitSolution" prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
-      <v-btn disabled v-else prepend-icon="mdi-upload" variant="outlined">{{$t('buttons.submit')}}</v-btn>
+      <v-card-actions>
+        <v-btn @click="submitSolution" color="primary">{{$t('buttons.save')}}</v-btn>
+        <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
+      </v-card-actions>
     </v-container>
   </v-card>
 </template>
@@ -100,10 +102,12 @@ import {Exercise, Submission, User} from "@/helpers/types"
 const exerciseId: number = Number(router.currentRoute.value.params.id);
 const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
-const filteredSubmissions: Ref<Submission[]> = ref([]);
+const filteredSubmission: Ref<Submission | undefined> = ref({}) as Ref<Submission | undefined>;
 const usersSubmissions: Ref<Submission[]> = ref([]);
 const submissionType = ref("");
 const formInput = ref("")
+const teacher = ref("");
+const sid = ref(0);
 
 onBeforeMount(async () => {
 
@@ -113,7 +117,11 @@ onBeforeMount(async () => {
   loggedInUser.value = (await UserService.getMe()).data;
   await getLoggedInUsersSubmissions();
 
-  await replaceTeacherIds();
+
+  if(filteredSubmission.value) {
+    if(filteredSubmission.value.teacher_id) teacher.value = (await UserService.getUser(filteredSubmission.value.teacher_id)).data.name;
+    sid.value = filteredSubmission.value.submission_id;
+  }
 
 });
 
@@ -122,17 +130,8 @@ async function getLoggedInUsersSubmissions(): Promise<void> {
   apiUsersSubmissions.forEach((result: Submission) => {
     usersSubmissions.value.push(result);
   })
-  filteredSubmissions.value = usersSubmissions.value.filter(s => s.exercise_id === exerciseId); //filter submissions: only submissions for this exercise
-}
+  filteredSubmission.value = usersSubmissions.value.find(s => s.exercise_id === exerciseId); //filter submissions: only submission for this exercise
 
-async function replaceTeacherIds(): Promise<void> {
-
-  //get the names of the users/teachers that evaluated the submissions
-  for(let i = 0; i<filteredSubmissions.value.length; i++) {
-    if (filteredSubmissions.value[i].teacher_id !== null)  //submissions have a teacher_id = null, if the evaluation is pending
-      filteredSubmissions.value[i].teacher_id = ((await UserService.getUser(filteredSubmissions.value[i].teacher_id.toString())).data.name); //replaces id with name: not the best solution
-
-  }
 }
 
 async function submitSolution() {
@@ -150,16 +149,20 @@ async function submitSolution() {
   goBack();
 }
 
-function goBack(): void {
-  router.back();
+function goToEditor() {
+  router.push(`/${exercise.value.module.module_id}/s/${exerciseId}/edit/${sid.value}`);
 }
 
-function visitSubmission(s: any) {
-  router.push(`/${exercise.value.module.module_id}/s/${exerciseId}/${s.submission_id}`);
+function goBack(): void {
+  router.back();
 }
 
 </script>
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
 <style scoped>
-
+#submission-card {
+  overflow: scroll;
+  background: rgb(var(--v-theme-background));
+  margin-top: 2%;
+}
 </style>

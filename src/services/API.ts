@@ -1,11 +1,9 @@
 import axios, {AxiosInstance} from "axios";
-/*
+
 const isDev = true;
-const isLocalHost = true;
-*/
 
 export const API: AxiosInstance = axios.create({
-    baseURL: `http://brueckenkurs-programmieren.thm.de/api/`, // PROD!
+    baseURL: isDev ? `http://localhost:8080/api/` : `/api/`,
     headers: {
         "Content-type": "application/json",
     },
@@ -13,7 +11,7 @@ export const API: AxiosInstance = axios.create({
 });
 
 export const AuthAPI: AxiosInstance = axios.create({ // only used for login and logout
-    baseURL: `http://brueckenkurs-programmieren.thm.de/`,
+    baseURL: isDev ? `http://localhost:8080/` : `/`,
     headers: {
         "Content-type": "application/json",
     },

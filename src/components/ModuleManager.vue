@@ -3,9 +3,14 @@
     <v-card>
       <v-row>
         <v-col cols="1" align-self="center">
-          <v-btn @click="goBack()" class="back-button" rounded="false">
-            <v-icon icon="mdi-arrow-left"/>
-          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ props: tooltip3 }">
+              <v-btn v-bind="tooltip3" @click="goBack()" class="back-button" rounded="false">
+                <v-icon icon="mdi-arrow-left"/>
+              </v-btn>
+            </template>
+            <span v-html="$t('buttons.back')"/>
+          </v-tooltip>
         </v-col>
         <v-col cols="8">
           <v-card-title> {{ module.name }}</v-card-title>
@@ -36,26 +41,37 @@
               <td class="text-left">{{ user.module_role.name }}</td>
               <td class="placeholder-td"></td>
               <td class="text-right">
-                <!-- Disabled until it works -->
-                <v-btn
-                    @click="
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip }">
+                    <v-btn
+                        @click="
                       editPrivilegeDialog.show = true;
                       editPrivilegeDialog.userRole = user.module_role.name;
                       editPrivilegeDialog.user = user;
                     "
-                    class="manage-button"
-                    color="primary"
-                >
-                  <!-- Disabled until it works -->
-                  <v-icon icon="mdi-cog"></v-icon>
-                </v-btn>
-                <v-btn
-                    class="manage-button"
-                    @click="deleteModuleUser(user)"
-                    color="error"
-                >
-                  <v-icon icon="mdi-delete"></v-icon>
-                </v-btn>
+                        class="manage-button"
+                        color="primary"
+                        v-bind="tooltip"
+                    >
+                      <v-icon icon="mdi-cog"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('module_manager.edit_privilege')"/>
+                </v-tooltip>
+                <v-tooltip top>
+                  <template v-slot:activator="{ props: tooltip2 }">
+                    <v-btn
+                        class="manage-button"
+                        @click="deleteModuleUser(user)"
+                        color="error"
+                        v-bind="tooltip2"
+                    >
+                      <v-icon icon="mdi-delete"></v-icon>
+                    </v-btn>
+                  </template>
+                  <span v-html="$t('buttons.remove')"/>
+                </v-tooltip>
+
               </td>
             </tr>
             </tbody>
@@ -74,19 +90,21 @@
     </v-card>
 
     <!-- Edit tags dialog start -->
+      <!-- [Desktop] -->
     <v-dialog
+        class="d-none d-md-flex"
         v-model="manageTagsDialog.show"
         :retain-focus="false"
         transition="slide-y-transition"
     >
-      <v-card top="20%" width="70vw">
+      <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("module_manager.edit_tag") }}</v-card-title>
         <v-card-text>
           <v-table fixed-header height="400px">
             <thead>
             <tr>
-              <th>{{ $t("module_manager.tag") }}</th>
-              <th></th>
+              <th class="hide-btn-behind-header">{{ $t("module_manager.tag") }}</th>
+              <th class="hide-btn-behind-header"></th>
             </tr>
             </thead>
             <tbody>
@@ -129,10 +147,71 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+      <!-- [Desktop] -->
+      <!-- [Mobile] -->
+    <v-dialog
+        class="d-md-none"
+        v-model="manageTagsDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
+    >
+      <v-card top="20%" width="80vw">
+        <v-card-title> {{ $t("module_manager.edit_tag") }}</v-card-title>
+        <v-card-text>
+          <v-table fixed-header height="400px">
+            <thead>
+            <tr>
+              <th class="hide-btn-behind-header">{{ $t("module_manager.tag") }}</th>
+              <th class="hide-btn-behind-header"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
+              <td>
+                <v-container class="test-class">
+                  <v-text-field
+                      vertical-align="middle"
+                      class="centered-input extend"
+                      v-model="tag.name"
+                  />
+                </v-container>
+              </td>
+              <td class="text-right">
+                <v-btn
+                    class="manage-button"
+                    @click="editTag(tag)"
+                    color="primary"
+                >
+                  <v-icon icon="mdi-content-save"></v-icon>
+                </v-btn>
+                <v-btn
+                    class="manage-button"
+                    @click="removeTag(tag)"
+                    color="error"
+                >
+                  <v-icon icon="mdi-delete"></v-icon>
+                </v-btn>
+              </td>
+            </tr>
+            </tbody>
+          </v-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+              @click="manageTagsDialog.show = false"
+              color="error"
+              v-html="$t('buttons.close')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- [Mobile] -->
     <!-- Edit tags dialog end -->
 
     <!-- Edit users dialog start -->
+      <!-- [Desktop] -->
     <v-dialog
+        class="d-none d-md-flex"
         v-model="editPrivilegeDialog.show"
         :retain-focus="false"
         transition="slide-y-transition"
@@ -179,21 +258,74 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+      <!-- [Desktop] -->
+      <!-- [Mobile] -->
+    <v-dialog
+        class="d-md-none"
+        v-model="editPrivilegeDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
+    >
+      <v-card top="15%" width="80vw">
+        <v-card-title> {{ $t("module_manager.edit_privilege") }}</v-card-title>
+        <v-card-text>
+          <v-radio-group v-model="editPrivilegeDialog.userRole">
+            <v-radio
+                :label="$t('module_manager.student')"
+                :key="1"
+                value="student"
+            />
+            <v-radio
+                :label="$t('module_manager.tutor')"
+                value="tutor"
+                :key="2"
+            />
+            <v-radio
+                :label="$t('module_manager.teacher')"
+                value="teacher"
+                :key="3"
+            />
+          </v-radio-group>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+              @click="
+              editPrivilegeDialog.show = false;
+              editPrivilegeDialog.userRole = null;
+              editPrivilegeDialog.user = null;
+            "
+              color="error"
+              v-html="$t('buttons.close')"
+          />
+          <v-btn
+              @click="
+              editPrivilegeDialog.show = false;
+              setUserRole(editPrivilegeDialog.user, editPrivilegeDialog.userRole);
+            "
+              color="primary"
+              v-html="$t('buttons.save')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- [Mobile] -->
     <!-- Edit users dialog end -->
 
     <!-- Edit users dialog start -->
+      <!-- [Desktop] -->
     <v-dialog
+        class="d-none d-md-flex"
         v-model="manageUsersDialog.show"
         :retain-focus="false"
         transition="slide-y-transition"
     >
-      <v-card top="20%" width="70vw">
+      <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("module_manager.add_user") }}</v-card-title>
         <v-table fixed-header height="400px">
           <thead>
           <tr>
             <th>{{ $t("module_manager.name") }}</th>
-            <th></th>
+            <th class="hide-btn-behind-header"></th>
           </tr>
           </thead>
           <tbody>
@@ -216,6 +348,44 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+      <!-- [Desktop] -->
+      <!-- [Mobile] -->
+    <v-dialog
+        class="d-md-none"
+        v-model="manageUsersDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
+    >
+      <v-card top="20%" width="80vw">
+        <v-card-title> {{ $t("module_manager.add_user") }}</v-card-title>
+        <v-table fixed-header height="400px">
+          <thead>
+          <tr>
+            <th>{{ $t("module_manager.name") }}</th>
+            <th class="hide-btn-behind-header"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="user in filteredUsers" v-bind:key="user.user_id">
+            <td>{{ user.name }}</td>
+            <td class="text-right">
+              <v-btn @click="addModuleUser(user.user_id)" color="primary">
+                <v-icon icon="mdi-account-plus"></v-icon>
+              </v-btn>
+            </td>
+          </tr>
+          </tbody>
+        </v-table>
+        <v-card-actions>
+          <v-btn
+              @click="manageUsersDialog.show = false"
+              color="error"
+              v-html="$t('buttons.close')"
+          />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+      <!-- [Mobile] -->
     <!-- Edit users dialog end -->
   </v-container>
 </template>
@@ -384,5 +554,9 @@ function setUserRole(user: ModuleUser, role: string): void {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.hide-btn-behind-header {
+  z-index: 1;
 }
 </style>

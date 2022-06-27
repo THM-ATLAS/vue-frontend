@@ -5,10 +5,9 @@
       <!-- todo: Image loaded from backend -->
       <div>
         <v-img
-            lazy-src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+            src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
             max-height="240px"
             width="100%"
-            src=""
             cover
         >
           <div class="moduleNameContainer">
@@ -17,19 +16,30 @@
         </v-img>
       </div>
       <!-- todo: edit button and menu for lecturers and admins-->
-      <div class="pt-0 pl-0 backButton">
-        <v-btn
-            @click="goBack()"
-            icon="mdi-menu-left"
-            class="mx-3 desktopBackButton"
-            variant="outlined"
-        />
-        <v-btn
-            @click="goToManage()"
-            icon="mdi-cog"
-            class="mx-3 desktopBackButton"
-            variant="outlined"
-        />
+      <div class="pt-0 pl-0 desktopBackButton">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ props: tooltip3 }">
+            <v-btn
+                v-bind="tooltip3"
+                @click="goBack"
+                icon="mdi-menu-left"
+                class="ma-2"
+                variant="outlined"/>
+          </template>
+          <span v-html="$t('buttons.back')"/>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ props: tooltip3 }">
+            <v-btn
+                v-bind="tooltip3"
+                @click="goToManage()"
+                icon="mdi-cog"
+                class="mx-3"
+                variant="outlined"
+            />
+          </template>
+          <span v-html="$t('buttons.edit')"/>
+        </v-tooltip>
       </div>
       <v-card
           class="moduleInfoBox rounded-0"
@@ -38,10 +48,10 @@
       >
         <v-card-text>
           <v-row>
-            <v-col cols="11">
+            <v-col cols="10">
               {{ module.description }}
             </v-col>
-            <v-col cols="1">
+            <v-col align="right" cols="2">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
                     <v-btn @click="reassign" color="secondary" v-bind="props">
@@ -113,12 +123,20 @@
                 >
                   <v-list-item class="moduleInfoListItem"
                                @click="visitProfile(teacher)">
-                    <v-icon
-                        class="ml-3"
-                        icon="mdi-account"
-                        style="margin-right: 8px"
-                    />
-                    {{ teacher.name }}
+                    <v-tooltip right>
+                      <template v-slot:activator="{ props: tooltip }">
+                        <span v-bind="tooltip">
+                        <v-icon
+                            class="ml-3"
+                            icon="mdi-account"
+                            style="margin-right: 8px"
+                        />
+                        {{ teacher.name }}
+                          </span>
+                      </template>
+                      <span v-html="$t('buttons.visit_profile')"/>
+                    </v-tooltip>
+
                   </v-list-item>
                 </v-list>
               </v-card-text>
@@ -133,12 +151,19 @@
                 >
                   <v-list-item class="moduleInfoListItem"
                                @click="visitProfile(tutor)">
-                    <v-icon
-                        class="ml-3"
-                        icon="mdi-account"
-                        style="margin-right: 8px"
-                    />
-                    {{ tutor.name }}
+                    <v-tooltip right>
+                      <template v-slot:activator="{ props: tooltip }">
+                        <span v-bind="tooltip">
+                          <v-icon
+                              class="ml-3"
+                              icon="mdi-account"
+                              style="margin-right: 8px"
+                          />
+                          {{ tutor.name }}
+                          </span>
+                      </template>
+                      <span v-html="$t('buttons.visit_profile')"/>
+                    </v-tooltip>
                   </v-list-item>
                 </v-list>
               </v-card-text>
@@ -162,12 +187,17 @@
       <v-row justify="center">
         <v-col sm="10" md="10" lg="10" xl="10">
           <div class="pt-0 pl-0 backButton">
-            <v-btn
-                @click="goBack"
-                icon="mdi-menu-left"
-                class="mx-3"
-                variant="outlined"
-            />
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    @click="goBack"
+                    icon="mdi-menu-left"
+                    class="ma-2"
+                    variant="outlined"/>
+              </template>
+              <span v-html="$t('buttons.back')"/>
+            </v-tooltip>
           </div>
           <v-card color="highlight" rounded="0" class="pb-0 mt-3">
             <v-row>
@@ -290,8 +320,10 @@ import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
+import { useI18n } from "vue-i18n";
 
 const route = useRoute();
+const i18n = useI18n();
 
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
@@ -365,12 +397,12 @@ function getAssignStatus(): void {
     UserService.getMe().then((res) => {
       if (moduleUsers.value.map((a) => a.user_id).includes(res.data.user_id)) {
         assignedStatus.value = true;
-        label.value.value = "-";
+        label.value.value = i18n.t('module_page.leave');
         label.value.user = res.data;
         label.value.assigned = true;
       } else {
         assignedStatus.value = false;
-        label.value.value = "+";
+        label.value.value = i18n.t('module_page.attend');
         label.value.user = res.data;
         label.value.assigned = false;
       }
@@ -420,7 +452,7 @@ function getUserTemplate(): ModuleUser {
 }
 
 .desktopBackButton {
-  margin-top: 10px;
+  margin: 10px;
 }
 
 .moduleNameContainer {

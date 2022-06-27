@@ -4,7 +4,7 @@ import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/ProfileView.vue";
 import Submission from "@/views/exercises/submissions/SubmissionView.vue";
-import SpecificSubmission from "@/views/exercises/submissions/SpecificSubmissionView.vue";
+import EditSubmission from "@/views/exercises/submissions/EditSubmissionView.vue";
 import SpecificEvaluation from "@/views/exercises/submissions/SpecificEvaluationView.vue";
 import EvaluationList from "@/views/exercises/submissions/EvaluationListView.vue";
 import Notifications from "@/views/NotificationsView.vue";
@@ -22,9 +22,15 @@ import Home from "@/views/HomeView.vue";
 import ModuleSearch from "@/views/ModuleSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
 import ModuleManager from "@/views/moduleManagement/ModuleManagementView.vue";
+import UserService from "@/services/UserService";
+import SettingsService from "@/services/SettingsService";
+import {theme} from "@/helpers/theme";
+import {i18n} from "@/main";
+import {isLoggedIn} from "@/services/LoginService";
+import {AxiosResponse} from "axios";
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '/', component: Home},
+  {path: '/', name: 'Home',component: Home},
 
   {path: '/login', component: Login},
   { path: '/404', name: 'NotFound', component: PageNotFound },
@@ -39,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
   {path: '/:module/s/:id', component: Submission},
-  {path: '/:module/s/:id/:sid', component: SpecificSubmission},
+  {path: '/:module/s/:id/edit/:sid', component: EditSubmission},
   {path: '/:module/eval/:id', component: EvaluationList},
   {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
 
@@ -64,6 +70,22 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach(async (to, from) => {
+    await UserService.getMe().then(async (r: AxiosResponse) =>{
+      if (isLoggedIn(r)) {
+        window.localStorage.setItem('loggedIn', 'true')
+        await SettingsService.getUserSettings(r.data.user_id).then( res => {
+          theme.value = res.data.theme
+          i18n.global.locale = res.data.language
+        })
+      } else {
+        window.localStorage.removeItem('loggedIn')
+        theme.value = 'light'
+        i18n.global.locale = 'de'
+      }
+    })
 })
 
 export default router
