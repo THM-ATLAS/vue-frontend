@@ -212,8 +212,6 @@ onBeforeMount(async () => {
   }).catch(() => {
     router.replace("/page-not-found")
   });
-
-  exercise.value;
 })
 
 function goBack() {
