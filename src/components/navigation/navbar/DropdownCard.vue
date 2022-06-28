@@ -51,12 +51,13 @@ const router = useRouter();
 
 async function logout(): Promise<void> {
   await LoginService.logout();
-  goToHome();
+  window.localStorage.removeItem('loggedIn');
+  await goToHome();
   window.location.reload();
 }
 
-function goToHome(): void {
-  router.push(`/`);
+async function goToHome(): Promise<void> {
+  await router.push(`/`);
 }
 
 //function goToNotifications(): void {

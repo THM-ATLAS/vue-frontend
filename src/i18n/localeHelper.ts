@@ -1,6 +1,7 @@
 import SettingsService from "@/services/SettingsService";
 import UserService from "@/services/UserService";
 import {i18n} from "@/main";
+import {theme} from "@/helpers/theme";
 
 const DEFAULT_LOCALE: string = 'de';
 
@@ -20,10 +21,12 @@ export async function setLocale(newLocale: string): Promise<any> {
         await SettingsService.editUserSettings({
             user_id: res.data.user_id,
             language: newLocale,
-            theme: localStorage.getItem('theme') || 'light'
+            theme: theme.value
+        }).then(r => {
+            i18n.global.locale = r.data.language
+            window.localStorage.setItem('theme', r.data.theme);
+            window.localStorage.setItem('locale', r.data.language);
         })
-        i18n.global.locale = res.data.language
-        window.localStorage.setItem('locale', newLocale);
     })
 }
 
