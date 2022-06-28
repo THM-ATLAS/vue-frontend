@@ -155,8 +155,8 @@ onBeforeMount(async () => {
 
 const router = useRouter();
 
-function goToHome(): void {
-  router.push(`/`);
+async function goToHome(): Promise<void> {
+  await router.push(`/`);
 }
 
 function goToLogin(): void {
@@ -166,7 +166,7 @@ function goToLogin(): void {
 async function logout(): Promise<void> {
   await LoginService.logout();
   window.localStorage.removeItem('loggedIn');
-  goToHome();
+  await goToHome();
   window.location.reload();
 }
 

@@ -139,7 +139,7 @@ const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.lo
 
 
 watch(chosenLocale, async (newValue) => {
-  console.log(newValue.code)
+  //console.log(newValue.code)
   await setLocale(newValue.code);
   router.go()
   //window.location.reload();

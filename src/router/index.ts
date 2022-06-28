@@ -87,8 +87,6 @@ router.beforeEach(async (to, from) => {
         })
       } else {
         window.localStorage.removeItem('loggedIn')
-        theme.value = 'light'
-        i18n.global.locale = 'de'
       }
     })
 })
