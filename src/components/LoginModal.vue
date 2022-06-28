@@ -86,8 +86,11 @@ const rules = {
 
 async function login() {
   await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then( async (r: AxiosResponse)  => {
-    console.log(r)
-    await router.push(r.request.responseURL)
+    // console.log(r)
+    const lastRoute = router.currentRoute;
+    await router.push(r.request.responseURL);
+    if (lastRoute == router.currentRoute)
+      alert.value = true;
     /*
     // if (isLoggedIn(r)) {
     window.localStorage.setItem('loggedIn', 'true')
