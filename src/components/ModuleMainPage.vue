@@ -184,34 +184,20 @@
 
     <!-- mobile version-->
     <div class="mobileView d-xs-block d-sm-block d-md-none">
-      <v-row justify="center">
-        <v-col sm="10" md="10" lg="10" xl="10">
-          <div class="pt-0 pl-0 backButton">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ props: tooltip3 }">
-                <v-btn
-                    v-bind="tooltip3"
-                    @click="goBack"
-                    icon="mdi-menu-left"
-                    class="ma-2"
-                    variant="outlined"/>
-              </template>
-              <span v-html="$t('buttons.back')"/>
-            </v-tooltip>
-          </div>
-          <v-card color="highlight" rounded="0" class="pb-0 mt-3">
-            <v-row>
-              <v-col cols="10" align-self="center">
-                <h1>
-                  {{ module.name }}
-                </h1>
-              </v-col>
-              <v-col cols="2" align-self="center" class="d-flex justify-end">
-                <v-btn @click="reassign" color="secondary">
-                  {{ label.value }}
-                </v-btn>
-              </v-col>
-            </v-row>
+          <v-img
+              src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+              max-height="70px"
+              width="100%"
+              cover
+          />
+          <v-card color="highlight" rounded="0" class="pb-0">
+            <h1 class="mobileModuleTitle">
+              {{ module.name }}
+            </h1>
+            <v-btn @click="reassign" color="secondary" class="mobileEnrollButton">
+              {{ label.value }}
+            </v-btn>
+
             <v-tabs v-model="tab" class="pb-0 mt-2">
               <v-tab value="home">
                 {{ $t("module_page.module") }}
@@ -219,17 +205,15 @@
               <v-tab value="about">
                 {{ $t("module_page.about") }}
               </v-tab>
-              <v-tab @click="goToManage()" value="manage">
+              <v-tab value="settings">
                 {{ $t("module_page.manage") }}
               </v-tab>
             </v-tabs>
           </v-card>
-        </v-col>
-      </v-row>
 
       <v-window v-model="tab">
         <v-window-item value="home">
-          <div>
+          <div class="mt-3">
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
@@ -244,9 +228,6 @@
                   elevation="2"
                   @click="goToExercise(exercise)"
               >
-                <v-chip v-for="tag in exercise.tags" :key="tag.tag_id">
-                  {{ tag.name }}
-                </v-chip>
                 <h1 class="ex-title">
                   <v-card-title>
                     {{ exercise.title }}
@@ -255,6 +236,9 @@
                 <v-card-text>
                   {{ exercise.description }}
                 </v-card-text>
+                <v-chip v-for="tag in exercise.tags" :key="tag.tag_id">
+                  {{ tag.name }}
+                </v-chip>
               </v-card>
             </v-row>
           </div>
@@ -308,6 +292,10 @@
             </v-container>
           </div>
         </v-window-item>
+
+        <v-window-item value="settings">
+          <ModuleManager embedded="true"/>
+        </v-window-item>
       </v-window>
     </div>
   </div>
@@ -321,6 +309,7 @@ import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
+import ModuleManager from "@/components/ModuleManager.vue";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -532,10 +521,14 @@ function getUserTemplate(): ModuleUser {
 
 //CSS classes for the mobile version of the component
 .mobileView {
-  margin-block: 6em;
+  margin-block: 4.5em;
   justify-content: center;
   background-color: rgb(var(--v-theme-surface));
   padding-bottom: 6px;
+}
+
+.mobileModuleTitle{
+  font-size: 1.5em;
 }
 
 .exerciseListBox {
@@ -562,5 +555,11 @@ function getUserTemplate(): ModuleUser {
 
 .tag-chip {
   margin-top: -2em;
+}
+
+.mobileEnrollButton{
+  margin-left: auto;
+  margin-right: 8px;
+  display: block;
 }
 </style>
