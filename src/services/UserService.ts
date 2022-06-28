@@ -1,5 +1,5 @@
 import API from "@/services/API";
-import {User, Role} from "@/helpers/types"
+import {User} from "@/helpers/types"
 
 class UserService {
 

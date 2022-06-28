@@ -34,7 +34,6 @@
                   item-title="name"
                   return-object
                   :label="$t('settings.language')"
-                  @change="changeLocale(chosenLocale)"
               />
             </v-col>
             <!--v-col cols="12" md="12">
@@ -125,6 +124,7 @@ import {toggleTheme, theme} from "@/helpers/theme";
 import {ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {setLocale} from "@/i18n/localeHelper";
+import router from "@/router";
 
 const i18n = useI18n();
 const availableLocales = i18n.availableLocales.map(locale => {
@@ -134,47 +134,18 @@ const availableLocales = i18n.availableLocales.map(locale => {
       }
     }
 );
-
-// const localeSetting = ref(availableLocales.find(locale => locale.code === i18n.locale));
 const chosenLocale = ref(availableLocales.find(locale => locale.code === i18n.locale.value));
 
-watch(chosenLocale, (newValue) => {
-  i18n.locale = newValue.code;
-  setLocale(newValue.code);
-  window.location.reload();
+
+
+watch(chosenLocale, async (newValue) => {
+  //console.log(newValue.code)
+  await setLocale(newValue.code);
+  router.go()
+  //window.location.reload();
 })
 
-function changeLocale(locale) {
-  setLocale(locale.value.code)
-}
 
-/*
-import { ref } from "vue";
-
-let settings = ref({
-  general: {
-    important_notifications: true,
-    show_notifications: false,
-    show_notifications_in_browser: false,
-    send_notification_mails: false,
-    theme: "light",
-    language: "de",
-  },
-});
-function deleteAccount() {
-  // this.$store.dispatch("deleteAccount");
-}
-function saveSettings() {
-  console.log(this.settings);
-  // this.$store.dispatch("saveSettings", this.settings);
-}
-function resetSettings() {
-  // this.$store.dispatch("resetSettings");
-}
-function closeSettings() {
-  // this.$router.back();
-}
-*/
 </script>
 
 <style scoped>

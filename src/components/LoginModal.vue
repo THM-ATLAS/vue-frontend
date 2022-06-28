@@ -52,29 +52,28 @@
           :disabled="!loginFormValid"
           @click="login"
           @keyup.enter="login">
+
         {{ $t('buttons.login_with_ldap') }}
       </v-btn>
     </v-card-actions>
   </v-card>
-  <v-btn
-      class="ma-3"
-      :flat="true"
-      size="large"
-      rounded="0"
-      variant="outlined"
-      @click="goToHome">
-    {{ $t('login_page.skip_login') }}
-  </v-btn>
+
 </template>
 
 <script setup lang='ts'>
-import {useRouter} from "vue-router";
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
 
-const router = useRouter();
+import {AxiosResponse} from "axios";
+//import {useRouter} from "vue-router";
+import {theme} from "@/helpers/theme";
+import SettingsService from "@/services/SettingsService";
+import UserService from "@/services/UserService";
+import router from "@/router";
+
 const i18n = useI18n();
+//const router = useRouter();
 
 const alert = ref(false);
 const loginFormValid = ref(false);
@@ -89,19 +88,32 @@ const rules = {
 };
 
 async function login() {
-  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password);
-  goToHome();
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then(async (r: AxiosResponse) => {
+    //const lastRoute = router.currentRoute;
+
+    //await router.push(r.request.responseURL).then(async () => {
+    if (r.request.responseURL.endsWith('login')) {
+      alert.value = true;
+      window.localStorage.removeItem('loggedIn')
+    } else {
+      window.localStorage.setItem('loggedIn', 'true')
+      console.log("loggedIn set")
+      await UserService.getMe().then(async response => {
+        console.log("UserService awaited")
+        await SettingsService.getUserSettings(response.data.user_id).then(res => {
+          console.log("SettingsService awaited")
+          console.log(res)
+          theme.value = res.data.theme
+          i18n.locale.value = res.data.language
+          localStorage.setItem('theme', res.data.theme)
+          localStorage.setItem('locale', res.data.language)
+          router.push('/');
+        })
+      })
+
+    }
+})
 }
 
-// function storeUserData(user: User) {
-//   localStorage.setItem("user", JSON.stringify(user));
-// }
 
-// function goToProfile(userId: string) {
-//   router.push(`/u/${userId}`);
-// }
-
-function goToHome() {
-  router.push("/");
-}
 </script>

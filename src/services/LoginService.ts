@@ -1,4 +1,5 @@
 import {AuthAPI} from "@/services/API";
+import {AxiosResponse} from "axios";
 
 class LoginService {
     //TODO: Return / check response codes
@@ -16,3 +17,7 @@ class LoginService {
 }
 
 export default new LoginService();
+
+export function isLoggedIn(response: AxiosResponse) {
+    return response.status === 200 && (response.data?.user_id ?? -1 > -1);
+}

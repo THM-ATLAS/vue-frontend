@@ -133,22 +133,30 @@ import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
-import LoginService from "@/services/LoginService";
+import LoginService, {isLoggedIn} from "@/services/LoginService";
+import {AxiosResponse} from "axios";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
 const user: Ref<User | undefined> = ref(undefined);
-const loggedIn = ref(false);
+const loggedIn : Ref<boolean> = ref(false);
 
 onBeforeMount(async () => {
-  user.value = (await UserService.getMe())?.data || undefined;
-  loggedIn.value = !!user.value;
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      user.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
 })
 
 const router = useRouter();
 
-function goToHome(): void {
-  router.push(`/`);
+async function goToHome(): Promise<void> {
+  await router.push(`/`);
 }
 
 function goToLogin(): void {
@@ -157,7 +165,9 @@ function goToLogin(): void {
 
 async function logout(): Promise<void> {
   await LoginService.logout();
-  goToHome();
+  window.localStorage.removeItem('loggedIn');
+  await goToHome();
+  window.location.reload();
 }
 
 function goToAdmin() {

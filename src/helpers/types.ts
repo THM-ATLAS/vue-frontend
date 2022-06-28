@@ -26,6 +26,13 @@ export type Submission = {
     comment: string | null
 }
 
+export type Evaluation = {
+    submission_id : number,
+    grade : number | null,
+    teacher_id : number | null,
+    comment : string | null
+}
+
 export type UserSettings = {
     user_id: number,
     language: string,
@@ -74,6 +81,14 @@ export type PostExercise = {
     description: string,
     exercisePublic : boolean,
 }
+
+export type Asset = {
+    asset_id : number,
+    asset: string,
+    public: boolean,
+    filename: string,
+}
+
 
 export type Notification = {
     notification_id : number,
