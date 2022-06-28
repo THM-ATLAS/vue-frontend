@@ -29,7 +29,7 @@ const translationEn = {
     },
     login_page: {
         login: 'Login',
-        instructions: 'Use your THM user credentials.',
+        instructions: 'Use your THM login credentials.',
         user_id: 'Username',
         password: 'Password',
         username_required: 'Please enter your username.',
