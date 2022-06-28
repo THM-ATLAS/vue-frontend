@@ -33,8 +33,8 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/', name: 'Home',component: Home},
 
   {path: '/login', component: Login},
-  { path: '/404', name: 'NotFound', component: PageNotFound },
-  { path: '/:pathMatch(.*)*', redirect: '/404' },
+  { path: '/page-not-found', name: 'NotFound', component: PageNotFound },
+  { path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
 
   {path: '/:module/', component: ModuleMainPage},
   {path: '/:module/manage', component: ModuleManager},
