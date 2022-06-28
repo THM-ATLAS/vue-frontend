@@ -343,7 +343,7 @@ async function loadModule(): Promise<void> {
         );
       })
       .catch(() => {
-        router.replace("/404");
+        router.replace("/page-not-found");
       });
 }
 
