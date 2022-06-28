@@ -204,10 +204,16 @@ const exercise: Ref<Exercise | any> = ref({});
 const tags: Ref<Tag[]> = ref([]);
 
 onBeforeMount(async () => {
-  exercise.value = (await ExerciseService.getExercise(id)).data
-  await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
-  tags.value = exercise.value.tags;
-  document.title = exercise.value.module.name + ' - ' + exercise.value.title
+  ExerciseService.getExercise(id).then(async (res) => {
+    exercise.value = res.data;
+    await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
+    tags.value = exercise.value.tags;
+    document.title = exercise.value.module.name + ' - ' + exercise.value.title
+  }).catch(() => {
+    router.replace("/page-not-found")
+  });
+
+  exercise.value;
 })
 
 function goBack() {
