@@ -40,26 +40,6 @@
           </template>
           <span v-html="$t('buttons.edit')"/>
         </v-tooltip>
-    <v-btn
-    @click="consoleAllTags()">
-      All Tags
-    </v-btn>
-    <v-btn
-    @click="getModuleTags()">
-      Get Tags
-    </v-btn>
-    <v-btn
-    @click="setModuleTags()">
-      Set Tags
-    </v-btn>
-    <v-btn
-    @click="delModuleTags()">
-      Remove Tags
-    </v-btn>
-    <v-btn
-    @click="delOne()">
-      DEL ONE
-    </v-btn>
       </div>
       <v-card
           class="moduleInfoBox rounded-0"
@@ -447,56 +427,6 @@ function getUserTemplate(): ModuleUser {
     username: "",
     email: "",
   };
-}
-
-/**
- * New
- */
-
-function consoleAllTags(): void {
-  TagService.getAllTags().then(res => {
-    console.log(res.data);
-  })
-}
-
-function getModuleTags(): void {
-  //console.log(TagService.getAllTags());
-  //console.log(module.value);
-  TagService.getModuleTags(module.value).then(res => {
-    console.log(res.data);
-  })
-}
-
-function setModuleTags(): void {
-  const t = {
-    tag_id: 3,
-    name: "Laufzeit"
-  }
-  TagService.addTagToModule(module.value, t).then((res) => {
-    console.log(res.data);
-  })
-}
-
-function delModuleTags(): void {
-  const t = {
-    tag_id: 25,
-    name: "Unix"
-  }
-  TagService.delTagFromModule(module.value, t).then((res) => {
-    console.log(res.data);
-  })
-}
-
-function delOne(): void {
-  const t = {
-    tag_id: 71,
-    name: "Autom",
-    icon: {
-      icon_id: 1,
-      reference: "mdi-laptop"
-    }
-  }
-  TagService.delTag(t);
 }
 </script>
 
