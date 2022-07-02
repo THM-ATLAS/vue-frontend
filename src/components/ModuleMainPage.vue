@@ -56,6 +56,10 @@
     @click="delModuleTags()">
       Remove Tags
     </v-btn>
+    <v-btn
+    @click="delOne()">
+      DEL ONE
+    </v-btn>
       </div>
       <v-card
           class="moduleInfoBox rounded-0"
@@ -481,6 +485,18 @@ function delModuleTags(): void {
   TagService.delTagFromModule(module.value, t).then((res) => {
     console.log(res.data);
   })
+}
+
+function delOne(): void {
+  const t = {
+    tag_id: 71,
+    name: "Autom",
+    icon: {
+      icon_id: 1,
+      reference: "mdi-laptop"
+    }
+  }
+  TagService.delTag(t);
 }
 </script>
 

@@ -383,6 +383,7 @@ function editTag(toBeEditedTag: Tag): void {
           res.data.forEach((exercise: Exercise) => {
             exercise.tags.forEach((exerciseTag: Tag) => {
               if(exerciseTag.tag_id == toBeEditedTag.tag_id) {
+                tagFound = true;
                 TagService.addTagToExercise(foundTag, exercise);
                 TagService.delTagFromExercise(exerciseTag, exercise);
                 TagService.delTagFromModule(module.value, toBeEditedTag);
@@ -398,35 +399,65 @@ function editTag(toBeEditedTag: Tag): void {
       const newTag = {
         tag_id: 0,
         name: toBeEditedTag.name,
+        icon: {
+          icon_id: 5,
+          reference: "mdi-laptop"
+        }
       };
-      //Add tag globally
       TagService.addTag(newTag).then(() => {
-        //Get the newly added tag
-        const newlyAddedTag: Ref<Tag> = ref({}) as Ref<Tag>
-        TagService.getAllTags().then(res => {
-          res.data.forEach((allTag: Tag) => {
-            if(allTag.name.toLowerCase() == newTag.name.toLowerCase()) newlyAddedTag.value = allTag
-          })
-        })
-        //Get all exercises
-        ExerciseService.getExercisesForModule(module.value.module_id).then(res => {
-          //For each exercise ...
-          res.data.forEach((exercise: Exercise) => {
-            //... there are tags of whitch ...
-            exercise.tags.forEach((exerciseTag: Tag) => {
-              //... a tag is found that has to be replaced because it still is the toBeEditedTag
-              if(exerciseTag.tag_id == toBeEditedTag.tag_id) {
-                TagService.addTagToExercise(newlyAddedTag.value, exercise);
-                TagService.delTagFromExercise(newlyAddedTag.value, exercise);
-                //Remove the unused tag from the module ...
-                TagService.delTagFromModule(module.value, toBeEditedTag);
-                //... but add the new one to it
-                TagService.addTagToModule(module.value, newlyAddedTag.value);
-              }
+      TagService.getAllTags().then((res) => {
+        res.data.forEach((allTag: Tag) => {
+          if(allTag.name.toLowerCase() == newTag.name.toLowerCase()) {
+            console.log(allTag);
+            ExerciseService.getExercisesForModule(module.value.module_id).then(res => {
+            res.data.forEach((exercise: Exercise) => {
+                exercise.tags.forEach((exTag: Tag) => {
+                  if(exTag.tag_id == toBeEditedTag.tag_id) {
+                    TagService.addTagToExercise(allTag, exercise);
+                    TagService.delTagFromExercise(exTag, exercise);
+                    TagService.addTagToModule(module.value, allTag);
+                    TagService.delTagFromModule(module.value, exTag);
+                  }
+                })
+              })
             })
-          })
-        })
-      });
+          }
+        });
+      })
+        
+      })
+      //Add tag globally
+      //TagService.addTag(newTag).then(() => {
+      
+        
+      //});
+      // // TagService.addTag(newTag).then(() => {
+      // //   //Get the newly added tag
+      // //   const newlyAddedTag: Ref<Tag> = ref({}) as Ref<Tag>
+      // //   TagService.getAllTags().then(res => {
+      // //     res.data.forEach((allTag: Tag) => {
+      // //       if(allTag.name.toLowerCase() == newTag.name.toLowerCase()) newlyAddedTag.value = allTag
+      // //     })
+      // //   })
+      //   //Get all exercises
+      //   ExerciseService.getExercisesForModule(module.value.module_id).then(res => {
+      //     //For each exercise ...
+      //     res.data.forEach((exercise: Exercise) => {
+      //       //... there are tags of whitch ...
+      //       exercise.tags.forEach((exerciseTag: Tag) => {
+      //         //... a tag is found that has to be replaced because it still is the toBeEditedTag
+      //         if(exerciseTag.tag_id == toBeEditedTag.tag_id) {
+      //           TagService.addTagToExercise(newlyAddedTag.value, exercise);
+      //           TagService.delTagFromExercise(newlyAddedTag.value, exercise);
+      //           //Remove the unused tag from the module ...
+      //           TagService.delTagFromModule(module.value, toBeEditedTag);
+      //           //... but add the new one to it
+      //           TagService.addTagToModule(module.value, newlyAddedTag.value);
+      //         }
+      //       })
+      //     })
+      //   })
+      // });
     }
   })
   //TagService.editTag(toBeEditedTag);

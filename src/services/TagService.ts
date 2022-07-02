@@ -41,7 +41,7 @@ class TagService {
     }
 
     delTagFromModule(module: Module, tag: Tag) {
-        return API.delete(`module/tags/${module.module_id}/${tag.tag_id}`);
+        return API.delete(`modules/tags/${module.module_id}/${tag.tag_id}`);
     }
 
 }

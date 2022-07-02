@@ -588,6 +588,10 @@ function getTagTemplate(): Tag {
   return {
     tag_id: 0,
     name: "",
+    icon: {
+      icon_id: 5,
+      reference: "mdi-laptop"
+    }
   };
 }
 </script>
