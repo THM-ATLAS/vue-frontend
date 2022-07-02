@@ -1,5 +1,5 @@
 import API from "@/services/API";
-import {Exercise, Tag} from "@/helpers/types"
+import {Exercise, Tag, Module} from "@/helpers/types"
 
 class TagService {
 
@@ -30,6 +30,18 @@ class TagService {
 
     delTagFromExercise(tag: Tag, exercise: Exercise): Promise<any> {
         return API.delete(`exercises/${exercise.exercise_id}/${tag.tag_id}`);
+    }
+
+    getModuleTags(module: Module) {
+        API.get(`modules/${module.module_id}/tags`);
+    }
+
+    addTagToModule(module: Module, tag: Tag) {
+        API.post(`modules/tags/${module.module_id}/${tag.tag_id}`);
+    }
+
+    delTagFromModule(module: Module, tag: Tag) {
+        API.delete(`modules/tags/${module.module_id}/${tag.tag_id}`);
     }
 
 }

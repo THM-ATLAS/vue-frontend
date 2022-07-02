@@ -40,6 +40,18 @@
           </template>
           <span v-html="$t('buttons.edit')"/>
         </v-tooltip>
+    <v-btn
+    @click="getModuleTags()">
+      Get Tags
+    </v-btn>
+    <v-btn
+    @click="setModuleTags()">
+      Set Tags
+    </v-btn>
+    <v-btn
+    @click="delModuleTags()">
+      Remove Tags
+    </v-btn>
       </div>
       <v-card
           class="moduleInfoBox rounded-0"
@@ -310,6 +322,7 @@ import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/ModuleManager.vue";
+import TagService from "@/services/TagService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -426,6 +439,32 @@ function getUserTemplate(): ModuleUser {
     username: "",
     email: "",
   };
+}
+
+/**
+ * New
+ */
+
+function getModuleTags(): void {
+  //console.log(TagService.getAllTags());
+  //console.log(module.value);
+  console.log(TagService.getModuleTags(module.value));
+}
+
+function setModuleTags(): void {
+  const t = {
+    tag_id: 25,
+    name: "Unix"
+  }
+  TagService.addTagToModule(module.value, t);
+}
+
+function delModuleTags(): void {
+  const t = {
+    tag_id: 25,
+    name: "Unix"
+  }
+  TagService.delTagFromModule(module.value, t);
 }
 </script>
 
