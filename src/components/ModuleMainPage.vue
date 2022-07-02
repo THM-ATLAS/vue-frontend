@@ -65,15 +65,12 @@
           </v-row>
         </v-card-text>
       </v-card>
-      <v-template
-      v-for="exercise in exercises"
-      v-bind:key="exercise.exercise_id">
         <v-chip
-        v-for="tag in exercise.tags" :key="tag.tag_id"
+        v-for="tag in moduleTags" :key="tag.tag_id"
         @click="filter(tag)">
+        <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"></v-icon>
         {{ tag.name }}
         </v-chip>
-      </v-template>
       <v-container fluid>
         <v-row>
           <v-col cols="9">
@@ -328,6 +325,7 @@ const i18n = useI18n();
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const exercises: Ref<Array<Exercise>> = ref([]);
+const moduleTags: Ref<Tag[]> = ref([]);
 const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
 const tutors: Ref<Array<User>> = ref([]);
@@ -353,6 +351,7 @@ async function loadModule(): Promise<void> {
             (e) => {
               exercises.value = e.data;
               getAssignStatus();
+              getAllModuleTags();
             }
         );
       })
@@ -443,7 +442,9 @@ function getUserTemplate(): ModuleUser {
 }
 
 function filter(tag: Tag): void {
-  selectedTag.value.value == '' ? selectedTag.value.value = tag.name : selectedTag.value.value = '';
+  console.log(tag);
+  console.log(TagService.getAllTags());
+  selectedTag.value.value == tag.name ? selectedTag.value.value = '' : selectedTag.value.value = tag.name;
 }
 
 function setExercise(exercise: Exercise): boolean {
@@ -453,14 +454,19 @@ function setExercise(exercise: Exercise): boolean {
   else {
     exercise.tags.forEach((tag: Tag) => {
       if(tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
-        console.log("true")
         console.log(exercise);
         return true;
       }
     })
-    console.log("false")
     return false;
   }
+}
+
+function getAllModuleTags(): void {
+  TagService.getModuleTags(module.value).then(res => {
+    moduleTags.value = res.data;
+    console.log(moduleTags.value);
+  })
 }
 </script>
 
@@ -600,5 +606,9 @@ function setExercise(exercise: Exercise): boolean {
 
 .tag-container {
   margin-left: 2em;
+}
+
+.tag-icon {
+  margin-right: 0.2em;
 }
 </style>

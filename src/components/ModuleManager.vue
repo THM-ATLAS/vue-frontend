@@ -120,10 +120,15 @@
                   {{ $t("module_manager.tag") }}
                 </th>
                 <th class="hide-btn-behind-header"></th>
+                <th class="hide-btn-behind-header"></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="tag in tagsCurrent" v-bind:key="tag.tag_id">
+                <td class="text-center">
+                  <v-icon size="small" :icon="tag.icon.reference"/>
+
+                </td>
                 <td>
                   <v-container class="test-class">
                     <v-text-field

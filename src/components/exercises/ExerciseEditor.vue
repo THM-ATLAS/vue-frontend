@@ -15,6 +15,7 @@
           :closable="true"
           @click:close="removeTag(tag)"
         >
+          <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"/>
           {{ tag.name }}
         </v-chip>
       </div>
@@ -99,13 +100,14 @@
         <v-table :fixed-header="true" height="40vh">
           <thead>
             <tr>
-              <th>{{ $t("exercise.tag") }}</th>
+              <th class="hide-btn-behind-header">{{ $t("exercise.tag") }}</th>
               <th class="hide-btn-behind-header"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="tag in filteredTags" :key="tag.tag_id">
               <td>
+                <v-icon class="tag-icon" size=small :icon="tag.icon.reference"/>
                 {{ tag.name }}
               </td>
               <td class="text-right">
@@ -609,5 +611,9 @@ function getTagTemplate(): Tag {
 
 .hide-btn-behind-header {
   z-index: 1;
+}
+
+.tag-icon {
+  margin-right: 0.3em;
 }
 </style>
