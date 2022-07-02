@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <!-- desktop version -->
-    <div class="desktopView d-none d-md-block">
+  <!-- desktop version -->
+  <div class="desktopView d-none d-md-block">
       <!-- todo: Image loaded from backend -->
       <div>
         <v-img
@@ -182,8 +181,8 @@
       </v-container>
     </div>
 
-    <!-- mobile version-->
-    <div class="mobileView d-xs-block d-sm-block d-md-none">
+  <!-- mobile version-->
+  <div class="mobileView d-xs-block d-sm-block d-md-none">
           <v-img
               src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
               max-height="70px"
@@ -298,7 +297,6 @@
         </v-window-item>
       </v-window>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -328,7 +326,6 @@ const label = ref({
   user: user.value,
   assigned: false,
 });
-
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
@@ -342,8 +339,19 @@ async function loadModule(): Promise<void> {
             }
         );
       })
-      .catch(() => {
-        router.replace("/page-not-found");
+      .catch((error) => {
+        switch (error.response.status) {
+          case 404:
+            router.replace("/page-not-found");
+            break;
+          case 403:
+            router.replace("/private-page");
+            break;
+            //401 shouldn't occur as the backend automatically routes users to the login page if they aren't logged in
+          default:
+            router.replace("/");
+            break;
+        }
       });
 }
 

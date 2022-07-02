@@ -209,8 +209,19 @@ onBeforeMount(async () => {
     await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
     tags.value = exercise.value.tags;
     document.title = exercise.value.module.name + ' - ' + exercise.value.title
-  }).catch(() => {
-    router.replace("/page-not-found")
+  }).catch((error) => {
+    switch (error.response.status) {
+      case 404:
+        router.replace("/page-not-found");
+        break;
+      case 403:
+        router.replace("/private-page");
+        break;
+        //401 shouldn't occur as the backend automatically routes users to the login page if they aren't logged in
+      default:
+        router.replace("/");
+        break;
+    }
   });
 })
 

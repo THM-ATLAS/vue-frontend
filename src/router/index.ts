@@ -14,6 +14,7 @@ import ExerciseEditor from "@/views/exercises/ExerciseEditorView.vue";
 import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/SettingsView.vue";
 import PageNotFound from "@/views/PageNotFoundView.vue";
+import PrivatePage from "@/views/PrivatePageView.vue";
 import UserManagement from "@/views/admin/UserManagementView.vue";
 import ModuleMainPage from "@/views/ModuleMainPageView.vue"
 import ExerciseManagement from "@/views/admin/ExerciseManagementView.vue";
@@ -34,6 +35,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {path: '/login', component: Login},
   { path: '/page-not-found', name: 'NotFound', component: PageNotFound },
+  {path: '/private-page', component: PrivatePage},
   { path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
 
   {path: '/:module/', component: ModuleMainPage},

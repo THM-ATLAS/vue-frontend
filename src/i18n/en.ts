@@ -330,6 +330,10 @@ const translationEn = {
         error_description: "If you think this is a mistake, please contact the lecturer of the module this link is from.",
         home_button: "Go to the landing page",
         back_button: "Go back",
+    },
+    private_notice: {
+        description: "The page you were trying to view is private, you need to be granted permission to view it. " +
+            "Please contact the lecturer of the module to get access to this page."
     }
 }
 

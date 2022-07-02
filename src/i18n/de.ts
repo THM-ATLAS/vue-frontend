@@ -330,6 +330,10 @@ const translationDe = {
         error_description: "Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.",
         home_button: "Startseite",
         back_button: "Zurück",
+    },
+    private_notice: {
+        description: "Die aufgerufene Seite ist privat, du musst entsprechende Zugriffsrechte bekommen um diese Seite zu sehen. " +
+            "Bitte kontaktiere die Lehrbeauftragten des Moduls um Zugriff auf diese Seite zu bekommen."
     }
 }
 
