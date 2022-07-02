@@ -23,7 +23,7 @@
 
 <script lang='ts' setup>
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
-import ModuleManager from "@/components/ModuleManager.vue";
+import ModuleManager from "@/components/module/ModuleManager.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import {useI18n} from "vue-i18n";
 import {watch} from "vue";

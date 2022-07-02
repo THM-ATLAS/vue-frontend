@@ -309,7 +309,7 @@ import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
-import ModuleManager from "@/components/ModuleManager.vue";
+import ModuleManager from "@/components/module/ModuleManager.vue";
 
 const route = useRoute();
 const i18n = useI18n();
