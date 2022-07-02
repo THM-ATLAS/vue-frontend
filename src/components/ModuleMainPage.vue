@@ -41,6 +41,10 @@
           <span v-html="$t('buttons.edit')"/>
         </v-tooltip>
     <v-btn
+    @click="consoleAllTags()">
+      All Tags
+    </v-btn>
+    <v-btn
     @click="getModuleTags()">
       Get Tags
     </v-btn>
@@ -445,19 +449,28 @@ function getUserTemplate(): ModuleUser {
  * New
  */
 
+function consoleAllTags(): void {
+  TagService.getAllTags().then(res => {
+    console.log(res.data);
+  })
+}
+
 function getModuleTags(): void {
   //console.log(TagService.getAllTags());
   //console.log(module.value);
-  const t = TagService.getModuleTags(module.value);
-  console.log(t);
+  TagService.getModuleTags(module.value).then(res => {
+    console.log(res.data);
+  })
 }
 
 function setModuleTags(): void {
   const t = {
-    tag_id: 25,
-    name: "Unix"
+    tag_id: 3,
+    name: "Laufzeit"
   }
-  console.log(TagService.addTagToModule(module.value, t));
+  TagService.addTagToModule(module.value, t).then((res) => {
+    console.log(res.data);
+  })
 }
 
 function delModuleTags(): void {
@@ -465,8 +478,9 @@ function delModuleTags(): void {
     tag_id: 25,
     name: "Unix"
   }
-  console.log(TagService.delTagFromModule(module.value, t));
-  console.log(TagService.delTagFromModule(module.value, {tag_id: 25, name: "Unix"}));
+  TagService.delTagFromModule(module.value, t).then((res) => {
+    console.log(res.data);
+  })
 }
 </script>
 
