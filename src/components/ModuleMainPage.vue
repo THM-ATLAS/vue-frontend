@@ -319,7 +319,7 @@ import {useRoute, useRouter} from "vue-router";
 import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
+import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/ModuleManager.vue";
 import TagService from "@/services/TagService";
@@ -448,7 +448,8 @@ function getUserTemplate(): ModuleUser {
 function getModuleTags(): void {
   //console.log(TagService.getAllTags());
   //console.log(module.value);
-  console.log(TagService.getModuleTags(module.value));
+  const t = TagService.getModuleTags(module.value);
+  console.log(t);
 }
 
 function setModuleTags(): void {
@@ -456,7 +457,7 @@ function setModuleTags(): void {
     tag_id: 25,
     name: "Unix"
   }
-  TagService.addTagToModule(module.value, t);
+  console.log(TagService.addTagToModule(module.value, t));
 }
 
 function delModuleTags(): void {
@@ -464,7 +465,8 @@ function delModuleTags(): void {
     tag_id: 25,
     name: "Unix"
   }
-  TagService.delTagFromModule(module.value, t);
+  console.log(TagService.delTagFromModule(module.value, t));
+  console.log(TagService.delTagFromModule(module.value, {tag_id: 25, name: "Unix"}));
 }
 </script>
 

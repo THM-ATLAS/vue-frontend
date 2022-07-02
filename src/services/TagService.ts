@@ -33,15 +33,15 @@ class TagService {
     }
 
     getModuleTags(module: Module) {
-        API.get(`modules/${module.module_id}/tags`);
+        return API.get(`modules/${module.module_id}/tags`);
     }
 
     addTagToModule(module: Module, tag: Tag) {
-        API.post(`modules/tags/${module.module_id}/${tag.tag_id}`);
+        return API.post(`modules/tags/${module.module_id}/${tag.tag_id}`);
     }
 
     delTagFromModule(module: Module, tag: Tag) {
-        API.delete(`modules/tags/${module.module_id}/${tag.tag_id}`);
+        return API.delete(`modules/tags/${module.module_id}/${tag.tag_id}`);
     }
 
 }
