@@ -17,12 +17,14 @@
                   class="mr-3"
                   @click="toggleTheme"
                   :disabled="theme === 'light'"
+                  :color="theme === 'light' ? '#ededed' : ''"
                   v-html="$t('settings.theme.light')"
               />
               <v-btn
                   class="mr-3"
                   @click="toggleTheme"
                   :disabled="theme === 'dark'"
+                  :color="theme === 'dark' ? '#4f4f4f' : ''"
                   v-html="$t('settings.theme.dark')"
               />
             </v-col>
