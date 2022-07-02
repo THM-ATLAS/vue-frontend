@@ -65,6 +65,15 @@
           </v-row>
         </v-card-text>
       </v-card>
+      <v-template
+      v-for="exercise in exercises"
+      v-bind:key="exercise.exercise_id">
+        <v-chip
+        v-for="tag in exercise.tags" :key="tag.tag_id"
+        @click="filter(tag)">
+        {{ tag.name }}
+        </v-chip>
+      </v-template>
       <v-container fluid>
         <v-row>
           <v-col cols="9">
@@ -83,6 +92,7 @@
                       style="display: inline-flex; text-align: center"
                   >
                     <v-card
+                        v-if="setExercise(exercise)"
                         class="exerciseCard"
                         tabindex="0"
                         @keyup.enter.prevent.stop="goToExercise(exercise)"
@@ -329,6 +339,9 @@ const label = ref({
   user: user.value,
   assigned: false,
 });
+const selectedTag = ref({
+  value: ''
+})
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
@@ -427,6 +440,27 @@ function getUserTemplate(): ModuleUser {
     username: "",
     email: "",
   };
+}
+
+function filter(tag: Tag): void {
+  selectedTag.value.value == '' ? selectedTag.value.value = tag.name : selectedTag.value.value = '';
+}
+
+function setExercise(exercise: Exercise): boolean {
+  if(selectedTag.value.value == '') {
+    return true;
+  }
+  else {
+    exercise.tags.forEach((tag: Tag) => {
+      if(tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
+        console.log("true")
+        console.log(exercise);
+        return true;
+      }
+    })
+    console.log("false")
+    return false;
+  }
 }
 </script>
 
@@ -562,5 +596,9 @@ function getUserTemplate(): ModuleUser {
   margin-left: auto;
   margin-right: 8px;
   display: block;
+}
+
+.tag-container {
+  margin-left: 2em;
 }
 </style>
