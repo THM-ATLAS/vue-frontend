@@ -17,22 +17,19 @@
             <span v-html="$t('buttons.back')" />
           </v-tooltip>
         </v-col>
-        <v-col cols="5">
+        <v-col cols="7">
           <v-card-title> {{ module.name }}</v-card-title>
         </v-col>
-        <v-col cols="3">
-          <v-row justify="end">
-            <v-btn
+        <v-col cols="4" align-self="center">
+          <v-row>
+            <v-btn 
+            style="margin-right: 1em"
             @click="changeVisibility(module)">
-              <v-icon size="large" :icon="lock.value"></v-icon>
+              <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
             </v-btn>
-          </v-row>
-        </v-col>
-        <v-col cols="3">
-          <v-row justify="end">
-          <v-btn @click="manageTagsDialog.show = true">
-            {{ $t("module_manager.edit_tag_button") }}
-          </v-btn>
+            <v-btn @click="manageTagsDialog.show = true">
+              {{ $t("module_manager.edit_tag_button") }}
+            </v-btn>
           </v-row>
         </v-col>
       </v-row>
@@ -297,6 +294,7 @@ const filteredUsers: Ref<User[]> = ref([]);
 const tagsCurrent: Ref<Tag[]> = ref([]);
 const lock = ref({
   value: "mdi-lock",
+  color: "error"
 });
 
 defineProps<{
@@ -312,6 +310,7 @@ async function loadModule(): Promise<void> {
     .then((res) => {
       module.value = res.data;
       module.value.modulePublic ? lock.value.value = 'mdi-lock-open' : lock.value.value = 'mdi-lock';
+      module.value.modulePublic ? lock.value.color = 'success' : lock.value.color = 'error';
     })
     .then(() => {
       loadAllUsers().then(() => {
@@ -402,10 +401,11 @@ const editPrivilegeDialog = ref({
 }>;
 
 function getCurrentTags(): void {
-  TagService.getModuleTags(module.value).then((res) => {
-    tagsCurrent.value = res.data;
-    //console.log(tagsCurrent.value);
-  });
+  TagService.getModuleTags(module.value).then(res => {
+    const filteredTags: Ref<Tag[]> = ref([]);
+    res.data.forEach((tag: Tag) => filteredTags.value.map(t => t.tag_id).includes(tag.tag_id) ? 'nothing' : filteredTags.value.push(tag));
+    tagsCurrent.value = filteredTags.value;
+  })
 }
 
 function editTag(toBeEditedTag: Tag): void {
@@ -495,6 +495,7 @@ function changeVisibility(module: Module) {
   const changedModule: Ref<Module> = ref(module);
   changedModule.value.modulePublic = !changedModule.value.modulePublic;
   changedModule.value.modulePublic ? lock.value.value = 'mdi-lock-open' : lock.value.value = 'mdi-lock';
+  changedModule.value.modulePublic ? lock.value.color = 'success' : lock.value.color = 'error';
   ModuleService.editModule(changedModule.value);
 }
 </script>
