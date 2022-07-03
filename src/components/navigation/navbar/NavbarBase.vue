@@ -79,10 +79,20 @@
     </template>-->
 
     <!--hamburger icon nur sichtbar auf mobile -->
-    <v-app-bar-nav-icon
+
+    <v-badge
+        v-if="notificationCount > 0 && !drawer"
         class="d-md-none"
-        @click="drawer = !drawer"
-    />
+        dot
+        overlap
+        color="primary"
+        offset-x="5"
+        offset-y="13">
+        <v-app-bar-nav-icon
+            class="d-md-none"
+            @click="drawer = !drawer"
+        />
+    </v-badge>
   </v-app-bar>
 
   <!--Navigation für mobile -->
@@ -91,6 +101,7 @@
       position="right"
       :temporary="true"
       class="d-md-none"
+
   >
     <v-spacer/>
     <v-list :nav="true">
@@ -98,8 +109,12 @@
         {{ $t('header.modules') }}
       </v-list-item>
       <v-divider/>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToNotifications">
-        <span> {{ $t('header.dropdown.messages') }} </span>
+      <v-list-item
+          @click="goToNotifications()"
+          prepend-icon="mdi-bell">
+        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="18" offset-y="10" >
+        </v-badge>
+        <span>{{ $t('header.dropdown.messages') }}</span>
       </v-list-item>
       <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> {{ $t('header.dropdown.profile') }} </span>
