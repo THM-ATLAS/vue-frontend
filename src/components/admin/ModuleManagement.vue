@@ -449,6 +449,11 @@ function getModuleTemplate(): Module {
     module_id: 0,
     name: "",
     description: "",
+    modulePublic: false,
+    icon: {
+      icon_id: 7,
+      reference: 'mdi-animation'
+    }
   };
 }
 </script>
