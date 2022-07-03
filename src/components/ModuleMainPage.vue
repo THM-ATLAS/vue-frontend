@@ -8,7 +8,7 @@
             src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
             max-height="240px"
             width="100%"
-            cover
+            :cover="true"
         >
           <div class="moduleNameContainer">
             <v-row align="center">
@@ -54,7 +54,7 @@
             <v-col cols="10">
               {{ module.description }}
             </v-col>
-            <v-col align="right" cols="2">
+            <v-col cols="2">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
                     <v-btn @click="reassign" color="secondary" v-bind="props">
@@ -68,15 +68,17 @@
           </v-row>
         </v-card-text>
       </v-card>
-        <v-chip
-        v-for="tag in moduleTags" :key="tag.tag_id"
-        @click="filter(tag)">
-        <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"></v-icon>
-        {{ tag.name }}
-        </v-chip>
       <v-container fluid>
         <v-row>
           <v-col cols="9">
+            <v-chip
+                class="ma-1 mb-3"
+                v-for="tag in moduleTags" :key="tag.tag_id"
+                @click="filter(tag)"
+                :color="selectedTag.value === tag.name ? 'info' : ''">
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              {{ tag.name }}
+            </v-chip>
             <v-expansion-panels style="z-index: 0" v-model="panel">
               <v-expansion-panel rounded="0" key="0">
                 <v-expansion-panel-title
@@ -198,7 +200,7 @@
               src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
               max-height="70px"
               width="100%"
-              cover
+              :cover="true"
           />
           <v-card color="highlight" rounded="0" class="pb-0">
             <h1 class="mobileModuleTitle">
@@ -321,7 +323,6 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/ModuleManager.vue";
 import TagService from "@/services/TagService";
-import IconService from "@/services/IconService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -336,6 +337,7 @@ const tutors: Ref<Array<User>> = ref([]);
 const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
+
 const label = ref({
   value: "",
   user: user.value,
@@ -343,9 +345,6 @@ const label = ref({
 });
 const selectedTag = ref({
   value: ''
-})
-const icon = ref({
-  value: 'mdi-cog'
 })
 
 async function loadModule(): Promise<void> {
@@ -458,12 +457,11 @@ function setExercise(exercise: Exercise): boolean {
     return true;
   }
   else {
-    exercise.tags.forEach((tag: Tag) => {
-      if(tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
-        console.log(exercise);
+    for (let tag of exercise.tags) {
+      if (tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
         return true;
       }
-    })
+    }
     return false;
   }
 }
