@@ -22,8 +22,7 @@
         </v-col>
         <v-col cols="4" align-self="center">
           <v-row>
-            <v-btn 
-            style="margin-right: 1em"
+            <v-btn class="mr-4 mb-2 ml-0"
             @click="changeVisibility(module)">
               <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
             </v-btn>
@@ -120,7 +119,7 @@
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("module_manager.edit_tag") }}</v-card-title>
         <v-card-text>
-          <v-table fixed-header height="400px">
+          <v-table :fixed-header="true" height="400px">
             <thead>
               <tr>
                 <th class="hide-btn-behind-header">
@@ -242,7 +241,7 @@
     >
       <v-card top="20%" width="50vw">
         <v-card-title> {{ $t("module_manager.add_user") }}</v-card-title>
-        <v-table fixed-header height="400px">
+        <v-table :fixed-header="true" height="400px">
           <thead>
             <tr>
               <th>{{ $t("module_manager.name") }}</th>
