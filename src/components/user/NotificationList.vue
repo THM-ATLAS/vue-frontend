@@ -117,17 +117,21 @@
     <v-card-subtitle>
       {{ i18n.t('notifications_page.description') }}
     </v-card-subtitle>
-    <v-list>
+    <v-list
+    v-model:opened="openedCategories">
       <v-list-group>
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" prepend-icon="mdi-email" value="items">{{i18n.t('notifications_page.unread')}}</v-list-item>
+          <v-list-item
+              v-bind="props"
+              prepend-icon="mdi-email">
+            {{i18n.t('notifications_page.unread')}}
+          </v-list-item>
         </template>
-
           <v-list-item
               lines="two"
-              v-for="(notification, i) in unreadNotifications"
-              :key="i"
-              :value="notification.title"
+              v-for="notification in unreadNotifications"
+              :key="notification.id"
+              :value="notification.notification_id"
               :title="notification.title"
               :subtitle="notification.content"
               :prepend-icon="getNotificationIcon(notification)">
@@ -135,14 +139,17 @@
       </v-list-group>
       <v-list-group>
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" prepend-icon="mdi-email-open" value="items">{{i18n.t('notifications_page.read')}}</v-list-item>
+          <v-list-item
+              v-bind="props"
+              prepend-icon="mdi-email-open">
+            {{i18n.t('notifications_page.read')}}
+          </v-list-item>
         </template>
-
         <v-list-item
             lines="two"
-            v-for="(notification, i) in readNotifications"
-            :key="i"
-            :value="notification.title"
+            v-for="notification in readNotifications"
+            :key="notification.id"
+            :value="notification.notification_id"
             :title="notification.title"
             :subtitle="notification.content"
             :prepend-icon="getNotificationIcon(notification)"
@@ -154,26 +161,26 @@
 
 <script setup lang='ts'>
 import {useI18n} from "vue-i18n";
-import {User, Notification} from "@/helpers/types"
-import {computed, onBeforeMount, ref} from "vue";
+import {Notification} from "@/helpers/types"
+import {computed, onBeforeMount, ref, watch} from "vue";
 import {Ref} from "vue";
 import NotificationService from "@/services/NotificationService";
 import UserService from "@/services/UserService";
 
 const i18n = useI18n();
 const notifications : Ref<Notification[] | undefined> = ref();
-//const opened : Ref<boolean> = ref(true)
+const openedCategories = ref(['12', '13'])
 
 onBeforeMount(async () => {
   await UserService.getMe().then(async r => {
     if (r.data.user_id) {
       await NotificationService.getNotificationsForUser(r.data).then(res => {
         notifications.value = res.data
-        console.log(notifications.value)
       })
     }
   })
 })
+
 
 const unreadNotifications = computed(() => {
   return notifications.value?.filter(e => !e.read)
