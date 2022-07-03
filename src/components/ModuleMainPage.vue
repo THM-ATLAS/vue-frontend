@@ -11,7 +11,10 @@
             cover
         >
           <div class="moduleNameContainer">
-            <h1>{{ module.name }}</h1>
+            <v-row align="center">
+              <v-icon size="large" icon="mdi-animation" style="margin-right: 0.3em;"></v-icon>
+              <h1>{{ module.name }}</h1>
+            </v-row>
           </div>
         </v-img>
       </div>
@@ -318,6 +321,7 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/ModuleManager.vue";
 import TagService from "@/services/TagService";
+import IconService from "@/services/IconService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -340,11 +344,15 @@ const label = ref({
 const selectedTag = ref({
   value: ''
 })
+const icon = ref({
+  value: 'mdi-cog'
+})
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
+        //icon.value.value = module.value.icon.reference;
         loadUsers();
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
@@ -442,8 +450,6 @@ function getUserTemplate(): ModuleUser {
 }
 
 function filter(tag: Tag): void {
-  console.log(tag);
-  console.log(TagService.getAllTags());
   selectedTag.value.value == tag.name ? selectedTag.value.value = '' : selectedTag.value.value = tag.name;
 }
 
@@ -464,8 +470,9 @@ function setExercise(exercise: Exercise): boolean {
 
 function getAllModuleTags(): void {
   TagService.getModuleTags(module.value).then(res => {
-    moduleTags.value = res.data;
-    console.log(moduleTags.value);
+    const filteredTags: Ref<Tag[]> = ref([]);
+    res.data.forEach((tag: Tag) => filteredTags.value.map(t => t.tag_id).includes(tag.tag_id) ? 'nothing' : filteredTags.value.push(tag));
+    moduleTags.value = filteredTags.value;
   })
 }
 </script>

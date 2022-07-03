@@ -51,7 +51,7 @@ export type Module = {
     module_id : number,
     name : string,
     description: string, 
-    modulePublic: string,
+    modulePublic: boolean,
     icon: Icon,
 }
 
