@@ -12,7 +12,7 @@ const translationDe = {
         dropdown: {
             settings: 'Einstellungen',
             help: 'Hilfe',
-            messages: 'Nachrichten',
+            messages: 'Benachrichtigungen',
             profile: 'Profil',
             admin: 'Admin',
             login: 'Anmelden',

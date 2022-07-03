@@ -32,8 +32,8 @@
     <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
     <v-menu width="10em" origin="top" transition="scale-transition">
-      <template v-if="loggedIn" v-slot:activator="{ props }">
-        <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
+      <template v-if="loggedIn && notificationCount > 0" v-slot:activator="{ props }">
+        <v-badge :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
@@ -41,10 +41,10 @@
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
                v-bind="props" variant="outlined">
-          Login
+          {{ $t('login_page.login') }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
-        <!--/v-badge-->
+        </v-badge>
       </template>
       <template v-else v-slot:activator="{ props }">
         <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
@@ -54,11 +54,11 @@
         </v-btn>
         <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
-          Login
+          {{ $t('login_page.login') }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
       </template>
-      <Dropdown v-if="loggedIn" :messages='messages'/>
+      <Dropdown v-if="loggedIn" :notificationCount='notificationCount'/>
     </v-menu>
 
     <!---------------------------------->
@@ -98,9 +98,9 @@
         {{ $t('header.modules') }}
       </v-list-item>
       <v-divider/>
-      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
+      <v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToNotifications">
         <span> {{ $t('header.dropdown.messages') }} </span>
-      </v-list-item-->
+      </v-list-item>
       <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
         <span> {{ $t('header.dropdown.profile') }} </span>
       </v-list-item>
@@ -135,18 +135,22 @@ import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
 import LoginService, {isLoggedIn} from "@/services/LoginService";
 import {AxiosResponse} from "axios";
+import NotificationService from "@/services/NotificationService";
 
 const drawer: Ref<boolean> = ref(false);
-const messages: Ref<string> = ref("3");
+const notificationCount: Ref<number> = ref(0);
 const user: Ref<User | undefined> = ref(undefined);
 const loggedIn : Ref<boolean> = ref(false);
 
 onBeforeMount(async () => {
-  await UserService.getMe().then((r: AxiosResponse) => {
+  await UserService.getMe().then(async (r: AxiosResponse) => {
     if (isLoggedIn(r)) {
       user.value = r.data
       loggedIn.value = true;
       window.localStorage.setItem('loggedIn', 'true')
+      await NotificationService.getNotificationsForUser(user.value).then(r =>{
+        notificationCount.value = r.data.length
+      })
     } else {
       window.localStorage.removeItem('loggedIn')
     }
@@ -190,9 +194,9 @@ function goToModules(): void {
   router.push("/modules")
 }
 
-/*function goToMessages(): void {
-  router.push("/notifications");
-}*/
+function goToNotifications(): void {
+  router.push("/notifications")
+}
 
 function goToSettings(): void {
   router.push("/settings");

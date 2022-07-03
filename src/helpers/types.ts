@@ -91,10 +91,12 @@ export type Asset = {
 
 
 export type Notification = {
-    notification_id : number,
-    notification_type: string,
-    title : string,
-    content : string,
-    description: string,
-    notification_read : boolean
+    "notification_id": number,
+    "title": string,
+    "content": string,
+    "time": string,
+    "type_id": number,
+    "module_id": number,
+    "exercise_id": number,
+    "submission_id": number
 }
