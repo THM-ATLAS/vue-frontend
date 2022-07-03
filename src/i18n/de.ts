@@ -140,6 +140,7 @@ const translationDe = {
         settings_view: 'Einstellungen',
         admin_view: 'Admin',
         exercisemanagement_view: 'Aufgaben',
+        exercisecreator_view: 'Neue Aufgabe',
         usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
         profile_view: 'Profil',
@@ -243,6 +244,7 @@ const translationDe = {
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
         tag_search_or_create: 'Tag suchen oder erstellen',
+        add_exercise: 'Neue Aufgabe hinzufügen'
     },
     submission: {
         title: 'Aufgabe',
