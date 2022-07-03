@@ -29,12 +29,12 @@ const translationDe = {
     },
     login_page: {
         login: 'Anmelden',
-        instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
-        user_id: 'Nutzerkennung',
+        instructions: 'Verwende deine THM-Kennung oder Gastzugangsdaten.',
+        user_id: 'Kennung',
         password: 'Passwort',
-        username_required: 'Bitte gib deine Nutzerkennung ein.',
+        username_required: 'Bitte gib deine Kennung ein.',
         password_required: 'Bitte gib dein Passwort ein.',
-        invalid_credentials: 'Ungültige Nutzerdaten.',
+        invalid_credentials: 'Ungültige Logindaten.',
         skip_login: 'Weiter ohne Anmeldung',
     },
     landing_page: {

@@ -12,7 +12,8 @@ export type Role = {
 }
 export type Tag = {
     tag_id: number,
-    name: string
+    name: string,
+    icon: Icon
 }
 
 export type Submission = {
@@ -49,7 +50,9 @@ export type Rating = {
 export type Module = {
     module_id : number,
     name : string,
-    description: string
+    description: string,
+    modulePublic: boolean,
+    icon: Icon,
 }
 
 export type ModuleUser = {
@@ -89,6 +92,10 @@ export type Asset = {
     filename: string,
 }
 
+export type Icon = {
+    icon_id: number,
+    reference: string,
+}
 
 export type Notification = {
     "notification_id": number,
