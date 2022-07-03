@@ -15,6 +15,7 @@
           :closable="true"
           @click:close="removeTag(tag)"
         >
+          <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"/>
           {{ tag.name }}
         </v-chip>
       </div>
@@ -99,13 +100,14 @@
         <v-table :fixed-header="true" height="40vh">
           <thead>
             <tr>
-              <th>{{ $t("exercise.tag") }}</th>
+              <th class="hide-btn-behind-header">{{ $t("exercise.tag") }}</th>
               <th class="hide-btn-behind-header"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="tag in filteredTags" :key="tag.tag_id">
               <td>
+                <v-icon class="tag-icon" size=small :icon="tag.icon.reference"/>
                 {{ tag.name }}
               </td>
               <td class="text-right">
@@ -146,62 +148,6 @@
     </v-dialog>
     <!-- [Desktop] Edit tags dialog end -->
 
-    <!-- [Mobile] Add tags dialog start -->
-    <v-dialog
-        class="d-md-none"
-        v-model="addTagsDialog.show"
-        :retain-focus="false"
-        transition="slide-y-transition"
-    >
-      <v-card top="20%" width="90vw">
-        <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
-        <v-table :fixed-header="true" height="400px">
-          <thead>
-          <tr>
-            <th>{{ $t("exercise.tag") }}</th>
-            <th class="hide-btn-behind-header"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="tag in filteredTags" :key="tag.tag_id">
-            <td>
-              {{ tag.name }}
-            </td>
-            <td class="text-right">
-              <v-btn @click="addTagToExercise(tag)" color="primary">
-                <v-icon icon="mdi-plus"></v-icon>
-              </v-btn>
-            </td>
-          </tr>
-          </tbody>
-        </v-table>
-        <v-row>
-          <v-col cols="9">
-            <v-text-field
-                :label="$t('exercise.tag_search_or_create')"
-                v-model="addTagsDialog.target.name"
-                @input="updateFilterList">
-            </v-text-field>
-          </v-col>
-          <v-col cols="3">
-            <v-btn
-                width="100%"
-                height="58%"
-                @click="createTag(addTagsDialog.target); addTagsDialog.target.name = ''">
-              {{ $t('buttons.add') }}
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-card-actions>
-          <v-btn
-              @click="addTagsDialog.show = false"
-              color="error"
-              v-html="$t('buttons.close')"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <!-- [Mobile] Edit tags dialog end -->
     <!--br/-->
 
     <!-- Submission Editor -->
@@ -391,7 +337,7 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import TagService from "@/services/TagService";
-import { Exercise, Tag } from "@/helpers/types";
+import { Exercise, Tag, Module } from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
@@ -405,6 +351,7 @@ const id = Number.parseInt(
 
 const exercise: Ref<Exercise> = ref({}) as Ref<Exercise>;
 const exerciseTags: Ref<Tag[]> = ref([]);
+const module: Ref<Module> = ref({}) as Ref<Module>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
 
@@ -443,6 +390,7 @@ const currentDialog = ref({}) as Ref;
 
 onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data;
+  module.value = exercise.value.module;
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
@@ -573,13 +521,27 @@ function addTagToExercise(tag: Tag): void {
   TagService.addTagToExercise(tag, exercise.value).then(() =>
     getExerciseTags()
   );
+  TagService.addTagToModule(module.value, tag);
 }
 
 async function removeTag(tag: Tag): Promise<void> {
-  //Bugged when not removing the last tag
   await TagService.delTagFromExercise(tag, exercise.value).then(() =>
     getExerciseTags()
   );
+  ExerciseService.getExercisesForModule(module.value.module_id).then(res => {
+    const resData = res.data;
+    let tagInOtherExercise = false;
+    resData.forEach((ex: Exercise) => {
+      ex.tags.forEach((exTag: Tag) => {
+        if(exTag.tag_id == tag.tag_id) {
+          tagInOtherExercise = true;
+        }
+      })
+    });
+    if(!tagInOtherExercise) {
+      TagService.delTagFromModule(module.value, tag);
+    }
+  })
 }
 
 function updateFilterList() {
@@ -628,6 +590,10 @@ function getTagTemplate(): Tag {
   return {
     tag_id: 0,
     name: "",
+    icon: {
+      icon_id: 5,
+      reference: "mdi-laptop"
+    }
   };
 }
 </script>
@@ -645,5 +611,9 @@ function getTagTemplate(): Tag {
 
 .hide-btn-behind-header {
   z-index: 1;
+}
+
+.tag-icon {
+  margin-right: 0.3em;
 }
 </style>
