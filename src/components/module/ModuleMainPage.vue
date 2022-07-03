@@ -321,7 +321,7 @@ import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
-import ModuleManager from "@/components/ModuleManager.vue";
+import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
 
 const route = useRoute();

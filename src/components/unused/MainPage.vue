@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang='ts'>
-import MainpageCardModal from '@/components/MainpageCardModal.vue';
+import MainpageCardModal from '@/components/unused/MainpageCardModal.vue';
 import {useRoute} from "vue-router";
 import {onBeforeMount, reactive} from "vue";
 import ExerciseService from "@/services/ExerciseService"
