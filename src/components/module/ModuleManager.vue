@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card v-if="!embedded">
-      <v-row>
-        <v-col cols="1" align-self="center">
+      <v-row no-gutters="true">
+        <v-col cols="2" justify="start">
           <v-tooltip bottom>
             <template v-slot:activator="{ props: tooltip3 }">
               <v-btn
@@ -17,11 +17,11 @@
             <span v-html="$t('buttons.back')" />
           </v-tooltip>
         </v-col>
-        <v-col cols="7">
-          <v-card-title> {{ module.name }}</v-card-title>
+        <v-col>
+          <v-card-title>{{ module.name }}</v-card-title>
         </v-col>
-        <v-col cols="4" align-self="center">
-          <v-row>
+        <v-col>
+          <v-row justify="end">
             <v-btn class="mr-4 mb-2 ml-0"
             @click="changeVisibility(module)">
               <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
@@ -111,12 +111,11 @@
     <!-- Edit tags dialog start -->
     <!-- [Desktop] -->
     <v-dialog
-      class="d-none d-md-flex"
       v-model="manageTagsDialog.show"
       :retain-focus="false"
       transition="slide-y-transition"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" class="dialogWidth">
         <v-card-title> {{ $t("module_manager.edit_tag") }}</v-card-title>
         <v-card-text>
           <v-table :fixed-header="true" height="400px">
@@ -532,5 +531,14 @@ function changeVisibility(module: Module) {
   margin-right: auto;
   margin-left: auto;
   display: block;
+}
+
+.dialogWidth {
+  width: 50vw;
+}
+@media (max-width: 1280px) {
+  .dialogWidth {
+    width: 90vw;
+  }
 }
 </style>
