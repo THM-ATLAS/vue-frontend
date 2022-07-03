@@ -1,26 +1,26 @@
 <template>
-  <v-card elevation="0" rounded="0">
+<!--  <v-card elevation="0" rounded="0">
     <v-card-header>
       <v-icon class="ma-1">mdi-bell</v-icon>
       <v-card-header-text class="text-left fontszTi">
-        {{ i18n.t('news_page.notifications') }}
+        {{ i18n.t('notifications_page.notifications') }}
       </v-card-header-text>
     </v-card-header>
     <v-card-subtitle>
-      {{ i18n.t('news_page.description') }}
+      {{ i18n.t('notifications_page.description') }}
     </v-card-subtitle>
 
     <v-container>
       <v-list three-line>
-        <template v-for="(item, index) in items">
+        <template v-for="(item, index) in notifications">
 
           <v-container
-              v-if="item.header"
-              :key="item.header"
+              v-if="item.title"
+              :key="item.title"
           >
             <p class="text-h6 mt-5">
-              <v-icon class="ma-1" :icon="item.icon"/>
-              {{ item.header }}
+              &lt;!&ndash; v-icon class="ma-1" :icon="item.icon"/ &ndash;&gt;
+              {{ item.title }}
             </p>
           </v-container>
 
@@ -97,35 +97,108 @@
 
               </template>
             </v-container>
-            <!--
+            &lt;!&ndash;
             <v-btn class="align-self-end" color="error" @click="del(index)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
-            -->
+            &ndash;&gt;
           </v-list-item>
         </template>
       </v-list>
     </v-container>
+  </v-card>-->
+  <v-card elevation="0" rounded="0">
+    <v-card-header>
+      <v-icon class="ma-1">mdi-bell</v-icon>
+      <v-card-header-text class="text-left fontszTi">
+        {{ i18n.t('notifications_page.notifications') }}
+      </v-card-header-text>
+    </v-card-header>
+    <v-card-subtitle>
+      {{ i18n.t('notifications_page.description') }}
+    </v-card-subtitle>
+    <v-list>
+      <v-list-group>
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props" prepend-icon="mdi-email" value="items">{{i18n.t('notifications_page.unread')}}</v-list-item>
+        </template>
+
+          <v-list-item
+              lines="two"
+              v-for="(notification, i) in unreadNotifications"
+              :key="i"
+              :value="notification.title"
+              :title="notification.title"
+              :subtitle="notification.content"
+              :prepend-icon="getNotificationIcon(notification)">
+          </v-list-item>
+      </v-list-group>
+      <v-list-group>
+        <template v-slot:activator="{ props }">
+          <v-list-item v-bind="props" prepend-icon="mdi-email-open" value="items">{{i18n.t('notifications_page.read')}}</v-list-item>
+        </template>
+
+        <v-list-item
+            lines="two"
+            v-for="(notification, i) in readNotifications"
+            :key="i"
+            :value="notification.title"
+            :title="notification.title"
+            :subtitle="notification.content"
+            :prepend-icon="getNotificationIcon(notification)"
+        ></v-list-item>
+      </v-list-group>
+    </v-list>
   </v-card>
 </template>
 
-<script setup>
-/*
-function del(index) {
-  this.items.splice(index, 1);
-}
-*/
+<script setup lang='ts'>
 import {useI18n} from "vue-i18n";
-
-function visitExtLink(url) {
-  window.open(url, "_blank");
-}
-
-function visitIntLink(url) {
-  this.$router.push(url);
-}
+import {User, Notification} from "@/helpers/types"
+import {computed, onBeforeMount, ref} from "vue";
+import {Ref} from "vue";
+import NotificationService from "@/services/NotificationService";
+import UserService from "@/services/UserService";
 
 const i18n = useI18n();
+const notifications : Ref<Notification[] | undefined> = ref();
+//const opened : Ref<boolean> = ref(true)
+
+onBeforeMount(async () => {
+  await UserService.getMe().then(async r => {
+    if (r.data.user_id) {
+      await NotificationService.getNotificationsForUser(r.data).then(res => {
+        notifications.value = res.data
+        console.log(notifications.value)
+      })
+    }
+  })
+})
+
+const unreadNotifications = computed(() => {
+  return notifications.value?.filter(e => !e.read)
+})
+
+const readNotifications = computed(() => {
+  return notifications.value?.filter(e => e.read)
+})
+
+function getNotificationIcon (notification : Notification) : string {
+  switch (notification.type_id) {
+    case 1:
+      return 'mdi-file-upload'
+    case 2:
+      return 'mdi-pencil-box'
+    case 3:
+      return 'mdi-file-star'
+    case 4:
+      return 'mdi-view-module'
+    case 5:
+      return 'mdi-newspaper-variant'
+    default:
+      return 'mdi-email'
+  }
+}
 
 const items = [
   {
@@ -133,6 +206,7 @@ const items = [
     type: 'Rückmeldung erhalten',
     title: 'Zielscheibe ',
     subtitle: `Deine Abgabe vom 21.12.2021 wurde akzeptiert.`,
+    read: "true",
     interaction: [{
       type: 'popup',
       btn_title: 'Feedback lesen',
@@ -153,6 +227,7 @@ const items = [
     type: 'Level-Up',
     title: 'Level 10 erreicht',
     subtitle: 'Du hast Level 10 erreicht. Weiter so!',
+    read: "true",
     interaction: [{
       type: 'link',
       btn_title: 'Zum Profil',
@@ -186,6 +261,7 @@ const items = [
     icon: 'mdi-note-search',
     type: 'Neue Abgabe erhalten',
     title: 'Würfeln',
+    read: "true",
     subtitle: 'Nutzer:in pkrs44 hat eine Abgabe eingereicht.',
     interaction: [{
       type: 'link',
@@ -232,6 +308,7 @@ const items = [
     type: 'Private Nachricht',
     title: 'Neue Nachricht vom ATLAS-Team',
     subtitle: 'Update 0.12 - Notifications & Mehr.',
+    read: "true",
     interaction: [{
       type: 'popup',
       btn_title: 'Lesen',
@@ -251,6 +328,7 @@ const items = [
     icon: 'mdi-newspaper-plus',
     type: 'Neue Aufgaben',
     title: '2 neue Aufgaben in Brückenkurs Programmieren',
+    read: "true",
     subtitle: 'Es wurden neue Aufgaben in einem Modul eingefügt, dem Du folgst.',
     interaction: [{
       type: 'link',
@@ -265,6 +343,7 @@ const items = [
     icon: 'mdi-file-cog',
     type: 'Korrektur erhalten',
     title: 'Würfeln',
+    read: "true",
     subtitle: 'Die Aufgabe Würfeln hat einen Korrekturvorschlag erhalten.',
     interaction: [{
       type: 'popup',
@@ -323,6 +402,15 @@ const items = [
     }]
   }
 ]
+
+
+function visitExtLink(url) {
+  window.open(url, "_blank");
+}
+
+function visitIntLink(url) {
+  this.$router.push(url);
+}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->

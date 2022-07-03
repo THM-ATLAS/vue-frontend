@@ -105,5 +105,6 @@ export type Notification = {
     "type_id": number,
     "module_id": number,
     "exercise_id": number,
-    "submission_id": number
+    "submission_id": number,
+    "read": boolean
 }

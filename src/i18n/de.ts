@@ -109,12 +109,12 @@ const translationDe = {
     exercise_search: {
         exercises_per_page: 'Aufgaben pro Seite'
     },
-    news_page: {
+    notifications_page: {
         notifications: 'Benachrichtigungen',
         news: 'Neuigkeiten',
         description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
         unread: 'Ungelesen',
-        older_messages: 'Ältere Nachrichten'
+        read: 'Gelesen'
     },
     buttons: {
         save: 'Speichern',

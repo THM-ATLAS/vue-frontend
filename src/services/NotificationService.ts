@@ -16,8 +16,8 @@ class NotificationService {
         return API.get(`notifications/types`);
     }
 
-    markNotificationAsRead(notification: Notification): Promise<any> {
-        return API.put(`notifications`, notification);
+    markNotificationAsRead(notification: Notification, user : User): Promise<any> {
+        return API.put(`notifications/user/${notification.notification_id}/${user.user_id}`, notification);
     }
 
     addNotification(notification: Notification): Promise<any> {

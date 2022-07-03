@@ -107,12 +107,12 @@ const translationEn = {
     exercise_search: {
         exercises_per_page: 'Exercises per page'
     },
-    news_page: {
+    notifications_page: {
         notifications: 'Notifications',
         news: 'News',
         description: 'You can view your messages, reviews for submissions and site news here.',
         unread: 'Unread',
-        older_messages: 'Older messages'
+        read: 'Read'
     },
     titles: {
         home_view: 'ATLAS',
