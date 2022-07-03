@@ -29,7 +29,7 @@ const translationDe = {
     },
     login_page: {
         login: 'Anmelden',
-        instructions: 'Verwende die Anmeldedaten, die du auch für andere Online-Dienste der THM verwendest.',
+        instructions: 'Verwende deine THM-Kennung oder Gastzugangsdaten.',
         user_id: 'Kennung',
         password: 'Passwort',
         username_required: 'Bitte gib deine Kennung ein.',
