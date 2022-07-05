@@ -110,7 +110,7 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
         <span> {{ $t('header.dropdown.help') }} </span>
       </v-list-item>
-      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+      <v-list-item v-if="canSeeAdmin && isLoggedIn" prepend-icon="mdi-account-tie" @click="goToAdmin">
         <span>{{ $t('header.dropdown.admin') }}</span>
       </v-list-item>
       <v-list-item>
@@ -135,6 +135,7 @@ import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
 import LoginService, {isLoggedIn} from "@/services/LoginService";
 import {AxiosResponse} from "axios";
+import hasPermission, {Action} from "@/helpers/permissions";
 
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
@@ -152,6 +153,10 @@ onBeforeMount(async () => {
     }
   })
 })
+
+function canSeeAdmin() {
+  return hasPermission(Action.ADMIN_AREA, user.value);
+}
 
 const router = useRouter();
 
