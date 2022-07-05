@@ -182,6 +182,7 @@ const translationEn = {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
                 username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+                username_ldap_invalid: 'Username is reserved for LDAP-accounts.',
                 email_taken: 'This email address is already in use.',
                 email_invalid: 'Please enter a valid email address.',
                 password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',

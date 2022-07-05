@@ -189,6 +189,7 @@ const translationDe = {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
                 username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+                username_ldap_invalid: 'Benutzername ist für LDAP-Accounts reserviert.',
                 email_taken: 'E-Mail wird bereits verwendet.',
                 email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
                 password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
