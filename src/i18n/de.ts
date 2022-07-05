@@ -191,7 +191,7 @@ const translationDe = {
                 username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
                 email_taken: 'E-Mail wird bereits verwendet.',
                 email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
-                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
+                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
             }
         },
         exercises: {

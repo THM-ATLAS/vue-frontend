@@ -184,7 +184,7 @@ const translationEn = {
                 username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
                 email_taken: 'This email address is already in use.',
                 email_invalid: 'Please enter a valid email address.',
-                password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
+                password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',
             }
         },
         exercises: {

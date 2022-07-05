@@ -125,7 +125,7 @@
         </v-card-title>
         <v-card-text>
           <template v-for="role in roles" v-bind:key="role.role_id">
-            <v-checkbox v-if="role.role_id !== 5" v-model="editRolesDialog.target.roles"
+            <v-checkbox v-if="role.name !== 'tutor'" v-model="editRolesDialog.target.roles"
                         :value="role" :label="getRole(role.name)" @change="editUser(editRolesDialog.target)" />
           </template>
         </v-card-text>
@@ -313,7 +313,7 @@ const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
   username: (value: string) => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
   email: (value: string) => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
-  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
+  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[^ ]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter one number and a special character'
 };
 
 function visitUser(user: User) {
@@ -331,10 +331,7 @@ function getUserTemplate(): User {
     username: '',
     email: '',
     password: '',
-    roles: [{
-      role_id: 2,
-      name: 'User',
-    }],
+    roles: [],
   };
 }
 
