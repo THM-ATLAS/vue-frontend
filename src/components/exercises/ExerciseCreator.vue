@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card elevation="0" rounded="0">
-      <!--div class="tag-chips">
+      <div class="tag-chips">
         <v-btn
             class="tag-button"
             @click="addTagsDialog.show = true"
@@ -18,7 +18,7 @@
           <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"/>
           {{ tag.name }}
         </v-chip>
-      </div-->
+      </div>
       <div class="flex">
         <v-row>
           <v-col sm="12" md="2" lg="2">
@@ -84,7 +84,7 @@
     </v-dialog>
 
     <!-- [Desktop] Add tags dialog start -->
-    <!--v-dialog
+    <v-dialog
         class="d-none d-md-flex"
         v-model="addTagsDialog.show"
         :retain-focus="false"
@@ -140,7 +140,7 @@
           />
         </v-card-actions>
       </v-card>
-    </v-dialog-->
+    </v-dialog>
     <!-- [Desktop] Edit tags dialog end -->
   </div>
 </template>
@@ -152,8 +152,8 @@ import { useI18n } from "vue-i18n";
 import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
-//import TagService from "@/services/TagService";
-import {Exercise, Tag, Module, PostExercise} from "@/helpers/types";
+import TagService from "@/services/TagService";
+import {Tag, Module, PostExercise} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
@@ -166,10 +166,10 @@ const id = Number.parseInt(
 //const localStoragePath = id === undefined ? module + ".newExercise" : module + ".e." + id;
 
 const exercise: Ref<PostExercise> = ref({}) as Ref<PostExercise>;
-//const exerciseTags: Ref<Tag[]> = ref([]);
-//const module: Ref<Module> = ref({}) as Ref<Module>;
-//const allTags: Ref<Tag[]> = ref([]);
-//const filteredTags: Ref<Tag[]> = ref([]);
+const exerciseTags: Ref<Tag[]> = ref([]);
+const module: Ref<Module> = ref({}) as Ref<Module>;
+const allTags: Ref<Tag[]> = ref([]);
+const filteredTags: Ref<Tag[]> = ref([]);
 
 let wasSave: boolean = false;
 let wasDelete: boolean = false;
@@ -191,10 +191,11 @@ const confirmCancelDialog = ref({
 const currentDialog = ref({}) as Ref;
 
 onBeforeMount(async () => {
+  module.value = route.params.module;
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
-  //getExerciseTags();
+  getExerciseTags();
   //}
   //store();
 });
@@ -206,6 +207,7 @@ const save = async () => {
   await ExerciseService.addExercise(exercise.value)
       .then((response) => {
         console.log(response.data);
+        exerciseTags.value.forEach(async e => await TagService.addTagToExercise(e, response.data));
       })
       .catch((error) => {
         console.log(error.message);
@@ -224,12 +226,6 @@ function requestCancel() {
 onBeforeUnmount(() => {
   window.removeEventListener("beforeunload", beforeWindowUnload);
 });
-
-/*
-const confirmDelete = () => {
-  return window.confirm(i18n.t("exercise.confirmDelete"))
-}
-*/
 
 const confirmLeave = () => {
   return window.confirm(i18n.t("exercise.confirm_leave"));
@@ -290,9 +286,7 @@ const addItem = (type) => {
 };
 */
 
-/*function getExerciseTags(): void {
-  TagService.getTagsFromExercise(exercise.value).then((res) => {
-    exerciseTags.value = res.data;
+function getExerciseTags(): void {
     TagService.getAllTags().then((res) => {
       allTags.value = res.data;
       filteredTags.value = allTags.value
@@ -302,34 +296,17 @@ const addItem = (type) => {
                   !exerciseTags.value.map((et) => et.tag_id).includes(tag.tag_id)
           );
     });
-  });
 }
 
 function addTagToExercise(tag: Tag): void {
-  TagService.addTagToExercise(tag, exercise.value).then(() =>
-      getExerciseTags()
-  );
-  TagService.addTagToModule(module.value, tag);
+  exerciseTags.value.push(tag);
+  addTagsDialog.value.target.name = "";
+  updateFilterList();
 }
 
 async function removeTag(tag: Tag): Promise<void> {
-  await TagService.delTagFromExercise(tag, exercise.value).then(() =>
-      getExerciseTags()
-  );
-  ExerciseService.getExercisesForModule(module.value.module_id).then(res => {
-    const resData = res.data;
-    let tagInOtherExercise = false;
-    resData.forEach((ex: Exercise) => {
-      ex.tags.forEach((exTag: Tag) => {
-        if(exTag.tag_id == tag.tag_id) {
-          tagInOtherExercise = true;
-        }
-      })
-    });
-    if(!tagInOtherExercise) {
-      TagService.delTagFromModule(module.value, tag);
-    }
-  })
+  exerciseTags.value = exerciseTags.value.filter(t => t !== tag)
+  updateFilterList();
 }
 
 function updateFilterList() {
@@ -353,18 +330,10 @@ function createTag(tag: Tag): any {
       tag.name != ""
   ) {
     TagService.addTag(tag).then(() => {
-      TagService.getAllTags().then((res) => {
-        TagService.addTagToExercise(
-            res.data.filter(
-                (t: Tag) => t.name.toLowerCase() == tag.name.toLowerCase()
-            )[0],
-            exercise.value
-        ).then(() => {
-          getExerciseTags();
-          addTagsDialog.value.target.name = "";
-        });
-      });
+      getExerciseTags();
     });
+    addTagsDialog.value.target.name = "";
+    updateFilterList();
     return 0;
   } else return 1;
 }
@@ -383,7 +352,7 @@ function getTagTemplate(): Tag {
       reference: "mdi-laptop"
     }
   };
-}*/
+}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
