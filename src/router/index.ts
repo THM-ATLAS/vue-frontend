@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from "@/views/misc/LoginView.vue";
+import Register from "@/views/misc/RegisterView.vue";
 import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/user/ProfileView.vue";
@@ -33,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
   {path: '/', name: 'Home',component: Home},
 
   {path: '/login', component: Login},
+  {path: '/register', component: Register},
   { path: '/page-not-found', name: 'NotFound', component: PageNotFound },
   { path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
 
