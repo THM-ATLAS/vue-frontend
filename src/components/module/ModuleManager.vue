@@ -22,10 +22,19 @@
         </v-col>
         <v-col>
           <v-row justify="end">
-            <v-btn class="mr-4 mb-2 ml-0"
-            @click="changeVisibility(module)">
-              <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ props: tooltip3 }">
+                <v-btn
+                    v-bind="tooltip3"
+                    class="mr-4 mb-2 ml-0"
+                    @click="changeVisibility(module)"
+                >
+                  <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
+                </v-btn>
+              </template>
+              <span v-if="module.modulePublic" v-html="$t('buttons.visibility_public')" />
+              <span v-else v-html="$t('buttons.visibility_private')" />
+            </v-tooltip>
             <v-btn @click="manageTagsDialog.show = true">
               {{ $t("module_manager.edit_tag_button") }}
             </v-btn>
