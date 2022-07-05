@@ -5,7 +5,7 @@
       <v-list-item
           @click="goToNotifications()"
           prepend-icon="mdi-bell">
-        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
+        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" class="d-none d-md-flex">
         </v-badge>
         <v-list-item-title>{{ $t('header.dropdown.messages') }}</v-list-item-title>
       </v-list-item>

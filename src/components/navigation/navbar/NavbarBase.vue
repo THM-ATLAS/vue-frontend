@@ -112,7 +112,7 @@
       <v-list-item
           @click="goToNotifications()"
           prepend-icon="mdi-bell">
-        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="18" offset-y="10" >
+        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" >
         </v-badge>
         <span>{{ $t('header.dropdown.messages') }}</span>
       </v-list-item>
