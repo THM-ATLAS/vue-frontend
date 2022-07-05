@@ -173,14 +173,14 @@
                 :rules="[rules.required, rules.email]"
                 required
             />
-            <!--v-text-field
+            <v-text-field
                 @change="$refs.newUserForm.validate()"
                 v-model="newUserDialog.target.password"
                 :label="$t('admin.users.password')"
                 :rules="[rules.required, rules.password]"
                 required
                 type="password"
-            /-->
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -227,14 +227,14 @@
                 :rules="[rules.required, rules.email]"
                 required
             />
-            <!--v-text-field
+            <v-text-field
                 @change="$refs.newUserForm.validate()"
                 v-model="newUserDialog.target.password"
                 :label="$t('admin.users.password')"
                 :rules="[rules.required, rules.password]"
                 required
                 type="password"
-            /-->
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -447,6 +447,7 @@ function getUserTemplate(): User {
     name: '',
     username: '',
     email: '',
+    password: '',
     roles: [{
       role_id: 2,
       name: 'User',

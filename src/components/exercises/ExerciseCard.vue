@@ -194,7 +194,7 @@ import {Exercise, User, Tag} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
-const id = route.params.id;
+const id = parseInt(route.params.id as string);
 const user: Ref<User | undefined> = ref(undefined);
 const loggedIn = ref(false);
 onBeforeMount(async () => {
