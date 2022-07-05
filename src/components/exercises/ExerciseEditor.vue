@@ -90,12 +90,11 @@
 
     <!-- [Desktop] Add tags dialog start -->
     <v-dialog
-        class="d-none d-md-flex"
         v-model="addTagsDialog.show"
         :retain-focus="false"
         transition="slide-y-transition"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" class="dialogWidth">
         <v-card-title> {{ $t("exercise.tag_add_desc") }}</v-card-title>
         <v-table :fixed-header="true" height="40vh">
           <thead>
@@ -119,7 +118,7 @@
           </tbody>
         </v-table>
         <v-row>
-          <v-col cols="9">
+          <v-col cols="8">
             <v-text-field
               :label="$t('exercise.tag_search_or_create')"
               v-model="addTagsDialog.target.name"
@@ -127,13 +126,22 @@
             >
             </v-text-field>
           </v-col>
-          <v-col cols="3">
+          <v-col cols="4">
             <v-btn
+                class="addButton"
               width="100%"
               height="58%"
               @click="createTag(addTagsDialog.target)"
             >
               {{ $t("buttons.add") }}
+            </v-btn>
+            <v-btn
+                class="plusButton"
+                width="100%"
+                height="58%"
+                @click="createTag(addTagsDialog.target)"
+            >
+              +
             </v-btn>
           </v-col>
         </v-row>
@@ -616,4 +624,28 @@ function getTagTemplate(): Tag {
 .tag-icon {
   margin-right: 0.3em;
 }
+
+.dialogWidth {
+  width: 50vw;
+}
+@media (max-width: 1280px) {
+  .dialogWidth {
+    width: 80vw;
+  }
+}
+
+.plusButton {
+  display: none;
+}
+
+@media (max-width: 550px) {
+  .addButton {
+    display:none;
+  }
+  .plusButton {
+    display: block;
+    font-size: large;
+  }
+}
+
 </style>
