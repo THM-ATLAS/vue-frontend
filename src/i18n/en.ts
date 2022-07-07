@@ -152,6 +152,8 @@ const translationEn = {
         visit: 'Visit',
         view: 'View',
         visit_profile: 'Visit profile',
+        visibility_public: 'Visibility: public',
+        visibility_private: 'Visibility: only for enrolled users'
     },
     languages: {
         en: 'English',
