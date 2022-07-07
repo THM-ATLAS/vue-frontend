@@ -11,6 +11,15 @@
         </tr>
         </thead>
         <tbody>
+        <tr v-if="!exercisesLoaded">
+          <td></td>
+          <td></td>
+          <td><v-progress-circular
+              indeterminate
+              color="primary"
+          ></v-progress-circular></td>
+          <td></td>
+        </tr>
         <tr v-for="exercise in currentPage" v-bind:key="exercise.id">
           <td>{{ exercise.title }}</td>
           <td>{{ exercise.module.name }}</td>
@@ -286,6 +295,7 @@ const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
 const itemsPerPageLabel = i18n.t('exercise_search.exercises_per_page')
+const exercisesLoaded = ref(false)
 async function loadExercises(): Promise<void> {
   exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
   // console.log(exercises.value);
@@ -293,15 +303,13 @@ async function loadExercises(): Promise<void> {
 
 async function loadModules(): Promise<void> {
   modules.value = ((await ModuleService.getModules()).data).sort((a: Module, b: Module) => a.module_id - b.module_id);
-  // console.log(modules.value);
 }
 
 onBeforeMount(async () => {
   await loadExercises();
   await loadModules();
   newExerciseDialog.value.target = await getExerciseTemplate();
-  exercises.value = (await ExerciseService.getExercises()).data;
-
+  exercisesLoaded.value = true;
   // let apiExercises = (await ExerciseService.getExercises()).data;
   // apiExercises.forEach((result : Exercise) => {
   //   exercises.value.push(result);
