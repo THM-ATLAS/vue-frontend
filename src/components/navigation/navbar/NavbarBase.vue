@@ -9,7 +9,7 @@
                height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
-    <ModuleButton/>
+    <ModuleButton v-if="loggedIn"/>
     <v-spacer/>
     <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
