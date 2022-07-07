@@ -79,6 +79,14 @@
               <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
               {{ tag.name }}
             </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
             <v-expansion-panels style="z-index: 0" v-model="panel">
               <v-expansion-panel rounded="0" key="0">
                 <v-expansion-panel-title
@@ -104,7 +112,7 @@
                     </v-card>
                   </div>
                   <div
-                      v-for="exercise in exercises"
+                      v-for="exercise in filteredExercises"
                       v-bind:key="exercise.exercise_id"
                       style="display: inline-flex; text-align: center"
                   >
@@ -244,6 +252,22 @@
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
+            <v-chip
+                class="ma-1 mb-3"
+                v-for="tag in moduleTags" :key="tag.tag_id"
+                @click="filter(tag)"
+                :color="selectedTag.value === tag.name ? 'info' : ''">
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              {{ tag.name }}
+            </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
            <v-row class="exerciseListEntry"
                   justify="center">
              <v-card
@@ -266,12 +290,13 @@
              </v-card>
            </v-row>
             <v-row
-                v-for="exercise in exercises"
+                v-for="exercise in filteredExercises"
                 v-bind:key="exercise.exercise_id"
                 class="exerciseListEntry"
                 justify="center"
             >
               <v-card
+                  v-if="setExercise(exercise)"
                   class="exerciseListBox"
                   elevation="2"
                   @click="goToExercise(exercise)"
@@ -366,6 +391,7 @@ const i18n = useI18n();
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const exercises: Ref<Array<Exercise>> = ref([]);
+const filteredExercises: Ref<Array<Exercise>> = ref([]);
 const moduleTags: Ref<Tag[]> = ref([]);
 const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
@@ -373,6 +399,7 @@ const tutors: Ref<Array<User>> = ref([]);
 const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
+const search = ref("");
 
 const label = ref({
   value: "",
@@ -392,7 +419,7 @@ async function loadModule(): Promise<void> {
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
-              exercises.value = e.data;
+              filteredExercises.value = exercises.value = e.data;
               getAssignStatus();
               getAllModuleTags();
             }
@@ -401,6 +428,12 @@ async function loadModule(): Promise<void> {
       .catch(() => {
         router.replace("/page-not-found");
       });
+}
+
+function applySearch(): void {
+  filteredExercises.value = exercises.value.filter((exercise) => {
+    return (exercise.title + ' ' + exercise.description).toLowerCase().includes(search.value.toLowerCase());
+  })
 }
 
 async function loadUsers(): Promise<void> {

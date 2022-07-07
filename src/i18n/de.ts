@@ -322,7 +322,8 @@ const translationDe = {
         tutors: 'Tutor:innen',
         materials: 'Lernmaterial',
         enrollment: 'Selbsteinschreibung in das Modul.',
-        disenroll: 'Von diesem Modul abmelden.'
+        disenroll: 'Von diesem Modul abmelden.',
+        search_exercise: 'Aufgabe suchen',
     },
     module_manager: {
         name: 'Name',
