@@ -51,10 +51,11 @@
       >
         <v-card-text>
           <v-row>
-            <v-col cols="10">
+            <v-col cols="8">
               {{ module.description }}
             </v-col>
-            <v-col cols="2">
+            <v-spacer/>
+            <v-col cols="auto">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
                     <v-btn @click="reassign" color="secondary" v-bind="props">
