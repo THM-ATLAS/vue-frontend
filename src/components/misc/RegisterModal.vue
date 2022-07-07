@@ -118,7 +118,12 @@ const rules = {
 };
 
 async function register() {
-  UserService.addUser(registerCredentials.value).then(() => {
+  UserService.addUser(registerCredentials.value).then((res) => {
+    if(res.request.responseURL.endsWith("login")) {
+      console.log(res)
+      console.log("Hello. You should not see this message, it means that the backend just tried to redirect you to the login page.")
+      throw new Error("Unexpected redirect from server");
+    }
     router.push({path: "login", query: {register: "success", username: registerCredentials.value.username}});
   }).catch(() => {
     alert.value = true;
