@@ -89,6 +89,21 @@
                   <b>{{ $t("module_page.exercises") }}</b>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text class="exercisePanelText">
+                  <div style="display: inline-flex; text-align: center">
+                    <v-card
+                        class="exerciseCard"
+                        tabindex="0"
+                        @keyup.enter.prevent.stop="goToCreator"
+                        @click.prevent.stop="goToCreator"
+                    >
+                      <v-card-title class="exerciseCardTitle">{{ $t('exercise.add_exercise') }}</v-card-title>
+                      <v-icon
+                          class="exercise-icon"
+                          size="180px"
+                          icon="mdi-plus"
+                      ></v-icon>
+                    </v-card>
+                  </div>
                   <div
                       v-for="exercise in exercises"
                       v-bind:key="exercise.exercise_id"
@@ -230,6 +245,27 @@
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
+           <v-row class="exerciseListEntry"
+                  justify="center">
+             <v-card
+                 class="exerciseListBox"
+                 elevation="2"
+                 @click="goToCreator"
+             >
+               <h1 class="ex-title">
+                 <v-row>
+                   <v-col cols="2">
+                     <v-icon>mdi-plus</v-icon>
+                   </v-col>
+                   <v-col>
+                     <v-card-title>
+                       {{ $t('exercise.add_exercise') }}
+                     </v-card-title>
+                   </v-col>
+                 </v-row>
+               </h1>
+             </v-card>
+           </v-row>
             <v-row
                 v-for="exercise in exercises"
                 v-bind:key="exercise.exercise_id"
@@ -395,6 +431,10 @@ function goToExercise(exercise: Exercise): void {
 
 function goToManage(): void {
   router.push("/" + module.value.module_id + "/manage");
+}
+
+function goToCreator(): void {
+  router.push("/" + module.value.module_id + "/e/new");
 }
 
 function visitProfile(user: User): void {

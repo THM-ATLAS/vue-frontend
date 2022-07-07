@@ -133,6 +133,7 @@ const translationEn = {
         settings_view: 'Settings',
         admin_view: 'Admin',
         exercisemanagement_view: 'Exercises',
+        exercisecreator_view: 'New Exercise',
         usermanagement_view: 'Users',
         submission_view: 'Submission',
         evaluationlist_view: 'Submissions',
@@ -261,6 +262,7 @@ const translationEn = {
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
         tag_search_or_create: 'Search or create tag',
+        add_exercise: 'Add new exercise'
     },
     roles: {
         admin: 'admin',
