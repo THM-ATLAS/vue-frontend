@@ -170,7 +170,8 @@ onBeforeMount(async () => {
       loggedIn.value = true;
       window.localStorage.setItem('loggedIn', 'true')
       await NotificationService.getNotificationsForUser(user.value).then(r =>{
-        notificationCount.value = r.data.length
+
+        notificationCount.value = r.data.filter(e => !e.read).length
       })
     } else {
       window.localStorage.removeItem('loggedIn')

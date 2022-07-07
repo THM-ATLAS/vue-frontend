@@ -112,7 +112,13 @@ const translationEn = {
         news: 'News',
         description: 'You can view your messages, reviews for submissions and site news here.',
         unread: 'Unread',
-        read: 'Read'
+        read: 'Read',
+        mark_all: 'Mark all',
+        mark_as_read: 'Mark as read',
+        mark_as_unread: 'Mark as unread',
+        delete: 'Delete',
+        title: 'Subject',
+        content: 'Content'
     },
     titles: {
         home_view: 'ATLAS',

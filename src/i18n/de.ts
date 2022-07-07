@@ -114,7 +114,13 @@ const translationDe = {
         news: 'Neuigkeiten',
         description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
         unread: 'Ungelesen',
-        read: 'Gelesen'
+        read: 'Gelesen',
+        mark_all: 'Alle auswählen',
+        mark_as_read: 'Als gelesen markieren',
+        mark_as_unread: 'Als ungelesen markieren',
+        delete: 'Löschen',
+        title: 'Betreff',
+        content: 'Nachricht'
     },
     buttons: {
         save: 'Speichern',
