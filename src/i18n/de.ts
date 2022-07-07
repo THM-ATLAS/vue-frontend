@@ -132,6 +132,8 @@ const translationDe = {
         visit: 'Besuchen',
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
+        visibility_public: 'Sichtbarkeit: öffentlich',
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene'
     },
     titles: {
         home_view: 'ATLAS',
