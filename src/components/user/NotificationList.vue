@@ -117,8 +117,7 @@
     <v-card-subtitle>
       {{ i18n.t('notifications_page.description') }}
     </v-card-subtitle>
-    <v-list
-    v-model:opened="openedCategories">
+    <v-list>
       <v-list-group>
         <template v-slot:activator="{ props }">
           <v-list-item
@@ -169,7 +168,6 @@ import UserService from "@/services/UserService";
 
 const i18n = useI18n();
 const notifications : Ref<Notification[] | undefined> = ref();
-const openedCategories = ref(['12', '13'])
 
 onBeforeMount(async () => {
   await UserService.getMe().then(async r => {
