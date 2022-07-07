@@ -102,6 +102,7 @@ const translationDe = {
     module_search: {
         items_per_page: 'Einträge pro Seite',
         module_per_page: 'Module pro Seite',
+        search: 'Suche nach Modulen',
     },
     user_search: {
         users_per_page: 'Benutzer pro Seite'
@@ -191,6 +192,7 @@ const translationDe = {
             actions: 'Aktionen',
             password: 'Passwort',
             change_password: 'Passwort ändern',
+            search_user: 'Benutzer:in suchen',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
@@ -211,6 +213,7 @@ const translationDe = {
             no_description: 'Keine Beschreibung',
             created_at: 'Erstellt am',
             actions: 'Aktionen',
+            search_exercise: 'Aufgabe suchen',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
@@ -224,6 +227,7 @@ const translationDe = {
             edit: 'Modul bearbeiten',
             delete: 'Modul löschen',
             delete_confirm: 'Modul "{0}" wirklich löschen?',
+            search_module: 'Modul suchen',
         },
         navbar: {
             title: 'Administration',
@@ -326,11 +330,12 @@ const translationDe = {
         edit_tag_button: 'Tags bearbeiten',
         edit_tag: 'Tags bearbeiten oder löschen',
         tag: 'Tag',
-        add_user: 'Nutzer hinzufügen',
+        add_user: 'Nutzer:in einschreiben',
         edit_privilege: 'Rolle ändern',
         student: 'Student:in',
         tutor: 'Tutor:in',
-        teacher: 'Lehrer:in'
+        teacher: 'Lehrer:in',
+        search_user: 'Nutzer:in suchen',
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
