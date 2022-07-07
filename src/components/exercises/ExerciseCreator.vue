@@ -327,9 +327,12 @@ function createTag(tag: Tag): any {
       !allTags.value
           .map((at) => at.name.toLowerCase())
           .includes(tag.name.toLowerCase()) &&
-      tag.name != ""
-  ) {
-    TagService.addTag(tag).then(() => {
+      tag.name != "") {
+    TagService.addTag(tag).then((resTag) => {
+      ModuleService.getModule(module.value.toString()).then((resModule) => {
+        TagService.addTagToModule(resModule.data, resTag.data);
+      })
+      addTagToExercise(resTag.data);
       getExerciseTags();
     });
     addTagsDialog.value.target.name = "";
