@@ -11,6 +11,7 @@ import Notifications from "@/views/user/NotificationsView.vue";
 import Help from "@/views/misc/HelpView.vue";
 import Leaderboard from "@/views/user/LeaderboardView.vue";
 import ExerciseEditor from "@/views/exercises/ExerciseEditorView.vue";
+import ExerciseCreator from "@/views/exercises/ExerciseCreatorView.vue";
 import Feedback from "@/views/exercises/feedback/FeedbackView.vue";
 import Settings from "@/views/misc/SettingsView.vue";
 import PageNotFound from "@/views/misc/PageNotFoundView.vue";
@@ -41,6 +42,7 @@ const routes: Array<RouteRecordRaw> = [
     {path: '/:module/e/new/edit', component: ExerciseEditor}, // create new exercise
     {path: '/:module/e/:id', component: Exercise},
     {path: '/:module/e/:id/edit', component: ExerciseEditor}, // edit mode
+    {path: '/:module/e/new', component: ExerciseCreator},
     {path: '/:module/e/:id/feedback', component: Feedback}, // list feedback
     {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
