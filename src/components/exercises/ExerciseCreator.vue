@@ -168,7 +168,7 @@ const id = Number.parseInt(
 
 const exercise: Ref<PostExercise> = ref({}) as Ref<PostExercise>;
 const exerciseTags: Ref<Tag[]> = ref([]);
-const module: Ref<Module> = ref({}) as Ref<Module>;
+const module: Ref<number> = ref({}) as Ref<number>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
 
@@ -192,7 +192,7 @@ const confirmCancelDialog = ref({
 const currentDialog = ref({}) as Ref;
 
 onBeforeMount(async () => {
-  module.value = route.params.module;
+  module.value = parseInt(route.params.module as string);
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
@@ -203,7 +203,7 @@ onBeforeMount(async () => {
 
 const save = async () => {
   if (!exercise.value) return;
-  exercise.value.module_id = Number(route.params.module);
+  exercise.value.module_id = module.value;
   exercise.value.type_id = 1; //change when all types are implemented
   await ExerciseService.addExercise(exercise.value)
       .then((response) => {
@@ -324,8 +324,7 @@ function updateFilterList() {
 }
 
 function createTag(tag: Tag): any {
-  if (
-      !allTags.value
+  if (!allTags.value
           .map((at) => at.name.toLowerCase())
           .includes(tag.name.toLowerCase()) &&
       tag.name != "") {
