@@ -83,16 +83,21 @@
     <v-badge
         v-if="notificationCount > 0 && !drawer"
         class="d-md-none"
-        dot
         overlap
+        dot
         color="primary"
-        offset-x="5"
-        offset-y="13">
+        offset-x="8"
+        offset-y="16">
         <v-app-bar-nav-icon
             class="d-md-none"
             @click="drawer = !drawer"
         />
     </v-badge>
+    <v-app-bar-nav-icon
+        v-else
+        class="d-md-none"
+        @click="drawer = !drawer"
+    />
   </v-app-bar>
 
   <!--Navigation für mobile -->
@@ -110,6 +115,7 @@
       </v-list-item>
       <v-divider/>
       <v-list-item
+          v-if="loggedIn"
           @click="goToNotifications()"
           prepend-icon="mdi-bell">
         <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" >
