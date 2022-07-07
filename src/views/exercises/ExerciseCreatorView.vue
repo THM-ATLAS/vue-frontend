@@ -3,7 +3,7 @@
   <v-main>
     <v-row justify="center">
       <v-col sm="10" md="10" lg="10" xl="10">
-        <ExerciseEditor id="content"/>
+        <ExerciseCreator id="content"/>
       </v-col>
     </v-row>
   </v-main>
@@ -23,9 +23,9 @@
 
 <script lang='ts' setup>
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
-import ExerciseEditor from "@/components/exercises/ExerciseEditor.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 import {useI18n} from "vue-i18n";
+import ExerciseCreator from "@/components/exercises/ExerciseCreator.vue";
 
-document.title = useI18n().t('titles.exerciseeditor_view');
+document.title = useI18n().t('titles.exercisecreator_view');
 </script>

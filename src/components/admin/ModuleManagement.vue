@@ -115,14 +115,12 @@
     </v-row>
 
     <!-- edit module dialog -->
-      <!-- [Desktop] -->
     <v-dialog
-        class="d-none d-md-flex"
         v-model="editModuleDialog.show"
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" class="dialogWidth">
         <v-card-title>
           <span class="headline">{{ $t("admin.modules.edit") }}</span>
         </v-card-title>
@@ -152,56 +150,14 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      <!-- [Desktop] -->
-      <!-- [Mobile] -->
-    <v-dialog
-        class="d-md-none"
-        v-model="editModuleDialog.show"
-        :scrollable="true"
-        :retain-focus="false"
-    >
-      <v-card top="20%" width="80vw">
-        <v-card-title>
-          <span class="headline">{{ $t("admin.modules.edit") }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-              v-model="editModuleDialog.target.name"
-              :label="$t('admin.modules.title')"
-          />
-          <v-textarea
-              v-model="editModuleDialog.target.description"
-              :label="$t('admin.modules.description')"
-          />
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-              @click="editModuleDialog.show = false"
-              v-html="$t('buttons.cancel')"
-          />
-          <v-btn
-              color="primary"
-              @click="
-              editModuleDialog.show = false;
-              editModule(editModuleDialog.target);
-            "
-              v-html="$t('buttons.save')"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-      <!-- [Mobile] -->
-    <!-- edit module dialog -->
 
     <!-- delete module dialog -->
-      <!-- [Desktop] -->
     <v-dialog
-        class="d-none d-md-flex"
         v-model="deleteModuleDialog.show"
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" class="dialogWidth">
         <v-card-title>
           <span class="headline">{{ $t("admin.modules.delete") }}</span>
         </v-card-title>
@@ -230,55 +186,14 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      <!-- [Desktop] -->
-      <!-- [Mobile] -->
-    <v-dialog
-        class="d-md-none"
-        v-model="deleteModuleDialog.show"
-        :scrollable="true"
-        :retain-focus="false"
-    >
-      <v-card top="20%" width="80vw">
-        <v-card-title>
-          <span class="headline">{{ $t("admin.modules.delete") }}</span>
-        </v-card-title>
-        <v-card-text>
-          <p>
-            {{
-              $t("admin.modules.delete_confirm", [
-                deleteModuleDialog.target.name,
-              ])
-            }}
-          </p>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-              @click="deleteModuleDialog.show = false"
-              v-html="$t('buttons.cancel')"
-          />
-          <v-btn
-              color="error"
-              @click="
-              deleteModuleDialog.show = false;
-              deleteModule(deleteModuleDialog.target);
-            "
-              v-html="$t('buttons.delete')"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-      <!-- [Mobile] -->
-    <!-- delete module dialog -->
 
     <!-- new module dialog -->
-      <!-- [Desktop] -->
     <v-dialog
-        class="d-none d-md-flex"
         v-model="newModuleDialog.show"
         :scrollable="true"
         :retain-focus="false"
     >
-      <v-card top="20%" width="50vw">
+      <v-card top="20%" class="dialogWidth">
         <v-card-title>
           <span class="headline">{{ $t("admin.modules.new") }}</span>
         </v-card-title>
@@ -313,51 +228,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-      <!-- [Desktop] -->
-      <!-- [Mobile] -->
-    <v-dialog
-        class="d-md-none"
-        v-model="newModuleDialog.show"
-        :scrollable="true"
-        :retain-focus="false"
-    >
-      <v-card top="20%" width="80vw">
-        <v-card-title>
-          <span class="headline">{{ $t("admin.modules.new") }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-form ref="newModuleForm">
-            <v-text-field
-                @change="$refs.newModuleForm.validate()"
-                :label="$t('admin.modules.title')"
-                v-model="newModuleDialog.target.name"
-                required
-            />
-            <v-textarea
-                :label="$t('admin.modules.description')"
-                v-model="newModuleDialog.target.description"
-                required
-            />
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-              @click="newModuleDialog.show = false"
-              v-html="$t('buttons.cancel')"
-          />
-          <v-btn
-              color="primary"
-              @click="
-              newModuleDialog.show = false;
-              createModule();
-            "
-              v-html="$t('buttons.save')"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-      <!-- [Mobile] -->
-    <!-- new module dialog -->
   </div>
 </template>
 
@@ -449,6 +319,11 @@ function getModuleTemplate(): Module {
     module_id: 0,
     name: "",
     description: "",
+    modulePublic: false,
+    icon: {
+      icon_id: 7,
+      reference: 'mdi-animation'
+    }
   };
 }
 </script>
@@ -457,5 +332,13 @@ function getModuleTemplate(): Module {
 .desc {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+.dialogWidth {
+  width: 50vw;
+}
+@media (max-width: 1280px) {
+  .dialogWidth {
+    width: 80vw;
+  }
 }
 </style>

@@ -8,12 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@mdi/font": "6.7.96",
+    "@mdi/font": "6.9.96",
     "@rushstack/eslint-patch": "^1.1.4",
     "axios": "^0.27.2",
     "core-js": "^3.23.3",
     "md-editor-v3": "^2.2.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "ress": "^5.0.2",
     "roboto-fontface": "*",
     "simple-code-editor": "^1.2.0",
@@ -61,7 +61,9 @@
     "parserOptions": {
       "parser": "@typescript-eslint/parser"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "warn"
+    }
   },
   "browserslist": [
     "> 1%",

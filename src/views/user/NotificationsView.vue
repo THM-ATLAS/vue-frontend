@@ -18,6 +18,6 @@
 
 <script lang='ts' setup>
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
-import Notifications from "@/components/NotificationList.vue";
+import Notifications from "@/components/user/NotificationList.vue";
 import Footer from "@/components/navigation/FooterCard.vue"
 </script>

@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import Profile from "@/components/ProfileCard"
+import Profile from "@/components/user/ProfileCard"
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Footer from "@/components/navigation/FooterCard.vue"
 import {useI18n} from "vue-i18n";

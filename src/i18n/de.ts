@@ -29,12 +29,12 @@ const translationDe = {
     },
     login_page: {
         login: 'Anmelden',
-        instructions: 'Verwende die Nutzerdaten, die du auch für andere Online-Dienste der THM verwendest.',
-        user_id: 'Nutzerkennung',
+        instructions: 'Verwende deine THM-Kennung oder Gastzugangsdaten.',
+        user_id: 'Kennung',
         password: 'Passwort',
-        username_required: 'Bitte gib deine Nutzerkennung ein.',
+        username_required: 'Bitte gib deine Kennung ein.',
         password_required: 'Bitte gib dein Passwort ein.',
-        invalid_credentials: 'Ungültige Nutzerdaten.',
+        invalid_credentials: 'Ungültige Logindaten.',
         skip_login: 'Weiter ohne Anmeldung',
     },
     landing_page: {
@@ -132,6 +132,8 @@ const translationDe = {
         visit: 'Besuchen',
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
+        visibility_public: 'Sichtbarkeit: öffentlich',
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene'
     },
     titles: {
         home_view: 'ATLAS',
@@ -139,7 +141,11 @@ const translationDe = {
         help_view: 'Hilfe',
         settings_view: 'Einstellungen',
         admin_view: 'Admin',
+        submission_view: 'Abgabe',
+        evaluationlist_view: 'Abgaben',
+        editsubmission_view: 'Bearbeiten',
         exercisemanagement_view: 'Aufgaben',
+        exercisecreator_view: 'Neue Aufgabe',
         usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
         profile_view: 'Profil',
@@ -243,6 +249,7 @@ const translationDe = {
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
         tag_search_or_create: 'Tag suchen oder erstellen',
+        add_exercise: 'Neue Aufgabe hinzufügen'
     },
     submission: {
         title: 'Aufgabe',

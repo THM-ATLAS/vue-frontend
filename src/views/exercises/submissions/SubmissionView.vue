@@ -23,4 +23,7 @@
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Submission from "@/components/exercises/submissions/SubmissionCard.vue";
 import Footer from "@/components/navigation/FooterCard.vue"
+import {useI18n} from "vue-i18n";
+
+document.title = useI18n().t('titles.submission_view');
 </script>
