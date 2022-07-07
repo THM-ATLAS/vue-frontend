@@ -149,7 +149,7 @@
 import Dropdown from "./DropdownCard.vue";
 import ModuleButton from "./ModuleButton.vue"
 import {useRouter} from 'vue-router';
-import {onBeforeMount, Ref, ref} from 'vue';
+import {onBeforeMount, onBeforeUnmount, onMounted, Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import {User} from "@/helpers/types";
@@ -162,6 +162,7 @@ const drawer: Ref<boolean> = ref(false);
 const notificationCount: Ref<number> = ref(0);
 const user: Ref<User | undefined> = ref(undefined);
 const loggedIn : Ref<boolean> = ref(false);
+const interval = ref(0);
 
 onBeforeMount(async () => {
   await UserService.getMe().then(async (r: AxiosResponse) => {
@@ -170,13 +171,21 @@ onBeforeMount(async () => {
       loggedIn.value = true;
       window.localStorage.setItem('loggedIn', 'true')
       await NotificationService.getNotificationsForUser(user.value).then(r =>{
-
         notificationCount.value = r.data.filter(e => !e.read).length
       })
+      interval.value = window.setInterval(async () => {
+        await NotificationService.getNotificationsForUser(user.value).then(r =>{
+          notificationCount.value = r.data.filter(e => !e.read).length
+        })
+      }, 30000)
     } else {
       window.localStorage.removeItem('loggedIn')
     }
   })
+})
+
+onBeforeUnmount(() => {
+  window.clearInterval(interval.value)
 })
 
 const router = useRouter();
