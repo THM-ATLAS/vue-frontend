@@ -153,7 +153,8 @@ import "md-editor-v3/lib/style.css";
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import TagService from "@/services/TagService";
-import {Tag, Module, PostExercise} from "@/helpers/types";
+import ModuleService from "@/services/ModuleService";
+import {Tag, PostExercise} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
