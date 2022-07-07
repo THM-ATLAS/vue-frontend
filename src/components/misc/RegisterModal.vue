@@ -13,6 +13,14 @@
             v-model="registerFormValid"
     >
       <div class="textfields">
+        <v-alert
+            class="ma-3"
+            v-if="alert"
+            type="error"
+            rounded="0"
+        >
+          {{ $t('register_page.errors.username_taken') }}
+        </v-alert>
         <v-text-field
             @change="$refs.registerForm.validate()"
             v-model="registerCredentials.name"
@@ -43,7 +51,7 @@
             required
         />
         <v-text-field
-            @change="$refs.newUserForm.validate()"
+            @change="$refs.registerForm.validate()"
             v-model="passwordConfirmation"
             :label="$t('register_page.password_confirm')"
             :rules="[rules.required, rules.password_equal]"
@@ -80,18 +88,12 @@
 <script setup lang='ts'>
 import {Ref, ref} from "vue";
 import {useI18n} from "vue-i18n";
-import LoginService from "@/services/LoginService";
-
-import {AxiosResponse} from "axios";
-//import {useRouter} from "vue-router";
-import {theme} from "@/helpers/theme";
-import SettingsService from "@/services/SettingsService";
+import {useRouter} from "vue-router";
 import UserService from "@/services/UserService";
-import router from "@/router";
 import {User} from "@/helpers/types";
 
 const i18n = useI18n();
-//const router = useRouter();
+const router = useRouter();
 
 const alert = ref(false);
 const registerFormValid = ref(false);
@@ -103,6 +105,7 @@ const registerCredentials: Ref<User> = ref({
   email: "",
   roles: [],
 });
+
 const passwordConfirmation = ref("");
 
 const rules = {
@@ -114,39 +117,15 @@ const rules = {
   password_equal: (value: string) => value === registerCredentials.value.password || i18n.t("register_page.errors.password_equal"),
 };
 
-async function register() {} // TODO
+async function register() {
+  UserService.addUser(registerCredentials.value).then(() => {
+    router.push({path: "login", query: {register: "success", username: registerCredentials.value.username}});
+  }).catch(() => {
+    alert.value = true;
+  });
+}
 
 async function goBack() {
   router.back();
 }
-
-async function login() {
-  await LoginService.login(registerCredentials.value.username, registerCredentials.value.password).then(async (r: AxiosResponse) => {
-    //const lastRoute = router.currentRoute;
-
-    //await router.push(r.request.responseURL).then(async () => {
-    if (r.request.responseURL.endsWith('login')) {
-      alert.value = true;
-      window.localStorage.removeItem('loggedIn')
-    } else {
-      window.localStorage.setItem('loggedIn', 'true')
-      console.log("loggedIn set")
-      await UserService.getMe().then(async response => {
-        console.log("UserService awaited")
-        await SettingsService.getUserSettings(response.data.user_id).then(res => {
-          console.log("SettingsService awaited")
-          console.log(res)
-          theme.value = res.data.theme
-          i18n.locale.value = res.data.language
-          localStorage.setItem('theme', res.data.theme)
-          localStorage.setItem('locale', res.data.language)
-          router.push('/');
-        })
-      })
-
-    }
-})
-}
-
-
 </script>

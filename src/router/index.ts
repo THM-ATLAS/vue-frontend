@@ -33,10 +33,10 @@ import {AxiosResponse} from "axios";
 const routes: Array<RouteRecordRaw> = [
   {path: '/', name: 'Home',component: Home},
 
-  {path: '/login', component: Login},
+  {path: '/login', component: Login, name: 'Login'},
   {path: '/register', component: Register},
-  { path: '/page-not-found', name: 'NotFound', component: PageNotFound },
-  { path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
+  {path: '/page-not-found', name: 'NotFound', component: PageNotFound },
+  {path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
 
   {path: '/:module/', component: ModuleMainPage},
   {path: '/:module/manage', component: ModuleManager},
@@ -72,6 +72,7 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  // eslint-disable-next-line no-unused-vars
   scrollBehavior(to, from, savedPosition) {
     return {
       top: 0,
@@ -79,6 +80,7 @@ const router = createRouter({
   }
 })
 
+// eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
     await UserService.getMe().then(async (r: AxiosResponse) =>{
       if (isLoggedIn(r)) {
