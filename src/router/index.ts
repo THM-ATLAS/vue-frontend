@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Login from "@/views/misc/LoginView.vue";
 import Register from "@/views/misc/RegisterView.vue";
 import Exercise from "@/views/exercises/ExerciseView.vue";
@@ -32,68 +32,68 @@ import {isLoggedIn} from "@/services/LoginService";
 import {AxiosResponse} from "axios";
 
 const routes: Array<RouteRecordRaw> = [
-  {path: '/', name: 'Home',component: Home},
+    {path: '/', name: 'Home', component: Home},
 
-  {path: '/login', component: Login, name: 'Login'},
-  {path: '/register', component: Register},
-  {path: '/page-not-found', name: 'NotFound', component: PageNotFound },
-  {path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
+    {path: '/login', component: Login, name: 'Login'},
+    {path: '/register', component: Register},
+    {path: '/page-not-found', name: 'NotFound', component: PageNotFound },
+    {path: '/:pathMatch(.*)*', redirect: '/page-not-found' },
 
-  {path: '/:module/', component: ModuleMainPage},
-  {path: '/:module/manage', component: ModuleManager},
-  {path: '/:module/e/new/edit', component: ExerciseEditor}, // create new exercise
-  {path: '/:module/e/:id', component: Exercise},
-  {path: '/:module/e/:id/edit', component: ExerciseEditor}, // edit mode
-  {path: '/:module/e/new', component: ExerciseCreator}, // edit mode
-  {path: '/:module/e/:id/feedback', component: Feedback}, // list feedback
-  {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
+    {path: '/:module/', component: ModuleMainPage},
+    {path: '/:module/manage', component: ModuleManager},
+    {path: '/:module/e/new/edit', component: ExerciseEditor}, // create new exercise
+    {path: '/:module/e/:id', component: Exercise},
+    {path: '/:module/e/:id/edit', component: ExerciseEditor}, // edit mode
+    {path: '/:module/e/new', component: ExerciseCreator},
+    {path: '/:module/e/:id/feedback', component: Feedback}, // list feedback
+    {path: '/:module/e/:id/:title', component: Exercise}, // title specified, internally ignored
 
-  {path: '/:module/s/:id', component: Submission},
-  {path: '/:module/s/:id/edit/:sid', component: EditSubmission},
-  {path: '/:module/eval/:id', component: EvaluationList},
-  {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
+    {path: '/:module/s/:id', component: Submission},
+    {path: '/:module/s/:id/edit/:sid', component: EditSubmission},
+    {path: '/:module/eval/:id', component: EvaluationList},
+    {path: '/:module/eval/:id/:sid', component: SpecificEvaluation},
 
-  {path: '/u/', component: Profile}, // personal profile
-  {path: '/u/:id', component: Profile}, // profile of other user
+    {path: '/u/', component: Profile}, // personal profile
+    {path: '/u/:id', component: Profile}, // profile of other user
 
-  {path: "/leaderboard", component: Leaderboard},
+    {path: "/leaderboard", component: Leaderboard},
 
-  {path: '/notifications', component: Notifications},
-  {path: '/help', component: Help},
+    {path: '/notifications', component: Notifications},
+    {path: '/help', component: Help},
 
-  {path: '/settings', component: Settings},
+    {path: '/settings', component: Settings},
 
-  {path: '/admin/', component: Admin},
-  {path: '/admin/users', component: UserManagement},
-  {path: '/admin/exercises', component: ExerciseManagement},
-  {path: '/admin/modules', component: ModuleManagement},
+    {path: '/admin/', component: Admin},
+    {path: '/admin/users', component: UserManagement},
+    {path: '/admin/exercises', component: ExerciseManagement},
+    {path: '/admin/modules', component: ModuleManagement},
 
-  {path: '/modules', component: ModuleSearch},
+    {path: '/modules', component: ModuleSearch},
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-  // eslint-disable-next-line no-unused-vars
-  scrollBehavior(to, from, savedPosition) {
-    return {
-      top: 0,
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
+    // eslint-disable-next-line no-unused-vars
+    scrollBehavior(to, from, savedPosition) {
+        return {
+          top: 0,
+        }
     }
-  }
 })
 
 // eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
-    await UserService.getMe().then(async (r: AxiosResponse) =>{
-      if (isLoggedIn(r)) {
-        window.localStorage.setItem('loggedIn', 'true')
-        await SettingsService.getUserSettings(r.data.user_id).then( res => {
-          theme.value = res.data.theme
-          i18n.global.locale = res.data.language
-        })
-      } else {
-        window.localStorage.removeItem('loggedIn')
-      }
+    await UserService.getMe().then(async (r: AxiosResponse) => {
+        if (isLoggedIn(r)) {
+            window.localStorage.setItem('loggedIn', 'true')
+            await SettingsService.getUserSettings(r.data.user_id).then(res => {
+                theme.value = res.data.theme
+                i18n.global.locale = res.data.language
+            })
+        } else {
+            window.localStorage.removeItem('loggedIn')
+        }
     })
 })
 
