@@ -36,6 +36,25 @@ const translationEn = {
         password_required: 'Please enter your password.',
         invalid_credentials: 'Invalid credentials.',
         skip_login: 'Continue without login',
+        register_success: 'Registration successful! You can now login.',
+    },
+    register_page: {
+        register: 'Register',
+        instructions: 'Create a guest account for use with ATLAS. Note that inactive accounts will be deleted after 30 days. If you have THM credentials, you can login with them.',
+        name: 'Full name',
+        username: 'Username',
+        email: 'Email',
+        password: 'Password',
+        password_confirm: 'Confirm password',
+        errors: {
+            required: 'This field is required.',
+            email_invalid: 'Please enter a valid email address.',
+            password_equal: 'The passwords do not match.',
+            password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',
+            username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+            username_ldap_invalid: 'Username is reserved for LDAP-accounts.',
+            username_taken: 'Username is already taken.',
+        }
     },
     landing_page: {
         welcome: 'Welcome to',
@@ -190,9 +209,10 @@ const translationEn = {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
                 username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+                username_ldap_invalid: 'Username is reserved for LDAP-accounts.',
                 email_taken: 'This email address is already in use.',
                 email_invalid: 'Please enter a valid email address.',
-                password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
+                password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',
             }
         },
         exercises: {

@@ -40,11 +40,12 @@
             <v-tooltip right>
               <template v-slot:activator="{ props: tooltip }">
                 <v-btn
+                    :disabled="isLDAPuser(user)"
                     @click="editUserDialog.show = true; editUserDialog.target = user"
                     icon="mdi-account-edit"
                     small
                     elevation="0"
-                    color="primary"
+                    :color="isLDAPuser(user) ? 'grey' : 'primary'"
                     class="ma-1"
                     rounded="0"
                     variant="outlined"
@@ -133,7 +134,7 @@
         </v-card-title>
         <v-card-text>
           <template v-for="role in roles" v-bind:key="role.role_id">
-            <v-checkbox v-if="role.role_id !== 5" v-model="editRolesDialog.target.roles"
+            <v-checkbox v-if="role.name !== 'tutor'" v-model="editRolesDialog.target.roles"
                         :value="role" :label="getRole(role.name)" @change="editUser(editRolesDialog.target)"/>
           </template>
         </v-card-text>
@@ -168,7 +169,7 @@
                 @change="$refs.newUserForm.validate()"
                 v-model="newUserDialog.target.username"
                 :label="$t('admin.users.username')"
-                :rules="[rules.required, rules.username]"
+                :rules="[rules.required, rules.username, rules.username_ldap]"
                 :counter="32"
                 required
             />
@@ -179,14 +180,14 @@
                 :rules="[rules.required, rules.email]"
                 required
             />
-            <!--v-text-field
+            <v-text-field
                 @change="$refs.newUserForm.validate()"
                 v-model="newUserDialog.target.password"
                 :label="$t('admin.users.password')"
                 :rules="[rules.required, rules.password]"
                 required
                 type="password"
-            /-->
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -207,38 +208,31 @@
           <span class="headline">{{ $t('admin.users.edit') }}</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field
-              v-model="editUserDialog.target.name"
-              :label="$t('admin.users.name')"
-              :rules="[rules.required]"
-          />
-          <v-text-field
-              v-model="editUserDialog.target.username"
-              :label="$t('admin.users.username')"
-              :rules="[rules.required, rules.username]"
-          />
-          <v-text-field
-              v-model="editUserDialog.target.email"
-              :label="$t('admin.users.email')"
-              :rules="[rules.required, rules.email]"
-          />
-          <!--v-btn
-              v-if="!editUserDialog.changePassword"
-              v-model="editUserDialog.changePassword"
-              @click="editUserDialog.changePassword = true"
-              v-html="$t('admin.users.change_password')"
-          />
-          <v-text-field
-              v-else
-              v-model="editUserDialog.target.password"
-              :label="$t('admin.users.password')"
-              :rules="[rules.required, rules.password]"
-          /-->
+          <v-form ref="editUserForm"
+                  v-model="editUserFormValid"
+          >
+            <v-text-field
+                v-model="editUserDialog.target.name"
+                :label="$t('admin.users.name')"
+                :rules="[rules.required]"
+            />
+            <v-text-field
+                v-model="editUserDialog.target.username"
+                :label="$t('admin.users.username')"
+                :rules="[rules.required, rules.username, rules.username_ldap]"
+            />
+            <v-text-field
+                v-model="editUserDialog.target.email"
+                :label="$t('admin.users.email')"
+                :rules="[rules.required, rules.email]"
+            />
+          </v-form>
         </v-card-text>
         <v-card-actions>
           <v-btn @click="editUserDialog.show = false;"
                  v-html="$t('buttons.cancel')"/>
           <v-btn
+              :disabled="!editUserFormValid"
               color="primary"
               @click="editUser(editUserDialog.target);
                editUserDialog.show = false;"
@@ -329,9 +323,14 @@ function applySearch(): void {
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
   username: (value: string) => /^[a-zA-Z\d]{3,32}$/.test(value) || i18n.t("admin.users.errors.username_invalid"),
+  username_ldap: (value: string) => !/^([a-zA-Z]{4}\d{2}|hg\d+)$/.test(value) || i18n.t("admin.users.errors.username_ldap_invalid"),
   email: (value: string) => /^[a-zA-Z\d.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z\d-]+(?:\.[a-zA-Z\d-]+)*$/.test(value) || i18n.t("admin.users.errors.email_invalid"),
-  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])[a-zA-Z\d]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number'
+  password: (value: string) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])[^ ]{8,}$/.test(value) || i18n.t("admin.users.errors.password_invalid"), // 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter one number and a special character'
 };
+
+function isLDAPuser(user: User): boolean {
+  return /^([a-zA-Z]{4}\d{2}|hg\d+)$/.test(user.username);
+}
 
 function visitUser(user: User) {
   router.push('/u/' + user.user_id)
@@ -347,10 +346,8 @@ function getUserTemplate(): User {
     name: '',
     username: '',
     email: '',
-    roles: [{
-      role_id: 2,
-      name: 'User',
-    }],
+    password: '',
+    roles: [],
   };
 }
 
@@ -370,6 +367,7 @@ const newUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
 });
 
 const newUserFormValid = ref(false);
+const editUserFormValid = ref(false);
 
 const editUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
   show: false,
