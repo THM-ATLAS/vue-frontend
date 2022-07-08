@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-text-field
+        class="mb-4 mt-1"
+        :label="$t('admin.modules.search_module')"
+        v-model="search"
+        prepend-icon="mdi-magnify"
+        single-line
+        hide-details
+        @input="applySearch"/>
     <v-card elevation="0" rounded="0" role="main">
       <!-- main table -->
       <v-table
@@ -243,18 +251,28 @@ const display = useDisplay();
 const router = useRouter();
 
 const modules: Ref<Module[]> = ref([]);
+const filteredModules: Ref<Module[]> = ref([]);
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
+const search = ref("");
 const itemsPerPageLabel = i18n.t('module_search.module_per_page')
 
 async function loadModules(): Promise<void> {
-  modules.value = (await ModuleService.getModules()).data.sort(
+  filteredModules.value = modules.value = (await ModuleService.getModules()).data.sort(
       (a: Module, b: Module) => a.module_id - b.module_id
   );
+}
+
+function applySearch(): void {
+  filteredModules.value = modules.value.filter((module) => {
+    return module.name.toLowerCase().includes(search.value.toLowerCase())
+  })
+  currentPage.value = filteredModules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
 }
 
 onBeforeMount(async () => {

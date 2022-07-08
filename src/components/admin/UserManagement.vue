@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-text-field
+        class="mb-4 mt-1"
+        :label="$t('admin.users.search_user')"
+        v-model="userFilter"
+        prepend-icon="mdi-magnify"
+        single-line
+        hide-details
+        @input="applySearch"/>
     <v-card elevation="0" rounded="0" role="main">
       <v-table>
         <thead>
@@ -266,6 +274,7 @@ import {useRouter} from "vue-router";
 const router = useRouter();
 const roles: Ref<Role[]> = ref([]);
 const users: Ref<User[]> = ref([]);
+const filteredUsers: Ref<User[]> = ref([]);
 
 const currentPage: Ref<User[]> = ref([]);
 const currentPageNumber = ref(1);
@@ -274,9 +283,10 @@ const numbers = [1, 3, 5, 10, 20, 50];
 const length = ref(3);
 const i18n = useI18n();
 const itemsPerPageLabel = i18n.t('user_search.users_per_page')
+const userFilter = ref('');
 
 async function loadUsers(): Promise<void> {
-  users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
+  filteredUsers.value = users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
 }
 
 onBeforeMount(async () => {
@@ -299,7 +309,14 @@ watch(itemsPerPage, (newNumber) => {
   currentPage.value = users.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
   length.value = Math.ceil(users.value.length / newNumber)
 })
-console.log(users.value);
+
+function applySearch(): void {
+  filteredUsers.value = users.value.filter((user) => {
+    return (user.name + ' ' + user.username + ' ' + user.email).toLowerCase().includes(userFilter.value.toLowerCase());
+  })
+  currentPage.value = filteredUsers.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredUsers.value.length / itemsPerPage.value)
+}
 
 // const i18n = useI18n();
 
@@ -364,7 +381,7 @@ const deleteUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
 
 async function createUser() {
   // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
-  await UserService.addUser(newUserDialog.value.target);
+  await UserService.addUser(newUserDialog.value.target as User);
   await loadUsers();
   newUserDialog.value.target = getUserTemplate();
   newUserDialog.value.show = false;

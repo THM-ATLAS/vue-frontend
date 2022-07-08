@@ -119,6 +119,7 @@ const translationEn = {
     module_search: {
         items_per_page: 'Items per page',
         module_per_page: 'Modules per page',
+        search: 'Search modules',
     },
     user_search: {
         users_per_page: 'Users per page'
@@ -203,6 +204,7 @@ const translationEn = {
             actions: 'Actions',
             password: 'Password',
             change_password: 'Change password',
+            search_user: 'Search user',
             errors: {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
@@ -224,6 +226,7 @@ const translationEn = {
             no_description: 'No description provided',
             created_at: 'Created at',
             actions: 'Actions',
+            search_exercise: 'Search exercise',
             errors: {
                 required: 'This field is required.',
             }
@@ -237,6 +240,7 @@ const translationEn = {
             edit: 'Edit module',
             delete: 'Delete module',
             delete_confirm: 'Delete module "{0}"?',
+            search_module: 'Search module',
         },
         navbar: {
             title: 'Admin Panel',
@@ -338,7 +342,8 @@ const translationEn = {
         tutors: 'Tutors',
         materials: 'Learning material',
         enrollment: 'Self enrollment in this module.',
-        disenroll: 'Disenroll from this module.'
+        disenroll: 'Disenroll from this module.',
+        search_exercise: 'Search exercise',
     },
     module_manager: {
         name: 'Name',
@@ -346,11 +351,12 @@ const translationEn = {
         edit_tag_button: 'Edit tags',
         edit_tag: 'Change or delete tags',
         tag: 'Tag',
-        add_user: 'Add user',
+        add_user: 'Enroll user',
         edit_privilege: 'Change role',
         student: 'Student',
         tutor: 'Tutor',
-        teacher: 'Teacher'
+        teacher: 'Teacher',
+        search_user: 'Search user',
     },
     page_not_found: {
         error_title: "This page could not be found.",
