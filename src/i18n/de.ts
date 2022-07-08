@@ -36,6 +36,25 @@ const translationDe = {
         password_required: 'Bitte gib dein Passwort ein.',
         invalid_credentials: 'Ungültige Logindaten.',
         skip_login: 'Weiter ohne Anmeldung',
+        register_success: 'Dein Account wurde erfolgreich erstellt. Du kannst dich nun anmelden.',
+    },
+    register_page: {
+        register: 'Registrieren',
+        instructions: 'Erstellt einen ATLAS-Gastaccount. Inaktive Accounts werden nach 30 Tagen Nichtbenutzen gelöscht. Solltest du THM-Zugangsdaten besitzen, kannst du dich stattdessen mit diesen anmelden.',
+        name: 'Vollständiger Name',
+        username: 'Kennung',
+        email: 'E-Mail',
+        password: 'Passwort',
+        password_confirm: 'Passwort bestätigen',
+        errors: {
+            required: 'Dieses Feld ist erforderlich.',
+            email_invalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
+            password_equal: 'Die Passwörter stimmen nicht überein.',
+            password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
+            username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+            username_ldap_invalid: 'Benutzername ist für LDAP-Accounts reserviert.',
+            username_taken: 'Benutzername ist bereits vergeben.',
+        }
     },
     landing_page: {
         welcome: 'Willkommen zu',
@@ -195,9 +214,10 @@ const translationDe = {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
                 username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+                username_ldap_invalid: 'Benutzername ist für LDAP-Accounts reserviert.',
                 email_taken: 'E-Mail wird bereits verwendet.',
                 email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
-                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
+                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
             }
         },
         exercises: {
