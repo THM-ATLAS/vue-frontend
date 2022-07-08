@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import Login from "@/views/misc/LoginView.vue";
+import Register from "@/views/misc/RegisterView.vue";
 import Exercise from "@/views/exercises/ExerciseView.vue";
 
 import Profile from "@/views/user/ProfileView.vue";
@@ -33,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
     {path: '/', name: 'Home', component: Home},
 
     {path: '/login', component: Login},
+    {path: '/register', component: Register},
     {path: '/notifications', component: Notifications},
     {path: '/help', component: Help},
     {path: '/settings', component: Settings},
@@ -96,6 +98,7 @@ const router = createRouter({
     }
 })
 
+// eslint-disable-next-line no-unused-vars
 router.beforeEach(async (to, from) => {
     await UserService.getMe().then(async (r: AxiosResponse) => {
         if (isLoggedIn(r)) {
