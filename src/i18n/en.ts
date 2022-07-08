@@ -331,7 +331,7 @@ const translationEn = {
         edit_tag_button: 'Edit tags',
         edit_tag: 'Change or delete tags',
         tag: 'Tag',
-        add_user: 'Enrol user',
+        add_user: 'Enroll user',
         edit_privilege: 'Change role',
         student: 'Student',
         tutor: 'Tutor',
