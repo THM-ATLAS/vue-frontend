@@ -131,8 +131,11 @@ onBeforeMount(async () => {
   await UserService.getMe().then(async r => {
     if (r.data.user_id) {
       user.value = r.data
-      await NotificationService.getNotificationsForUser(r.data).then(res => {
+      await NotificationService.getNotificationsForUser(r.data).then( async res => {
         notifications.value = res.data
+        notifications.value.sort(function(a,b){
+          return (b.notification_id - a.notification_id);
+        });
       })
     }
   })
