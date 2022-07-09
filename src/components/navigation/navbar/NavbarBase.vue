@@ -27,45 +27,38 @@
 
     <!--dropdown menu für desktop -->
 
-    <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
+   <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
-    <v-menu width="10em" origin="top" transition="scale-transition">
-      <template v-if="loggedIn && notificationCount > 0" v-slot:activator="{ props }">
+    <v-menu v-if="loggedIn" width="10em" origin="top" transition="scale-transition">
+      <template v-if="notificationCount > 0" v-slot:activator="{ props }">
         <v-badge :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
-               v-bind="props" variant="outlined">
-          {{ $t('login_page.login') }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         </v-badge>
       </template>
       <template v-else v-slot:activator="{ props }">
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
-               variant="outlined">
-          {{ $t('login_page.login') }}
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-      </template>
-      <Dropdown v-if="loggedIn" :notificationCount='notificationCount'/>
-    </v-menu>
 
+      </template>
+      <Dropdown :notificationCount='notificationCount'/>
+    </v-menu>
     <div v-else class="mr-4 ml-2 d-none d-md-flex">
       <v-btn @click="goToLogin" rounded="0"
-             variant="outlined" v-html="$t('buttons.login')"/>
+             variant="outlined">
+        {{$t('buttons.login')}}
+      </v-btn>
       <v-btn @click="goToRegister" rounded="0"
-             variant="outlined" v-html="$t('buttons.register')"/>
+             variant="outlined">
+        {{$t('buttons.register')}}
+      </v-btn>
     </div>
-
     <!---------------------------------->
 
     <!--<template v-if="!getMobile()" v-slot:extension>
