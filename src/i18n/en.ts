@@ -193,7 +193,9 @@ const translationEn = {
         view: 'View',
         visit_profile: 'Visit profile',
         visibility_public: 'Visibility: public',
-        visibility_private: 'Visibility: only for enrolled users'
+        visibility_private: 'Visibility: only for enrolled users',
+        to_module: 'Visit the module',
+        to_exercise: 'View the exercise'
     },
     languages: {
         en: 'English',

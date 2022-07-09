@@ -172,7 +172,9 @@ const translationDe = {
         to_submission: 'Zur Abgabe',
         read_message: 'Lesen',
         edit_exercise: 'Aufgabe bearbeiten',
-        to_help_page: 'Zur Hilfeseite'
+        to_help_page: 'Zur Hilfeseite',
+        to_module: 'Zum Modul',
+        to_exercise: 'Zur Aufgabe'
     },
     titles: {
         home_view: 'ATLAS',
