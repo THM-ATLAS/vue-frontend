@@ -65,8 +65,9 @@
       </thead>
       <tbody>
       <tr
-          :class="theme === 'dark' ? 'row-pointer-dark' : 'row-pointer-light'"
-          v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }"
+          :class="{rowPointerDark: theme === 'dark',
+                   rowPointerLight: theme === 'light',
+                   readBackground: notification.read}"
           v-for="notification in notifications"
           v-bind:key="notification.notification_id">
         <v-dialog
@@ -96,14 +97,7 @@
               <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
             </td>
           </template>
-          <v-card>
-            <v-card-title>
-              {{notification.title}}
-            </v-card-title>
-            <v-card-text>
-              {{notification.content}}
-            </v-card-text>
-          </v-card>
+          <NotificationDialog v-bind:notification="notification" v-bind:user="user"/>
         </v-dialog>
       </tr>
       </tbody>
@@ -120,6 +114,7 @@ import NotificationService from "@/services/NotificationService";
 import UserService from "@/services/UserService";
 import router from "@/router";
 import {theme} from "@/helpers/theme";
+import NotificationDialog from "@/components/user/NotificationDialog"
 
 const i18n = useI18n();
 const notifications : Ref<Notification[]> = ref([]);
@@ -191,20 +186,6 @@ function getNotificationIcon (notification : Notification) : string {
 }
 
 async function handleClick (notification : Notification) {
-  switch (notification.type_id) {
-    case 1:
-      break;
-    case 2:
-      break;
-    case 3:
-      break;
-    case 4:
-      break;
-    case 5:
-      break;
-    default:
-      break;
-  }
   notification.read = true
   await NotificationService.markNotificationAsRead(notification, user.value)
 }
@@ -216,13 +197,29 @@ async function handleClick (notification : Notification) {
 .v-btn {
   margin: 5px !important;
 }
-.row-pointer-dark:hover {
-  cursor: pointer;
-  background: rgba(255, 255, 255, .1) !important;
+
+.rowPointerDark {
+  background: rgba(0, 0, 0, 0.2) !important;
 }
 
-.row-pointer-light:hover {
-  cursor: pointer;
-  background: rgba(0, 0, 0, .1) !important;
+.rowPointerDark.readBackground {
+  background: rgb(var(--v-theme-surface)) !important;
 }
+.rowPointerLight {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+.rowPointerLight.readBackground {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.rowPointerDark:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, .2) !important;
+}
+
+.rowPointerLight:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, .2) !important;
+}
+
 </style>
