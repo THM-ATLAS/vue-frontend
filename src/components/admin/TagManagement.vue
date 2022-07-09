@@ -1,13 +1,13 @@
 <template>
   <div>
-    <!-- <v-text-field
+    <v-text-field
         class="mb-4 mt-1"
-        :label="$t('admin.modules.search_module')"
+        :label="$t('admin.tags.search_tag')"
         v-model="search"
         prepend-icon="mdi-magnify"
         single-line
         hide-details
-        @input="applySearch"/> -->
+        @input="applySearch"/>
     <v-card elevation="0" rounded="0" role="main">
       <!-- main table -->
       <v-table
@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="tag in allTags" v-bind:key="tag.tag_id">
+        <tr v-for="tag in filteredTags" v-bind:key="tag.tag_id">
           <!-- Name -->
           <td>{{ tag.name }}</td>
           <!-- Buttons -->
@@ -152,6 +152,7 @@ const itemsPerPage = ref(10);
 const length = ref(3);
 const search = ref("");
 const allTags: Ref<Tag[]> = ref([])
+const filteredTags: Ref<Tag[]> = ref([])
 
 const editTagDialog: Ref<{ show: boolean, target: Tag | null }> = ref({
   show: false,
@@ -163,15 +164,13 @@ const createTagDialog: Ref<{ show: boolean, target: Tag | null }> = ref({
 });
 
 function applySearch(): void {
-  filteredModules.value = modules.value.filter((module) => {
-    return module.name.toLowerCase().includes(search.value.toLowerCase())
+  filteredTags.value = allTags.value.filter((tag) => {
+    return tag.name.toLowerCase().includes(search.value.toLowerCase())
   })
-  currentPage.value = filteredModules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
 }
 
 function getAllTags(): void {
-    TagService.getAllTags().then(res => allTags.value = res.data.sort((tag1: Tag, tag2: Tag) => tag1.name.localeCompare(tag2.name)));
+    TagService.getAllTags().then(res => filteredTags.value = allTags.value = res.data.sort((tag1: Tag, tag2: Tag) => tag1.name.localeCompare(tag2.name)));
 }
 
 function createTag(givenTag: Tag): void {

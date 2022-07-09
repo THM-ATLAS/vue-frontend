@@ -254,7 +254,8 @@ const translationDe = {
             title: 'Tags', 
             actions: 'Aktionen',
             edit_tag: 'Tag bearbeiten', 
-            create_tag: 'Tag erstellen'
+            create_tag: 'Tag erstellen',
+            search_tag: 'Tag suchen',
         },
         navbar: {
             title: 'Administration',

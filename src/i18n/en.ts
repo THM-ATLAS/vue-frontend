@@ -247,7 +247,8 @@ const translationEn = {
             title: 'Tags', 
             actions: 'Actions',
             edit_tag: 'Edit tag', 
-            create_tag: 'Create tag'
+            create_tag: 'Create tag',
+            search_tag: 'Search tag',
         },
         navbar: {
             title: 'Admin Panel',
