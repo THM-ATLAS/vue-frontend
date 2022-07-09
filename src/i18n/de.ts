@@ -36,6 +36,25 @@ const translationDe = {
         password_required: 'Bitte gib dein Passwort ein.',
         invalid_credentials: 'Ungültige Logindaten.',
         skip_login: 'Weiter ohne Anmeldung',
+        register_success: 'Dein Account wurde erfolgreich erstellt. Du kannst dich nun anmelden.',
+    },
+    register_page: {
+        register: 'Registrieren',
+        instructions: 'Erstellt einen ATLAS-Gastaccount. Inaktive Accounts werden nach 30 Tagen Nichtbenutzen gelöscht. Solltest du THM-Zugangsdaten besitzen, kannst du dich stattdessen mit diesen anmelden.',
+        name: 'Vollständiger Name',
+        username: 'Kennung',
+        email: 'E-Mail',
+        password: 'Passwort',
+        password_confirm: 'Passwort bestätigen',
+        errors: {
+            required: 'Dieses Feld ist erforderlich.',
+            email_invalid: 'Bitte gib eine gültige E-Mail-Adresse ein.',
+            password_equal: 'Die Passwörter stimmen nicht überein.',
+            password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
+            username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+            username_ldap_invalid: 'Benutzername ist für LDAP-Accounts reserviert.',
+            username_taken: 'Benutzername ist bereits vergeben.',
+        }
     },
     landing_page: {
         welcome: 'Willkommen zu',
@@ -102,6 +121,7 @@ const translationDe = {
     module_search: {
         items_per_page: 'Einträge pro Seite',
         module_per_page: 'Module pro Seite',
+        search: 'Suche nach Modulen',
     },
     user_search: {
         users_per_page: 'Benutzer pro Seite'
@@ -145,6 +165,8 @@ const translationDe = {
         visit: 'Besuchen',
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
+        visibility_public: 'Sichtbarkeit: öffentlich',
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene',
         to_profile: 'Zum Profil',
         read_feedback: 'Feedback lesen',
         to_submission: 'Zur Abgabe',
@@ -162,6 +184,7 @@ const translationDe = {
         evaluationlist_view: 'Abgaben',
         editsubmission_view: 'Bearbeiten',
         exercisemanagement_view: 'Aufgaben',
+        exercisecreator_view: 'Neue Aufgabe',
         usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
         profile_view: 'Profil',
@@ -207,13 +230,15 @@ const translationDe = {
             actions: 'Aktionen',
             password: 'Passwort',
             change_password: 'Passwort ändern',
+            search_user: 'Benutzer:in suchen',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
                 username_invalid: 'Benutzername muss zwischen 3 und 32 Zeichen lang sein und darf nur aus Buchstaben und Zahlen bestehen.',
+                username_ldap_invalid: 'Benutzername ist für LDAP-Accounts reserviert.',
                 email_taken: 'E-Mail wird bereits verwendet.',
                 email_invalid: 'Diese E-Mail-Adresse ist ungültig.',
-                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, und Sonderzeichen enthalten.',
+                password_invalid: 'Passwort muss mindestens 8 Buchstaben lang sein, und einen Großbuchstaben, Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.',
             }
         },
         exercises: {
@@ -227,6 +252,7 @@ const translationDe = {
             no_description: 'Keine Beschreibung',
             created_at: 'Erstellt am',
             actions: 'Aktionen',
+            search_exercise: 'Aufgabe suchen',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
@@ -240,6 +266,7 @@ const translationDe = {
             edit: 'Modul bearbeiten',
             delete: 'Modul löschen',
             delete_confirm: 'Modul "{0}" wirklich löschen?',
+            search_module: 'Modul suchen',
         },
         navbar: {
             title: 'Administration',
@@ -265,6 +292,7 @@ const translationDe = {
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
         tag_search_or_create: 'Tag suchen oder erstellen',
+        add_exercise: 'Neue Aufgabe hinzufügen'
     },
     submission: {
         title: 'Aufgabe',
@@ -333,7 +361,8 @@ const translationDe = {
         tutors: 'Tutor:innen',
         materials: 'Lernmaterial',
         enrollment: 'Selbsteinschreibung in das Modul.',
-        disenroll: 'Von diesem Modul abmelden.'
+        disenroll: 'Von diesem Modul abmelden.',
+        search_exercise: 'Aufgabe suchen',
     },
     module_manager: {
         name: 'Name',
@@ -341,11 +370,12 @@ const translationDe = {
         edit_tag_button: 'Tags bearbeiten',
         edit_tag: 'Tags bearbeiten oder löschen',
         tag: 'Tag',
-        add_user: 'Nutzer hinzufügen',
+        add_user: 'Nutzer:in einschreiben',
         edit_privilege: 'Rolle ändern',
         student: 'Student:in',
         tutor: 'Tutor:in',
-        teacher: 'Lehrer:in'
+        teacher: 'Lehrer:in',
+        search_user: 'Nutzer:in suchen',
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

@@ -9,9 +9,7 @@
                height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
-    <ModuleButton/>
-    <v-spacer/>
-    <v-spacer/>
+    <ModuleButton v-if="loggedIn"/>
     <v-spacer/>
     <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
@@ -61,6 +59,13 @@
       <Dropdown v-if="loggedIn" :notificationCount='notificationCount'/>
     </v-menu>
 
+    <div v-else class="mr-4 ml-2 d-none d-md-flex">
+      <v-btn @click="goToLogin" rounded="0"
+             variant="outlined" v-html="$t('buttons.login')"/>
+      <v-btn @click="goToRegister" rounded="0"
+             variant="outlined" v-html="$t('buttons.register')"/>
+    </div>
+
     <!---------------------------------->
 
     <!--<template v-if="!getMobile()" v-slot:extension>
@@ -106,7 +111,6 @@
       position="right"
       :temporary="true"
       class="d-md-none"
-
   >
     <v-spacer/>
     <v-list :nav="true">
@@ -196,6 +200,10 @@ async function goToHome(): Promise<void> {
 
 function goToLogin(): void {
   router.push("/login");
+}
+
+function goToRegister(): void {
+  router.push("/register");
 }
 
 async function logout(): Promise<void> {
