@@ -9,9 +9,7 @@
                height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
-    <ModuleButton/>
-    <v-spacer/>
-    <v-spacer/>
+    <ModuleButton v-if="loggedIn"/>
     <v-spacer/>
     <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
@@ -31,35 +29,25 @@
 
     <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
-    <v-menu width="10em" origin="top" transition="scale-transition">
-      <template v-if="loggedIn" v-slot:activator="{ props }">
+    <v-menu v-if="loggedIn" width="10em" origin="top" transition="scale-transition">
+      <template v-slot:activator="{ props }">
         <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
-               v-bind="props" variant="outlined">
-          Login
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
         <!--/v-badge-->
       </template>
-      <template v-else v-slot:activator="{ props }">
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
-               variant="outlined">
-          {{ user.name }}
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
-               variant="outlined">
-          Login
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-      </template>
       <Dropdown v-if="loggedIn" :messages='messages'/>
     </v-menu>
+
+    <div v-else class="mr-4 ml-2 d-none d-md-flex">
+      <v-btn @click="goToLogin" rounded="0"
+             variant="outlined" v-html="$t('buttons.login')"/>
+      <v-btn @click="goToRegister" rounded="0"
+             variant="outlined" v-html="$t('buttons.register')"/>
+    </div>
 
     <!---------------------------------->
 
@@ -139,7 +127,7 @@ import {AxiosResponse} from "axios";
 const drawer: Ref<boolean> = ref(false);
 const messages: Ref<string> = ref("3");
 const user: Ref<User | undefined> = ref(undefined);
-const loggedIn : Ref<boolean> = ref(false);
+const loggedIn: Ref<boolean> = ref(false);
 
 onBeforeMount(async () => {
   await UserService.getMe().then((r: AxiosResponse) => {
@@ -155,18 +143,22 @@ onBeforeMount(async () => {
 
 const router = useRouter();
 
-function goToHome(): void {
-  router.push(`/`);
+async function goToHome(): Promise<void> {
+  await router.push(`/`);
 }
 
 function goToLogin(): void {
   router.push("/login");
 }
 
+function goToRegister(): void {
+  router.push("/register");
+}
+
 async function logout(): Promise<void> {
   await LoginService.logout();
   window.localStorage.removeItem('loggedIn');
-  goToHome();
+  await goToHome();
   window.location.reload();
 }
 

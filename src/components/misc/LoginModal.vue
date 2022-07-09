@@ -15,6 +15,14 @@
       <div class="textfields">
         <v-alert
             class="ma-3"
+            v-if="this.$route.query.register"
+            type="info"
+            rounded="0"
+        >
+          {{ $t('login_page.register_success') }}
+        </v-alert>
+        <v-alert
+            class="ma-3"
             v-if="alert"
             type="error"
             rounded="0"
@@ -49,28 +57,37 @@
           size="large"
           rounded="0"
           variant="outlined"
+          @click="goRegister"
+          :hidden="this.$route.query.register"
+          v-html="$t('buttons.register')"
+      />
+      <v-btn
+          :flat="true"
+          size="large"
+          rounded="0"
+          variant="outlined"
           :disabled="!loginFormValid"
           @click="login"
-          @keyup.enter="login">
-
-        {{ $t('buttons.login_with_ldap') }}
-      </v-btn>
+          @keyup.enter="login"
+          v-html="$t('buttons.login_with_ldap')"/>
     </v-card-actions>
   </v-card>
 
 </template>
 
 <script setup lang='ts'>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {useI18n} from "vue-i18n";
 import LoginService from "@/services/LoginService";
-// import SettingsService from "@/services/SettingsService";
-// import {theme} from "@/helpers/theme";
 import {AxiosResponse} from "axios";
-import {useRouter} from "vue-router";
+import {theme} from "@/helpers/theme";
+import SettingsService from "@/services/SettingsService";
+import UserService from "@/services/UserService";
+import router from "@/router";
+import {useRoute} from "vue-router";
 
 const i18n = useI18n();
-const router = useRouter();
+const route = useRoute();
 
 const alert = ref(false);
 const loginFormValid = ref(false);
@@ -79,33 +96,42 @@ const loginCredentials = ref({
   password: ""
 });
 
+onMounted(() => {
+  if (route.query.username) {
+    loginCredentials.value.username = route.query.username as string;
+  }
+});
+
 const rules = {
   username_required: (value: any) => !!value || i18n.t("login_page.username_required"),
   password_required: (value: any) => !!value || i18n.t("login_page.password_required"),
 };
 
+function goRegister() {
+  router.push("/register");
+}
+
 async function login() {
-  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then( async (r: AxiosResponse)  => {
-    // console.log(r)
-    const lastRoute = router.currentRoute;
-    await router.push(r.request.responseURL);
-    if (lastRoute == router.currentRoute)
+  await LoginService.logout(); // logout first to clear any previous session
+
+  await LoginService.login(loginCredentials.value.username, loginCredentials.value.password).then(async (r: AxiosResponse) => {
+    if (r.request.responseURL.endsWith('login')) {
       alert.value = true;
-    /*
-    // if (isLoggedIn(r)) {
-    window.localStorage.setItem('loggedIn', 'true')
-    await SettingsService.getUserSettings(r.data.user_id).then( res => {
-      console.log(res)
-      theme.value = res.data.theme
-      i18n.locale.value = res.data.language
-      router.back();
-    })
-   } else {
-    window.localStorage.removeItem('loggedIn')
-    theme.value = 'light'
-    i18n.locale.value = 'de'
-  } */
-})}
+      window.localStorage.removeItem('loggedIn');
+    } else {
+      window.localStorage.setItem('loggedIn', 'true');
+      await UserService.getMe().then(async response => {
+        await SettingsService.getUserSettings(response.data.user_id).then(res => {
+          theme.value = res.data.theme;
+          i18n.locale.value = res.data.language;
+          localStorage.setItem('theme', res.data.theme);
+          localStorage.setItem('locale', res.data.language);
+          router.push('/');
+        })
+      })
+    }
+  })
+}
 
 
 </script>

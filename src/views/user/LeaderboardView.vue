@@ -23,6 +23,6 @@
 
 <script setup lang='ts'>
 import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
-import Leaderboard from "@/components/LeaderboardList.vue";
+import Leaderboard from "@/components/user/LeaderboardList.vue";
 import Footer from "@/components/navigation/FooterCard.vue";
 </script>

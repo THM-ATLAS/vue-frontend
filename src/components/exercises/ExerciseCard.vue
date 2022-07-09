@@ -129,9 +129,10 @@
           <span>Feedback ansehen</span>
         </v-tooltip-->
         <v-chip
-        v-for="t in tags"
-        v-bind:key="t.id">
-          {{ t.name }}
+        v-for="tag in tags"
+        v-bind:key="tag.id">
+          <v-icon class="tag-icon" size=small :icon="tag.icon.reference"/>
+          {{ tag.name }}
         </v-chip>
       </div>
       <div>
@@ -188,11 +189,12 @@ import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import {onBeforeMount, Ref, ref} from "vue";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
+import TagService from "@/services/TagService";
 import {Exercise, User, Tag} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
-const id = route.params.id;
+const id = parseInt(route.params.id as string);
 const user: Ref<User | undefined> = ref(undefined);
 const loggedIn = ref(false);
 onBeforeMount(async () => {
@@ -204,10 +206,14 @@ const exercise: Ref<Exercise | any> = ref({});
 const tags: Ref<Tag[]> = ref([]);
 
 onBeforeMount(async () => {
-  exercise.value = (await ExerciseService.getExercise(id)).data
-  await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
-  tags.value = exercise.value.tags;
-  document.title = exercise.value.module.name + ' - ' + exercise.value.title
+  ExerciseService.getExercise(id).then(async (res) => {
+    exercise.value = res.data;
+    await router.replace(`/${exercise.value.module.module_id}/e/${id}`)
+    getAllExerciseTags();
+    document.title = exercise.value.module.name + ' - ' + exercise.value.title
+  }).catch(() => {
+    router.replace("/page-not-found")
+  });
 })
 
 function goBack() {
@@ -224,6 +230,13 @@ function goToSubmission() {
 
 function goToSubmissionsList() {
   router.push(`/${exercise.value.module.module_id}/eval/${id}`);
+}
+
+function getAllExerciseTags(): void {
+  TagService.getTagsFromExercise(exercise.value).then(res => {
+    console.log(res.data);
+    tags.value = res.data;
+  })
 }
 
 /*
@@ -253,4 +266,7 @@ let hasSubmission = true;
 </script>
 
 <style scoped>
+.tag-icon {
+  margin-right: 0.3em;
+}
 </style>

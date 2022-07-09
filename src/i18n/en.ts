@@ -29,13 +29,32 @@ const translationEn = {
     },
     login_page: {
         login: 'Login',
-        instructions: 'Use your THM user credentials.',
+        instructions: 'Use your THM or guest credentials to login.',
         user_id: 'Username',
         password: 'Password',
         username_required: 'Please enter your username.',
         password_required: 'Please enter your password.',
         invalid_credentials: 'Invalid credentials.',
         skip_login: 'Continue without login',
+        register_success: 'Registration successful! You can now login.',
+    },
+    register_page: {
+        register: 'Register',
+        instructions: 'Create a guest account for use with ATLAS. Note that inactive accounts will be deleted after 30 days. If you have THM credentials, you can login with them.',
+        name: 'Full name',
+        username: 'Username',
+        email: 'Email',
+        password: 'Password',
+        password_confirm: 'Confirm password',
+        errors: {
+            required: 'This field is required.',
+            email_invalid: 'Please enter a valid email address.',
+            password_equal: 'The passwords do not match.',
+            password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',
+            username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+            username_ldap_invalid: 'Username is reserved for LDAP-accounts.',
+            username_taken: 'Username is already taken.',
+        }
     },
     landing_page: {
         welcome: 'Welcome to',
@@ -100,6 +119,7 @@ const translationEn = {
     module_search: {
         items_per_page: 'Items per page',
         module_per_page: 'Modules per page',
+        search: 'Search modules',
     },
     user_search: {
         users_per_page: 'Users per page'
@@ -114,7 +134,11 @@ const translationEn = {
         settings_view: 'Settings',
         admin_view: 'Admin',
         exercisemanagement_view: 'Exercises',
+        exercisecreator_view: 'New Exercise',
         usermanagement_view: 'Users',
+        submission_view: 'Submission',
+        evaluationlist_view: 'Submissions',
+        editsubmission_view: 'Edit',
         modulemanagement_view: 'Modules',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
@@ -149,6 +173,8 @@ const translationEn = {
         visit: 'Visit',
         view: 'View',
         visit_profile: 'Visit profile',
+        visibility_public: 'Visibility: public',
+        visibility_private: 'Visibility: only for enrolled users'
     },
     languages: {
         en: 'English',
@@ -178,13 +204,15 @@ const translationEn = {
             actions: 'Actions',
             password: 'Password',
             change_password: 'Change password',
+            search_user: 'Search user',
             errors: {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
                 username_invalid: 'Username must be 3 to 32 characters long and may only consist of letters and numbers.',
+                username_ldap_invalid: 'Username is reserved for LDAP-accounts.',
                 email_taken: 'This email address is already in use.',
                 email_invalid: 'Please enter a valid email address.',
-                password_invalid: 'Password must be 8 characters long, and contain an uppercase letter, lowercase letter and a symbol.',
+                password_invalid: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and a symbol.',
             }
         },
         exercises: {
@@ -198,6 +226,7 @@ const translationEn = {
             no_description: 'No description provided',
             created_at: 'Created at',
             actions: 'Actions',
+            search_exercise: 'Search exercise',
             errors: {
                 required: 'This field is required.',
             }
@@ -211,6 +240,7 @@ const translationEn = {
             edit: 'Edit module',
             delete: 'Delete module',
             delete_confirm: 'Delete module "{0}"?',
+            search_module: 'Search module',
         },
         navbar: {
             title: 'Admin Panel',
@@ -236,6 +266,7 @@ const translationEn = {
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
         tag_search_or_create: 'Search or create tag',
+        add_exercise: 'Add new exercise'
     },
     roles: {
         admin: 'admin',
@@ -311,7 +342,8 @@ const translationEn = {
         tutors: 'Tutors',
         materials: 'Learning material',
         enrollment: 'Self enrollment in this module.',
-        disenroll: 'Disenroll from this module.'
+        disenroll: 'Disenroll from this module.',
+        search_exercise: 'Search exercise',
     },
     module_manager: {
         name: 'Name',
@@ -319,11 +351,12 @@ const translationEn = {
         edit_tag_button: 'Edit tags',
         edit_tag: 'Change or delete tags',
         tag: 'Tag',
-        add_user: 'Add user',
+        add_user: 'Enroll user',
         edit_privilege: 'Change role',
         student: 'Student',
         tutor: 'Tutor',
-        teacher: 'Teacher'
+        teacher: 'Teacher',
+        search_user: 'Search user',
     },
     page_not_found: {
         error_title: "This page could not be found.",

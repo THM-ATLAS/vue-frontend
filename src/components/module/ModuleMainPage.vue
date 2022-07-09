@@ -8,10 +8,13 @@
             src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
             max-height="240px"
             width="100%"
-            cover
+            :cover="true"
         >
           <div class="moduleNameContainer">
-            <h1>{{ module.name }}</h1>
+            <v-row align="center">
+              <v-icon size="large" icon="mdi-animation" style="margin-right: 0.3em;"></v-icon>
+              <h1>{{ module.name }}</h1>
+            </v-row>
           </div>
         </v-img>
       </div>
@@ -48,10 +51,11 @@
       >
         <v-card-text>
           <v-row>
-            <v-col cols="10">
+            <v-col cols="8">
               {{ module.description }}
             </v-col>
-            <v-col align="right" cols="2">
+            <v-spacer/>
+            <v-col cols="auto">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
                     <v-btn @click="reassign" color="secondary" v-bind="props">
@@ -68,6 +72,22 @@
       <v-container fluid>
         <v-row>
           <v-col cols="9">
+            <v-chip
+                class="ma-1 mb-3"
+                v-for="tag in moduleTags" :key="tag.tag_id"
+                @click="filter(tag)"
+                :color="selectedTag.value === tag.name ? 'info' : ''">
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              {{ tag.name }}
+            </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
             <v-expansion-panels style="z-index: 0" v-model="panel">
               <v-expansion-panel rounded="0" key="0">
                 <v-expansion-panel-title
@@ -77,12 +97,28 @@
                   <b>{{ $t("module_page.exercises") }}</b>
                 </v-expansion-panel-title>
                 <v-expansion-panel-text class="exercisePanelText">
+                  <div style="display: inline-flex; text-align: center">
+                    <v-card
+                        class="exerciseCard"
+                        tabindex="0"
+                        @keyup.enter.prevent.stop="goToCreator"
+                        @click.prevent.stop="goToCreator"
+                    >
+                      <v-card-title class="exerciseCardTitle">{{ $t('exercise.add_exercise') }}</v-card-title>
+                      <v-icon
+                          class="exercise-icon"
+                          size="180px"
+                          icon="mdi-plus"
+                      ></v-icon>
+                    </v-card>
+                  </div>
                   <div
-                      v-for="exercise in exercises"
+                      v-for="exercise in filteredExercises"
                       v-bind:key="exercise.exercise_id"
                       style="display: inline-flex; text-align: center"
                   >
                     <v-card
+                        v-if="setExercise(exercise)"
                         class="exerciseCard"
                         tabindex="0"
                         @keyup.enter.prevent.stop="goToExercise(exercise)"
@@ -188,7 +224,7 @@
               src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
               max-height="70px"
               width="100%"
-              cover
+              :cover="true"
           />
           <v-card color="highlight" rounded="0" class="pb-0">
             <h1 class="mobileModuleTitle">
@@ -217,13 +253,51 @@
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
+            <v-chip
+                class="ma-1 mb-3"
+                v-for="tag in moduleTags" :key="tag.tag_id"
+                @click="filter(tag)"
+                :color="selectedTag.value === tag.name ? 'info' : ''">
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              {{ tag.name }}
+            </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
+           <v-row class="exerciseListEntry"
+                  justify="center">
+             <v-card
+                 class="exerciseListBox"
+                 elevation="2"
+                 @click="goToCreator"
+             >
+               <h1 class="ex-title">
+                 <v-row>
+                   <v-col cols="2">
+                     <v-icon>mdi-plus</v-icon>
+                   </v-col>
+                   <v-col>
+                     <v-card-title>
+                       {{ $t('exercise.add_exercise') }}
+                     </v-card-title>
+                   </v-col>
+                 </v-row>
+               </h1>
+             </v-card>
+           </v-row>
             <v-row
-                v-for="exercise in exercises"
+                v-for="exercise in filteredExercises"
                 v-bind:key="exercise.exercise_id"
                 class="exerciseListEntry"
                 justify="center"
             >
               <v-card
+                  v-if="setExercise(exercise)"
                   class="exerciseListBox"
                   elevation="2"
                   @click="goToExercise(exercise)"
@@ -307,9 +381,10 @@ import {useRoute, useRouter} from "vue-router";
 import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
-import {Exercise, Module, User, ModuleUser} from "@/helpers/types";
+import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
-import ModuleManager from "@/components/ModuleManager.vue";
+import ModuleManager from "@/components/module/ModuleManager.vue";
+import TagService from "@/services/TagService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -317,34 +392,49 @@ const i18n = useI18n();
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const exercises: Ref<Array<Exercise>> = ref([]);
+const filteredExercises: Ref<Array<Exercise>> = ref([]);
+const moduleTags: Ref<Tag[]> = ref([]);
 const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
 const tutors: Ref<Array<User>> = ref([]);
 const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
+const search = ref("");
+
 const label = ref({
   value: "",
   user: user.value,
   assigned: false,
 });
+const selectedTag = ref({
+  value: ''
+})
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
+        //icon.value.value = module.value.icon.reference;
         loadUsers();
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
-              exercises.value = e.data;
+              filteredExercises.value = exercises.value = e.data;
               getAssignStatus();
+              getAllModuleTags();
             }
         );
       })
       .catch(() => {
-        router.replace("/404");
+        router.replace("/page-not-found");
       });
+}
+
+function applySearch(): void {
+  filteredExercises.value = exercises.value.filter((exercise) => {
+    return (exercise.title + ' ' + exercise.description).toLowerCase().includes(search.value.toLowerCase());
+  })
 }
 
 async function loadUsers(): Promise<void> {
@@ -374,6 +464,10 @@ function goToExercise(exercise: Exercise): void {
 
 function goToManage(): void {
   router.push("/" + module.value.module_id + "/manage");
+}
+
+function goToCreator(): void {
+  router.push("/" + module.value.module_id + "/e/new");
 }
 
 function visitProfile(user: User): void {
@@ -426,6 +520,32 @@ function getUserTemplate(): ModuleUser {
     username: "",
     email: "",
   };
+}
+
+function filter(tag: Tag): void {
+  selectedTag.value.value == tag.name ? selectedTag.value.value = '' : selectedTag.value.value = tag.name;
+}
+
+function setExercise(exercise: Exercise): boolean {
+  if(selectedTag.value.value == '') {
+    return true;
+  }
+  else {
+    for (let tag of exercise.tags) {
+      if (tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+function getAllModuleTags(): void {
+  TagService.getModuleTags(module.value).then(res => {
+    const filteredTags: Ref<Tag[]> = ref([]);
+    res.data.forEach((tag: Tag) => filteredTags.value.map(t => t.tag_id).includes(tag.tag_id) ? 'nothing' : filteredTags.value.push(tag));
+    moduleTags.value = filteredTags.value;
+  })
 }
 </script>
 
@@ -561,5 +681,13 @@ function getUserTemplate(): ModuleUser {
   margin-left: auto;
   margin-right: 8px;
   display: block;
+}
+
+.tag-container {
+  margin-left: 2em;
+}
+
+.tag-icon {
+  margin-right: 0.2em;
 }
 </style>
