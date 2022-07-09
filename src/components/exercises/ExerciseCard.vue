@@ -18,6 +18,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ props: tooltip3 }">
                 <v-btn
+                    v-if="canSeeEditor()"
                     v-bind="tooltip3"
                     icon="mdi-file-document-edit"
                     class="ma-2"
@@ -29,6 +30,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ props: tooltip3 }">
                 <v-btn
+                    v-if="canSeeSubmit()"
                     v-bind="tooltip3"
                     icon="mdi-upload"
                     class="ma-2"
@@ -40,6 +42,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ props: tooltip3 }">
                 <v-btn
+                    v-if="canSeeReview()"
                     v-bind="tooltip3"
                     icon="mdi-human-male-board"
                     class="ma-2"
@@ -191,6 +194,7 @@ import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import TagService from "@/services/TagService";
 import {Exercise, User, Tag} from "@/helpers/types";
+import hasPermission, {Action} from "@/helpers/permissions";
 
 const route = useRoute();
 const router = useRouter();
@@ -237,6 +241,18 @@ function getAllExerciseTags(): void {
     console.log(res.data);
     tags.value = res.data;
   })
+}
+
+function canSeeEditor(): boolean {
+  return hasPermission(Action.EXERCISE_EDIT, user.value);
+}
+
+function canSeeSubmit(): boolean {
+  return hasPermission(Action.EXERCISE_SUBMIT, user.value);
+}
+
+function canSeeReview(): boolean {
+  return hasPermission(Action.EXERCISE_REVIEW, user.value);
 }
 
 /*

@@ -21,15 +21,9 @@ export default function hasPermission(action: Action, user: User | undefined): b
     if (!user) return false;
 
     const userRoles: Array<number> = user.roles.map(role => role.role_id);
-    console.log(userRoles);
-    console.log(action + 1);
-    console.log(Math.min(...userRoles));
     if (userRoles.includes(action + 1))
         return true;
-    if (Math.min(...userRoles) <= action + 1)
+    else if (Math.min(...userRoles) <= action + 1)
         return true;
-
-    //const highRole = userRoles.sort((a, b) => a - b)
-
-    return false;
+    else return false;
 }
