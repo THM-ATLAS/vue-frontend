@@ -172,16 +172,29 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="notification in notifications" v-bind:key="notification.notification_id" v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }">
-        <td>
-          <v-badge v-if="!notification.read" dot color="primary" offset-y="20"></v-badge>
-          <v-list-item :prepend-icon="getNotificationIcon(notification)">
-            {{ notification.title }}
-          </v-list-item></td>
-        <td>{{ notification.content }}</td>
-        <td>
-          <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
-        </td>
+      <tr v-for="notification in notifications"
+          v-bind:key="notification.notification_id"
+          v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }"
+          @click="handleClick(notification)">
+          <td>
+            <v-badge v-if="!notification.read"
+                     dot
+                     left
+                     inline
+                     color="primary"
+            >
+              <v-list-item :prepend-icon="getNotificationIcon(notification)">
+                {{ notification.title }}
+              </v-list-item>
+            </v-badge>
+            <v-list-item v-else :prepend-icon="getNotificationIcon(notification)">
+              {{ notification.title }}
+            </v-list-item>
+          </td>
+          <td>{{ notification.content }}</td>
+          <td>
+            <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
+          </td>
       </tr>
       </tbody>
     </v-table>
@@ -264,6 +277,25 @@ function getNotificationIcon (notification : Notification) : string {
     default:
       return 'mdi-email'
   }
+}
+
+async function handleClick (notification : Notification) {
+  switch (notification.type_id) {
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    case 5:
+      break;
+    default:
+      break;
+  }
+  notification.read = true
+  await NotificationService.markNotificationAsRead(notification, user.value)
 }
 
 const items = [
