@@ -140,6 +140,7 @@ const translationEn = {
         evaluationlist_view: 'Submissions',
         editsubmission_view: 'Edit',
         modulemanagement_view: 'Modules',
+        tagmanagement_view: 'Tags',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',
@@ -242,11 +243,18 @@ const translationEn = {
             delete_confirm: 'Delete module "{0}"?',
             search_module: 'Search module',
         },
+        tags: {
+            title: 'Tags', 
+            actions: 'Actions',
+            edit_tag: 'Edit tag', 
+            create_tag: 'Create tag'
+        },
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
             manage_exercise: 'Manage exercises',
             manage_module: 'Manage modules',
+            manage_tag: 'Manage tags',
             back: 'Back to homepage'
         }
     },

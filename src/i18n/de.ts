@@ -168,6 +168,7 @@ const translationDe = {
         exercisecreator_view: 'Neue Aufgabe',
         usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
+        tagmanagement_view: 'Tags',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',
@@ -249,11 +250,18 @@ const translationDe = {
             delete_confirm: 'Modul "{0}" wirklich löschen?',
             search_module: 'Modul suchen',
         },
+        tags: {
+            title: 'Tags', 
+            actions: 'Aktionen',
+            edit_tag: 'Tag bearbeiten', 
+            create_tag: 'Tag erstellen'
+        },
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer:innen verwalten',
             manage_exercise: 'Aufgaben verwalten',
             manage_module: 'Module verwalten',
+            manage_tag: 'Tags verwalten',
             back: 'Zurück zur Homepage'
         }
     },
