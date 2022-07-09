@@ -34,6 +34,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip3 }">
             <v-btn
+                v-if="canSeeManage()"
                 v-bind="tooltip3"
                 @click="goToManage()"
                 icon="mdi-cog"
@@ -58,7 +59,7 @@
             <v-col cols="auto">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
-                    <v-btn @click="reassign" color="secondary" v-bind="props">
+                    <v-btn v-if="canSeeAttend()" @click="reassign" color="secondary" v-bind="props">
                       {{ label.value }}
                     </v-btn>
                 </template>
@@ -385,6 +386,9 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
+import hasPermission, {Action} from "@/helpers/permissions";
+import {AxiosResponse} from "axios";
+import LoginService, {isLoggedIn} from "@/services/LoginService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -401,6 +405,8 @@ const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
 const search = ref("");
+const userMe: Ref<User | undefined> = ref(undefined);
+const loggedIn: Ref<boolean> = ref(false);
 
 const label = ref({
   value: "",
@@ -448,10 +454,28 @@ async function loadUsers(): Promise<void> {
   });
 }
 
+function canSeeManage(): boolean {
+  return hasPermission(Action.MODULE_MANAGER, userMe.value);
+}
+
+function canSeeAttend(): boolean {
+  return hasPermission(Action.MODULE_ATTEND, userMe.value);
+}
+
 onBeforeMount(async () => {
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      userMe.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
   await loadModule();
   //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 });
+
 const router = useRouter();
 
 function goBack(): void {

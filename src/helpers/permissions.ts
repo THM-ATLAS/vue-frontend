@@ -10,18 +10,26 @@ enum Roles {
 
 export const enum Action {
     ADMIN_AREA = Roles.ADMIN,
+    MODULE_MANAGER = Roles.TUTOR,
+    MODULE_ATTEND = Roles.STUDENT,
+    EXERCISE_EDIT = Roles.TUTOR,
+    EXERCISE_SUBMIT = Roles.STUDENT,
+    EXERCISE_REVIEW = Roles.TUTOR,
 }
 
 export default function hasPermission(action: Action, user: User | undefined): boolean {
     if (!user) return false;
 
-    const userRoles: Array<string> = user.roles.map(role => role.name);
-    if (userRoles.includes(action.toString()))
+    const userRoles: Array<number> = user.roles.map(role => role.role_id);
+    console.log(userRoles);
+    console.log(action + 1);
+    console.log(Math.min(...userRoles));
+    if (userRoles.includes(action + 1))
+        return true;
+    if (Math.min(...userRoles) <= action + 1)
         return true;
 
-    const highestRole = userRoles
-        .map((role: string) => Object.keys(Roles).indexOf(role))
-        .reduce((acc, curr) => acc > curr ? acc : curr);
+    //const highRole = userRoles.sort((a, b) => a - b)
 
-    return highestRole >= Object.keys(Roles).indexOf(action.toString());
+    return false;
 }

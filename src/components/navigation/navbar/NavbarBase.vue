@@ -98,7 +98,7 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp">
         <span> {{ $t('header.dropdown.help') }} </span>
       </v-list-item>
-      <v-list-item v-if="canSeeAdmin && isLoggedIn" prepend-icon="mdi-account-tie" @click="goToAdmin">
+      <v-list-item v-if="canSeeAdmin() && isLoggedIn" prepend-icon="mdi-account-tie" @click="goToAdmin">
         <span>{{ $t('header.dropdown.admin') }}</span>
       </v-list-item>
       <v-list-item>

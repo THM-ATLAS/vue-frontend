@@ -28,7 +28,7 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp()">
         <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
-      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+      <v-list-item v-if="canSeeAdmin()" prepend-icon="mdi-account-tie" @click="goToAdmin()">
         <v-list-item-title>{{ $t('header.dropdown.admin') }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
@@ -42,12 +42,35 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router';
-import LoginService from "@/services/LoginService";
+import {onBeforeMount, Ref, ref} from 'vue';
+import LoginService, {isLoggedIn} from "@/services/LoginService";
+import hasPermission, {Action} from "@/helpers/permissions";
+import {AxiosResponse} from "axios";
+import UserService from "@/services/UserService";
+import {User} from "@/helpers/types";
 //import {Ref, ref} from 'vue';
 
 //const messages: Ref<number> = ref(3);
 
 const router = useRouter();
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn: Ref<boolean> = ref(false);
+
+function canSeeAdmin(): boolean {
+  return hasPermission(Action.ADMIN_AREA, user.value);
+}
+
+onBeforeMount(async () => {
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      user.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
+})
 
 async function logout(): Promise<void> {
   await LoginService.logout();
