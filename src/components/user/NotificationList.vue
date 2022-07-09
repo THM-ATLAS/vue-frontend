@@ -173,7 +173,11 @@
       </thead>
       <tbody>
       <tr v-for="notification in notifications" v-bind:key="notification.notification_id" v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }">
-        <td><v-list-item :prepend-icon="getNotificationIcon(notification)">{{ notification.title }}</v-list-item></td>
+        <td>
+          <v-badge v-if="!notification.read" dot color="primary" offset-y="20"></v-badge>
+          <v-list-item :prepend-icon="getNotificationIcon(notification)">
+            {{ notification.title }}
+          </v-list-item></td>
         <td>{{ notification.content }}</td>
         <td>
           <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
