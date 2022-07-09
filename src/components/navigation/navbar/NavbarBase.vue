@@ -107,37 +107,55 @@
   >
     <v-spacer/>
     <v-list :nav="true">
-      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
-        {{ $t('header.modules') }}
-      </v-list-item>
-      <v-divider/>
-      <v-list-item
-          v-if="loggedIn"
-          @click="goToNotifications()"
-          prepend-icon="mdi-bell">
-        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" >
-        </v-badge>
-        <span>{{ $t('header.dropdown.messages') }}</span>
-      </v-list-item>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
-        <span> {{ $t('header.dropdown.profile') }} </span>
-      </v-list-item>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
-        <span> {{ $t('header.dropdown.settings') }} </span>
-      </v-list-item>
-      <v-list-item prepend-icon="mdi-help" @click="goToHelp">
-        <span> {{ $t('header.dropdown.help') }} </span>
-      </v-list-item>
-      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
-        <span>{{ $t('header.dropdown.admin') }}</span>
-      </v-list-item>
-      <v-list-item>
-        <v-btn :block="true" variant="outlined" rounded="0">
-          <v-icon icon="mdi-logout"/>
-          <span v-if="loggedIn" @click='logout'> {{ $t('header.dropdown.logout') }} </span>
-          <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
-        </v-btn>
-      </v-list-item>
+      <template v-if="loggedIn">
+        <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
+          {{ $t('header.modules') }}
+        </v-list-item>
+        <v-divider/>
+        <v-list-item
+            @click="goToNotifications()"
+            prepend-icon="mdi-bell">
+          <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" >
+          </v-badge>
+          <span>{{ $t('header.dropdown.messages') }}</span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-account" @click="goToUser">
+          <span> {{ $t('header.dropdown.profile') }} </span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-cog" @click="goToSettings">
+          <span> {{ $t('header.dropdown.settings') }} </span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-help" @click="goToHelp">
+          <span> {{ $t('header.dropdown.help') }} </span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+          <span>{{ $t('header.dropdown.admin') }}</span>
+        </v-list-item>
+        <v-list-item>
+          <v-btn :block="true" variant="outlined" rounded="0">
+            <v-icon icon="mdi-logout"/>
+            <span @click='logout'> {{ $t('header.dropdown.logout') }} </span>
+          </v-btn>
+        </v-list-item>
+      </template>
+      <template v-else>
+        <v-list-item prepend-icon="mdi-help" @click="goToHelp">
+          <span> {{ $t('header.dropdown.help') }} </span>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-btn :block="true" variant="outlined" rounded="0"
+            prepend-icon="mdi-logout" @click="goToLogin">
+            {{ $t('header.dropdown.login') }}
+          </v-btn>
+        </v-list-item>
+        <v-list-item>
+          <v-btn @click="goToRegister" rounded="0" :block="true"
+                 variant="outlined" prepend-icon="mdi-file-edit-outline">
+            {{$t('buttons.register')}}
+          </v-btn>
+        </v-list-item>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
