@@ -15,7 +15,7 @@
       <div class="textfields">
         <v-alert
             class="ma-3"
-            v-if="this.$route.query.register"
+            v-if="route.query.register"
             type="info"
             rounded="0"
         >
@@ -58,7 +58,7 @@
           rounded="0"
           variant="outlined"
           @click="goRegister"
-          :hidden="this.$route.query.register"
+          :hidden="route.query.register"
           v-html="$t('buttons.register')"
       />
       <v-btn
