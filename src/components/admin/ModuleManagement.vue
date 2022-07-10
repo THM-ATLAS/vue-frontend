@@ -218,6 +218,11 @@
                 v-model="newModuleDialog.target.description"
                 required
             />
+            <v-text-field
+                @change="$refs.newModuleForm.validate()"
+                :label="$t('admin.modules.icon')"
+                v-model="tagField"
+                required/>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -245,6 +250,7 @@ import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
+import IconService from "@/services/IconService";
 
 const display = useDisplay();
 const router = useRouter();
@@ -254,9 +260,10 @@ const filteredModules: Ref<Module[]> = ref([]);
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
-const numbers = [1,3,5,10,20,50];
+const numbers = [1, 3, 5, 10, 20, 50];
 const length = ref(3);
 const search = ref("");
+const tagField = ref("");
 
 async function loadModules(): Promise<void> {
   filteredModules.value = modules.value = (await ModuleService.getModules()).data.sort(
@@ -269,7 +276,7 @@ function applySearch(): void {
     return module.name.toLowerCase().includes(search.value.toLowerCase())
   })
   currentPage.value = filteredModules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
+  length.value = Math.ceil(filteredModules.value.length / itemsPerPage.value)
 }
 
 function refreshModules(): void {
@@ -291,7 +298,12 @@ function visitModule(module: Module): void {
 }
 
 async function createModule() {
-  await ModuleService.addModule(newModuleDialog.value.target);
+  await IconService.addIcon({icon_id: 0, reference: tagField.value}).then((res) => {
+    newModuleDialog.value.target.icon = res?.data?.icon_id ?? {icon_id: 3, reference: ''};
+    console.log(newModuleDialog.value.target);
+    ModuleService.addModule(newModuleDialog.value.target);
+  })
+  console.log(await IconService.getIcons())
   await loadModules();
   newModuleDialog.value.target = getModuleTemplate();
   newModuleDialog.value.show = false;
@@ -328,8 +340,8 @@ function getModuleTemplate(): Module {
     description: "",
     modulePublic: false,
     icon: {
-      icon_id: 7,
-      reference: 'mdi-animation'
+      icon_id: 0,
+      reference: ''
     }
   };
 }
@@ -340,9 +352,11 @@ function getModuleTemplate(): Module {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 .dialogWidth {
   width: 50vw;
 }
+
 @media (max-width: 1280px) {
   .dialogWidth {
     width: 80vw;
