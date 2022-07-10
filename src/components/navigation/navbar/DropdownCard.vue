@@ -43,6 +43,7 @@ import hasPermission, {Action} from "@/helpers/permissions";
 import {AxiosResponse} from "axios";
 import UserService from "@/services/UserService";
 import {User} from "@/helpers/types";
+import {defineProps} from "vue";
 //import {Ref, ref} from 'vue';
 
 const props = defineProps({
