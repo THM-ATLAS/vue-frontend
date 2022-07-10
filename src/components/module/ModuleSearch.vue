@@ -59,7 +59,6 @@ import ModuleSearchResult from "@/components/module/ModuleSearchResult.vue";
 import ModuleService from "@/services/ModuleService";
 import {onBeforeMount, ref, Ref, watch} from "vue";
 import {Module} from "@/helpers/types"
-import {useI18n} from "vue-i18n";
 
 const modules: Ref<Module[]> = ref([]);
 const filteredModules: Ref<Module[]> = ref([]);
@@ -68,7 +67,6 @@ const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
-const i18n = useI18n();
 const search = ref('');
 
 onBeforeMount(async () => {
