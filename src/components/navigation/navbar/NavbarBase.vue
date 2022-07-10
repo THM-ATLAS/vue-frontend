@@ -29,10 +29,10 @@
 
    <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
-    <v-menu v-if="loggedIn" width="10em" origin="top" transition="scale-transition">
+    <v-menu v-if="loggedIn" origin="top" transition="scale-transition">
       <template v-if="notificationCount > 0" v-slot:activator="{ props }">
         <v-badge :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
-        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" min-width="16em" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
@@ -128,7 +128,7 @@
         <v-list-item prepend-icon="mdi-help" @click="goToHelp">
           <span> {{ $t('header.dropdown.help') }} </span>
         </v-list-item>
-        <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+        <v-list-item v-if="canSeeAdmin" prepend-icon="mdi-account-tie" @click="goToAdmin">
           <span>{{ $t('header.dropdown.admin') }}</span>
         </v-list-item>
         <v-list-item>
@@ -171,6 +171,7 @@ import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
 import LoginService, {isLoggedIn} from "@/services/LoginService";
 import {AxiosResponse} from "axios";
+import hasPermission, {Action} from "@/helpers/permissions";
 import NotificationService from "@/services/NotificationService";
 
 const drawer: Ref<boolean> = ref(false);
@@ -198,6 +199,10 @@ onBeforeMount(async () => {
     }
   })
 })
+
+function canSeeAdmin() {
+  return hasPermission(Action.ADMIN_AREA, user.value);
+}
 
 onBeforeUnmount(() => {
   window.clearInterval(interval.value)

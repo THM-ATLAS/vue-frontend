@@ -109,7 +109,7 @@
       <v-col cols="4" sm="3">
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('admin.modules.module_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -245,7 +245,6 @@ import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
-import {useI18n} from "vue-i18n";
 
 const display = useDisplay();
 const router = useRouter();
@@ -257,9 +256,7 @@ const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
-const i18n = useI18n();
 const search = ref("");
-const itemsPerPageLabel = i18n.t('module_search.module_per_page')
 
 async function loadModules(): Promise<void> {
   filteredModules.value = modules.value = (await ModuleService.getModules()).data.sort(
@@ -275,27 +272,19 @@ function applySearch(): void {
   length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
 }
 
+function refreshModules(): void {
+  loadModules().then(() => {
+    applySearch()
+  })
+}
+
 onBeforeMount(async () => {
-  await loadModules();
-  // let apiModules = (await ModuleService.getModules()).data;
-  // apiModules.forEach((result : Module) => {
-  //   modules.value.push(result);
-  // });
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(modules.value.length/itemsPerPage.value);
+  refreshModules()
 });
 
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
-})
+watch(currentPageNumber, () => refreshModules())
 
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(modules.value.length/newNumber)
-})
- // console.log(modules.value);
-
+watch(itemsPerPage, () => refreshModules())
 
 function visitModule(module: Module): void {
   router.push('/' + module.module_id);
@@ -309,12 +298,12 @@ async function createModule() {
 }
 
 function editModule(module: Module) {
-  ModuleService.editModule(module).then(() => loadModules());
+  ModuleService.editModule(module).then(() => refreshModules());
 }
 
 async function deleteModule(module: Module) {
   console.log(module);
-  ModuleService.delModule(module).then(async () => loadModules());
+  ModuleService.delModule(module).then(async () => refreshModules());
 }
 
 const newModuleDialog = ref({

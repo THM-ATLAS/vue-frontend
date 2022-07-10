@@ -110,7 +110,7 @@
       <v-col cols="4" sm="3">
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('admin.users.users_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -282,7 +282,6 @@ const itemsPerPage = ref(5);
 const numbers = [1, 3, 5, 10, 20, 50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('user_search.users_per_page')
 const userFilter = ref('');
 
 async function loadUsers(): Promise<void> {
@@ -296,19 +295,12 @@ onBeforeMount(async () => {
   // apiUsers.forEach((result : User) => {
   //   users.value.push(result);
   // });
-  currentPage.value = users.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(users.value.length / itemsPerPage.value);
+  applySearch()
 });
 
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = users.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
-})
+watch(currentPageNumber, () => applySearch())
 
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = users.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(users.value.length / newNumber)
-})
+watch(itemsPerPage, () => applySearch())
 
 function applySearch(): void {
   filteredUsers.value = users.value.filter((user) => {
