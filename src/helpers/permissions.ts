@@ -1,6 +1,6 @@
-import {User} from "@/helpers/types";
+import {ModuleUser, User} from "@/helpers/types";
 
-enum Roles {
+const enum Roles {
     ADMIN,
     TEACHER,
     TUTOR,
@@ -20,10 +20,15 @@ export const enum Action {
 export default function hasPermission(action: Action, user: User | undefined): boolean {
     if (!user) return false;
 
-    const userRoles: Array<number> = user.roles.map(role => role.role_id);
-    if (userRoles.includes(action + 1))
-        return true;
-    else if (Math.min(...userRoles) <= action + 1)
-        return true;
-    else return false;
+    return Math.min(...user.roles.map(role => role.role_id)) <= action + 1;
+}
+
+export function hasPermissionModule(action: Action, user: User | undefined, moduleUser: ModuleUser | undefined): boolean {
+    if (!user || !moduleUser) return false;
+
+    return moduleUser.module_role.role_id <= action + 1 || isAdmin(user);
+}
+
+function isAdmin(user: User | undefined) {
+    return hasPermission(Action.ADMIN_AREA, user);
 }

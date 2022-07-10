@@ -34,7 +34,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip3 }">
             <v-btn
-                v-if="canSeeManage()"
+                v-if="canSeeManage"
                 v-bind="tooltip3"
                 @click="goToManage()"
                 icon="mdi-cog"
@@ -386,7 +386,7 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
-import hasPermission, {Action} from "@/helpers/permissions";
+import hasPermission, {Action, hasPermissionModule} from "@/helpers/permissions";
 import {AxiosResponse} from "axios";
 import LoginService, {isLoggedIn} from "@/services/LoginService";
 
@@ -455,7 +455,7 @@ async function loadUsers(): Promise<void> {
 }
 
 function canSeeManage(): boolean {
-  return hasPermission(Action.MODULE_MANAGER, userMe.value);
+  return !!userMe.value && moduleUsers.value && hasPermissionModule(Action.MODULE_MANAGER, userMe.value, moduleUsers.value.find((user) => user.user_id === userMe.value?.user_id));
 }
 
 function canSeeAttend(): boolean {
