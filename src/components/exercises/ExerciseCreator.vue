@@ -200,12 +200,17 @@ onBeforeMount(async () => {
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
   getExerciseTags();
+  exercise.value.description = " ";
   //}
   //store();
 });
 
 const save = async () => {
   if (!exercise.value) return;
+  if(exercise.value.description === "") {
+    console.log("no desc")
+    return
+  }
   exercise.value.module_id = module.value;
   exercise.value.type_id = apiTypes.value.filter(t => t.name === exerciseType.value)[0].type_id;
   //if(exerciseType.value !== "Multiple Choice")
