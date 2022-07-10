@@ -37,6 +37,10 @@ class ExerciseService{
     addExercise(exercise: PostExercise): Promise<any> {
         return API.post(`exercises/`, exercise);
     }
+
+    getExerciseTypes(): Promise<any> {
+        return API.get(`/exercises/types`)
+    }
 }
 
 export default new ExerciseService();

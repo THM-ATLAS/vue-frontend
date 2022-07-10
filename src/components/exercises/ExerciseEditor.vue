@@ -46,7 +46,13 @@
           v-model="exercise.description"
         />
       </div>
-
+      <!--div> editing an exercises submission type when submissions with this type already exist would probably cause problems
+        <v-select
+            :items="supportedTypes"
+            :label="$t('exercise.exercise_type')"
+            v-model="exerciseType"
+        ></v-select>
+      </div-->
       <div>
         <MarkdownModal :editor="true" v-model="exercise.content" />
       </div>
@@ -362,6 +368,9 @@ const exerciseTags: Ref<Tag[]> = ref([]);
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
+//const supportedTypes = ref(["Freitext"]);
+const apiTypes = ref([]);
+const exerciseType = ref("");
 
 let wasSave: boolean = false;
 let wasDelete: boolean = false;
@@ -398,6 +407,9 @@ const currentDialog = ref({}) as Ref;
 
 onBeforeMount(async () => {
   exercise.value = (await ExerciseService.getExercise(id)).data;
+  apiTypes.value = (await ExerciseService.getExerciseTypes()).data;
+  exerciseType.value = apiTypes.value.find(t => t.type_id === exercise.value.type).name;
+
   module.value = exercise.value.module;
   wasSave = false;
   wasDelete = false;
@@ -409,6 +421,7 @@ onBeforeMount(async () => {
 
 const save = async () => {
   if (!exercise.value) return;
+  exercise.value.type = apiTypes.value.find(t => t.name === exerciseType.value).type_id;
   await ExerciseService.editExercise(exercise.value)
     .then((response) => {
       console.log(response.data);

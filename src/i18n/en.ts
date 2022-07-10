@@ -262,6 +262,11 @@ const translationEn = {
         title: 'Title',
         id: 'ID',
         edit: 'Edit',
+        exercise_type: 'Exercise type',
+        multiple_choice: {
+            question: 'Question',
+            answers: 'Answers'
+        },
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
