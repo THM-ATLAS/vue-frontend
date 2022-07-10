@@ -109,7 +109,7 @@
       <v-col cols="4" sm="3">
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('admin.modules.module_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -218,6 +218,11 @@
                 v-model="newModuleDialog.target.description"
                 required
             />
+            <v-text-field
+                @change="$refs.newModuleForm.validate()"
+                :label="$t('admin.modules.icon')"
+                v-model="tagField"
+                required/>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -245,7 +250,7 @@ import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
-import {useI18n} from "vue-i18n";
+import IconService from "@/services/IconService";
 
 const display = useDisplay();
 const router = useRouter();
@@ -255,11 +260,10 @@ const filteredModules: Ref<Module[]> = ref([]);
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
-const numbers = [1,3,5,10,20,50];
+const numbers = [1, 3, 5, 10, 20, 50];
 const length = ref(3);
-const i18n = useI18n();
 const search = ref("");
-const itemsPerPageLabel = i18n.t('module_search.module_per_page')
+const tagField = ref("");
 
 async function loadModules(): Promise<void> {
   filteredModules.value = modules.value = (await ModuleService.getModules()).data.sort(
@@ -272,49 +276,46 @@ function applySearch(): void {
     return module.name.toLowerCase().includes(search.value.toLowerCase())
   })
   currentPage.value = filteredModules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
+  length.value = Math.ceil(filteredModules.value.length / itemsPerPage.value)
+}
+
+function refreshModules(): void {
+  loadModules().then(() => {
+    applySearch()
+  })
 }
 
 onBeforeMount(async () => {
-  await loadModules();
-  // let apiModules = (await ModuleService.getModules()).data;
-  // apiModules.forEach((result : Module) => {
-  //   modules.value.push(result);
-  // });
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(modules.value.length/itemsPerPage.value);
+  refreshModules()
 });
 
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
-})
+watch(currentPageNumber, () => refreshModules())
 
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(modules.value.length/newNumber)
-})
- // console.log(modules.value);
-
+watch(itemsPerPage, () => refreshModules())
 
 function visitModule(module: Module): void {
   router.push('/' + module.module_id);
 }
 
 async function createModule() {
-  await ModuleService.addModule(newModuleDialog.value.target);
+  await IconService.addIcon({icon_id: 0, reference: tagField.value}).then((res) => {
+    newModuleDialog.value.target.icon = res?.data?.icon_id ?? {icon_id: 3, reference: ''};
+    console.log(newModuleDialog.value.target);
+    ModuleService.addModule(newModuleDialog.value.target);
+  })
+  console.log(await IconService.getIcons())
   await loadModules();
   newModuleDialog.value.target = getModuleTemplate();
   newModuleDialog.value.show = false;
 }
 
 function editModule(module: Module) {
-  ModuleService.editModule(module).then(() => loadModules());
+  ModuleService.editModule(module).then(() => refreshModules());
 }
 
 async function deleteModule(module: Module) {
   console.log(module);
-  ModuleService.delModule(module).then(async () => loadModules());
+  ModuleService.delModule(module).then(async () => refreshModules());
 }
 
 const newModuleDialog = ref({
@@ -339,8 +340,8 @@ function getModuleTemplate(): Module {
     description: "",
     modulePublic: false,
     icon: {
-      icon_id: 7,
-      reference: 'mdi-animation'
+      icon_id: 0,
+      reference: ''
     }
   };
 }
@@ -351,9 +352,11 @@ function getModuleTemplate(): Module {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+
 .dialogWidth {
   width: 50vw;
 }
+
 @media (max-width: 1280px) {
   .dialogWidth {
     width: 80vw;

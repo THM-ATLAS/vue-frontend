@@ -1,19 +1,14 @@
 <template>
   <v-card elevation="3" rounded="0">
     <v-list>
-      <!-- if messages not zero, show notifications title -->
-      <!-- // disabled until notifications exist // v-list-item
-          v-if="messages > 0"
-          @click="goToNotifications()">
-        <v-icon class="ma-1" icon="mdi-bell"/>
-        <v-list-item-subtitle>{{ messages }} ungelesene Nachrichten</v-list-item-subtitle>
-      </v-list-item-->
-      <!-- else, show standard message button -->
-      <!--v-list-item
-          v-else
-          @click="goToNotifications()">
-        <v-list-item-title>Nachrichten</v-list-item-title>
-      </v-list-item-->
+      <!-- if messages not zero, show little number icon -->
+      <v-list-item
+          @click="goToNotifications()"
+          prepend-icon="mdi-bell">
+        <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" class="d-none d-md-flex">
+        </v-badge>
+        <v-list-item-title>{{ $t('header.dropdown.messages') }}</v-list-item-title>
+      </v-list-item>
       <!-- // disabled until leaderboard exists // v-list-item
           @click="goToLeaderboard()">
         <v-list-item-title>Leaderboard</v-list-item-title>
@@ -28,7 +23,7 @@
       <v-list-item prepend-icon="mdi-help" @click="goToHelp()">
         <v-list-item-title>{{ $t('header.dropdown.help') }}</v-list-item-title>
       </v-list-item>
-      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
+      <v-list-item v-if="canSeeAdmin()" prepend-icon="mdi-account-tie" @click="goToAdmin()">
         <v-list-item-title>{{ $t('header.dropdown.admin') }}</v-list-item-title>
       </v-list-item>
       <v-list-item>
@@ -42,12 +37,38 @@
 
 <script setup lang="ts">
 import {useRouter} from 'vue-router';
-import LoginService from "@/services/LoginService";
+import {onBeforeMount, Ref, ref} from 'vue';
+import LoginService, {isLoggedIn} from "@/services/LoginService";
+import hasPermission, {Action} from "@/helpers/permissions";
+import {AxiosResponse} from "axios";
+import UserService from "@/services/UserService";
+import {User} from "@/helpers/types";
+import {defineProps} from "vue";
 //import {Ref, ref} from 'vue';
 
-//const messages: Ref<number> = ref(3);
+const props = defineProps({
+  notificationCount: Number,
+})
 
 const router = useRouter();
+const user: Ref<User | undefined> = ref(undefined);
+const loggedIn: Ref<boolean> = ref(false);
+
+function canSeeAdmin(): boolean {
+  return hasPermission(Action.ADMIN_AREA, user.value);
+}
+
+onBeforeMount(async () => {
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      user.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
+})
 
 async function logout(): Promise<void> {
   await LoginService.logout();
@@ -60,18 +81,13 @@ async function goToHome(): Promise<void> {
   await router.push(`/`);
 }
 
-//function goToNotifications(): void {
-//  router.push("/notifications");
-//}
+function goToNotifications(): void {
+ router.push("/notifications");
+}
 
 function goToHelp() {
   router.push("/help");
 }
-/*
-function goToLeaderboard() {
-  router.push("/leaderboard");
-}
-*/
 
 function goToUser() {
   router.push("/u/");
