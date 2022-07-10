@@ -369,9 +369,9 @@ function goToEditor(exercise: Exercise) {
   target: null,
 });*/
 
-const newExerciseDialog: Ref<{ show: boolean, target: PostExercise }> = ref({
+const newExerciseDialog: Ref<{ show: boolean, target: PostExercise | null }> = ref({
   show: false,
-  target: getExerciseTemplate(),
+  target: null,
 });
 
 const viewExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
@@ -390,7 +390,7 @@ const deleteExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = re
 async function createExercise() {
   // Exercises.value.push(newExerciseDialog.value.target);
   console.log(newExerciseDialog.value.target);
-  await ExerciseService.addExercise(newExerciseDialog.value.target);
+  await ExerciseService.addExercise(newExerciseDialog.value.target as PostExercise);
   await loadExercises();
   newExerciseDialog.value.target = getExerciseTemplate();
   newExerciseDialog.value.show = false;
