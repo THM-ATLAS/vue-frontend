@@ -19,6 +19,7 @@ import UserManagement from "@/views/admin/UserManagementView.vue";
 import ModuleMainPage from "@/views/module/ModuleMainPageView.vue"
 import ExerciseManagement from "@/views/admin/ExerciseManagementView.vue";
 import ModuleManagement from "@/views/admin/ModuleManagementView.vue";
+import TagManagement from "@/views/admin/TagManagementView.vue";
 import Home from "@/views/misc/HomeView.vue";
 import ModuleSearch from "@/views/module/ModuleSearchView.vue";
 import Admin from "@/views/admin/AdminView.vue";
@@ -81,6 +82,7 @@ const routes: Array<RouteRecordRaw> = [
             {path: 'users', component: UserManagement},
             {path: 'exercises', component: ExerciseManagement},
             {path: 'modules', component: ModuleManagement},
+            {path: 'tags', component: TagManagement},
         ]
     },
 
