@@ -249,6 +249,8 @@ const translationEn = {
             edit_tag: 'Edit tag', 
             create_tag: 'Create tag',
             search_tag: 'Search tag',
+            delete_tag: 'Delete tag',
+            delete_confirm: 'Delete tag {0}?',
         },
         navbar: {
             title: 'Admin Panel',

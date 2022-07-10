@@ -256,6 +256,8 @@ const translationDe = {
             edit_tag: 'Tag bearbeiten', 
             create_tag: 'Tag erstellen',
             search_tag: 'Tag suchen',
+            delete_tag: 'Tag löschen',
+            delete_confirm: 'Tag "{0}" wirklich löschen?',
         },
         navbar: {
             title: 'Administration',
