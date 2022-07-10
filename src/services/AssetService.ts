@@ -29,16 +29,18 @@ class AssetService {
     }
 
     /*
-    downloading a BLOB with the created URL will give it a random filename and no file extension,
+    downloading a BLOB with the created URL will give it a random filename and no file extension as no MIME type
+    is provided by the backend response,
     this is a workaround to give it a filename (with file extension if provided in the name)
      */
     downloadAssetPrompt(assetId: number, fileName: string){
         this.downloadAsset(assetId).then((response: AxiosResponse) => {
-            const a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style.display = "none";
-            const blob = new Blob([response.data], { type: 'application/octet-stream' }); //Backend doesn't provide MIME type
+            //Backend doesn't provide MIME type, so type is set to a .bin file
+            const blob = new Blob([response.data], { type: 'application/octet-stream' });
             const url = window.URL.createObjectURL(blob)
+            const a = document.createElement("a");
+            a.style.display = "none";
+            document.body.appendChild(a);
             a.href = url;
             a.download = fileName;
             a.click();

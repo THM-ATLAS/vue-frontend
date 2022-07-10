@@ -209,12 +209,14 @@
             <v-card-text>
               <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
                 <!-- backend doesn't provide replacement text for a URL -->
-                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon><a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                  <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
               </v-list>
 
               <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
                 <v-list-item
-                @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)"><v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                  <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
@@ -367,6 +369,22 @@
                     </v-list>
                   </div>
                 </v-card>
+                <v-card class="mx-4 infoCardMobile">
+                  <v-card-title>{{$t('module_page.materials')}}</v-card-title>
+                  <v-card-text>
+                    <v-list v-for="link in referralLinks" :key="link.module_link_id">
+                      <!-- backend doesn't provide replacement text for a URL -->
+                      <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                        <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                    </v-list>
+
+                    <v-list v-for="asset in referralAssets" :key="asset.asset_id">
+                      <v-list-item
+                          @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                        <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                    </v-list>
+                  </v-card-text>
+                </v-card>
               </v-row>
             </v-container>
           </div>
@@ -420,23 +438,21 @@ const selectedTag = ref({
 })
 
 const referralLinks = ref();
-const referralAssets = ref([]);
-//todo: get assets/links -> display assets/links -> add option to upload/remove assets/links
+const referralAssets = ref<any>([]);
 function fetchAssets(){
   ReferralService.getModuleReferralLinks(module.value).then((response: AxiosResponse) => {
     referralLinks.value = response.data
-    console.log(response.data)
   });
   ReferralService.getModuleReferralAssets(module.value).then((response: AxiosResponse) => {
     //module assets as returned are asset ids, the asset needs to be fetched to be usable
     response.data.forEach((module_asset) => {
       AssetService.getAsset(module_asset.asset_id).then((res) => {
         referralAssets.value.push(res.data);
-        console.log(res.data)
       })
     })
   })
 }
+
 
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)

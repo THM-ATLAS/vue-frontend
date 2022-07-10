@@ -153,7 +153,8 @@ const translationDe = {
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
         visibility_public: 'Sichtbarkeit: öffentlich',
-        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene'
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene',
+        upload_file: 'Datei hochladen'
     },
     titles: {
         home_view: 'ATLAS',
@@ -357,6 +358,11 @@ const translationDe = {
         tutor: 'Tutor:in',
         teacher: 'Lehrer:in',
         search_user: 'Nutzer:in suchen',
+        add_link: 'Link hinzufügen',
+        new_link: 'Neuer Link',
+        select_file: 'Datei auswählen...',
+        public_upload: 'Öffentlicher Upload',
+        publicStatus: 'Öffentliche Datei'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",
