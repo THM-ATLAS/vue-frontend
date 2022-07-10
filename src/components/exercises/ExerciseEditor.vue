@@ -439,6 +439,7 @@ const del = async () => {
     .catch((error) => {
       console.log(error.message);
     });
+  await router.replace("/" + module.value.module_id);
 };
 
 onBeforeUnmount(() => {
