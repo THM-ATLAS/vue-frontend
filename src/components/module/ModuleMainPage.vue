@@ -213,9 +213,8 @@
               </v-list>
 
               <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
-                <!-- todo: file download -->
                 <v-list-item
-                @click="AssetService.downloadAsset(asset.asset_id)"><v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)"><v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
