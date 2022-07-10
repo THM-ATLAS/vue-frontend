@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-text-field
+        class="mb-4 mt-1"
+        :label="$t('admin.exercises.search_exercise')"
+        v-model="search"
+        prepend-icon="mdi-magnify"
+        single-line
+        hide-details
+        @input="applySearch"/>
     <v-card elevation="0" rounded="0" role="main">
       <v-table>
         <thead>
@@ -14,10 +22,12 @@
         <tr v-if="!exercisesLoaded">
           <td></td>
           <td></td>
-          <td><v-progress-circular
-              indeterminate
-              color="primary"
-          ></v-progress-circular></td>
+          <td>
+            <v-progress-circular
+                indeterminate
+                color="primary"
+            ></v-progress-circular>
+          </td>
           <td></td>
         </tr>
         <tr v-for="exercise in currentPage" v-bind:key="exercise.id">
@@ -112,7 +122,7 @@
       <v-col cols="4" sm="3">
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('admin.exercises.exercises_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -277,27 +287,27 @@
 <script setup lang="ts">
 import {onBeforeMount, Ref, ref, watch} from "vue";
 import {useI18n} from "vue-i18n";
-
 import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import ModuleService from "@/services/ModuleService";
-// import UserService from "@/services/UserService";
 import {Exercise, Module, PostExercise} from "@/helpers/types";
 import router from "@/router";
 
 const exercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
+const filteredExercises: Ref<Exercise[]> = ref([]) as Ref<Exercise[]>;
 const modules: Ref<Module[]> = ref([]) as Ref<Module[]>;
 
 const currentPage: Ref<Exercise[]> = ref([]);
 const currentPageNumber = ref(1);
 const itemsPerPage = ref(10);
-const numbers = [1,3,5,10,20,50];
+const numbers = [1, 3, 5, 10, 20, 50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('exercise_search.exercises_per_page')
 const exercisesLoaded = ref(false)
+const search = ref('')
+
 async function loadExercises(): Promise<void> {
-  exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
+  filteredExercises.value = exercises.value = ((await ExerciseService.getExercises()).data).sort((a: Exercise, b: Exercise) => a.exercise_id - b.exercise_id);
   // console.log(exercises.value);
 }
 
@@ -305,30 +315,27 @@ async function loadModules(): Promise<void> {
   modules.value = ((await ModuleService.getModules()).data).sort((a: Module, b: Module) => a.module_id - b.module_id);
 }
 
+function applySearch(): void {
+  filteredExercises.value = exercises.value.filter((exercise) => {
+    return (exercise.module.name + ' ' + exercise.title + ' ' + exercise.description).toLowerCase().includes(search.value.toLowerCase());
+  })
+  currentPage.value = filteredExercises.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredExercises.value.length / itemsPerPage.value)
+}
+
 onBeforeMount(async () => {
-  await loadExercises();
-  await loadModules();
-  newExerciseDialog.value.target = await getExerciseTemplate();
-  exercisesLoaded.value = true;
-  // let apiExercises = (await ExerciseService.getExercises()).data;
-  // apiExercises.forEach((result : Exercise) => {
-  //   exercises.value.push(result);
-  // });
-  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(exercises.value.length/itemsPerPage.value);
+  await loadExercises().then(() => {
+    exercisesLoaded.value = true;
+  });
+  await loadModules().then(() => {
+    newExerciseDialog.value.target = getExerciseTemplate();
+  });
+  applySearch();
 });
 
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = exercises.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
-})
+watch(currentPageNumber, () => applySearch())
 
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = exercises.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(exercises.value.length/newNumber)
-})
-// console.log(exercises.value);
-// const i18n = useI18n();
+watch(itemsPerPage, () => applySearch())
 
 const rules = {
   required: (value: any) => !!value || i18n.t("admin.users.errors.required"),
@@ -341,20 +348,16 @@ function visitExercise(exercise: Exercise) {
   router.push(`/${exercise.module.module_id}/e/${exercise.exercise_id}`);
 }
 
-async function getExerciseTemplate(): Promise<PostExercise> {
-  let module_id = 0;
-  return ModuleService.getModules().then((res) => module_id = res.data[0].module_id).then(() => {
-        return {
-          exercise_id: 0,
-          module_id,
-          title: '',
-          content: '',
-          description: '',
-          exercisePublic: true,
-          type_id: 1,
-        };
-      }
-  );
+function getExerciseTemplate(): PostExercise {
+  return {
+    exercise_id: 0,
+    module_id: modules.value[0].module_id,
+    title: '',
+    content: '',
+    description: '',
+    exercisePublic: true,
+    type_id: 1,
+  };
 }
 
 function goToEditor(exercise: Exercise) {
@@ -366,9 +369,9 @@ function goToEditor(exercise: Exercise) {
   target: null,
 });*/
 
-const newExerciseDialog: Ref<{ show: boolean, target: PostExercise }> = ref({
+const newExerciseDialog: Ref<{ show: boolean, target: PostExercise | null }> = ref({
   show: false,
-  target: getExerciseTemplate(),
+  target: null,
 });
 
 const viewExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = ref({
@@ -387,7 +390,7 @@ const deleteExerciseDialog: Ref<{ show: boolean, target: Exercise | null }> = re
 async function createExercise() {
   // Exercises.value.push(newExerciseDialog.value.target);
   console.log(newExerciseDialog.value.target);
-  await ExerciseService.addExercise(newExerciseDialog.value.target);
+  await ExerciseService.addExercise(newExerciseDialog.value.target as PostExercise);
   await loadExercises();
   newExerciseDialog.value.target = getExerciseTemplate();
   newExerciseDialog.value.show = false;

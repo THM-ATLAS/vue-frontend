@@ -21,7 +21,7 @@ class UserService {
     }
 
     addUser(user: User): Promise<any> {
-        return API.post(`users/`, user);
+        return API.post(`users`, user); // omit / because backend will now allow it with / in the url while not logged in
     }
 
     getRoles(): Promise<any> {

@@ -34,6 +34,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip3 }">
             <v-btn
+                v-if="canSeeManage()"
                 v-bind="tooltip3"
                 @click="goToManage()"
                 icon="mdi-cog"
@@ -51,13 +52,14 @@
       >
         <v-card-text>
           <v-row>
-            <v-col cols="10">
+            <v-col cols="8">
               {{ module.description }}
             </v-col>
-            <v-col cols="2">
+            <v-spacer/>
+            <v-col cols="auto">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
-                    <v-btn @click="reassign" color="secondary" v-bind="props">
+                    <v-btn v-if="canSeeAttend()" @click="reassign" color="secondary" v-bind="props">
                       {{ label.value }}
                     </v-btn>
                 </template>
@@ -79,6 +81,14 @@
               <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
               {{ tag.name }}
             </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
             <v-expansion-panels style="z-index: 0" v-model="panel">
               <v-expansion-panel rounded="0" key="0">
                 <v-expansion-panel-title
@@ -104,7 +114,7 @@
                     </v-card>
                   </div>
                   <div
-                      v-for="exercise in exercises"
+                      v-for="exercise in filteredExercises"
                       v-bind:key="exercise.exercise_id"
                       style="display: inline-flex; text-align: center"
                   >
@@ -244,6 +254,22 @@
             <v-row align="center" justify="center" class="exerciseTextRow">
               <h2 class="exerciseText">{{ $t("module_page.exercises") }}</h2>
             </v-row>
+            <v-chip
+                class="ma-1 mb-3"
+                v-for="tag in moduleTags" :key="tag.tag_id"
+                @click="filter(tag)"
+                :color="selectedTag.value === tag.name ? 'info' : ''">
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              {{ tag.name }}
+            </v-chip>
+            <v-text-field
+                class="mb-4 mt-1"
+                :label="$t('module_page.search_exercise')"
+                v-model="search"
+                prepend-icon="mdi-magnify"
+                single-line
+                hide-details
+                @input="applySearch"/>
            <v-row class="exerciseListEntry"
                   justify="center">
              <v-card
@@ -266,12 +292,13 @@
              </v-card>
            </v-row>
             <v-row
-                v-for="exercise in exercises"
+                v-for="exercise in filteredExercises"
                 v-bind:key="exercise.exercise_id"
                 class="exerciseListEntry"
                 justify="center"
             >
               <v-card
+                  v-if="setExercise(exercise)"
                   class="exerciseListBox"
                   elevation="2"
                   @click="goToExercise(exercise)"
@@ -359,6 +386,9 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
+import hasPermission, {Action, hasPermissionModule} from "@/helpers/permissions";
+import {AxiosResponse} from "axios";
+import LoginService, {isLoggedIn} from "@/services/LoginService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -366,6 +396,7 @@ const i18n = useI18n();
 const module: Ref<Module> = ref({}) as Ref<Module>;
 const moduleUsers: Ref<ModuleUser[]> = ref([]);
 const exercises: Ref<Array<Exercise>> = ref([]);
+const filteredExercises: Ref<Array<Exercise>> = ref([]);
 const moduleTags: Ref<Tag[]> = ref([]);
 const tab = ref(0);
 const teachers: Ref<Array<User>> = ref([]);
@@ -373,6 +404,9 @@ const tutors: Ref<Array<User>> = ref([]);
 const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
+const search = ref("");
+const userMe: Ref<User | undefined> = ref(undefined);
+const loggedIn: Ref<boolean> = ref(false);
 
 const label = ref({
   value: "",
@@ -392,7 +426,7 @@ async function loadModule(): Promise<void> {
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
-              exercises.value = e.data;
+              filteredExercises.value = exercises.value = e.data;
               getAssignStatus();
               getAllModuleTags();
             }
@@ -401,6 +435,12 @@ async function loadModule(): Promise<void> {
       .catch(() => {
         router.replace("/page-not-found");
       });
+}
+
+function applySearch(): void {
+  filteredExercises.value = exercises.value.filter((exercise) => {
+    return (exercise.title + ' ' + exercise.description).toLowerCase().includes(search.value.toLowerCase());
+  })
 }
 
 async function loadUsers(): Promise<void> {
@@ -414,10 +454,28 @@ async function loadUsers(): Promise<void> {
   });
 }
 
+function canSeeManage(): boolean {
+  return !!userMe.value && moduleUsers.value && hasPermissionModule(Action.MODULE_MANAGER, userMe.value, moduleUsers.value.find((user) => user.user_id === userMe.value?.user_id));
+}
+
+function canSeeAttend(): boolean {
+  return hasPermission(Action.MODULE_ATTEND, userMe.value);
+}
+
 onBeforeMount(async () => {
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      userMe.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
   await loadModule();
   //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 });
+
 const router = useRouter();
 
 function goBack(): void {

@@ -9,7 +9,7 @@
     /-->
   <v-menu width="10em" origin="top" transition="scale-transition">
     <template v-slot:activator="{ props }">
-      <v-btn @click="goToModulePage()" class="d-none d-md-flex mr-4 ml-4" v-bind="props" variant="outlined">
+      <v-btn @click="goToModulePage()" class="d-none d-md-flex mr-4 ml-4" v-bind="props" rounded="0" variant="outlined">
         <v-icon class="mr-2" icon="mdi-book-open-page-variant"/>
         {{ $t('header.modules') }}
       </v-btn>

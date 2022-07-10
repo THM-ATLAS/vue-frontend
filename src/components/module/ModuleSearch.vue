@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-text-field
+        class="mb-4 mt-1"
+        :label="$t('module_search.search')"
+        v-model="search"
+        prepend-icon="mdi-magnify"
+        single-line
+        hide-details
+        @input="applySearch"/>
     <div id="background-card">
       <!--v-row align-content="center">
         <v-col id="content">
@@ -21,7 +29,7 @@
       <v-col>
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('module_search.items_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -44,30 +52,36 @@ import {Module} from "@/helpers/types"
 import {useI18n} from "vue-i18n";
 
 const modules: Ref<Module[]> = ref([]);
+const filteredModules: Ref<Module[]> = ref([]);
 const currentPage: Ref<Module[]> = ref([]);
 const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('module_search.items_per_page')
+const search = ref('');
 
 onBeforeMount(async () => {
-  let apiModules = (await ModuleService.getModules()).data;
-  apiModules.forEach((result : Module) => {
-    modules.value.push(result);
-  });
+  filteredModules.value = modules.value = (await ModuleService.getModules()).data;
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
 });
 
 watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+  currentPage.value = filteredModules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
 })
+
+function applySearch(): void {
+  filteredModules.value = modules.value.filter((module) => {
+    return module.name.toLowerCase().includes(search.value.toLowerCase())
+  })
+  currentPage.value = filteredModules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
+}
 
 watch(itemsPerPage, (newNumber) => {
   currentPageNumber.value = 1
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(modules.value.length/newNumber)
+  length.value = Math.ceil(filteredModules.value.length/newNumber)
 })
 
 /*//@ts-ignore

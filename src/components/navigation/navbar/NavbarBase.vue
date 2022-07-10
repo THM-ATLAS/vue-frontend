@@ -9,9 +9,7 @@
                height="70px" alt="ATLAS Logo"/>
       </a>
     </v-app-bar-title>
-    <ModuleButton/>
-    <v-spacer/>
-    <v-spacer/>
+    <ModuleButton v-if="loggedIn"/>
     <v-spacer/>
     <!--nur sichtbar auf Bildschirmen, die groß genug sind, auf mobile findet man das alles im hamburger menu -->
 
@@ -29,38 +27,38 @@
 
     <!--dropdown menu für desktop -->
 
-    <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
+   <!--<v-btn @click="goToSubmission()" class="d-none d-md-flex" text>Testabgabe</v-btn>-->
 
-    <v-menu width="10em" origin="top" transition="scale-transition">
-      <template v-if="loggedIn" v-slot:activator="{ props }">
-        <!-- // disabled until notifications exist // v-badge :content="messages" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex"-->
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+    <v-menu v-if="loggedIn" origin="top" transition="scale-transition">
+      <template v-if="notificationCount > 0" v-slot:activator="{ props }">
+        <v-badge :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
+        <v-btn id="profile-button" min-width="16em" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded
-               v-bind="props" variant="outlined">
-          Login
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-        <!--/v-badge-->
+        </v-badge>
       </template>
       <template v-else v-slot:activator="{ props }">
-        <v-btn v-if="loggedIn" id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
         </v-btn>
-        <v-btn v-else id="profile-button" @click="goToLogin" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
-               variant="outlined">
-          Login
-          <v-icon class="ml-3" icon="mdi-account"/>
-        </v-btn>
-      </template>
-      <Dropdown v-if="loggedIn" :messages='messages'/>
-    </v-menu>
 
+      </template>
+      <Dropdown :notificationCount='notificationCount'/>
+    </v-menu>
+    <div v-else class="mr-4 ml-2 d-none d-md-flex">
+      <v-btn @click="goToLogin" rounded="0"
+             variant="outlined">
+        {{$t('buttons.login')}}
+      </v-btn>
+      <v-btn @click="goToRegister" rounded="0"
+             variant="outlined" color="primary">
+        {{$t('buttons.register')}}
+      </v-btn>
+    </div>
     <!---------------------------------->
 
     <!--<template v-if="!getMobile()" v-slot:extension>
@@ -79,7 +77,22 @@
     </template>-->
 
     <!--hamburger icon nur sichtbar auf mobile -->
+
+    <v-badge
+        v-if="notificationCount > 0 && !drawer"
+        class="d-md-none"
+        overlap
+        dot
+        color="primary"
+        offset-x="8"
+        offset-y="16">
+        <v-app-bar-nav-icon
+            class="d-md-none"
+            @click="drawer = !drawer"
+        />
+    </v-badge>
     <v-app-bar-nav-icon
+        v-else
         class="d-md-none"
         @click="drawer = !drawer"
     />
@@ -94,32 +107,55 @@
   >
     <v-spacer/>
     <v-list :nav="true">
-      <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
-        {{ $t('header.modules') }}
-      </v-list-item>
-      <v-divider/>
-      <!--v-list-item v-if="loggedIn" prepend-icon="mdi-message" @click="goToMessages">
-        <span> {{ $t('header.dropdown.messages') }} </span>
-      </v-list-item-->
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-account" @click="goToUser">
-        <span> {{ $t('header.dropdown.profile') }} </span>
-      </v-list-item>
-      <v-list-item v-if="loggedIn" prepend-icon="mdi-cog" @click="goToSettings">
-        <span> {{ $t('header.dropdown.settings') }} </span>
-      </v-list-item>
-      <v-list-item prepend-icon="mdi-help" @click="goToHelp">
-        <span> {{ $t('header.dropdown.help') }} </span>
-      </v-list-item>
-      <v-list-item prepend-icon="mdi-account-tie" @click="goToAdmin">
-        <span>{{ $t('header.dropdown.admin') }}</span>
-      </v-list-item>
-      <v-list-item>
-        <v-btn :block="true" variant="outlined" rounded="0">
-          <v-icon icon="mdi-logout"/>
-          <span v-if="loggedIn" @click='logout'> {{ $t('header.dropdown.logout') }} </span>
-          <span v-else @click="goToLogin"> {{ $t('header.dropdown.login') }} </span>
-        </v-btn>
-      </v-list-item>
+      <template v-if="loggedIn">
+        <v-list-item prepend-icon="mdi-book-open-page-variant" @click="goToModules">
+          {{ $t('header.modules') }}
+        </v-list-item>
+        <v-divider/>
+        <v-list-item
+            @click="goToNotifications()"
+            prepend-icon="mdi-bell">
+          <v-badge v-if="notificationCount > 0" :content="notificationCount" color="primary" offset-x="28" offset-y="-10" >
+          </v-badge>
+          <span>{{ $t('header.dropdown.messages') }}</span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-account" @click="goToUser">
+          <span> {{ $t('header.dropdown.profile') }} </span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-cog" @click="goToSettings">
+          <span> {{ $t('header.dropdown.settings') }} </span>
+        </v-list-item>
+        <v-list-item prepend-icon="mdi-help" @click="goToHelp">
+          <span> {{ $t('header.dropdown.help') }} </span>
+        </v-list-item>
+        <v-list-item v-if="canSeeAdmin" prepend-icon="mdi-account-tie" @click="goToAdmin">
+          <span>{{ $t('header.dropdown.admin') }}</span>
+        </v-list-item>
+        <v-list-item>
+          <v-btn :block="true" variant="outlined" rounded="0">
+            <v-icon icon="mdi-logout"/>
+            <span @click='logout'> {{ $t('header.dropdown.logout') }} </span>
+          </v-btn>
+        </v-list-item>
+      </template>
+      <template v-else>
+        <v-list-item prepend-icon="mdi-help" @click="goToHelp">
+          <span> {{ $t('header.dropdown.help') }} </span>
+        </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item>
+          <v-btn :block="true" variant="outlined" rounded="0"
+            prepend-icon="mdi-logout" @click="goToLogin">
+            {{ $t('header.dropdown.login') }}
+          </v-btn>
+        </v-list-item>
+        <v-list-item>
+          <v-btn @click="goToRegister" rounded="0" :block="true"
+                 variant="outlined" prepend-icon="mdi-file-edit-outline" color="primary">
+            {{$t('buttons.register')}}
+          </v-btn>
+        </v-list-item>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -128,29 +164,48 @@
 import Dropdown from "./DropdownCard.vue";
 import ModuleButton from "./ModuleButton.vue"
 import {useRouter} from 'vue-router';
-import {onBeforeMount, Ref, ref} from 'vue';
+import {onBeforeMount, onBeforeUnmount, onMounted, Ref, ref} from 'vue';
 import {theme} from "@/helpers/theme";
 import SkipToContent from "@/components/helpers/SkipToContent.vue";
 import {User} from "@/helpers/types";
 import UserService from "@/services/UserService";
 import LoginService, {isLoggedIn} from "@/services/LoginService";
 import {AxiosResponse} from "axios";
+import hasPermission, {Action} from "@/helpers/permissions";
+import NotificationService from "@/services/NotificationService";
 
 const drawer: Ref<boolean> = ref(false);
-const messages: Ref<string> = ref("3");
+const notificationCount: Ref<number> = ref(0);
 const user: Ref<User | undefined> = ref(undefined);
 const loggedIn : Ref<boolean> = ref(false);
+const interval = ref(0);
 
 onBeforeMount(async () => {
-  await UserService.getMe().then((r: AxiosResponse) => {
+  await UserService.getMe().then(async (r: AxiosResponse) => {
     if (isLoggedIn(r)) {
       user.value = r.data
       loggedIn.value = true;
       window.localStorage.setItem('loggedIn', 'true')
+      await NotificationService.getNotificationsForUser(user.value).then(r =>{
+        notificationCount.value = r.data.filter(e => !e.read).length
+      })
+      interval.value = window.setInterval(async () => {
+        await NotificationService.getNotificationsForUser(user.value).then(r =>{
+          notificationCount.value = r.data.filter(e => !e.read).length
+        })
+      }, 30000)
     } else {
       window.localStorage.removeItem('loggedIn')
     }
   })
+})
+
+function canSeeAdmin() {
+  return hasPermission(Action.ADMIN_AREA, user.value);
+}
+
+onBeforeUnmount(() => {
+  window.clearInterval(interval.value)
 })
 
 const router = useRouter();
@@ -161,6 +216,10 @@ async function goToHome(): Promise<void> {
 
 function goToLogin(): void {
   router.push("/login");
+}
+
+function goToRegister(): void {
+  router.push("/register");
 }
 
 async function logout(): Promise<void> {
@@ -190,9 +249,9 @@ function goToModules(): void {
   router.push("/modules")
 }
 
-/*function goToMessages(): void {
-  router.push("/notifications");
-}*/
+function goToNotifications(): void {
+  router.push("/notifications")
+}
 
 function goToSettings(): void {
   router.push("/settings");
