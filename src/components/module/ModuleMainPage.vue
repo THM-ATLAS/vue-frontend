@@ -204,15 +204,21 @@
                 </v-list>
               </v-card-text>
             </v-card>
-            <!-- todo: module materials
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList">
-                <v-list-item></v-list-item>
+              <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
+                <!-- backend doesn't provide replacement text for a URL -->
+                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon><a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+              </v-list>
+
+              <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
+                <!-- todo: file download -->
+                <v-list-item
+                @click="AssetService.downloadAsset(asset.asset_id)"><v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
               </v-list>
             </v-card-text>
-          </v-card> -->
+          </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -385,6 +391,9 @@ import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
 import { useI18n } from "vue-i18n";
 import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
+import ReferralService from "@/services/ReferralService";
+import AssetService from "@/services/AssetService";
+import {AxiosResponse} from "axios";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -411,12 +420,32 @@ const selectedTag = ref({
   value: ''
 })
 
+const referralLinks = ref();
+const referralAssets = ref([]);
+//todo: get assets/links -> display assets/links -> add option to upload/remove assets/links
+function fetchAssets(){
+  ReferralService.getModuleReferralLinks(module.value).then((response: AxiosResponse) => {
+    referralLinks.value = response.data
+    console.log(response.data)
+  });
+  ReferralService.getModuleReferralAssets(module.value).then((response: AxiosResponse) => {
+    //module assets as returned are asset ids, the asset needs to be fetched to be usable
+    response.data.forEach((module_asset) => {
+      AssetService.getAsset(module_asset.asset_id).then((res) => {
+        referralAssets.value.push(res.data);
+        console.log(res.data)
+      })
+    })
+  })
+}
+
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
         //icon.value.value = module.value.icon.reference;
         loadUsers();
+        fetchAssets();
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
