@@ -16,7 +16,7 @@ import Navbar from "@/components/navigation/navbar/NavbarBase.vue";
 import Footer from "@/components/navigation/FooterCard.vue"
 import {useI18n} from "vue-i18n";
 
-document.title = useI18n().t('titles.submission');
+document.title = useI18n().t('titles.evaluationlist_view');
 </script>
 
 <style scoped>

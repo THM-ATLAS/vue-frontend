@@ -297,6 +297,11 @@ const translationDe = {
         title: 'Titel',
         id: 'ID',
         edit: 'Bearbeiten',
+        exercise_type: 'Aufgabentyp',
+        multiple_choice: {
+            question: 'Frage',
+            answers: 'Antworten'
+        },
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',

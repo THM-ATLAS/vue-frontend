@@ -25,7 +25,14 @@ export type Submission = {
     upload_time: string,
     grade: number | null,
     teacher_id: number | null,
-    comment: string | null
+    comment: string | null,
+    type: number,
+    content: {
+        "type": string,
+        "submission_id": number,
+        "content": string,
+        "language": number
+    }
 }
 
 export type Evaluation = {
@@ -84,6 +91,22 @@ export type PostExercise = {
     content : string,
     description: string,
     exercisePublic : boolean,
+    mc: MultipleChoice
+}
+
+export type MultipleChoice = {
+    "question_id": number,
+    "content": string,
+    "exercise_id": number,
+    "answers": Answer[]
+}
+
+export type Answer = {
+    "answer_id": 0,
+    "content": "string",
+    "correct": true,
+    "question_id": 0,
+    "marked": true
 }
 
 export type Asset = {

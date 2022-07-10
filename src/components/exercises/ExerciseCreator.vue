@@ -19,25 +19,13 @@
           {{ tag.name }}
         </v-chip>
       </div>
-      <div class="flex">
         <v-row>
-          <v-col sm="12" md="2" lg="2">
-            <v-text-field
-                v-model="exercise.exercise_id"
-                :label="$t('exercise.id')"
-                required
-                disabled
-            />
-          </v-col>
-          <v-col sm="12" md="10" lg="10">
             <v-text-field
                 v-model="exercise.title"
                 :label="$t('exercise.title')"
                 required
             />
-          </v-col>
         </v-row>
-      </div>
       <div>
         <v-textarea
             solo
@@ -46,7 +34,13 @@
             v-model="exercise.description"
         />
       </div>
-
+      <div>
+        <v-select
+            :items="supportedTypes"
+            :label="$t('exercise.exercise_type')"
+            v-model="exerciseType"
+        ></v-select>
+      </div>
       <div>
         <MarkdownModal :editor="true" v-model="exercise.content" />
       </div>
@@ -171,6 +165,10 @@ const exerciseTags: Ref<Tag[]> = ref([]);
 const module: Ref<number> = ref({}) as Ref<number>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
+//const exerciseTypes = ref([]);
+const exerciseType = ref("");
+const apiTypes = ref([]);
+const supportedTypes = ref(["Freitext"]);
 
 let wasSave: boolean = false;
 let wasDelete: boolean = false;
@@ -192,19 +190,31 @@ const confirmCancelDialog = ref({
 const currentDialog = ref({}) as Ref;
 
 onBeforeMount(async () => {
+  apiTypes.value = (await ExerciseService.getExerciseTypes()).data;
+  //apiTypes.value.forEach(t => exerciseTypes.value.push(t.name));
+
+  //mcExercise.value.push(mcPreset); //have at least 1 question
+
   module.value = parseInt(route.params.module as string);
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
   getExerciseTags();
+  exercise.value.description = " ";
   //}
   //store();
 });
 
 const save = async () => {
   if (!exercise.value) return;
+  if(exercise.value.description === "") {
+    console.log("no desc")
+    return
+  }
   exercise.value.module_id = module.value;
-  exercise.value.type_id = 1; //change when all types are implemented
+  exercise.value.type_id = apiTypes.value.filter(t => t.name === exerciseType.value)[0].type_id;
+  //if(exerciseType.value !== "Multiple Choice")
+    exercise.value.mc = [];
   await ExerciseService.addExercise(exercise.value)
       .then((response) => {
         console.log(response.data);
