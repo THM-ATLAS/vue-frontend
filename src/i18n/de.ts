@@ -12,7 +12,7 @@ const translationDe = {
         dropdown: {
             settings: 'Einstellungen',
             help: 'Hilfe',
-            messages: 'Nachrichten',
+            messages: 'Benachrichtigungen',
             profile: 'Profil',
             admin: 'Admin',
             login: 'Anmelden',
@@ -118,6 +118,19 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
+    notifications_page: {
+        notifications: 'Benachrichtigungen',
+        news: 'Neuigkeiten',
+        description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
+        unread: 'Ungelesen',
+        read: 'Gelesen',
+        mark_all: 'Alle auswählen',
+        mark_as_read: 'Als gelesen markieren',
+        mark_as_unread: 'Als ungelesen markieren',
+        delete: 'Löschen',
+        title: 'Betreff',
+        content: 'Nachricht'
+    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
@@ -142,7 +155,15 @@ const translationDe = {
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
         visibility_public: 'Sichtbarkeit: öffentlich',
-        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene'
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene',
+        to_profile: 'Zum Profil',
+        read_feedback: 'Feedback lesen',
+        to_submission: 'Zur Abgabe',
+        read_message: 'Lesen',
+        edit_exercise: 'Aufgabe bearbeiten',
+        to_help_page: 'Zur Hilfeseite',
+        to_module: 'Zum Modul',
+        to_exercise: 'Zur Aufgabe'
     },
     titles: {
         home_view: 'ATLAS',
@@ -245,9 +266,9 @@ const translationDe = {
             search: 'Suche nach Modulen',
         },
         tags: {
-            title: 'Tags', 
+            title: 'Tags',
             actions: 'Aktionen',
-            edit_tag: 'Tag bearbeiten', 
+            edit_tag: 'Tag bearbeiten',
             create_tag: 'Tag erstellen',
             search_tag: 'Tag suchen',
             delete_tag: 'Tag löschen',

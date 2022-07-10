@@ -12,7 +12,7 @@ const translationEn = {
         dropdown: {
             settings: 'Settings',
             help: 'Help',
-            messages: 'Messages',
+            messages: 'Notifications',
             profile: 'Profile',
             admin: 'Admin',
             login: 'Login',
@@ -116,6 +116,19 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
+    notifications_page: {
+        notifications: 'Notifications',
+        news: 'News',
+        description: 'You can view your messages, reviews for submissions and site news here.',
+        unread: 'Unread',
+        read: 'Read',
+        mark_all: 'Mark all',
+        mark_as_read: 'Mark as read',
+        mark_as_unread: 'Mark as unread',
+        delete: 'Delete',
+        title: 'Subject',
+        content: 'Content'
+    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',
@@ -156,6 +169,12 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        to_profile: 'Go to profile',
+        read_feedback: 'Read feedback',
+        to_submission: 'Go to submission',
+        read_message: 'Read',
+        edit_exercise: 'Edit exercise',
+        to_help_page: 'Go to help page',
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
         evaluate: 'Save Evaluation',
@@ -164,7 +183,9 @@ const translationEn = {
         view: 'View',
         visit_profile: 'Visit profile',
         visibility_public: 'Visibility: public',
-        visibility_private: 'Visibility: only for enrolled users'
+        visibility_private: 'Visibility: only for enrolled users',
+        to_module: 'Visit the module',
+        to_exercise: 'View the exercise'
     },
     languages: {
         en: 'English',
@@ -238,9 +259,9 @@ const translationEn = {
             search: 'Search modules',
         },
         tags: {
-            title: 'Tags', 
+            title: 'Tags',
             actions: 'Actions',
-            edit_tag: 'Edit tag', 
+            edit_tag: 'Edit tag',
             create_tag: 'Create tag',
             search_tag: 'Search tag',
             delete_tag: 'Delete tag',
