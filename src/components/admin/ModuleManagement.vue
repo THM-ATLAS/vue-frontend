@@ -245,7 +245,6 @@ import {Module} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
-import {useI18n} from "vue-i18n";
 
 const display = useDisplay();
 const router = useRouter();
