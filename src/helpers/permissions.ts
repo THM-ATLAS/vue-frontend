@@ -24,9 +24,11 @@ export default function hasPermission(action: Action, user: User | undefined): b
 }
 
 export function hasPermissionModule(action: Action, user: User | undefined, moduleUser: ModuleUser | undefined): boolean {
+    if (isAdmin(user)) return true;
+
     if (!user || !moduleUser) return false;
 
-    return moduleUser.module_role.role_id <= action + 1 || isAdmin(user);
+    return moduleUser.module_role.role_id <= action + 1;
 }
 
 function isAdmin(user: User | undefined) {

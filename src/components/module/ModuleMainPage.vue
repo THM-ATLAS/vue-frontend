@@ -34,7 +34,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip3 }">
             <v-btn
-                v-if="canSeeManage"
+                v-if="canSeeManage()"
                 v-bind="tooltip3"
                 @click="goToManage()"
                 icon="mdi-cog"
