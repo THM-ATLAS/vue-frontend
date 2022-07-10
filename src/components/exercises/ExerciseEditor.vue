@@ -402,7 +402,7 @@ onBeforeMount(async () => {
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
-  getExerciseTags();
+  await getExerciseTags();
   //}
   //store();
 });
@@ -510,8 +510,8 @@ const addItem = (type) => {
 };
 */
 
-function getExerciseTags(): void {
-  TagService.getTagsFromExercise(exercise.value).then((res) => {
+function getExerciseTags(): Promise<void> {
+  return TagService.getTagsFromExercise(exercise.value).then((res) => {
     exerciseTags.value = res.data;
     TagService.getAllTags().then((res) => {
       allTags.value = res.data;
@@ -526,9 +526,9 @@ function getExerciseTags(): void {
 }
 
 function addTagToExercise(tag: Tag): void {
-  TagService.addTagToExercise(tag, exercise.value).then(() =>
-    getExerciseTags()
-  );
+  TagService.addTagToExercise(tag, exercise.value).then(async () => {
+        getExerciseTags().then(() => addTagsDialog.value.target.name = "")
+  });
   TagService.addTagToModule(module.value, tag);
 }
 
