@@ -58,6 +58,7 @@
     <v-table>
       <thead>
       <tr>
+        <th/>
         <th>{{ $t('notifications_page.title') }}</th>
         <th>{{ $t('notifications_page.content') }}</th>
         <th/>
@@ -74,25 +75,23 @@
             hide-overlay
         >
           <template v-slot:activator="{ props }">
-          <td @click="handleClick(notification)"
-          v-bind="props">
-            <v-badge v-if="!notification.read"
-                     dot
-                     left
-                     inline
-                     color="primary"
-            >
-              <v-list-item :prepend-icon="getNotificationIcon(notification)">
+            <td v-bind="props" @click="handleClick(notification)">
+              <v-badge v-if="!notification.read"
+                       dot
+                       left
+                       color="primary"
+                       offset-y="-8"
+              />
+              <v-icon :icon="getNotificationIcon(notification)"
+                      class="ma-1"/>
+            </td>
+            <td v-bind="props">
                 {{ notification.title }}
-              </v-list-item>
-            </v-badge>
-            <v-list-item v-else :prepend-icon="getNotificationIcon(notification)">
-              {{ notification.title }}
-            </v-list-item>
-          </td>
-          <td @click="handleClick(notification)"
-              v-bind="props">
-            {{ notification.content }}</td>
+            </td>
+            <td @click="handleClick(notification)"
+                v-bind="props">
+              {{ notification.content }}
+            </td>
             <td>
               <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
             </td>
@@ -141,7 +140,7 @@ async function loadNotifications() {
 
   await NotificationService.getNotificationsForUser(user.value).then(res => {
     notifications.value = res.data
-    notifications.value.sort(function(a,b){
+    notifications.value.sort(function (a, b) {
       return (b.notification_id - a.notification_id);
     });
   })
@@ -196,7 +195,7 @@ function getNotificationIcon(notification: Notification): string {
   }
 }
 
-async function handleClick (notification : Notification) {
+async function handleClick(notification: Notification) {
   notification.read = true
   await NotificationService.markNotificationAsRead(notification, user.value)
 }
@@ -216,9 +215,11 @@ async function handleClick (notification : Notification) {
 .rowPointerDark.readBackground {
   background: rgb(var(--v-theme-surface)) !important;
 }
+
 .rowPointerLight {
   background: rgba(0, 0, 0, 0.1) !important;
 }
+
 .rowPointerLight.readBackground {
   background: rgba(255, 255, 255, 0.1) !important;
 }
