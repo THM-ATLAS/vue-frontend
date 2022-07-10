@@ -111,9 +111,8 @@ import {onBeforeMount, ref} from "vue";
 import {Ref} from "vue";
 import NotificationService from "@/services/NotificationService";
 import UserService from "@/services/UserService";
-import router from "@/router";
 import {theme} from "@/helpers/theme";
-import NotificationDialog from "@/components/user/NotificationDialog"
+import NotificationDialog from "@/components/user/NotificationDialog.vue"
 
 const i18n = useI18n();
 const notifications: Ref<Notification[]> = ref([]);
@@ -196,6 +195,7 @@ function getNotificationIcon(notification: Notification): string {
 }
 
 async function handleClick(notification: Notification) {
+  if(!user.value) return;
   notification.read = true
   await NotificationService.markNotificationAsRead(notification, user.value)
 }
