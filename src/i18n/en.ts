@@ -257,6 +257,7 @@ const translationEn = {
             items_per_page: 'Items per page',
             module_per_page: 'Modules per page',
             search: 'Search modules',
+            icon: 'Icon',
         },
         tags: {
             title: 'Tags',
@@ -361,6 +362,7 @@ const translationEn = {
     module_search: {
         search: 'Search modules',
         items_per_page: 'Items per page',
+        no_results: 'Your search returned no results.',
     },
     module_page: {
         module: 'Module',
