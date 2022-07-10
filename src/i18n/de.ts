@@ -118,17 +118,6 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
-    module_search: {
-        items_per_page: 'Einträge pro Seite',
-        module_per_page: 'Module pro Seite',
-        search: 'Suche nach Modulen',
-    },
-    user_search: {
-        users_per_page: 'Benutzer pro Seite'
-    },
-    exercise_search: {
-        exercises_per_page: 'Aufgaben pro Seite'
-    },
     buttons: {
         save: 'Speichern',
         cancel: 'Abbrechen',
@@ -213,6 +202,7 @@ const translationDe = {
             password: 'Passwort',
             change_password: 'Passwort ändern',
             search_user: 'Benutzer:in suchen',
+            users_per_page: 'Benutzer:innen pro Seite',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
@@ -235,6 +225,7 @@ const translationDe = {
             created_at: 'Erstellt am',
             actions: 'Aktionen',
             search_exercise: 'Aufgabe suchen',
+            exercises_per_page: 'Aufgaben pro Seite',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
@@ -249,6 +240,9 @@ const translationDe = {
             delete: 'Modul löschen',
             delete_confirm: 'Modul "{0}" wirklich löschen?',
             search_module: 'Modul suchen',
+            items_per_page: 'Einträge pro Seite',
+            module_per_page: 'Module pro Seite',
+            search: 'Suche nach Modulen',
         },
         tags: {
             title: 'Tags', 
@@ -258,6 +252,7 @@ const translationDe = {
             search_tag: 'Tag suchen',
             delete_tag: 'Tag löschen',
             delete_confirm: 'Tag "{0}" wirklich löschen?',
+            tags_per_page: 'Tags pro Seite',
         },
         navbar: {
             title: 'Administration',

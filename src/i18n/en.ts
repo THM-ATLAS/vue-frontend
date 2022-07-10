@@ -116,17 +116,6 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
-    module_search: {
-        items_per_page: 'Items per page',
-        module_per_page: 'Modules per page',
-        search: 'Search modules',
-    },
-    user_search: {
-        users_per_page: 'Users per page'
-    },
-    exercise_search: {
-        exercises_per_page: 'Exercises per page'
-    },
     titles: {
         home_view: 'ATLAS',
         login_view: 'Login',
@@ -206,6 +195,7 @@ const translationEn = {
             password: 'Password',
             change_password: 'Change password',
             search_user: 'Search user',
+            users_per_page: 'Users per page',
             errors: {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
@@ -228,6 +218,7 @@ const translationEn = {
             created_at: 'Created at',
             actions: 'Actions',
             search_exercise: 'Search exercise',
+            exercises_per_page: 'Exercises per page',
             errors: {
                 required: 'This field is required.',
             }
@@ -242,6 +233,9 @@ const translationEn = {
             delete: 'Delete module',
             delete_confirm: 'Delete module "{0}"?',
             search_module: 'Search module',
+            items_per_page: 'Items per page',
+            module_per_page: 'Modules per page',
+            search: 'Search modules',
         },
         tags: {
             title: 'Tags', 
@@ -251,6 +245,7 @@ const translationEn = {
             search_tag: 'Search tag',
             delete_tag: 'Delete tag',
             delete_confirm: 'Delete tag {0}?',
+            tags_per_page: 'Tags per page',
         },
         navbar: {
             title: 'Admin Panel',

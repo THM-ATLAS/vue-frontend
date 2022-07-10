@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="tag in filteredTags" v-bind:key="tag.tag_id">
+        <tr v-for="tag in currentPage" v-bind:key="tag.tag_id">
           <!-- Name -->
           <td>
             <v-icon size="22px"
@@ -145,11 +145,11 @@
       </v-card>
     </v-dialog>
     <!-- create tag dialog end -->
-    <!-- <v-row>
+    <v-row>
       <v-col cols="4" sm="3">
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('admin.tags.tags_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -158,19 +158,18 @@
             v-model="currentPageNumber"
             :length="length"
             total-visible="5"
-        ></v-pagination>
+        />
       </v-col>
-    </v-row> -->
+    </v-row>
   </div>
 </template>
 
 <script setup lang="ts">
 import {onBeforeMount, Ref, ref, watch} from "vue";
-import {Tag, Module} from "@/helpers/types";
+import {Tag} from "@/helpers/types";
 import TagService from "@/services/TagService";
 
-const modules: Ref<Module[]> = ref([]);
-const currentPage: Ref<Module[]> = ref([]);
+const currentPage: Ref<Tag[]> = ref([]);
 const currentPageNumber = ref(1);
 const numbers = [1, 3, 5, 10, 20, 50];
 const itemsPerPage = ref(10);
@@ -192,25 +191,28 @@ function applySearch(): void {
   filteredTags.value = allTags.value.filter((tag) => {
     return tag.name.toLowerCase().includes(search.value.toLowerCase())
   })
+  currentPage.value = filteredTags.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredTags.value.length / itemsPerPage.value)
 }
 
-function getAllTags(): void {
-  TagService.getAllTags().then(res => filteredTags.value = allTags.value = res.data.sort((tag1: Tag, tag2: Tag) => tag1.name.localeCompare(tag2.name)));
+onBeforeMount(async () => {
+  getAllTags().then(() => {
+    applySearch()
+  })
+});
+
+watch(currentPageNumber, () => applySearch())
+
+watch(itemsPerPage, () => applySearch())
+
+
+function getAllTags(): Promise<void> {
+  return TagService.getAllTags().then(res => filteredTags.value = allTags.value = res.data.sort((tag1: Tag, tag2: Tag) => tag1.name.localeCompare(tag2.name)));
 }
 
 function createTag(givenTag: Tag): void {
-  var foundTag = false;
-  TagService.getAllTags().then(res => {
-    res.data.forEach((tag: Tag) => {
-      if (tag.name.toLowerCase() == givenTag.name.toLowerCase()) {
-        foundTag = true;
-        console.log("Found tag!");
-      }
-    })
-    if (!foundTag) {
-      TagService.addTag(givenTag).then(() => getAllTags());
-    }
-  })
+  // we don't check if the tag already exists, as we naively assume competence of the admin
+  TagService.addTag(givenTag).then(() => getAllTags());
 }
 
 function editTag(tag: Tag): void {
@@ -239,27 +241,6 @@ function getTagTemplate(): Tag {
     }
   };
 }
-
-
-/**
- * Other
- */
-
-onBeforeMount(async () => {
-  getAllTags();
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-  length.value = Math.ceil(modules.value.length / itemsPerPage.value);
-});
-
-watch(currentPageNumber, (newNumber) => {
-  currentPage.value = modules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
-})
-
-watch(itemsPerPage, (newNumber) => {
-  currentPageNumber.value = 1
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * newNumber, currentPageNumber.value * newNumber)
-  length.value = Math.ceil(modules.value.length / newNumber)
-})
 </script>
 
 <style scoped>
