@@ -212,30 +212,38 @@ onBeforeMount(async () => {
   await UserService.getMe().then(async r => {
     if (r.data.user_id) {
       user.value = r.data
-      await NotificationService.getNotificationsForUser(r.data).then(res => {
-        notifications.value = res.data
-      })
+      await loadNotifications()
     }
   })
 })
 
+async function loadNotifications () {
+  if (!user.value) return;
+
+  await NotificationService.getNotificationsForUser(user.value).then(res => {
+    notifications.value = res.data
+  })
+}
+
 async function deleteNotifications () {
-  if (checkedItems.value.length === 0)
-    return;
+  if (checkedItems.value.length === 0 || !user.value) return;
+
   for (const notification of checkedItems.value) {
     await NotificationService.deleteSingleNotificationForUser(notification, user.value)
   }
-  await router.go('')
+
+  await loadNotifications()
 }
 
 async function markAsRead () {
-  if (checkedItems.value.length === 0)
-    return;
+  if (checkedItems.value.length === 0 || !user.value) return;
+
   for (const notification of checkedItems.value) {
     notification.read = true
     await NotificationService.markNotificationAsRead(notification, user.value)
   }
-  await router.go('')
+
+  await loadNotifications()
 }
 
 //Not supported by Backend
@@ -469,14 +477,6 @@ const items = [
   }
 ]
 
-
-function visitExtLink(url) {
-  window.open(url, "_blank");
-}
-
-function visitIntLink(url) {
-  this.$router.push(url);
-}
 </script>
 
 <!-- Bitte möglichst keine Styles hier verwenden. Das Meiste lässt sich mit Vuetify lösen-->
