@@ -24,6 +24,11 @@
           :title="$t('admin.navbar.manage_module')"
           @click="goToModule"
       />
+      <v-list-item
+          prepend-icon="mdi-tag"
+          :title="$t('admin.navbar.manage_tag')"
+          @click="goToTag"
+      />
     </v-list>
     <v-list density="compact" nav>
       <v-list-item
@@ -58,6 +63,10 @@ function goToExercise(): void {
 
 function goToModule(): void {
   router.push("/admin/modules");
+}
+
+function goToTag(): void {
+  router.push("/admin/tags");
 }
 
 function goToHome(): void {
