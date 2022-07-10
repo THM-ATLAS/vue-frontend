@@ -158,7 +158,7 @@
         <tr v-for="link in referralLinks" :key="link.module_link_id" >
           <td class="text-left">
             <v-icon style="padding-right: 1em">mdi-link</v-icon>
-            {{ link.link }}</td>
+            <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></td>
           <td></td>
           <td class="text-right">
             <v-tooltip top>

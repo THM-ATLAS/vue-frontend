@@ -210,7 +210,7 @@
               <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
                 <!-- backend doesn't provide replacement text for a URL -->
                 <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
-                  <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                  <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></v-list-item>
               </v-list>
 
               <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
