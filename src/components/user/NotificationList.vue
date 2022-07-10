@@ -1,140 +1,140 @@
 <template>
-<!--  <v-card elevation="0" rounded="0">
-    <v-card-header>
-      <v-icon class="ma-1">mdi-bell</v-icon>
-      <v-card-header-text class="text-left fontszTi">
-        {{ i18n.t('notifications_page.notifications') }}
-      </v-card-header-text>
-    </v-card-header>
-    <v-card-subtitle>
-      {{ i18n.t('notifications_page.description') }}
-    </v-card-subtitle>
+  <!--  <v-card elevation="0" rounded="0">
+      <v-card-header>
+        <v-icon class="ma-1">mdi-bell</v-icon>
+        <v-card-header-text class="text-left fontszTi">
+          {{ i18n.t('notifications_page.notifications') }}
+        </v-card-header-text>
+      </v-card-header>
+      <v-card-subtitle>
+        {{ i18n.t('notifications_page.description') }}
+      </v-card-subtitle>
 
-    <v-container>
-      <v-list three-line>
-        <template v-for="(item, index) in notifications">
-
-          <v-container
-              v-if="item.title"
-              :key="item.title"
-          >
-            <p class="text-h6 mt-5">
-              &lt;!&ndash; v-icon class="ma-1" :icon="item.icon"/ &ndash;&gt;
-              {{ item.title }}
-            </p>
-          </v-container>
-
-          <v-divider
-              v-else-if="item.divider"
-              :key="index"
-              :inset="item.inset"
-          />
-
-          <v-list-item
-              v-else
-              :key="item.title"
-              class="justify-space-between flex-wrap flex-row flex-md-nowrap"
-          >
-            <v-list-item-avatar class="d-none d-md-block">
-              <v-icon class="mr-5" :alt="item.type" :title="item.type" :icon="item.icon"/>
-            </v-list-item-avatar>
-            <v-container>
-              <v-list-item-subtitle class="d-md-none">
-                <v-icon :icon="item.icon"/>
-                {{ item.type }}
-              </v-list-item-subtitle>
-              <v-list-item-title v-html="item.title"/>
-              <v-list-item-subtitle v-html="item.subtitle"/>
-            </v-container>
+      <v-container>
+        <v-list three-line>
+          <template v-for="(item, index) in notifications">
 
             <v-container
-                v-if="item.interaction"
-                class="align-end">
-              <template v-for="b_item in item.interaction" :key="b_item.btn_title">
-
-                <v-dialog
-                    v-if="b_item.type === 'popup'"
-                    v-model="dialog"
-                >
-                  <template v-slot:activator="{ props }">
-                    <v-btn v-bind="props"
-                           :color="b_item.btn_color"
-                           :title="b_item.btn_title"
-                           rounded="0"
-                           elevation="0">
-                      <v-icon :icon="b_item.btn_icon"/>
-                      <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-text>
-                      {{ b_item.content }}
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
-
-                <v-btn v-bind="props"
-                       v-else-if="b_item.type === 'link'"
-                       :color="b_item.btn_color"
-                       :title="b_item.btn_title"
-                       rounded="0"
-                       elevation="0"
-                       @click="visitIntLink(b_item.content)">
-                  <v-icon :icon="b_item.btn_icon"/>
-                  <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
-                </v-btn>
-
-                <v-btn v-bind="props"
-                       v-else-if="b_item.type === 'ext-link'"
-                       :color="b_item.btn_color"
-                       :title="b_item.btn_title"
-                       rounded="0"
-                       elevation="0"
-                       @click="visitExtLink(b_item.content)">
-                  <v-icon :icon="b_item.btn_icon"/>
-                  <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
-                </v-btn>
-
-              </template>
+                v-if="item.title"
+                :key="item.title"
+            >
+              <p class="text-h6 mt-5">
+                &lt;!&ndash; v-icon class="ma-1" :icon="item.icon"/ &ndash;&gt;
+                {{ item.title }}
+              </p>
             </v-container>
-            &lt;!&ndash;
-            <v-btn class="align-self-end" color="error" @click="del(index)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
-            &ndash;&gt;
-          </v-list-item>
-        </template>
-      </v-list>
-    </v-container>
-  </v-card>-->
+
+            <v-divider
+                v-else-if="item.divider"
+                :key="index"
+                :inset="item.inset"
+            />
+
+            <v-list-item
+                v-else
+                :key="item.title"
+                class="justify-space-between flex-wrap flex-row flex-md-nowrap"
+            >
+              <v-list-item-avatar class="d-none d-md-block">
+                <v-icon class="mr-5" :alt="item.type" :title="item.type" :icon="item.icon"/>
+              </v-list-item-avatar>
+              <v-container>
+                <v-list-item-subtitle class="d-md-none">
+                  <v-icon :icon="item.icon"/>
+                  {{ item.type }}
+                </v-list-item-subtitle>
+                <v-list-item-title v-html="item.title"/>
+                <v-list-item-subtitle v-html="item.subtitle"/>
+              </v-container>
+
+              <v-container
+                  v-if="item.interaction"
+                  class="align-end">
+                <template v-for="b_item in item.interaction" :key="b_item.btn_title">
+
+                  <v-dialog
+                      v-if="b_item.type === 'popup'"
+                      v-model="dialog"
+                  >
+                    <template v-slot:activator="{ props }">
+                      <v-btn v-bind="props"
+                             :color="b_item.btn_color"
+                             :title="b_item.btn_title"
+                             rounded="0"
+                             elevation="0">
+                        <v-icon :icon="b_item.btn_icon"/>
+                        <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-text>
+                        {{ b_item.content }}
+                      </v-card-text>
+                    </v-card>
+                  </v-dialog>
+
+                  <v-btn v-bind="props"
+                         v-else-if="b_item.type === 'link'"
+                         :color="b_item.btn_color"
+                         :title="b_item.btn_title"
+                         rounded="0"
+                         elevation="0"
+                         @click="visitIntLink(b_item.content)">
+                    <v-icon :icon="b_item.btn_icon"/>
+                    <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
+                  </v-btn>
+
+                  <v-btn v-bind="props"
+                         v-else-if="b_item.type === 'ext-link'"
+                         :color="b_item.btn_color"
+                         :title="b_item.btn_title"
+                         rounded="0"
+                         elevation="0"
+                         @click="visitExtLink(b_item.content)">
+                    <v-icon :icon="b_item.btn_icon"/>
+                    <span class="caption d-none d-lg-block" v-html="b_item.btn_title"/>
+                  </v-btn>
+
+                </template>
+              </v-container>
+              &lt;!&ndash;
+              <v-btn class="align-self-end" color="error" @click="del(index)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              &ndash;&gt;
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-container>
+    </v-card>-->
   <v-card elevation="0" rounded="0">
     <v-card-header>
       <v-icon class="ma-1">mdi-bell</v-icon>
       <v-card-header-text class="text-left fontszTi">
         {{ i18n.t('notifications_page.notifications') }}
       </v-card-header-text>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ props: tooltip3 }">
-              <v-btn
-                  v-bind="tooltip3"
-                  :icon="markAll ? 'mdi-checkbox-multiple-outline' : 'mdi-checkbox-multiple-blank-outline'"
-                  class="ma-2"
-                  variant="outlined"
-                  @click='checkAll'></v-btn>
-            </template>
-            <span v-html="$t('notifications_page.mark_all')"/>
-          </v-tooltip>
-          <v-tooltip bottom>
-            <template v-slot:activator="{ props: tooltip3 }">
-              <v-btn
-                  v-bind="tooltip3"
-                  icon="mdi-email-open"
-                  class="ma-2"
-                  variant="outlined"
-                  @click='markAsRead'/>
-            </template>
-            <span v-html="$t('notifications_page.mark_as_read')"/>
-          </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ props: tooltip3 }">
+          <v-btn
+              v-bind="tooltip3"
+              :icon="markAll ? 'mdi-checkbox-multiple-outline' : 'mdi-checkbox-multiple-blank-outline'"
+              class="ma-2"
+              variant="outlined"
+              @click='checkAll'></v-btn>
+        </template>
+        <span v-html="$t('notifications_page.mark_all')"/>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ props: tooltip3 }">
+          <v-btn
+              v-bind="tooltip3"
+              icon="mdi-email-open"
+              class="ma-2"
+              variant="outlined"
+              @click='markAsRead'/>
+        </template>
+        <span v-html="$t('notifications_page.mark_as_read')"/>
+      </v-tooltip>
       <!-- Not supported by Backend
       <v-tooltip bottom>
         <template v-slot:activator="{ props: tooltip3 }">
@@ -148,17 +148,17 @@
         <span v-html="$t('notifications_page.mark_as_unread')"/>
       </v-tooltip>
       -->
-          <v-tooltip bottom>
-            <template v-slot:activator="{ props: tooltip3 }">
-              <v-btn
-                  v-bind="tooltip3"
-                  icon="mdi-trash-can-outline"
-                  class="ma-2"
-                  variant="outlined"
-                  @click='deleteNotifications'/>
-            </template>
-            <span v-html="$t('notifications_page.delete')"/>
-          </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ props: tooltip3 }">
+          <v-btn
+              v-bind="tooltip3"
+              icon="mdi-trash-can-outline"
+              class="ma-2"
+              variant="outlined"
+              @click='deleteNotifications'/>
+        </template>
+        <span v-html="$t('notifications_page.delete')"/>
+      </v-tooltip>
     </v-card-header>
     <v-card-subtitle>
       {{ i18n.t('notifications_page.description') }}
@@ -166,21 +166,22 @@
     <v-table>
       <thead>
       <tr>
+        <th/>
         <th>{{ $t('notifications_page.title') }}</th>
         <th>{{ $t('notifications_page.content') }}</th>
-        <th></th>
+        <th/>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="notification in notifications" v-bind:key="notification.notification_id" v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }">
+      <tr v-for="notification in notifications" v-bind:key="notification.notification_id"
+          v-bind:style="{ 'background-color': !notification.read ? 'surface' : 'background' }">
         <td>
-          <v-badge v-if="!notification.read" dot color="primary" offset-y="20"></v-badge>
-          <v-list-item :prepend-icon="getNotificationIcon(notification)">
-            {{ notification.title }}
-          </v-list-item></td>
+          <v-badge v-if="!notification.read" :dot="true" color="primary" offset-y="-8"/>
+          <v-icon :icon="getNotificationIcon(notification)" class="ml-1 mr-2"/></td>
+        <td>{{ notification.title }}</td>
         <td>{{ notification.content }}</td>
         <td>
-          <v-checkbox v-model="checkedItems" :value="notification" hide-details></v-checkbox>
+          <v-checkbox v-model="checkedItems" :value="notification" hide-details/>
         </td>
       </tr>
       </tbody>
@@ -198,12 +199,12 @@ import UserService from "@/services/UserService";
 import router from "@/router";
 
 const i18n = useI18n();
-const notifications : Ref<Notification[]> = ref([]);
-const checkedItems : Ref<Notification[]> = ref([]);
+const notifications: Ref<Notification[]> = ref([]);
+const checkedItems: Ref<Notification[]> = ref([]);
 const markAll = ref(false)
-const user : Ref <User | undefined | void> = ref()
+const user: Ref<User | undefined | void> = ref()
 
-function checkAll ( ) {
+function checkAll() {
   markAll.value = !markAll.value
   markAll.value ? checkedItems.value = notifications.value : checkedItems.value = []
 }
@@ -217,7 +218,7 @@ onBeforeMount(async () => {
   })
 })
 
-async function loadNotifications () {
+async function loadNotifications() {
   if (!user.value) return;
 
   await NotificationService.getNotificationsForUser(user.value).then(res => {
@@ -225,7 +226,7 @@ async function loadNotifications () {
   })
 }
 
-async function deleteNotifications () {
+async function deleteNotifications() {
   if (checkedItems.value.length === 0 || !user.value) return;
 
   for (const notification of checkedItems.value) {
@@ -235,7 +236,7 @@ async function deleteNotifications () {
   await loadNotifications()
 }
 
-async function markAsRead () {
+async function markAsRead() {
   if (checkedItems.value.length === 0 || !user.value) return;
 
   for (const notification of checkedItems.value) {
@@ -257,7 +258,7 @@ async function markAsRead () {
   await router.go('')
 }*/
 
-function getNotificationIcon (notification : Notification) : string {
+function getNotificationIcon(notification: Notification): string {
   switch (notification.type_id) {
     case 1:
       return 'mdi-file-upload'
@@ -295,7 +296,7 @@ const items = [
       content: '/oop/s/1234',
     }]
   },
-   
+
   {
     icon: 'mdi-trophy-award',
     type: 'Level-Up',
@@ -310,7 +311,7 @@ const items = [
       content: '/u/',
     }]
   },
-   
+
   {
     icon: 'mdi-note-remove',
     type: 'Rückmeldung erhalten',
@@ -330,7 +331,7 @@ const items = [
       content: 'bkp/s/1234',
     }]
   },
-   
+
   {
     icon: 'mdi-note-search',
     type: 'Neue Abgabe erhalten',
@@ -362,7 +363,7 @@ const items = [
       content: 'mpt/s/1234',
     }]
   },
-   
+
   {
     icon: 'mdi-message-badge',
     type: 'Feedback erhalten',
@@ -376,7 +377,7 @@ const items = [
       content: '/Brueckenkurs Programmieren/e/5/feedback',
     }]
   },
-   
+
   {
     icon: 'mdi-email',
     type: 'Private Nachricht',
@@ -397,7 +398,7 @@ const items = [
           'culpa qui officia deserunt mollit anim id est laborum.',
     }]
   },
-   
+
   {
     icon: 'mdi-newspaper-plus',
     type: 'Neue Aufgaben',
@@ -412,7 +413,7 @@ const items = [
       content: '/Brueckenkurs Programmieren',
     }]
   },
-   
+
   {
     icon: 'mdi-file-cog',
     type: 'Korrektur erhalten',
@@ -433,7 +434,7 @@ const items = [
       content: '/Brueckenkurs Programmieren/e/5/edit',
     }]
   },
-   
+
   {
     icon: 'mdi-check',
     type: 'Korrektur bearbeitet',
@@ -447,7 +448,7 @@ const items = [
       content: 'Keine Ahnung lol',
     }]
   },
-   
+
   {
     icon: 'mdi-trophy-award',
     type: 'Neues Abzeichen',
@@ -461,7 +462,7 @@ const items = [
       content: '/u/',
     }]
   },
-   
+
   {
     icon: 'mdi-email',
     type: 'Private Nachricht',
