@@ -7,8 +7,8 @@ class SubmissionService{
         return API.get(`exercises/${exerciseId}/submissions`);
     }
 
-    getSubmissionById(exerciseId: number, submissionId: number) : Promise<any> {
-        return API.get(`exercises/${exerciseId}/submissions/${submissionId}`);
+    getSubmissionById(submissionId: number) : Promise<any> {
+        return API.get(`/submissions/${submissionId}`);
     }
 
     getUserSubmissions(userId: number) : Promise<any> {
@@ -23,6 +23,10 @@ class SubmissionService{
         return API.get(`/submissions`);
     }
 
+    getLanguages(): Promise<any> {
+        return API.get(`/submissions/code/languages`);
+    }
+
     adjustSubmission(submission: Submission): Promise<any> {
         return API.put(`/submissions`, submission);
     }
@@ -33,6 +37,10 @@ class SubmissionService{
 
     editEvaluation(evaluation: Evaluation): Promise<any> {
         return API.put(`/submissions/grade`, evaluation)
+    }
+
+    getCurrentSubmission(exerciseID: number): Promise<any> {
+        return API.get(`/exercise/${exerciseID}/submission`)
     }
 }
 

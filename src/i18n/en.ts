@@ -12,7 +12,7 @@ const translationEn = {
         dropdown: {
             settings: 'Settings',
             help: 'Help',
-            messages: 'Messages',
+            messages: 'Notifications',
             profile: 'Profile',
             admin: 'Admin',
             login: 'Login',
@@ -116,16 +116,18 @@ const translationEn = {
                 'When using your LDAP account to sign into ATLAS, a new account will be created.',
         },
     },
-    module_search: {
-        items_per_page: 'Items per page',
-        module_per_page: 'Modules per page',
-        search: 'Search modules',
-    },
-    user_search: {
-        users_per_page: 'Users per page'
-    },
-    exercise_search: {
-        exercises_per_page: 'Exercises per page'
+    notifications_page: {
+        notifications: 'Notifications',
+        news: 'News',
+        description: 'You can view your messages, reviews for submissions and site news here.',
+        unread: 'Unread',
+        read: 'Read',
+        mark_all: 'Mark all',
+        mark_as_read: 'Mark as read',
+        mark_as_unread: 'Mark as unread',
+        delete: 'Delete',
+        title: 'Subject',
+        content: 'Content'
     },
     titles: {
         home_view: 'ATLAS',
@@ -140,6 +142,7 @@ const translationEn = {
         evaluationlist_view: 'Submissions',
         editsubmission_view: 'Edit',
         modulemanagement_view: 'Modules',
+        tagmanagement_view: 'Tags',
         profile_view: 'Profile',
         modulesearch_view: 'Modules',
         pagenotfound_view: 'Error',
@@ -166,6 +169,12 @@ const translationEn = {
         register: 'Register',
         new: 'New',
         stay: 'Stay',
+        to_profile: 'Go to profile',
+        read_feedback: 'Read feedback',
+        to_submission: 'Go to submission',
+        read_message: 'Read',
+        edit_exercise: 'Edit exercise',
+        to_help_page: 'Go to help page',
         submit: 'Submit Solution',
         view_submissions: 'View submissions',
         evaluate: 'Save Evaluation',
@@ -176,6 +185,8 @@ const translationEn = {
         visibility_public: 'Visibility: public',
         visibility_private: 'Visibility: only for enrolled users',
         upload_file: 'Upload file',
+        to_module: 'Visit the module',
+        to_exercise: 'View the exercise'
     },
     languages: {
         en: 'English',
@@ -206,6 +217,7 @@ const translationEn = {
             password: 'Password',
             change_password: 'Change password',
             search_user: 'Search user',
+            users_per_page: 'Users per page',
             errors: {
                 required: 'This field is required.',
                 username_taken: 'This username is already taken.',
@@ -228,6 +240,7 @@ const translationEn = {
             created_at: 'Created at',
             actions: 'Actions',
             search_exercise: 'Search exercise',
+            exercises_per_page: 'Exercises per page',
             errors: {
                 required: 'This field is required.',
             }
@@ -242,12 +255,27 @@ const translationEn = {
             delete: 'Delete module',
             delete_confirm: 'Delete module "{0}"?',
             search_module: 'Search module',
+            items_per_page: 'Items per page',
+            module_per_page: 'Modules per page',
+            search: 'Search modules',
+            icon: 'Icon',
+        },
+        tags: {
+            title: 'Tags',
+            actions: 'Actions',
+            edit_tag: 'Edit tag',
+            create_tag: 'Create tag',
+            search_tag: 'Search tag',
+            delete_tag: 'Delete tag',
+            delete_confirm: 'Delete tag {0}?',
+            tags_per_page: 'Tags per page',
         },
         navbar: {
             title: 'Admin Panel',
             manage_user: 'Manage users',
             manage_exercise: 'Manage exercises',
             manage_module: 'Manage modules',
+            manage_tag: 'Manage tags',
             back: 'Back to homepage'
         }
     },
@@ -263,6 +291,11 @@ const translationEn = {
         title: 'Title',
         id: 'ID',
         edit: 'Edit',
+        exercise_type: 'Exercise type',
+        multiple_choice: {
+            question: 'Question',
+            answers: 'Answers'
+        },
         confirm_leave: 'Do you really want to leave? Unsaved changes will be lost!',
         confirm_cancel: 'Do you really want to cancel? Unsaved changes will be lost!',
         confirm_delete: 'Do you really want to delete this exercise? This action can not be undone!',
@@ -331,6 +364,11 @@ const translationEn = {
         not_found: 'Could not find the requested resource.',
         internal_server_error: 'Internal server error.',
         unknown: 'An unknown error occurred.',
+    },
+    module_search: {
+        search: 'Search modules',
+        items_per_page: 'Items per page',
+        no_results: 'Your search returned no results.',
     },
     module_page: {
         module: 'Module',
