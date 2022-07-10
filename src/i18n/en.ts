@@ -361,6 +361,7 @@ const translationEn = {
     module_search: {
         search: 'Search modules',
         items_per_page: 'Items per page',
+        no_results: 'Your search returned no results.',
     },
     module_page: {
         module: 'Module',

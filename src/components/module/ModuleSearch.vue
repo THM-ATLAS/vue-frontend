@@ -24,6 +24,16 @@
             v-bind="module"
         />
       </v-row>
+      <v-row v-if="currentPage.length === 0">
+        <v-alert
+            :value="true"
+            icon="mdi-magnify-close"
+            dark
+            class="ma-3"
+            style="text-align: center;">
+          {{ $t('module_search.no_results') }}
+        </v-alert>
+      </v-row>
     </div>
     <v-row>
       <v-col>
@@ -38,7 +48,7 @@
             v-model="currentPageNumber"
             :length="length"
             total-visible="5"
-        ></v-pagination>
+        />
       </v-col>
     </v-row>
   </div>
