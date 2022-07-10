@@ -55,7 +55,7 @@
         {{$t('buttons.login')}}
       </v-btn>
       <v-btn @click="goToRegister" rounded="0"
-             variant="outlined">
+             variant="outlined" color="primary">
         {{$t('buttons.register')}}
       </v-btn>
     </div>
@@ -151,7 +151,7 @@
         </v-list-item>
         <v-list-item>
           <v-btn @click="goToRegister" rounded="0" :block="true"
-                 variant="outlined" prepend-icon="mdi-file-edit-outline">
+                 variant="outlined" prepend-icon="mdi-file-edit-outline" color="primary">
             {{$t('buttons.register')}}
           </v-btn>
         </v-list-item>
