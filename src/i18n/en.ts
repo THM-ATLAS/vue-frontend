@@ -337,6 +337,10 @@ const translationEn = {
         internal_server_error: 'Internal server error.',
         unknown: 'An unknown error occurred.',
     },
+    module_search: {
+        search: 'Search modules',
+        items_per_page: 'Items per page',
+    },
     module_page: {
         module: 'Module',
         exercises: 'Exercises',

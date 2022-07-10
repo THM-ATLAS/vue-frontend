@@ -272,14 +272,19 @@ function applySearch(): void {
   length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
 }
 
+function refreshModules(): void {
+  loadModules().then(() => {
+    applySearch()
+  })
+}
+
 onBeforeMount(async () => {
-  await loadModules();
-  applySearch();
+  refreshModules()
 });
 
-watch(currentPageNumber, () => applySearch())
+watch(currentPageNumber, () => refreshModules())
 
-watch(itemsPerPage, () => applySearch())
+watch(itemsPerPage, () => refreshModules())
 
 function visitModule(module: Module): void {
   router.push('/' + module.module_id);
@@ -293,12 +298,12 @@ async function createModule() {
 }
 
 function editModule(module: Module) {
-  ModuleService.editModule(module).then(() => loadModules());
+  ModuleService.editModule(module).then(() => refreshModules());
 }
 
 async function deleteModule(module: Module) {
   console.log(module);
-  ModuleService.delModule(module).then(async () => loadModules());
+  ModuleService.delModule(module).then(async () => refreshModules());
 }
 
 const newModuleDialog = ref({

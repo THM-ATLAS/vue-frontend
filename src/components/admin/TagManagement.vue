@@ -195,11 +195,13 @@ function applySearch(): void {
   length.value = Math.ceil(filteredTags.value.length / itemsPerPage.value)
 }
 
-onBeforeMount(async () => {
+onBeforeMount(async () => refreshTags());
+
+function refreshTags(): void {
   getAllTags().then(() => {
     applySearch()
   })
-});
+}
 
 watch(currentPageNumber, () => applySearch())
 
@@ -212,18 +214,18 @@ function getAllTags(): Promise<void> {
 
 function createTag(givenTag: Tag): void {
   // we don't check if the tag already exists, as we naively assume competence of the admin
-  TagService.addTag(givenTag).then(() => getAllTags());
+  TagService.addTag(givenTag).then(() => refreshTags());
 }
 
 function editTag(tag: Tag): void {
-  TagService.editTag(tag).then(() => getAllTags());
+  TagService.editTag(tag).then(() => refreshTags());
 }
 
 function deleteTag(givenTag: Tag): void {
   allTags.value = allTags.value.filter((tag) => tag !== givenTag); // visual deletion
   filteredTags.value = filteredTags.value.filter((tag) => tag !== givenTag); // wow, so fast!
 
-  TagService.delTag(givenTag).then(() => getAllTags()); // server deletion, reload tags in case of error
+  TagService.delTag(givenTag).then(() => refreshTags()); // server deletion, reload tags in case of error
 }
 
 const deleteTagDialog: Ref<{ show: boolean, target: Tag | null }> = ref({

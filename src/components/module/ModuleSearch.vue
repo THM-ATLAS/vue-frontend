@@ -29,7 +29,7 @@
       <v-col>
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('module_search.items_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -59,7 +59,6 @@ const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
 const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('module_search.items_per_page')
 const search = ref('');
 
 onBeforeMount(async () => {

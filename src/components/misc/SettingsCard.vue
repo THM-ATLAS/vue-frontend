@@ -18,14 +18,14 @@
                   @click="toggleTheme"
                   :disabled="theme === 'light'"
                   v-html="$t('settings.theme.light')"
-                  :color="[theme === 'light' ? 'info': 'undefined']"
+                  :color="theme === 'light' ? 'info': 'undefined'"
               />
               <v-btn
                   class="mr-3"
                   @click="toggleTheme"
                   :disabled="theme === 'dark'"
                   v-html="$t('settings.theme.dark')"
-                  :color="[theme === 'dark' ? 'info': 'undefined']"
+                  :color="theme === 'dark' ? 'info': 'undefined'"
               />
             </v-col>
             <v-col cols="12" md="6">
