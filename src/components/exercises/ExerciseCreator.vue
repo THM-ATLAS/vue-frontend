@@ -167,7 +167,6 @@ const moduleFull: Ref<Module> = ref({}) as Ref<Module>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
 //const exerciseTypes = ref([]);
-const exerciseType = ref("");
 const apiTypes = ref([]);
 const supportedTypes = ref(["Freitext"]);
 
@@ -211,7 +210,9 @@ onBeforeMount(async () => {
 const save = async () => {
   if (!exercise.value) return;
   exercise.value.module_id = module.value;
-  exercise.value.type_id = apiTypes.value.filter(t => t.name === exerciseType.value)[0].type_id;
+  exercise.value.exercisePublic = true;
+  exercise.value.exercise_id = 0;
+  exercise.value.type_id = apiTypes.value.filter(t => t.name === supportedTypes.value[0])[0].type_id;
   //if(exerciseType.value !== "Multiple Choice")
     exercise.value.mc = [];
   await ExerciseService.addExercise(exercise.value)
