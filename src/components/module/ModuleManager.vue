@@ -9,7 +9,7 @@
                   v-bind="tooltip3"
                   @click="goBack()"
                   class="back-button"
-                  icon
+                  :icon="true"
               >
                 <v-icon icon="mdi-arrow-left"/>
               </v-btn>
@@ -32,8 +32,8 @@
                   <v-icon size="large" :icon="lock.value" :color="lock.color"></v-icon>
                 </v-btn>
               </template>
-              <span v-if="module.modulePublic" v-html="$t('buttons.visibility_public')" />
-              <span v-else v-html="$t('buttons.visibility_private')" />
+              <span v-if="module.modulePublic" v-html="$t('buttons.visibility_public')"/>
+              <span v-else v-html="$t('buttons.visibility_private')"/>
             </v-tooltip>
             <v-btn @click="manageTagsDialog.show = true">
               {{ $t("module_manager.edit_tag_button") }}
@@ -126,6 +126,8 @@
         </v-col>
       </v-row>
     </v-card>
+  </v-container>
+  <v-container>
     <v-card>
       <v-row>
         <v-col cols="9">
@@ -137,7 +139,7 @@
               hide-details
               @keyup.enter="addLink(newLink)"
               tabindex="0"
-              />
+          />
         </v-col>
         <v-col cols="3">
           <v-btn
@@ -155,10 +157,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="link in referralLinks" :key="link.module_link_id" >
+        <tr v-for="link in referralLinks" :key="link.module_link_id">
           <td class="text-left">
             <v-icon style="padding-right: 1em">mdi-link</v-icon>
-            <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></td>
+            <a :href="link.link" target="_blank" rel="noopener noreferrer">{{ link.link }}</a></td>
           <td></td>
           <td class="text-right">
             <v-tooltip top>
@@ -173,16 +175,18 @@
                 </v-btn>
               </template>
               <span v-html="$t('buttons.remove')"/>
-            </v-tooltip></td>
+            </v-tooltip>
+          </td>
         </tr>
-        <tr v-for="asset in referralAssets" :key="asset.moduleAsset.module_asset_id" >
-          <td class="text-left" @click="AssetService.downloadAssetPrompt(asset.genericAsset.asset_id, asset.genericAsset.filename)">
+        <tr v-for="asset in referralAssets" :key="asset.moduleAsset.module_asset_id">
+          <td class="text-left"
+              @click="AssetService.downloadAssetPrompt(asset.genericAsset.asset_id, asset.genericAsset.filename)">
             <v-icon style="padding-right: 1em">mdi-file</v-icon>
-            {{ asset.genericAsset.filename }}</td>
+            {{ asset.genericAsset.filename }}
+          </td>
           <td class="text-right">
-            <span v-if="asset.genericAsset.public"><v-icon style="padding-right: 8px">
-            mdi-earth
-          </v-icon>{{$t('module_manager.publicStatus')}}</span>
+            <span v-if="asset.genericAsset.public"><v-icon style="padding-right: 8px" icon="mdi-earth"/>
+              {{ $t('module_manager.publicStatus') }}</span>
           </td>
           <td class="text-right">
             <v-tooltip top>
@@ -197,7 +201,8 @@
                 </v-btn>
               </template>
               <span v-html="$t('buttons.remove')"/>
-            </v-tooltip></td>
+            </v-tooltip>
+          </td>
         </tr>
         </tbody>
       </v-table>
@@ -206,27 +211,28 @@
           <v-file-input
               v-model="fileUpload"
               :label="$t('module_manager.select_file')">
-              tabindex=0
+            tabindex=0
           </v-file-input>
         </v-col>
         <v-col cols="3">
           <v-btn
               @click="uploadAsset()"
               tabindex="0">
-            {{$t('buttons.upload_file')}}
+            {{ $t('buttons.upload_file') }}
           </v-btn>
           <v-checkbox
               v-model="publicUpload"
-              :label="$t('module_manager.public_upload')"/>
+              :label="$t('module_manager.public_upload')"
+              hide-details/>
         </v-col>
       </v-row>
     </v-card>
     <!-- Edit tags dialog start -->
     <!-- [Desktop] -->
     <v-dialog
-      v-model="manageTagsDialog.show"
-      :retain-focus="false"
-      transition="slide-y-transition"
+        v-model="manageTagsDialog.show"
+        :retain-focus="false"
+        transition="slide-y-transition"
     >
       <v-card top="20%" class="dialogWidth">
         <v-card-title> {{ $t("module_manager.edit_tag") }}</v-card-title>
@@ -450,22 +456,22 @@ async function loadModule(): Promise<void> {
 }
 
 
-class ModuleAsset{
+class ModuleAsset {
 
   module_asset_id: number
   module_id: number
   asset_id: number
 
-  constructor(  module_asset_id: number,
-                module_id: number,
-                asset_id: number,) {
+  constructor(module_asset_id: number,
+              module_id: number,
+              asset_id: number,) {
     this.module_asset_id = module_asset_id;
     this.module_id = module_id;
     this.asset_id = asset_id;
   }
 }
 
-class AssetWrapper{
+class AssetWrapper {
   moduleAsset: ModuleAsset
   genericAsset: Asset
 
@@ -474,11 +480,12 @@ class AssetWrapper{
     this.genericAsset = genericAsset;
   }
 }
+
 const referralLinks = ref();
 const referralAssets = ref<any>([]);
 const publicUpload = ref<boolean>();
 
-function fetchAssets(){
+function fetchAssets() {
   ReferralService.getModuleReferralLinks(module.value).then((response: AxiosResponse) => {
     referralLinks.value = response.data
   });
@@ -496,7 +503,7 @@ function fetchAssets(){
 /*
  there is a difference between deleting an asset from the module and deleting the asset,
  */
-function deleteAsset(wrappedAsset: AssetWrapper){
+function deleteAsset(wrappedAsset: AssetWrapper) {
   deleteAssetReference(wrappedAsset).then(() => {
     AssetService.delAsset(wrappedAsset.genericAsset.asset_id).then(() => {
       fetchAssets();
@@ -504,8 +511,8 @@ function deleteAsset(wrappedAsset: AssetWrapper){
   })
 }
 
-function deleteAssetReference(wrappedAsset: AssetWrapper){
-  return new Promise(function(resolve, reject) {
+function deleteAssetReference(wrappedAsset: AssetWrapper) {
+  return new Promise(function (resolve, reject) {
     ReferralService.delModuleReferralAsset(module.value, wrappedAsset.moduleAsset.module_asset_id).then((res: AxiosResponse) => {
       resolve(res);
     }).catch((error: AxiosError) => {
@@ -513,37 +520,37 @@ function deleteAssetReference(wrappedAsset: AssetWrapper){
     })
   })
 }
-function deleteLink(module_link_id: number){
-  ReferralService.delModuleReferralLink(module.value, module_link_id).then((res: AxiosResponse) => {
+
+function deleteLink(module_link_id: number) {
+  ReferralService.delModuleReferralLink(module.value, module_link_id).then(() => {
     fetchAssets();
   })
 }
 
-function addLink(link: string){
-  ReferralService.addModuleReferralLink(module.value, link).then((res: AxiosResponse) => {
+function addLink(link: string) {
+  ReferralService.addModuleReferralLink(module.value, link).then(() => {
     fetchAssets();
   })
 }
 
-function uploadAsset(){
+function uploadAsset() {
   console.log(fileUpload.value)
   //v-checkbox returns type boolean|undefined which the asset type doesn't allow, this workaround is necessary
   const publicBool: boolean = !!publicUpload.value;
   const fileReader: FileReader = new FileReader();
   const file: File = fileUpload.value[0];
   fileReader.readAsBinaryString(file);
-  fileReader.onload = function() {
+  fileReader.onload = function () {
     console.log(fileReader.result);
     //this is necessary, backend expects a base64 encoded string
-    if (typeof fileReader.result === "string"){
+    if (typeof fileReader.result === "string") {
       AssetService.addAsset({
-        asset_id : 0,
+        asset_id: 0,
         asset: btoa(fileReader.result),
         public: publicBool,
         filename: file.name,
       }).then((response: AxiosResponse) => {
-        ReferralService.addModuleReferralAsset(module.value, response.data.asset_id).then((response: AxiosResponse) =>
-        {
+        ReferralService.addModuleReferralAsset(module.value, response.data.asset_id).then((response: AxiosResponse) => {
           console.log(response);
           fetchAssets();
           fileUpload.value = [];
@@ -772,6 +779,7 @@ function changeVisibility(module: Module) {
 .dialogWidth {
   width: 50vw;
 }
+
 @media (max-width: 1280px) {
   .dialogWidth {
     width: 90vw;
