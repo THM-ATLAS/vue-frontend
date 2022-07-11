@@ -184,6 +184,7 @@ const translationEn = {
         visit_profile: 'Visit profile',
         visibility_public: 'Visibility: public',
         visibility_private: 'Visibility: only for enrolled users',
+        upload_file: 'Upload file',
         to_module: 'Visit the module',
         to_exercise: 'View the exercise'
     },
@@ -395,6 +396,11 @@ const translationEn = {
         tutor: 'Tutor',
         teacher: 'Teacher',
         search_user: 'Search user',
+        add_link: 'Add link',
+        new_link: 'New link',
+        select_file: 'Select file...',
+        public_upload: 'Public upload',
+        publicStatus: 'Public file'
     },
     page_not_found: {
         error_title: "This page could not be found.",

@@ -220,15 +220,22 @@
                 </v-list>
               </v-card-text>
             </v-card>
-            <!-- todo: module materials
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList">
-                <v-list-item></v-list-item>
+              <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
+                <!-- backend doesn't provide replacement text for a URL -->
+                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                  <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></v-list-item>
+              </v-list>
+
+              <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
+                <v-list-item
+                @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                  <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
               </v-list>
             </v-card-text>
-          </v-card> -->
+          </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -402,6 +409,22 @@
                     </v-list>
                   </div>
                 </v-card>
+                <v-card class="mx-4 infoCardMobile">
+                  <v-card-title>{{$t('module_page.materials')}}</v-card-title>
+                  <v-card-text>
+                    <v-list v-for="link in referralLinks" :key="link.module_link_id">
+                      <!-- backend doesn't provide replacement text for a URL -->
+                      <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                        <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                    </v-list>
+
+                    <v-list v-for="asset in referralAssets" :key="asset.asset_id">
+                      <v-list-item
+                          @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                        <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                    </v-list>
+                  </v-card-text>
+                </v-card>
               </v-row>
             </v-container>
           </div>
@@ -428,6 +451,8 @@ import TagService from "@/services/TagService";
 import hasPermission, {Action, hasPermissionModule} from "@/helpers/permissions";
 import {AxiosResponse} from "axios";
 import {isLoggedIn} from "@/services/LoginService";
+import ReferralService from "@/services/ReferralService";
+import AssetService from "@/services/AssetService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -456,12 +481,30 @@ const selectedTag = ref({
   value: ''
 })
 
+const referralLinks = ref();
+const referralAssets = ref<any>([]);
+function fetchAssets(){
+  ReferralService.getModuleReferralLinks(module.value).then((response: AxiosResponse) => {
+    referralLinks.value = response.data
+  });
+  ReferralService.getModuleReferralAssets(module.value).then((response: AxiosResponse) => {
+    //module assets as returned are asset ids, the asset needs to be fetched to be usable
+    response.data.forEach((module_asset) => {
+      AssetService.getAsset(module_asset.asset_id).then((res) => {
+        referralAssets.value.push(res.data);
+      })
+    })
+  })
+}
+
+
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
         //icon.value.value = module.value.icon.reference;
         loadUsers();
+        fetchAssets();
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
