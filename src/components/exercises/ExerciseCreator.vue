@@ -38,7 +38,7 @@
         <v-select
             :items="supportedTypes"
             :label="$t('exercise.exercise_type')"
-            v-model="exerciseType"
+            v-model="supportedTypes"
         ></v-select>
       </div>
       <div>
