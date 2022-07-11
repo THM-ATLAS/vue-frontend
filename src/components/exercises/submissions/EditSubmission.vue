@@ -32,34 +32,39 @@
   import {onBeforeMount, ref, Ref} from "vue";
 
   const exerciseId: number = Number(router.currentRoute.value.params.id);
-  const sid = Number(router.currentRoute.value.params.sid);
   const submission: Ref<Submission> = ref({}) as Ref<Submission>;
   const formInput = ref("");
   const userId = ref(0);
 
   onBeforeMount(async () => {
-    submission.value = (await SubmissionService.getSubmissionById(exerciseId, sid)).data;
-    formInput.value = submission.value.file;
+    submission.value = (await SubmissionService.getCurrentSubmission(exerciseId)).data;
+    formInput.value = submission.value.content.content;
     userId.value = submission.value.user_id;
   });
 
   async function adjustSubmission() {
     const s: Submission = {
-      submission_id : sid,
+      submission_id : submission.value.submission_id,
       exercise_id: exerciseId,
       user_id : userId.value,
-      file: formInput.value,
       upload_time: new Date().toISOString(),
       grade: null,
       teacher_id: null,
-      comment: null
+      comment: null,
+      type: submission.value.type,
+      content: {
+        type: submission.value.content.type,
+        submission_id: submission.value.submission_id,
+        content: formInput.value,
+        language: submission.value.content.language
+      }
     }
     await SubmissionService.adjustSubmission(s);
     goBack();
   }
 
   async function deleteSubmission() {
-    await SubmissionService.deleteSubmission(sid);
+    await SubmissionService.deleteSubmission(submission.value.submission_id);
     goBack();
   }
 

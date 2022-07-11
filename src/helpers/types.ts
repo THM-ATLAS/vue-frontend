@@ -13,7 +13,7 @@ export type Role = {
 }
 export type Tag = {
     tag_id: number,
-    name: string, 
+    name: string,
     icon: Icon
 }
 
@@ -25,7 +25,14 @@ export type Submission = {
     upload_time: string,
     grade: number | null,
     teacher_id: number | null,
-    comment: string | null
+    comment: string | null,
+    type: number,
+    content: {
+        "type": string,
+        "submission_id": number,
+        "content": string,
+        "language": number
+    }
 }
 
 export type Evaluation = {
@@ -51,7 +58,7 @@ export type Rating = {
 export type Module = {
     module_id : number,
     name : string,
-    description: string, 
+    description: string,
     modulePublic: boolean,
     icon: Icon,
 }
@@ -84,6 +91,22 @@ export type PostExercise = {
     content : string,
     description: string,
     exercisePublic : boolean,
+    mc: MultipleChoice
+}
+
+export type MultipleChoice = {
+    "question_id": number,
+    "content": string,
+    "exercise_id": number,
+    "answers": Answer[]
+}
+
+export type Answer = {
+    "answer_id": 0,
+    "content": "string",
+    "correct": true,
+    "question_id": 0,
+    "marked": true
 }
 
 export type Asset = {
@@ -96,4 +119,16 @@ export type Asset = {
 export type Icon = {
     icon_id: number,
     reference: string,
+}
+
+export type Notification = {
+    "notification_id": number,
+    "title": string,
+    "content": string,
+    "time": string,
+    "type_id": number,
+    "module_id": number,
+    "exercise_id": number,
+    "submission_id": number,
+    "read": boolean
 }

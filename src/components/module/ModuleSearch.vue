@@ -24,12 +24,22 @@
             v-bind="module"
         />
       </v-row>
+      <v-row v-if="currentPage.length === 0">
+        <v-alert
+            :value="true"
+            icon="mdi-magnify-close"
+            dark
+            class="ma-3"
+            style="text-align: center;">
+          {{ $t('module_search.no_results') }}
+        </v-alert>
+      </v-row>
     </div>
     <v-row>
       <v-col>
         <v-select
             :items="numbers"
-            :label="itemsPerPageLabel"
+            :label="$t('module_search.items_per_page')"
             v-model="itemsPerPage">
         </v-select>
       </v-col>
@@ -38,7 +48,7 @@
             v-model="currentPageNumber"
             :length="length"
             total-visible="5"
-        ></v-pagination>
+        />
       </v-col>
     </v-row>
   </div>
@@ -49,7 +59,6 @@ import ModuleSearchResult from "@/components/module/ModuleSearchResult.vue";
 import ModuleService from "@/services/ModuleService";
 import {onBeforeMount, ref, Ref, watch} from "vue";
 import {Module} from "@/helpers/types"
-import {useI18n} from "vue-i18n";
 
 const modules: Ref<Module[]> = ref([]);
 const filteredModules: Ref<Module[]> = ref([]);
@@ -58,8 +67,6 @@ const currentPageNumber = ref(1);
 const itemsPerPage = ref(3);
 const numbers = [1,3,5,10,20,50];
 const length = ref(3);
-const i18n = useI18n();
-const itemsPerPageLabel = i18n.t('module_search.items_per_page')
 const search = ref('');
 
 onBeforeMount(async () => {

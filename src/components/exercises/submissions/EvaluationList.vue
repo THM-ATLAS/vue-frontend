@@ -32,7 +32,7 @@
               <tr v-for="s in submissions" :key="s.submission_id"> <!-- loop through the submissions array -->
                 <td>{{s.submission_id}}</td>
                 <td>{{s.user_id}}</td>
-                <td>{{exercise.type}}</td>
+                <td>{{s.type}}</td>
                 <td>{{new Date(s.upload_time).toLocaleString()}}</td>
                 <td v-if="s.grade !== null">{{$t('submission_list.table.status.evaluated')}}</td>
                 <td v-else>{{$t('submission_list.table.status.pending')}}</td>
@@ -102,6 +102,12 @@
   async function getSubmissions() {
     submissions.value = (await SubmissionService.getSubmissionsForExercise(exerciseId)).data;
   }
+
+  /* wanted to use this in line 35 to display the type name instead of the id, but it didn't work as expected
+  async function getType(id: number): string {
+    const apiTypes = (await ExerciseService.getExerciseTypes()).data;
+    return apiTypes.find(t => t.type_id === id).name;
+  }*/
 
   function goBack(): void {
     router.back();

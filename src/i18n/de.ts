@@ -12,7 +12,7 @@ const translationDe = {
         dropdown: {
             settings: 'Einstellungen',
             help: 'Hilfe',
-            messages: 'Nachrichten',
+            messages: 'Benachrichtigungen',
             profile: 'Profil',
             admin: 'Admin',
             login: 'Anmelden',
@@ -118,16 +118,18 @@ const translationDe = {
                 'Bei der nächsten Anmeldung via LDAP wird ein neues Konto angelegt.',
         },
     },
-    module_search: {
-        items_per_page: 'Einträge pro Seite',
-        module_per_page: 'Module pro Seite',
-        search: 'Suche nach Modulen',
-    },
-    user_search: {
-        users_per_page: 'Benutzer pro Seite'
-    },
-    exercise_search: {
-        exercises_per_page: 'Aufgaben pro Seite'
+    notifications_page: {
+        notifications: 'Benachrichtigungen',
+        news: 'Neuigkeiten',
+        description: 'Hier können Rückmeldungen, Feedback und unbewertete Abgaben eingesehen werden.',
+        unread: 'Ungelesen',
+        read: 'Gelesen',
+        mark_all: 'Alle auswählen',
+        mark_as_read: 'Als gelesen markieren',
+        mark_as_unread: 'Als ungelesen markieren',
+        delete: 'Löschen',
+        title: 'Betreff',
+        content: 'Nachricht'
     },
     buttons: {
         save: 'Speichern',
@@ -153,7 +155,16 @@ const translationDe = {
         view: 'Ansehen',
         visit_profile: 'Profil besuchen',
         visibility_public: 'Sichtbarkeit: öffentlich',
-        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene'
+        visibility_private: 'Sichtbarkeit: nur für Eingeschriebene',
+        upload_file: 'Datei hochladen',
+        to_profile: 'Zum Profil',
+        read_feedback: 'Feedback lesen',
+        to_submission: 'Zur Abgabe',
+        read_message: 'Lesen',
+        edit_exercise: 'Aufgabe bearbeiten',
+        to_help_page: 'Zur Hilfeseite',
+        to_module: 'Zum Modul',
+        to_exercise: 'Zur Aufgabe'
     },
     titles: {
         home_view: 'ATLAS',
@@ -168,6 +179,7 @@ const translationDe = {
         exercisecreator_view: 'Neue Aufgabe',
         usermanagement_view: 'Benutzer:innen',
         modulemanagement_view: 'Module',
+        tagmanagement_view: 'Tags',
         profile_view: 'Profil',
         modulesearch_view: 'Module',
         pagenotfound_view: 'Fehler',
@@ -212,6 +224,7 @@ const translationDe = {
             password: 'Passwort',
             change_password: 'Passwort ändern',
             search_user: 'Benutzer:in suchen',
+            users_per_page: 'Benutzer:innen pro Seite',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
                 username_taken: 'Benutzername bereits vergeben.',
@@ -234,6 +247,7 @@ const translationDe = {
             created_at: 'Erstellt am',
             actions: 'Aktionen',
             search_exercise: 'Aufgabe suchen',
+            exercises_per_page: 'Aufgaben pro Seite',
             errors: {
                 required: 'Dieses Feld ist erforderlich.',
             }
@@ -248,12 +262,27 @@ const translationDe = {
             delete: 'Modul löschen',
             delete_confirm: 'Modul "{0}" wirklich löschen?',
             search_module: 'Modul suchen',
+            items_per_page: 'Einträge pro Seite',
+            module_per_page: 'Module pro Seite',
+            search: 'Suche nach Modulen',
+            icon: 'Icon',
+        },
+        tags: {
+            title: 'Tags',
+            actions: 'Aktionen',
+            edit_tag: 'Tag bearbeiten',
+            create_tag: 'Tag erstellen',
+            search_tag: 'Tag suchen',
+            delete_tag: 'Tag löschen',
+            delete_confirm: 'Tag "{0}" wirklich löschen?',
+            tags_per_page: 'Tags pro Seite',
         },
         navbar: {
             title: 'Administration',
             manage_user: 'Benutzer:innen verwalten',
             manage_exercise: 'Aufgaben verwalten',
             manage_module: 'Module verwalten',
+            manage_tag: 'Tags verwalten',
             back: 'Zurück zur Homepage'
         }
     },
@@ -269,6 +298,11 @@ const translationDe = {
         title: 'Titel',
         id: 'ID',
         edit: 'Bearbeiten',
+        exercise_type: 'Aufgabentyp',
+        multiple_choice: {
+            question: 'Frage',
+            answers: 'Antworten'
+        },
         confirm_leave: 'Willst du diese Seite wirklich verlassen? Ungespeicherte Änderungen gehen verloren!',
         confirm_cancel: 'Willst du die Bearbeitung wirklich abbrechen? Ungespeicherte Änderungen gehen verloren!',
         confirm_delete: 'Willst du diese Aufgabe wirklich unwiderruflich löschen?',
@@ -331,6 +365,11 @@ const translationDe = {
         internal_server_error: 'Interner Serverfehler.',
         unknown: 'Unbekannter Fehler.',
     },
+    module_search: {
+        search: 'Suche nach Modulen',
+        items_per_page: 'Einträge pro Seite',
+        no_results: 'Deine Suche lieferte keine Ergebnisse.',
+    },
     module_page: {
         module: 'Modul',
         exercises: 'Aufgaben',
@@ -357,6 +396,11 @@ const translationDe = {
         tutor: 'Tutor:in',
         teacher: 'Lehrer:in',
         search_user: 'Nutzer:in suchen',
+        add_link: 'Link hinzufügen',
+        new_link: 'Neuer Link',
+        select_file: 'Datei auswählen...',
+        public_upload: 'Öffentlicher Upload',
+        publicStatus: 'Öffentliche Datei'
     },
     page_not_found: {
         error_title: "Diese Seite konnte nicht gefunden werden.",

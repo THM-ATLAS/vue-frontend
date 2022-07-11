@@ -34,6 +34,7 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ props: tooltip3 }">
             <v-btn
+                v-if="canSeeManage()"
                 v-bind="tooltip3"
                 @click="goToManage()"
                 icon="mdi-cog"
@@ -58,12 +59,12 @@
             <v-col cols="auto">
               <v-tooltip top>
                 <template v-slot:activator="{ props }">
-                    <v-btn @click="reassign" color="secondary" v-bind="props">
-                      {{ label.value }}
-                    </v-btn>
+                  <v-btn v-if="canSeeAttend()" @click="reassign" color="secondary" v-bind="props">
+                    {{ label.value }}
+                  </v-btn>
                 </template>
-                    <span v-if="assignedStatus">{{ $t("module_page.disenroll") }}</span>
-                    <span v-else>{{ $t("module_page.enrollment") }}</span>
+                <span v-if="assignedStatus">{{ $t("module_page.disenroll") }}</span>
+                <span v-else>{{ $t("module_page.enrollment") }}</span>
               </v-tooltip>
             </v-col>
           </v-row>
@@ -77,7 +78,7 @@
                 v-for="tag in moduleTags" :key="tag.tag_id"
                 @click="filter(tag)"
                 :color="selectedTag.value === tag.name ? 'info' : ''">
-              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"/>
               {{ tag.name }}
             </v-chip>
             <v-text-field
@@ -99,6 +100,7 @@
                 <v-expansion-panel-text class="exercisePanelText">
                   <div style="display: inline-flex; text-align: center">
                     <v-card
+                        v-if="canSeeManage()"
                         class="exerciseCard"
                         tabindex="0"
                         @keyup.enter.prevent.stop="goToCreator"
@@ -109,6 +111,20 @@
                           class="exercise-icon"
                           size="180px"
                           icon="mdi-plus"
+                      ></v-icon>
+                    </v-card>
+                  </div>
+                  <div style="display: inline-flex; text-align: center">
+                    <v-card
+                        v-if="filteredExercises.filter((e) => setExercise(e)).length === 0"
+                        class="exerciseCard"
+                        tabindex="0"
+                    >
+                      <v-card-title class="exerciseCardTitle">{{ $t('module_search.no_results') }}</v-card-title>
+                      <v-icon
+                          class="exercise-icon"
+                          size="180px"
+                          icon="mdi-magnify-close"
                       ></v-icon>
                     </v-card>
                   </div>
@@ -204,15 +220,22 @@
                 </v-list>
               </v-card-text>
             </v-card>
-            <!-- todo: module materials
           <v-card class="moduleInfoBox rounded-0">
             <v-card-title>{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
-              <v-list class="moduleInfoBoxList">
-                <v-list-item></v-list-item>
+              <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
+                <!-- backend doesn't provide replacement text for a URL -->
+                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                  <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></v-list-item>
+              </v-list>
+
+              <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
+                <v-list-item
+                @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                  <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
               </v-list>
             </v-card-text>
-          </v-card> -->
+          </v-card>
           </v-col>
         </v-row>
       </v-container>
@@ -220,32 +243,32 @@
 
     <!-- mobile version-->
     <div class="mobileView d-xs-block d-sm-block d-md-none">
-          <v-img
-              src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
-              max-height="70px"
-              width="100%"
-              :cover="true"
-          />
-          <v-card color="highlight" rounded="0" class="pb-0">
-            <h1 class="mobileModuleTitle">
-              {{ module.name }}
-            </h1>
-            <v-btn @click="reassign" color="secondary" class="mobileEnrollButton">
-              {{ label.value }}
-            </v-btn>
+      <v-img
+          src="@/assets/ModuleMainPage/pexels-hitarth-jadhav.jpg"
+          max-height="70px"
+          width="100%"
+          :cover="true"
+      />
+      <v-card color="highlight" rounded="0" class="pb-0">
+        <h1 class="mobileModuleTitle">
+          {{ module.name }}
+        </h1>
+        <v-btn @click="reassign" color="secondary" class="mobileEnrollButton">
+          {{ label.value }}
+        </v-btn>
 
-            <v-tabs v-model="tab" class="pb-0 mt-2">
-              <v-tab value="home">
-                {{ $t("module_page.module") }}
-              </v-tab>
-              <v-tab value="about">
-                {{ $t("module_page.about") }}
-              </v-tab>
-              <v-tab value="settings">
-                {{ $t("module_page.manage") }}
-              </v-tab>
-            </v-tabs>
-          </v-card>
+        <v-tabs v-model="tab" class="pb-0 mt-2">
+          <v-tab value="home">
+            {{ $t("module_page.module") }}
+          </v-tab>
+          <v-tab value="about">
+            {{ $t("module_page.about") }}
+          </v-tab>
+          <v-tab value="settings">
+            {{ $t("module_page.manage") }}
+          </v-tab>
+        </v-tabs>
+      </v-card>
 
       <v-window v-model="tab">
         <v-window-item value="home">
@@ -258,7 +281,7 @@
                 v-for="tag in moduleTags" :key="tag.tag_id"
                 @click="filter(tag)"
                 :color="selectedTag.value === tag.name ? 'info' : ''">
-              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference" />
+              <v-icon class="tag-icon" size="small" :icon="tag.icon.reference"/>
               {{ tag.name }}
             </v-chip>
             <v-text-field
@@ -269,27 +292,51 @@
                 single-line
                 hide-details
                 @input="applySearch"/>
-           <v-row class="exerciseListEntry"
-                  justify="center">
-             <v-card
-                 class="exerciseListBox"
-                 elevation="2"
-                 @click="goToCreator"
-             >
-               <h1 class="ex-title">
-                 <v-row>
-                   <v-col cols="2">
-                     <v-icon>mdi-plus</v-icon>
-                   </v-col>
-                   <v-col>
-                     <v-card-title>
-                       {{ $t('exercise.add_exercise') }}
-                     </v-card-title>
-                   </v-col>
-                 </v-row>
-               </h1>
-             </v-card>
-           </v-row>
+            <v-row
+                v-if="canSeeManage()"
+                class="exerciseListEntry"
+                justify="center">
+              <v-card
+                  class="exerciseListBox"
+                  elevation="2"
+                  @click="goToCreator"
+              >
+                <h1 class="ex-title">
+                  <v-row>
+                    <v-col cols="2">
+                      <v-icon>mdi-plus</v-icon>
+                    </v-col>
+                    <v-col>
+                      <v-card-title>
+                        {{ $t('exercise.add_exercise') }}
+                      </v-card-title>
+                    </v-col>
+                  </v-row>
+                </h1>
+              </v-card>
+            </v-row>
+            <v-row
+                v-if="filteredExercises.filter((e) => setExercise(e)).length === 0"
+                class="exerciseListEntry"
+                justify="center">
+              <v-card
+                  class="exerciseListBox"
+                  elevation="2"
+              >
+                <h1 class="ex-title">
+                  <v-row>
+                    <v-col cols="2">
+                      <v-icon>mdi-magnify-close</v-icon>
+                    </v-col>
+                    <v-col>
+                      <v-card-title>
+                        {{ $t('module_search.no_results') }}
+                      </v-card-title>
+                    </v-col>
+                  </v-row>
+                </h1>
+              </v-card>
+            </v-row>
             <v-row
                 v-for="exercise in filteredExercises"
                 v-bind:key="exercise.exercise_id"
@@ -362,6 +409,22 @@
                     </v-list>
                   </div>
                 </v-card>
+                <v-card class="mx-4 infoCardMobile">
+                  <v-card-title>{{$t('module_page.materials')}}</v-card-title>
+                  <v-card-text>
+                    <v-list v-for="link in referralLinks" :key="link.module_link_id">
+                      <!-- backend doesn't provide replacement text for a URL -->
+                      <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
+                        <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                    </v-list>
+
+                    <v-list v-for="asset in referralAssets" :key="asset.asset_id">
+                      <v-list-item
+                          @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                        <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                    </v-list>
+                  </v-card-text>
+                </v-card>
               </v-row>
             </v-container>
           </div>
@@ -382,9 +445,14 @@ import ModuleService from "@/services/ModuleService";
 import ExerciseService from "@/services/ExerciseService";
 import UserService from "@/services/UserService";
 import {Exercise, Module, User, ModuleUser, Tag} from "@/helpers/types";
-import { useI18n } from "vue-i18n";
+import {useI18n} from "vue-i18n";
 import ModuleManager from "@/components/module/ModuleManager.vue";
 import TagService from "@/services/TagService";
+import hasPermission, {Action, hasPermissionModule} from "@/helpers/permissions";
+import {AxiosResponse} from "axios";
+import {isLoggedIn} from "@/services/LoginService";
+import ReferralService from "@/services/ReferralService";
+import AssetService from "@/services/AssetService";
 
 const route = useRoute();
 const i18n = useI18n();
@@ -401,6 +469,8 @@ const assignedStatus = ref();
 const user: Ref<User> = ref({}) as Ref<User>;
 const panel: Ref<Array<Number>> = ref([0]); // 0 = panel shown, 1 = panel hidden
 const search = ref("");
+const userMe: Ref<User | undefined> = ref(undefined);
+const loggedIn: Ref<boolean> = ref(false);
 
 const label = ref({
   value: "",
@@ -411,12 +481,30 @@ const selectedTag = ref({
   value: ''
 })
 
+const referralLinks = ref();
+const referralAssets = ref<any>([]);
+function fetchAssets(){
+  ReferralService.getModuleReferralLinks(module.value).then((response: AxiosResponse) => {
+    referralLinks.value = response.data
+  });
+  ReferralService.getModuleReferralAssets(module.value).then((response: AxiosResponse) => {
+    //module assets as returned are asset ids, the asset needs to be fetched to be usable
+    response.data.forEach((module_asset) => {
+      AssetService.getAsset(module_asset.asset_id).then((res) => {
+        referralAssets.value.push(res.data);
+      })
+    })
+  })
+}
+
+
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
         //icon.value.value = module.value.icon.reference;
         loadUsers();
+        fetchAssets();
         document.title = module.value.name;
         ExerciseService.getExercisesForModule(module.value.module_id).then(
             (e) => {
@@ -448,10 +536,28 @@ async function loadUsers(): Promise<void> {
   });
 }
 
+function canSeeManage(): boolean {
+  return !!userMe.value && moduleUsers.value && hasPermissionModule(Action.MODULE_MANAGER, userMe.value, moduleUsers.value.find((user) => user.user_id === userMe.value?.user_id));
+}
+
+function canSeeAttend(): boolean {
+  return hasPermission(Action.MODULE_ATTEND, userMe.value);
+}
+
 onBeforeMount(async () => {
+  await UserService.getMe().then((r: AxiosResponse) => {
+    if (isLoggedIn(r)) {
+      userMe.value = r.data
+      loggedIn.value = true;
+      window.localStorage.setItem('loggedIn', 'true')
+    } else {
+      window.localStorage.removeItem('loggedIn')
+    }
+  })
   await loadModule();
   //await router.replace(`/${encodeURIComponent(module.moduleName)}`)
 });
+
 const router = useRouter();
 
 function goBack(): void {
@@ -527,10 +633,9 @@ function filter(tag: Tag): void {
 }
 
 function setExercise(exercise: Exercise): boolean {
-  if(selectedTag.value.value == '') {
+  if (selectedTag.value.value == '') {
     return true;
-  }
-  else {
+  } else {
     for (let tag of exercise.tags) {
       if (tag.name.toLowerCase() == selectedTag.value.value.toLowerCase()) {
         return true;
@@ -603,10 +708,6 @@ function getAllModuleTags(): void {
   width: 250px;
   height: 340px;
 
-  &:hover {
-    cursor: pointer;
-  }
-
   &:target {
     filter: brightness(150%);
   }
@@ -647,7 +748,7 @@ function getAllModuleTags(): void {
   padding-bottom: 6px;
 }
 
-.mobileModuleTitle{
+.mobileModuleTitle {
   font-size: 1.5em;
 }
 
@@ -677,7 +778,7 @@ function getAllModuleTags(): void {
   margin-top: -2em;
 }
 
-.mobileEnrollButton{
+.mobileEnrollButton {
   margin-left: auto;
   margin-right: 8px;
   display: block;

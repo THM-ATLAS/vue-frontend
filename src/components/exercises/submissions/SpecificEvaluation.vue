@@ -74,7 +74,7 @@
       <v-card-actions>
         <v-btn @click="submitEvaluation" color="primary">{{$t('buttons.save')}}</v-btn>
         <v-btn @click="goBack" color="red">{{$t('buttons.cancel')}}</v-btn>
-        <v-btn @click="deleteEvaluation">{{$t('buttons.delete')}}</v-btn>
+        <!--v-btn @click="deleteEvaluation">{{$t('buttons.delete')}}</v-btn-->
       </v-card-actions>
     </v-container>
   </v-card>
@@ -98,8 +98,8 @@
   const loggedInUser: Ref<User> = ref({}) as Ref<User>;
 
   onBeforeMount(async () => {
-    submission.value = (await SubmissionService.getSubmissionById(exerciseId, Number(router.currentRoute.value.params.sid))).data;
-    submissionContent.value = submission.value.file;
+    submission.value = (await SubmissionService.getSubmissionById(submissionId)).data;
+    submissionContent.value = submission.value.content.content;
     if(submission.value.grade !== null) grade.value = submission.value.grade;
 
     formInput.value = submission.value.comment ? submission.value.comment : "";
@@ -119,17 +119,18 @@
     await SubmissionService.editEvaluation(e);
     goBack();
   }
+  /* wait for backend to "reimplement" this
   async function deleteEvaluation() {
     //overwrite grade, comment and teacher_id of submission
     const e: Evaluation = {
       submission_id : submission.value.submission_id,
-      grade: null,
-      teacher_id: null,
-      comment: null
+      grade: 0,
+      teacher_id: 0,
+      comment: ""
     }
     await SubmissionService.editEvaluation(e);
     goBack();
-  }
+  }*/
 
   function goBack(): void {
     router.back();
