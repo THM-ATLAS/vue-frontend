@@ -1,7 +1,7 @@
 <template>
 <v-card>
   <v-card-title>Icon Picker</v-card-title>
-  <v-autocomplete
+  <v-combobox
       v-model="icon"
       :items="iconNames"
       persistent-hint
@@ -19,7 +19,7 @@
         ></v-icon>
       </v-slide-x-reverse-transition>
     </template>
-  </v-autocomplete>
+  </v-combobox>
   <v-row>
     <v-col cols="9">Preview: <v-icon>{{icon}}</v-icon></v-col>
     <v-col cols="3">
@@ -87,20 +87,23 @@ function saveIcon(iconName: string){
       })
 }
 
+//couldn't get props to work here, workaround using current route to get module
+let module:Module | undefined  = undefined;
+let tag:Tag | undefined = undefined;
 function contextBasedSave(icon: Icon){
-  if(props.module){
-    ModuleService.editModule({module_id : props.module.module_id,
-      name : props.module.name,
-      description: props.module.description,
-      modulePublic: props.module.modulePublic,
+  if(module && !tag){
+    ModuleService.editModule({module_id : module.module_id,
+      name : module.name,
+      description: module.description,
+      modulePublic: module.modulePublic,
       icon: icon})
         .then((res: AxiosResponse) => {
           router.push(router.currentRoute.value) //reload page after making the change
     });
   } else
-    if(props.tag){
-      TagService.editTag({tag_id: props.tag.tag_id,
-        name: props.tag.name,
+    if(tag){
+      TagService.editTag({tag_id: tag.tag_id,
+        name: tag.name,
         icon: icon})
           .then((res: AxiosResponse) => {
             router.push(router.currentRoute.value)
@@ -108,15 +111,17 @@ function contextBasedSave(icon: Icon){
     }
 }
 
-
+const route = useRoute();
 onBeforeMount(()=>{
-  console.log(props.module)
-  if(props.module){
-    icon.value = props.module.icon.reference
-  } else
-    if(props.tag){
-      icon.value = props.tag.icon.reference
-    }
+  if(route.params.module){
+    ModuleService.getModule(
+        route.params.module instanceof Array
+            ? route.params.module[0]
+            : route.params.module)
+        .then((res) => {
+          module = res.data;
+        });
+  }
 });
 </script>
 

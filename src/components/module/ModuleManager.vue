@@ -52,7 +52,7 @@
       {{ $t("module_manager.edit_tag_button") }}
     </v-btn>
     <br/>
-    <IconPicker :module="module"></IconPicker>
+    <IconPicker :module="module.value"></IconPicker>
     <br/>
     <v-card>
       <v-row>
