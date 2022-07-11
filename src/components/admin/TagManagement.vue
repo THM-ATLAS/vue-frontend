@@ -96,6 +96,7 @@
         <v-card-text>
           <v-text-field v-model="editTagDialog.target.name"></v-text-field>
         </v-card-text>
+        <IconPicker :tag="editTagDialog.target"></IconPicker>
         <v-card-actions>
           <v-btn @click="editTagDialog.show = false" v-html="$t('buttons.cancel')"/>
           <v-btn color="primary" @click="editTag(editTagDialog.target); editTagDialog.show = false"
@@ -168,6 +169,7 @@
 import {onBeforeMount, Ref, ref, watch} from "vue";
 import {Tag} from "@/helpers/types";
 import TagService from "@/services/TagService";
+import IconPicker from "@/components/misc/IconPicker.vue";
 
 const currentPage: Ref<Tag[]> = ref([]);
 const currentPageNumber = ref(1);

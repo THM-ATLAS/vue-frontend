@@ -407,6 +407,10 @@ const translationDe = {
         error_description: "Falls du denkst, dass dies ein Fehler ist, kontaktiere bitte die Lehrbeauftragten des Moduls, in dem du den Link gefunden hast.",
         home_button: "Startseite",
         back_button: "Zurück",
+    },
+    icon_picker: {
+        title: "Icon auswählen",
+        preview: "Vorschau"
     }
 }
 

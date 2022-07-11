@@ -407,7 +407,12 @@ const translationEn = {
         error_description: "If you think this is a mistake, please contact the lecturer of the module this link is from.",
         home_button: "Go to the landing page",
         back_button: "Go back",
+    },
+    icon_picker: {
+        title: "Pick an icon",
+        preview: "Preview"
     }
+
 }
 
 export default translationEn

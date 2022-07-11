@@ -1,6 +1,6 @@
 <template>
 <v-card>
-  <v-card-title>Icon Picker</v-card-title>
+  <v-card-title>{{$t("icon_picker.title")}}</v-card-title>
   <v-combobox
       v-model="icon"
       :items="iconNames"
@@ -21,11 +21,11 @@
     </template>
   </v-combobox>
   <v-row>
-    <v-col cols="9">Preview: <v-icon>{{icon}}</v-icon></v-col>
+    <v-col cols="9">{{$t("icon_picker.preview")}} <v-icon>{{icon}}</v-icon></v-col>
     <v-col cols="3">
       <v-btn
           style="margin-left: auto;"
-          @click="saveIcon(icon)">Save</v-btn>
+          @click="saveIcon(icon)">{{$t("buttons.save")}}</v-btn>
     </v-col>
   </v-row>
 </v-card>
@@ -120,7 +120,12 @@ onBeforeMount(()=>{
             : route.params.module)
         .then((res) => {
           module = res.data;
+          icon.value = res.data.icon.reference;
         });
+  }
+  if(props.tag){
+    tag = props.tag
+    icon.value = tag.icon.reference
   }
 });
 </script>
