@@ -148,7 +148,7 @@ import MarkdownModal from "@/components/helpers/MarkdownModal.vue";
 import ExerciseService from "@/services/ExerciseService";
 import TagService from "@/services/TagService";
 import ModuleService from "@/services/ModuleService";
-import {Tag, PostExercise} from "@/helpers/types";
+import {Tag, PostExercise, Module} from "@/helpers/types";
 
 const route = useRoute();
 const router = useRouter();
@@ -163,6 +163,7 @@ const id = Number.parseInt(
 const exercise: Ref<PostExercise> = ref({}) as Ref<PostExercise>;
 const exerciseTags: Ref<Tag[]> = ref([]);
 const module: Ref<number> = ref({}) as Ref<number>;
+const moduleFull: Ref<Module> = ref({}) as Ref<Module>;
 const allTags: Ref<Tag[]> = ref([]);
 const filteredTags: Ref<Tag[]> = ref([]);
 //const exerciseTypes = ref([]);
@@ -194,8 +195,10 @@ onBeforeMount(async () => {
   //apiTypes.value.forEach(t => exerciseTypes.value.push(t.name));
 
   //mcExercise.value.push(mcPreset); //have at least 1 question
-
-  module.value = parseInt(route.params.module as string);
+  module.value = await parseInt(route.params.module as string);
+  await ModuleService.getModule(module.value.toString()).then(res => {
+    moduleFull.value = res.data;
+  })
   wasSave = false;
   wasDelete = false;
   window.addEventListener("beforeunload", beforeWindowUnload);
@@ -207,10 +210,6 @@ onBeforeMount(async () => {
 
 const save = async () => {
   if (!exercise.value) return;
-  if(exercise.value.description === "") {
-    console.log("no desc")
-    return
-  }
   exercise.value.module_id = module.value;
   exercise.value.type_id = apiTypes.value.filter(t => t.name === exerciseType.value)[0].type_id;
   //if(exerciseType.value !== "Multiple Choice")
@@ -218,7 +217,10 @@ const save = async () => {
   await ExerciseService.addExercise(exercise.value)
       .then((response) => {
         console.log(response.data);
-        exerciseTags.value.forEach(async e => await TagService.addTagToExercise(e, response.data));
+        exerciseTags.value.forEach(async e => {
+          await TagService.addTagToExercise(e, response.data);
+          await TagService.addTagToModule(moduleFull.value, e);
+          });
       })
       .catch((error) => {
         console.log(error.message);
