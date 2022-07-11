@@ -453,7 +453,6 @@ import {AxiosResponse} from "axios";
 import {isLoggedIn} from "@/services/LoginService";
 import ReferralService from "@/services/ReferralService";
 import AssetService from "@/services/AssetService";
-import {AxiosResponse} from "axios";
 
 const route = useRoute();
 const i18n = useI18n();
