@@ -64,7 +64,7 @@ export const darkTheme: ThemeDefinition = {
         'primary-darken-1': '#6c9a22',
         secondary: '#282828',
         'secondary-darken-1': '#364046',
-        error: '#B00020',
+        error: '#FF5733',
         info: '#2196F3',
         success: '#4CAF50',
         warning: '#FB8C00',
