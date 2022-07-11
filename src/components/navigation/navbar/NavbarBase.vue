@@ -32,7 +32,7 @@
     <v-menu v-if="loggedIn" origin="top" transition="scale-transition">
       <template v-if="notificationCount > 0" v-slot:activator="{ props }">
         <v-badge :content="notificationCount" color="primary" offset-x="18" offset-y="10" class="d-none d-md-flex">
-        <v-btn id="profile-button" min-width="16em" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" min-width="16em" class="d-none d-md-flex mr-4 ml-5" v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
@@ -40,7 +40,7 @@
         </v-badge>
       </template>
       <template v-else v-slot:activator="{ props }">
-        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" rounded v-bind="props"
+        <v-btn id="profile-button" class="d-none d-md-flex mr-4 ml-5" v-bind="props"
                variant="outlined">
           {{ user.name }}
           <v-icon class="ml-3" icon="mdi-account"/>
