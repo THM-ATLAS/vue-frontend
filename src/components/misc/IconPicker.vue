@@ -22,12 +22,31 @@
   </v-combobox>
   <v-row>
     <v-col cols="9">{{$t("icon_picker.preview")}} <v-icon>{{icon}}</v-icon></v-col>
-    <v-col cols="3">
+    <v-col cols="3" align="end">
       <v-btn
           style="margin-left: auto;"
           @click="saveIcon(icon)">{{$t("buttons.save")}}</v-btn>
     </v-col>
   </v-row>
+      <!-- <v-card style="background: whitesmoke">
+        <v-row>
+          <v-col cols="5" align="center">
+            <v-text-field
+            v-model="t"
+            @input="test()"></v-text-field>
+          </v-col>
+          <v-col cols="5" align="center">
+            
+              <v-chip v-for="icon in filteredIcons.value" :key="icon">
+                <v-icon :icon="icon"/>
+              </v-chip>
+
+          </v-col>
+          <v-col cols="2" align="center">
+            <v-btn>Save</v-btn>
+          </v-col>
+        </v-row>
+      </v-card> -->
 </v-card>
 </template>
 
@@ -39,6 +58,7 @@ import {useRoute, useRouter} from "vue-router";
 import IconService from "@/services/IconService";
 import {AxiosError, AxiosResponse} from "axios";
 import TagService from "@/services/TagService";
+    //import mdi_icons from "@/helpers/mdi-icons.json"
 
 const router = useRouter();
 const iconNames =
@@ -56,6 +76,22 @@ const props = defineProps<{
   tag?: Tag;
 }>();
 
+
+    // const allIcons = ref([]) as Ref<[]>;
+    // const filteredIcons: Ref<String[]> = ref([]) as Ref<String[]>;
+
+    // function test(): void {
+    //   filteredIcons.value = allIcons.value.map(icon => 'mdi-'+icon.name.toString()).filter(name => name.includes(t.value)).slice(0, 5);
+    //   console.log(filteredIcons.value)
+    // }
+
+    // function jsonToArray(): void {
+    //   for(var icon in mdi_icons) {
+    //     allIcons.value.push(mdi_icons[icon]);
+    //   }
+    //   filteredIcons.value = allIcons.value.map(icon => 'mdi-'+icon.name.toString()).slice(0, 5)
+    //   console.log(filteredIcons.value);
+    // }
 
 //returns 0 if it doesn't exist, returns corresponding number if it exists, linear search
 function verifyIconExists(iconName: string){
@@ -112,7 +148,8 @@ function contextBasedSave(icon: Icon){
 }
 
 const route = useRoute();
-onBeforeMount(()=>{
+onBeforeMount(async ()=>{
+      //jsonToArray();
   if(route.params.module){
     ModuleService.getModule(
         route.params.module instanceof Array
