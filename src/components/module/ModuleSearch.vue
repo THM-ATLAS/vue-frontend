@@ -74,7 +74,7 @@ onBeforeMount(async () => {
   if (Array.isArray(apiModules)) {
     filteredModules.value = modules.value = apiModules;
     currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
-
+    length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
   }
 });
 

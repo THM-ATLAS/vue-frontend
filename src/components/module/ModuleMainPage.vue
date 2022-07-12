@@ -154,10 +154,11 @@
                           size="180px"
                           icon="mdi-book-open-blank-variant"
                       ></v-icon>
-                      <v-card-text class="exerciseCardText">{{
-                          exercise.description
-                        }}
-                      </v-card-text>
+                      <div class="exerciseCardText">
+                        <v-card-text>
+                          {{ exercise.description }}
+                        </v-card-text>
+                      </div>
                     </v-card>
                   </div>
                 </v-expansion-panel-text>
@@ -166,7 +167,7 @@
           </v-col>
           <v-col cols="3">
             <v-card class="moduleInfoBox rounded-0">
-              <v-card-title>{{ $t("module_page.teachers") }}</v-card-title>
+              <v-card-title class="extraTitle">{{ $t("module_page.teachers") }}</v-card-title>
               <v-card-text>
                 <v-list
                     class="moduleInfoBoxList"
@@ -194,7 +195,7 @@
               </v-card-text>
             </v-card>
             <v-card class="moduleInfoBox rounded-0">
-              <v-card-title>{{ $t("module_page.tutors") }}</v-card-title>
+              <v-card-title class="extraTitle">{{ $t("module_page.tutors") }}</v-card-title>
               <v-card-text>
                 <v-list
                     class="moduleInfoBoxList"
@@ -221,18 +222,24 @@
               </v-card-text>
             </v-card>
           <v-card class="moduleInfoBox rounded-0">
-            <v-card-title>{{$t('module_page.materials')}}</v-card-title>
+            <v-card-title class="extraTitle">{{$t('module_page.materials')}}</v-card-title>
             <v-card-text>
               <v-list class="moduleInfoBoxList" v-for="link in referralLinks" :key="link.module_link_id">
                 <!-- backend doesn't provide replacement text for a URL -->
-                <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
-                  <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a></v-list-item>
+                <v-list-item 
+                class="moduleInfoBoxListItem">
+                  <v-icon icon="mdi-link" style="padding-right: 1em"/>
+                  <a :href="link.link" target="_blank" rel="noopener noreferrer">{{link.link}}</a>
+                </v-list-item>
               </v-list>
 
               <v-list class="moduleInfoBoxList" v-for="asset in referralAssets" :key="asset.asset_id">
-                <v-list-item
+                <v-list-item 
+                class="moduleInfoBoxListItem"
                 @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
-                  <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                  <v-icon icon="mdi-file" style="padding-right: 1em"/>
+                  {{asset.filename}}
+                </v-list-item>
               </v-list>
             </v-card-text>
           </v-card>
@@ -414,14 +421,18 @@
                   <v-card-text>
                     <v-list v-for="link in referralLinks" :key="link.module_link_id">
                       <!-- backend doesn't provide replacement text for a URL -->
-                      <v-list-item><v-icon style="padding-right: 1em">mdi-link</v-icon>
-                        <a ref="{{link.link}}">{{link.link}}</a></v-list-item>
+                      <v-list-item>
+                        <v-icon icon="mdi-link" style="padding-right: 1em"/>
+                        <a ref="{{link.link}}">{{link.link}}</a>
+                      </v-list-item>
                     </v-list>
 
                     <v-list v-for="asset in referralAssets" :key="asset.asset_id">
                       <v-list-item
-                          @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
-                        <v-icon style="padding-right: 1em">mdi-file</v-icon>{{asset.filename}}</v-list-item>
+                      @click="AssetService.downloadAssetPrompt(asset.asset_id, asset.filename)">
+                        <v-icon icon="mdi-file" style="padding-right: 1em"/>
+                        {{asset.filename}}
+                      </v-list-item>
                     </v-list>
                   </v-card-text>
                 </v-card>
@@ -688,18 +699,27 @@ function getAllModuleTags(): void {
   margin-left: 30px;
   margin-right: 30px;
   margin-bottom: 30px;
-  overflow-x: hidden;
 }
 
 //can't apply css to v-lists using tags in the moduleInfoBox class - not specific enough to override vuetify styling
 .moduleInfoBoxList {
   background-color: rgb(var(--v-theme-background)) !important;
+
+  .moduleInfoBoxListItem {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
+
 .moduleInfoListItem {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   max-width: 100%;
-  overflow-x: hidden;
   padding-inline-start: 0;
+  margin-left: -1em;
 }
 
 .exerciseCard {
@@ -717,11 +737,21 @@ function getAllModuleTags(): void {
     align-items: center;
     display: block;
     font-size: 1.1rem !important;
-    height: 64px;
+    height: 66px;
+    width: 233px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .exerciseCardText {
     text-align: center;
+    height: 73px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   .exerciseCardImage {
@@ -790,5 +820,11 @@ function getAllModuleTags(): void {
 
 .tag-icon {
   margin-right: 0.2em;
+}
+
+@media (max-width: 1100px) {
+  .extraTitle {
+    margin-left: -0.8em;
+  }
 }
 </style>

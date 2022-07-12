@@ -10,6 +10,7 @@
           {{ $t("exercise.add_tag") }}
         </v-btn>
         <v-chip
+            class="ma-1 mb-3"
             v-for="tag in exerciseTags"
             v-bind:key="tag.tag_id"
             :closable="true"
