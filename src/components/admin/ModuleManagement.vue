@@ -325,7 +325,10 @@ async function createModule() {
   }
   newModuleDialog.value.target.icon = foundIcon.value;
   console.log(newModuleDialog.value.target);
-  await ModuleService.addModule(newModuleDialog.value.target).then(() => router.go(0));
+  await ModuleService.addModule(newModuleDialog.value.target).then(async () => await refreshModules());
+  newModuleDialog.value.target = getModuleTemplate()
+  newModuleDialog.value.show = false;
+  tagField.value = "";
 }
 
 function editModule(module: Module) {
