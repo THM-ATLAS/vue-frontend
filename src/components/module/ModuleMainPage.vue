@@ -12,7 +12,7 @@
         >
           <div class="moduleNameContainer">
             <v-row align="center">
-              <v-icon size="large" icon="mdi-animation" style="margin-right: 0.3em;"></v-icon>
+              <v-icon size="large" style="margin-right: 0.3em;" :icon="moduleIcon"></v-icon>
               <h1>{{ module.name }}</h1>
             </v-row>
           </div>
@@ -508,11 +508,12 @@ function fetchAssets(){
   })
 }
 
-
+const moduleIcon = ref("mdi-application")
 async function loadModule(): Promise<void> {
   ModuleService.getModule(route.params.module instanceof Array ? route.params.module[0] : route.params.module)
       .then((res) => {
         module.value = res.data;
+        moduleIcon.value = res.data.icon.reference;
         //icon.value.value = module.value.icon.reference;
         loadUsers();
         fetchAssets();

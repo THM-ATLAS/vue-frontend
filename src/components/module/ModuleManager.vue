@@ -52,6 +52,7 @@
       {{ $t("module_manager.edit_tag_button") }}
     </v-btn>
     <br/>
+    <IconPicker :module="module.value"></IconPicker>
     <br/>
     <v-card>
       <v-row>
@@ -429,6 +430,7 @@ import {defineProps} from "vue";
 import ReferralService from "@/services/ReferralService";
 import {AxiosError, AxiosResponse} from "axios";
 import AssetService from "@/services/AssetService";
+import IconPicker from "@/components/misc/IconPicker.vue";
 
 //Router
 const route = useRoute();
