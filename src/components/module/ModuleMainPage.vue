@@ -154,10 +154,11 @@
                           size="180px"
                           icon="mdi-book-open-blank-variant"
                       ></v-icon>
-                      <v-card-text class="exerciseCardText">{{
-                          exercise.description
-                        }}
-                      </v-card-text>
+                      <div class="exerciseCardText">
+                        <v-card-text>
+                          {{ exercise.description }}
+                        </v-card-text>
+                      </div>
                     </v-card>
                   </div>
                 </v-expansion-panel-text>
@@ -717,11 +718,21 @@ function getAllModuleTags(): void {
     align-items: center;
     display: block;
     font-size: 1.1rem !important;
-    height: 64px;
+    height: 66px;
+    width: 233px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .exerciseCardText {
     text-align: center;
+    height: 73px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   .exerciseCardImage {
