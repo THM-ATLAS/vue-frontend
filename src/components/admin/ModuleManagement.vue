@@ -246,7 +246,7 @@
 
 <script setup lang="ts">
 import {onBeforeMount, Ref, ref, watch} from "vue";
-import {Module} from "@/helpers/types";
+import {Module, Icon} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useDisplay} from "vuetify";
 import {useRouter} from "vue-router";
@@ -298,15 +298,37 @@ function visitModule(module: Module): void {
 }
 
 async function createModule() {
-  await IconService.addIcon({icon_id: 0, reference: tagField.value}).then((res) => {
-    newModuleDialog.value.target.icon = res?.data?.icon_id ?? {icon_id: 3, reference: ''};
-    console.log(newModuleDialog.value.target);
-    ModuleService.addModule(newModuleDialog.value.target);
+  const foundIcon: Ref<Icon> = ref({}) as Ref<Icon>
+  foundIcon.value.icon_id = 0;
+  foundIcon.value.reference = tagField.value;
+  //check if icon exists -> save icon
+  await IconService.getIcons().then(res => {
+    for (let i = 0; i < res.data.length; i++) {
+      if(res.data[i].reference.toLowerCase() === tagField.value.toLowerCase()) {
+        foundIcon.value = res.data[i];
+        break;
+      }
+    }
   })
-  console.log(await IconService.getIcons())
-  await loadModules();
-  newModuleDialog.value.target = getModuleTemplate();
+  //if icon does not exist -> create and save new icon
+  if(foundIcon.value.icon_id === 0) {
+    await IconService.addIcon(foundIcon.value).then(async () => {
+      await IconService.getIcons().then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if(res.data[i].reference.toLowerCase() === foundIcon.value.reference.toLowerCase()) {
+            foundIcon.value = res.data[i];
+            break;
+          }
+        }
+      })
+    })
+  }
+  newModuleDialog.value.target.icon = foundIcon.value;
+  console.log(newModuleDialog.value.target);
+  await ModuleService.addModule(newModuleDialog.value.target).then(async () => await refreshModules());
+  newModuleDialog.value.target = getModuleTemplate()
   newModuleDialog.value.show = false;
+  tagField.value = "";
 }
 
 function editModule(module: Module) {
@@ -315,7 +337,8 @@ function editModule(module: Module) {
 
 async function deleteModule(module: Module) {
   console.log(module);
-  ModuleService.delModule(module).then(async () => refreshModules());
+  await ModuleService.delModule(module).then(async () => refreshModules());
+  currentPageNumber.value = 1;
 }
 
 const newModuleDialog = ref({
@@ -338,7 +361,7 @@ function getModuleTemplate(): Module {
     module_id: 0,
     name: "",
     description: "",
-    modulePublic: false,
+    modulePublic: true,
     icon: {
       icon_id: 0,
       reference: ''
