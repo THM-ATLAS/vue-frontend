@@ -56,14 +56,6 @@
     <br/>
     <v-card>
       <v-row>
-        <v-col cols="auto">
-          <v-btn
-              class="add-user-btn"
-              @click="manageUsersDialog.show = true"
-              color="secondary"
-              v-html="$t('module_manager.add_user')"
-          />
-        </v-col>
         <v-col cols="max">
           <v-text-field
               :label="$t('module_manager.search_user')"
@@ -126,6 +118,16 @@
           </v-table>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <v-btn
+              class="embeddedEditTagsButton"
+              @click="manageUsersDialog.show = true"
+              color="secondary"
+              v-html="$t('module_manager.add_user')"
+          />
+        </v-col>
+      </v-row>
     </v-card>
   </v-container>
   <v-container>
@@ -144,9 +146,16 @@
         </v-col>
         <v-col cols="3">
           <v-btn
+              class="addButton"
               @click="addLink(newLink)"
           >
             {{ $t("module_manager.add_link") }}
+          </v-btn>
+          <v-btn
+              class="plusButton"
+              @click="addLink(newLink)"
+          >
+            +
           </v-btn>
         </v-col>
       </v-row>
@@ -208,6 +217,14 @@
         </tbody>
       </v-table>
       <v-row>
+        <v-col>
+          <v-checkbox
+              v-model="publicUpload"
+              :label="$t('module_manager.public_upload')"
+              hide-details/>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="9">
           <v-file-input
               v-model="fileUpload"
@@ -217,14 +234,17 @@
         </v-col>
         <v-col cols="3">
           <v-btn
+              class="addButton"
               @click="uploadAsset()"
               tabindex="0">
             {{ $t('buttons.upload_file') }}
           </v-btn>
-          <v-checkbox
-              v-model="publicUpload"
-              :label="$t('module_manager.public_upload')"
-              hide-details/>
+          <v-btn
+              class="plusButton"
+              @click="uploadAsset()"
+              tabindex="0">
+            +
+          </v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -785,6 +805,19 @@ function changeVisibility(module: Module) {
 @media (max-width: 1280px) {
   .dialogWidth {
     width: 90vw;
+  }
+}
+.plusButton {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .addButton {
+    display:none;
+  }
+  .plusButton {
+    display: block;
+    font-size: large;
   }
 }
 </style>

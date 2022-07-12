@@ -132,6 +132,7 @@
           <span>Feedback ansehen</span>
         </v-tooltip-->
         <v-chip
+        class="ma-1 mb-3"
         v-for="tag in tags"
         v-bind:key="tag.id">
           <v-icon class="tag-icon" size=small :icon="tag.icon.reference"/>

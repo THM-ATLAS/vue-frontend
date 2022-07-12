@@ -19,11 +19,6 @@
           />
         </v-col>
       </v-row-->
-      <v-row v-for="module in currentPage" :key="module.module_id">
-        <ModuleSearchResult
-            v-bind="module"
-        />
-      </v-row>
       <v-row v-if="currentPage.length === 0">
         <v-alert
             :value="true"
@@ -33,6 +28,11 @@
             style="text-align: center;">
           {{ $t('module_search.no_results') }}
         </v-alert>
+      </v-row>
+      <v-row v-else v-for="module in currentPage" :key="module.module_id">
+        <ModuleSearchResult
+            v-bind="module"
+        />
       </v-row>
     </div>
     <v-row>
@@ -70,12 +70,17 @@ const length = ref(3);
 const search = ref('');
 
 onBeforeMount(async () => {
-  filteredModules.value = modules.value = (await ModuleService.getModules()).data;
-  currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  const apiModules = (await ModuleService.getModules()).data;
+  if (Array.isArray(apiModules)) {
+    filteredModules.value = modules.value = apiModules;
+    currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+    length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
+  }
 });
 
 watch(currentPageNumber, (newNumber) => {
   currentPage.value = filteredModules.value.slice((newNumber - 1) * itemsPerPage.value, newNumber * itemsPerPage.value)
+  console.log("updating " + currentPage.value)
 })
 
 function applySearch(): void {

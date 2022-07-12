@@ -1,5 +1,6 @@
 <template>
-  <v-card id="card" elevation="0" rounded="0" bottom color="highlight" role="contentinfo">
+<v-container align="center">
+  <v-card class="cardwidth" elevation="0" rounded="0" bottom color="highlight" role="contentinfo">
     <v-card-header>
       <v-card-header-text>
         <v-icon icon="mdi-globe-model"/>
@@ -26,6 +27,7 @@
             v-model="registerCredentials.name"
             :label="$t('register_page.name')"
             :rules="[rules.required]"
+            class="form-input"
             required
         />
         <v-text-field
@@ -82,7 +84,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-
+</v-container>
 </template>
 
 <script setup lang='ts'>
@@ -134,3 +136,28 @@ async function goBack() {
   router.back();
 }
 </script>
+
+<style scoped>
+
+.cardwidth {
+  width: 30vw;
+}
+
+@media (max-width: 1400px) {
+  .cardwidth {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .cardwidth {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .cardwidth {
+    width: 80vw;
+  }
+}
+</style>

@@ -7,7 +7,7 @@
       hide-details="auto"
       dense
   /-->
-  <v-btn @click="goToModulePage" width="100%">
+  <v-btn prepend-icon="mdi-book-open-page-variant" @click="goToModulePage" variant="outlined" width="100%">
    {{ $t('header.modules') }}
   </v-btn>
 </template>

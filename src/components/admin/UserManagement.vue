@@ -270,6 +270,7 @@ import {useI18n} from "vue-i18n";
 import UserService from "@/services/UserService";
 import {User, Role} from "@/helpers/types";
 import {useRouter} from "vue-router";
+import { AxiosError } from "axios";
 
 const router = useRouter();
 const roles: Ref<Role[]> = ref([]);
@@ -285,7 +286,9 @@ const i18n = useI18n();
 const userFilter = ref('');
 
 async function loadUsers(): Promise<void> {
-  filteredUsers.value = users.value = ((await UserService.getUsers()).data).sort((a: User, b: User) => a.user_id - b.user_id);
+  (await UserService.getUsers().then(res => {
+    filteredUsers.value = users.value = res.data.sort((a: User, b: User) => a.user_id - b.user_id)
+  })) //.data).sort((a: User, b: User) => a.user_id - b.user_id);
 }
 
 onBeforeMount(async () => {
@@ -374,7 +377,8 @@ const deleteUserDialog: Ref<{ show: boolean, target: User | null }> = ref({
 async function createUser() {
   // newUser.value.roles = this.roles.filter(r => this.newUser.roles.includes(r.id));
   await UserService.addUser(newUserDialog.value.target as User);
-  await loadUsers();
+  //await loadUsers();
+  router.go(0)
   newUserDialog.value.target = getUserTemplate();
   newUserDialog.value.show = false;
 }
@@ -396,8 +400,10 @@ function editUser(user: User) {
 }
 
 function deleteUser(user: User) {
-  UserService.delUser(user).then(async () =>
-      loadUsers()
+  UserService.delUser(user).then(() =>
+      //Pagination somehow breaks loadUsers(), switching between pages give the correct result but list reload does not happen
+      //loadUsers()
+      router.go(0)
   );
 }
 
