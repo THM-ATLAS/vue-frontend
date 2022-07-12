@@ -337,8 +337,8 @@ function editModule(module: Module) {
 
 async function deleteModule(module: Module) {
   console.log(module);
-  ModuleService.delModule(module).then(async () => refreshModules());
-  router.go(0);
+  await ModuleService.delModule(module).then(async () => refreshModules());
+  currentPageNumber.value = 1;
 }
 
 const newModuleDialog = ref({
