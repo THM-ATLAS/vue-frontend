@@ -410,7 +410,8 @@ const translationDe = {
     },
     icon_picker: {
         title: "Icon auswählen",
-        preview: "Vorschau"
+        preview: "Vorschau", 
+        search: "Nach Icon suchen"
     }
 }
 
