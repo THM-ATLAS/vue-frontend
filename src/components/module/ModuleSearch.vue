@@ -72,6 +72,7 @@ const search = ref('');
 onBeforeMount(async () => {
   filteredModules.value = modules.value = (await ModuleService.getModules()).data;
   currentPage.value = modules.value.slice((currentPageNumber.value - 1) * itemsPerPage.value, currentPageNumber.value * itemsPerPage.value)
+  length.value = Math.ceil(filteredModules.value.length/itemsPerPage.value)
 });
 
 watch(currentPageNumber, (newNumber) => {
