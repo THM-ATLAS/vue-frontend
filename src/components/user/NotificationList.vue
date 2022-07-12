@@ -85,7 +85,7 @@
               <v-icon :icon="getNotificationIcon(notification)"
                       class="ma-1"/>
             </td>
-            <td v-bind="props">
+            <td v-bind="props" @click="handleClick(notification)">
                 {{ notification.title }}
             </td>
             <td @click="handleClick(notification)"
