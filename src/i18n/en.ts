@@ -410,7 +410,8 @@ const translationEn = {
     },
     icon_picker: {
         title: "Pick an icon",
-        preview: "Preview"
+        preview: "Preview", 
+        search: "Search icon"
     }
 
 }
