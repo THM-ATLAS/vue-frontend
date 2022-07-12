@@ -1,9 +1,10 @@
 <template>
-      <v-card style="background: whitesmoke">
+      <v-card>
   <v-card-title>{{$t("icon_picker.title")}}</v-card-title>
         <v-row>
           <v-col cols="5" align="center">
             <v-text-field
+            :label="$t('icon_picker.search')"
             v-model="t"
             @input="test()"></v-text-field>
           </v-col>
@@ -87,7 +88,7 @@ const props = defineProps<{
       //add icon to module
       if(module != null) {
         module.icon = foundIcon.value;
-        ModuleService.editModule(module);
+        ModuleService.editModule(module).then(() => router.go(0));
       }
       if(tag != null) {
         tag.icon = foundIcon.value;
