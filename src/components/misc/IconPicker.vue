@@ -16,7 +16,7 @@
             :color="isEditing ? 'success' : 'info'"
             @click="isEditing = !isEditing"
             v-text="isEditing ? 'mdi-check-outline' : 'mdi-circle-edit-outline'"
-        ></v-icon>
+        />
       </v-slide-x-reverse-transition>
     </template>
   </v-combobox>
@@ -51,18 +51,18 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, onBeforeMount, onMounted, Ref, ref} from "vue";
+import {defineProps, onBeforeMount, ref} from "vue";
 import {Icon, Module, Tag} from "@/helpers/types";
 import ModuleService from "@/services/ModuleService";
 import {useRoute, useRouter} from "vue-router";
 import IconService from "@/services/IconService";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import TagService from "@/services/TagService";
     //import mdi_icons from "@/helpers/mdi-icons.json"
 
 const router = useRouter();
 const iconNames =
-    ["mdi-android","mdi-apple","mdi-apple-ios",
+    ["mdi-animation", "mdi-android","mdi-apple","mdi-apple-ios",
       "mdi-angular", "mdi-angularjs", "mdi-ansible", "mdi-application", "mdi-application-braces", "mdi-application-array",
       "mdi-antenna", "mdi-artstation", "mdi-atom", "mdi-bacteria", "mdi-beaker", "mdi-blender-software",
       "mdi-book", "mdi-bootstrap", "mdi-briefcase", "mdi-calculator", "mdi-calendar",
@@ -133,7 +133,7 @@ function contextBasedSave(icon: Icon){
       description: module.description,
       modulePublic: module.modulePublic,
       icon: icon})
-        .then((res: AxiosResponse) => {
+        .then(() => {
           router.push(router.currentRoute.value) //reload page after making the change
     });
   } else
@@ -141,7 +141,7 @@ function contextBasedSave(icon: Icon){
       TagService.editTag({tag_id: tag.tag_id,
         name: tag.name,
         icon: icon})
-          .then((res: AxiosResponse) => {
+          .then(() => {
             router.push(router.currentRoute.value)
       })
     }
